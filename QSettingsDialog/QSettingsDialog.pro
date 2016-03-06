@@ -9,15 +9,25 @@ QT       += widgets
 TARGET = QSettingsDialog
 TEMPLATE = lib
 
+include(C:/C++Libraries/Qt/DialogMaster/dialogmaster.pri)
+
 DEFINES += QSETTINGSDIALOG_LIBRARY
 
-include(./public.pri)
+SOURCES += \
+	qsettingsdialog.cpp \
+    qsettingscategory.cpp \
+    displaydialog.cpp
 
-SOURCES += qsettingsdialog.cpp
-
-HEADERS +=
+HEADERS += qsettingsdialog_global.h \
+	qsettingsdialog.h \
+    qsettingsdialog_p.h \
+    qsettingscategory.h \
+    displaydialog.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+FORMS += \
+    displaydialog.ui

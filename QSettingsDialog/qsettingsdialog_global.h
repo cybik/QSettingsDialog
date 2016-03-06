@@ -9,4 +9,6 @@
 #  define QSETTINGSDIALOGSHARED_EXPORT Q_DECL_IMPORT
 #endif
 
+#define Q_ASSERT_X2(condition, message) Q_ASSERT_X(condition, Q_FUNC_INFO, message)
+
 #endif // QSETTINGSDIALOG_GLOBAL_H
