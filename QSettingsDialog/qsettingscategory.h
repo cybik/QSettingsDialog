@@ -23,7 +23,7 @@ public:
 	void setIcon(const QIcon &icon);
 	void setToolTip(const QString &toolTip);
 
-	QSettingsSection *defaultSection();
+	QSettingsSection *defaultSection() const;
 
 	QList<QSettingsSection*> sections(bool includeDefault = false) const;
 	QSettingsSection *sectionAt(int index) const;
@@ -39,7 +39,7 @@ public:
 
 	void moveSection(int from, int to);
 
-	QSettingsGroup *defaultGroup();
+	QSettingsGroup *defaultGroup() const;
 
 private:
 	QListWidgetItem *listEntry;

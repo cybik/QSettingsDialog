@@ -3,6 +3,7 @@
 
 #include "qsettingsdialog.h"
 #include "displaydialog.h"
+#include "qsettingscategory.h"
 
 class QSettingsDialogPrivate
 {
@@ -16,6 +17,8 @@ private:
 	QSettingsDialogPrivate(QSettingsDialog *q_ptr);
 
 	DisplayDialog *mainDialg;
+	QSettingsCategory *defaultCategory;
+	QList<QSettingsCategory*> categories;
 };
 
 #define SPRIV(dialog) QSettingsDialogPrivate::getPrivate(dialog)

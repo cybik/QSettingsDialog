@@ -45,7 +45,7 @@ void QSettingsCategory::setToolTip(const QString &toolTip)
 	this->listEntry->setToolTip(toolTip);
 }
 
-QSettingsSection *QSettingsCategory::defaultSection()
+QSettingsSection *QSettingsCategory::defaultSection() const
 {
 	return this->defaultSect;
 }
@@ -98,9 +98,10 @@ void QSettingsCategory::moveSection(int from, int to)
 	Q_ASSERT_X2(from >= 0 && from < this->sects.size(), "index out of range");
 	Q_ASSERT_X2(to >= 0 && to < this->sects.size(), "index out of range");
 	this->sects.move(from, to);
+	//TODO
 }
 
-QSettingsGroup *QSettingsCategory::defaultGroup()
+QSettingsGroup *QSettingsCategory::defaultGroup() const
 {
 	//TODO
 	return Q_NULLPTR;

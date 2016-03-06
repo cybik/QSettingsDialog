@@ -86,12 +86,6 @@
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
-        <property name="iconSize">
-         <size>
-          <width>48</width>
-          <height>48</height>
-         </size>
-        </property>
         <property name="resizeMode">
          <enum>QListView::Adjust</enum>
         </property>
@@ -124,7 +118,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
+    <layout class="QVBoxLayout" name="contentLayout">
      <item>
       <widget class="QStackedWidget" name="contentStackWidget"/>
      </item>
