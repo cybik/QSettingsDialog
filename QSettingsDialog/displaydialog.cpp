@@ -50,27 +50,27 @@ DisplayDialog::~DisplayDialog()
 
 void DisplayDialog::insertItem(int index, QListWidgetItem *item, QTabWidget *content)
 {
-	this->ui->categoryListWidget->insertItem(index, item);
 	this->ui->contentStackWidget->insertWidget(index, content);
+	this->ui->categoryListWidget->insertItem(index, item);
 	this->resetListSize();
 }
 
 void DisplayDialog::deleteItem(int index)
 {
-	delete this->ui->categoryListWidget->item(index);
 	QWidget *w = this->ui->contentStackWidget->widget(index);
 	this->ui->contentStackWidget->removeWidget(w);
 	w->deleteLater();
+	delete this->ui->categoryListWidget->item(index);
 	this->resetListSize();
 }
 
 void DisplayDialog::moveItem(int from, int to)
 {
-	QListWidgetItem *item = this->ui->categoryListWidget->takeItem(from);
-	this->ui->categoryListWidget->insertItem(to, item);
 	QWidget *w = this->ui->contentStackWidget->widget(from);
 	this->ui->contentStackWidget->removeWidget(w);
 	this->ui->contentStackWidget->insertWidget(to, w);
+	QListWidgetItem *item = this->ui->categoryListWidget->takeItem(from);
+	this->ui->categoryListWidget->insertItem(to, item);
 }
 
 QSize DisplayDialog::iconSize() const
