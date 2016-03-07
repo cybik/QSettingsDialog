@@ -24,8 +24,6 @@ public:
 	void setIcon(const QIcon &icon);
 	void setToolTip(const QString &toolTip);
 
-	QSettingsSection *defaultSection() const;
-
 	QList<QSettingsSection*> sections(bool includeDefault = false) const;
 	QSettingsSection *sectionAt(int index) const;
 	int sectionIndex(QSettingsSection *section) const;
@@ -40,7 +38,8 @@ public:
 
 	void moveSection(int from, int to);
 
-	QSettingsGroup *defaultGroup() const;
+	QSettingsSection *defaultSection();
+	QSettingsGroup *defaultGroup();
 
 private:
 	QListWidgetItem *listEntry;
@@ -51,6 +50,9 @@ private:
 
 	QSettingsCategory(QListWidgetItem *listEntry, QTabWidget *contentWidget);
 	~QSettingsCategory();
+	void updateSectIndexes();
+
+	QSettingsSection *createSection(int index, const QString &name, const QIcon &icon);
 };
 
 #endif // QSETTINGSCATEGORY_H

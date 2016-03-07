@@ -16,13 +16,15 @@ DEFINES += QSETTINGSDIALOG_LIBRARY
 SOURCES += \
 	qsettingsdialog.cpp \
     qsettingscategory.cpp \
-    displaydialog.cpp
+    displaydialog.cpp \
+    qsettingssection.cpp
 
 HEADERS += qsettingsdialog_global.h \
 	qsettingsdialog.h \
     qsettingsdialog_p.h \
     qsettingscategory.h \
-    displaydialog.h
+    displaydialog.h \
+    qsettingssection.h
 
 unix {
     target.path = /usr/lib

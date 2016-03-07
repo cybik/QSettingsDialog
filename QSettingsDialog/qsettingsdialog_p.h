@@ -18,6 +18,8 @@ private:
 
 	QSettingsDialogPrivate(QSettingsDialog *q_ptr);
 
+	QSettingsCategory *createCategory(int index, const QString &name, const QIcon &icon, const QString &toolTip = QString());
+
 	DisplayDialog *mainDialg;
 	QSettingsCategory *defaultCategory;
 	QList<QSettingsCategory*> categories;

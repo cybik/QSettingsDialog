@@ -5,7 +5,6 @@
 #include <dialogmaster.h>
 #include <functional>
 
-#include <QDebug>
 class CategoryItemDelegate : public QStyledItemDelegate
 {
 public:
@@ -29,7 +28,6 @@ DisplayDialog::DisplayDialog(QWidget *parent) :
 	DialogMaster::masterDialog(this);
 
 	int listSpacing = this->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
-	qDebug() << listSpacing << qMax(qRound(listSpacing / 3.), 1);
 	this->delegate = new CategoryItemDelegate(std::bind(&DisplayDialog::updateWidth, this, std::placeholders::_1),
 											  qMax(qRound(listSpacing * (2./3.)), 1),
 											  this);
