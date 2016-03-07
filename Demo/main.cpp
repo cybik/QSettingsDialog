@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
 	cat2->addSection("Test1", QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"))->defaultGroup();
 	QSettingsSection *sec2 = cat2->addSection("Test2");
-	QSettingsSection *sec3 = cat2->addSection("Test3", QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
+	QSettingsSection *sec3 = cat2->addSection("Test3", QIcon(":/qt-project.org/styles/commonstyle/images/floppy-32.png"));
 	cat2->moveSection(0, 2);//2, 3, 1
 	cat2->moveSection(2, 1);//2, 1, 3
 	cat2->deleteSection(1);//2, 3
