@@ -21,8 +21,6 @@ public:
 	QSettingsDialog(QObject *parent = Q_NULLPTR);
 	~QSettingsDialog();
 
-	QSettingsCategory *defaultCategory() const;
-
 	QList<QSettingsCategory*> categories(bool includeDefault = false) const;
 	QSettingsCategory *categoryAt(int index) const;
 	int categoryIndex(QSettingsCategory *category) const;
@@ -35,8 +33,9 @@ public:
 
 	void moveCategory(int from, int to);
 
-	QSettingsSection *defaultSection() const;
-	QSettingsGroup *defaultGroup() const;
+	QSettingsCategory *defaultCategory();
+	QSettingsSection *defaultSection();
+	QSettingsGroup *defaultGroup();
 
 	QSize categoryIconSize() const;
 

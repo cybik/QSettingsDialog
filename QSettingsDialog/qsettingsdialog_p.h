@@ -4,12 +4,14 @@
 #include "qsettingsdialog.h"
 #include "displaydialog.h"
 #include "qsettingscategory.h"
+#include <QScopedPointer>
 
 class QSettingsDialogPrivate
 {
 public:
 	static QSettingsDialogPrivate *getPrivate(QSettingsDialog *dialog);
 
+	~QSettingsDialogPrivate();
 private:
 	QSettingsDialog *q_ptr;
 	Q_DECLARE_PUBLIC(QSettingsDialog)

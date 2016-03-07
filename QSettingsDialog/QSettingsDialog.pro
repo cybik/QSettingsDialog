@@ -31,3 +31,6 @@ unix {
 
 FORMS += \
     displaydialog.ui
+
+RESOURCES += \
+    qsettingsdialog_res.qrc

@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 
 	QSettingsDialog dialog;
+	dialog.defaultCategory();
 
 	dialog.addCategory("Test1", QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
 	QSettingsCategory *cat2 = dialog.addCategory("Test2", QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));

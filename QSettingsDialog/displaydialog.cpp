@@ -1,21 +1,21 @@
 #include "displaydialog.h"
 #include "ui_displaydialog.h"
 #include <QStyledItemDelegate>
+#include <QtMath>
 #include <dialogmaster.h>
 #include <functional>
 
 #include <QDebug>
-#include <QTimer>
-
 class CategoryItemDelegate : public QStyledItemDelegate
 {
 public:
-	CategoryItemDelegate(std::function<void(int)> updateFunc, QObject *parent = Q_NULLPTR);
+	CategoryItemDelegate(std::function<void(int)> updateFunc, int layoutSpacing, QObject *parent = Q_NULLPTR);
 
 	void setIconSize(const QSize &size);
 
 	QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 private:
+	int spacing;
 	QSize extendSize;
 	std::function<void(int)> updateFunc;
 };
@@ -23,12 +23,19 @@ private:
 DisplayDialog::DisplayDialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::DisplayDialog),
-	delegate(new CategoryItemDelegate(std::bind(&DisplayDialog::updateWidth, this, std::placeholders::_1), this))
+	delegate(Q_NULLPTR)
 {
 	ui->setupUi(this);
 	DialogMaster::masterDialog(this);
+
+	int listSpacing = this->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
+	qDebug() << listSpacing << qMax(qRound(listSpacing / 3.), 1);
+	this->delegate = new CategoryItemDelegate(std::bind(&DisplayDialog::updateWidth, this, std::placeholders::_1),
+											  qMax(qRound(listSpacing * (2./3.)), 1),
+											  this);
 	this->delegate->setIconSize(this->ui->categoryListWidget->iconSize());
 	this->ui->categoryListWidget->setItemDelegate(this->delegate);
+	this->ui->categoryListWidget->setSpacing(qMax(qRound(listSpacing / 3.), 1) - 1);
 
 	int spacing = this->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing);
 	this->ui->contentLayout->setSpacing(spacing);
@@ -136,15 +143,16 @@ void DisplayDialog::on_buttonBox_clicked(QAbstractButton *button)
 
 
 
-CategoryItemDelegate::CategoryItemDelegate(std::function<void (int)> updateFunc, QObject *parent) :
+CategoryItemDelegate::CategoryItemDelegate(std::function<void (int)> updateFunc, int layoutSpacing, QObject *parent) :
 	QStyledItemDelegate(parent),
+	spacing(layoutSpacing),
 	extendSize(),
 	updateFunc(updateFunc)
 {}
 
 void CategoryItemDelegate::setIconSize(const QSize &size)
 {
-	this->extendSize = size + QSize(2, 2);
+	this->extendSize = size + QSize(0, this->spacing);
 }
 
 QSize CategoryItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

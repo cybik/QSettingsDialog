@@ -13,6 +13,7 @@ class QTabWidget;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsCategory
 {
 	friend class QSettingsDialog;
+	friend class QSettingsDialogPrivate;
 
 public:
 	QString name() const;

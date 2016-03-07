@@ -2,6 +2,8 @@
 #include "qsettingsdialog_p.h"
 #include <QListWidgetItem>
 
+#define TEST_DEFAULT(index) (d->defaultCategory ? (index + 1) : (index))
+
 QSettingsDialog::QSettingsDialog(QObject *parent) :
 	QObject(parent),
 	d_ptr(new QSettingsDialogPrivate(this))
@@ -10,12 +12,6 @@ QSettingsDialog::QSettingsDialog(QObject *parent) :
 }
 
 QSettingsDialog::~QSettingsDialog() {}
-
-QSettingsCategory *QSettingsDialog::defaultCategory() const
-{
-	const Q_D(QSettingsDialog);
-	return d->defaultCategory;
-}
 
 QList<QSettingsCategory *> QSettingsDialog::categories(bool includeDefault) const
 {
@@ -54,7 +50,7 @@ QSettingsCategory *QSettingsDialog::insertCategory(int index, const QString &nam
 
 	QSettingsCategory *cat = new QSettingsCategory(item, tab);
 	d->categories.insert(index, cat);
-	d->mainDialg->insertItem(index, item, tab);
+	d->mainDialg->insertItem(TEST_DEFAULT(index), item, tab);
 
 	return cat;
 }
@@ -69,7 +65,7 @@ void QSettingsDialog::deleteCategory(int index)
 {
 	Q_D(QSettingsDialog);
 	Q_ASSERT_X2(index >= 0 && index < d->categories.size(), "index out of range");
-	d->mainDialg->deleteItem(index);
+	d->mainDialg->deleteItem(TEST_DEFAULT(index));
 	delete d->categories.takeAt(index);
 }
 
@@ -90,19 +86,34 @@ void QSettingsDialog::moveCategory(int from, int to)
 	Q_ASSERT_X2(from >= 0 && from < d->categories.size(), "index out of range");
 	Q_ASSERT_X2(to >= 0 && to < d->categories.size(), "index out of range");
 	d->categories.move(from, to);
-	d->mainDialg->moveItem(from, to);
+	d->mainDialg->moveItem(TEST_DEFAULT(from), TEST_DEFAULT(to));
 }
 
-QSettingsSection *QSettingsDialog::defaultSection() const
+QSettingsCategory *QSettingsDialog::defaultCategory()
 {
-	const Q_D(QSettingsDialog);
-	return d->defaultCategory->defaultSection();
+	Q_D(QSettingsDialog);
+	if(!d->defaultCategory) {
+		QListWidgetItem *item = new QListWidgetItem();
+		item->setText(tr("General"));
+		item->setIcon(QIcon(QStringLiteral(":/QSettingsDialog/icons/general.ico")));
+		item->setToolTip(tr("General"));
+		QTabWidget *tab = new QTabWidget();
+
+		QSettingsCategory *cat = new QSettingsCategory(item, tab);
+		d->defaultCategory = cat;
+		d->mainDialg->insertItem(0, item, tab);
+	}
+	return d->defaultCategory;
 }
 
-QSettingsGroup *QSettingsDialog::defaultGroup() const
+QSettingsSection *QSettingsDialog::defaultSection()
 {
-	const Q_D(QSettingsDialog);
-	return d->defaultCategory->defaultGroup();
+	return this->defaultCategory()->defaultSection();
+}
+
+QSettingsGroup *QSettingsDialog::defaultGroup()
+{
+	return Q_NULLPTR;//TODO this->defaultCategory()->defaultSection()->defaultGroup();
 }
 
 QSize QSettingsDialog::categoryIconSize() const
@@ -134,5 +145,14 @@ void QSettingsDialog::resetCategoryIconSize()
 
 QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
 	q_ptr(q_ptr),
-	mainDialg(new DisplayDialog(Q_NULLPTR))
+	mainDialg(new DisplayDialog(Q_NULLPTR)),
+	defaultCategory(Q_NULLPTR),
+	categories()
 {}
+
+QSettingsDialogPrivate::~QSettingsDialogPrivate()
+{
+	delete this->defaultCategory;
+	foreach (QSettingsCategory *cat, this->categories)
+		delete cat;
+}
