@@ -2,6 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     QSettingsDialog \
-    Demo
+    Demo \
+    Test
 
 Demo.depends += QSettingsDialog
