@@ -6,3 +6,4 @@ SUBDIRS += \
     Test
 
 Demo.depends += QSettingsDialog
+Test.depends += QSettingsDialog

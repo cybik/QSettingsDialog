@@ -22,6 +22,7 @@ public:
 	~QSettingsDialog();
 
 	QList<QSettingsCategory*> categories(bool includeDefault = false) const;
+	int categoryCount() const;
 	QSettingsCategory *categoryAt(int index) const;
 	int categoryIndex(QSettingsCategory *category) const;
 
@@ -36,6 +37,7 @@ public:
 	QSettingsCategory *defaultCategory();
 	QSettingsSection *defaultSection();
 	QSettingsGroup *defaultGroup();
+	bool hasDefaultCategory() const;
 
 	QSize categoryIconSize() const;
 

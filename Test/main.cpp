@@ -2,7 +2,7 @@
 #include <QHash>
 #include <iostream>
 
-#include "categorytest.h"
+#include "tst_qsettingsdialog.h"
 
 QT_BEGIN_NAMESPACE
 QTEST_ADD_GPU_BLACKLIST_SUPPORT_DEFS
@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
 	QTEST_SET_MAIN_SOURCE_PATH
 
 	QHash<QObject*, int> testObjects = {
-		{new CategoryTest(), 0}
+		{new QSettingsDialogTest(false), 0},
+		{new QSettingsDialogTest(true), 0}
 	};
 
 	foreach(QObject *testObject, testObjects.keys()) {

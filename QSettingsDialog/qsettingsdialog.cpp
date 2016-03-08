@@ -23,6 +23,12 @@ QList<QSettingsCategory *> QSettingsDialog::categories(bool includeDefault) cons
 	return cats;
 }
 
+int QSettingsDialog::categoryCount() const
+{
+	const Q_D(QSettingsDialog);
+	return d->categories.size();
+}
+
 QSettingsCategory *QSettingsDialog::categoryAt(int index) const
 {
 	const Q_D(QSettingsDialog);
@@ -99,6 +105,12 @@ QSettingsSection *QSettingsDialog::defaultSection()
 QSettingsGroup *QSettingsDialog::defaultGroup()
 {
 	return this->defaultCategory()->defaultSection()->defaultGroup();
+}
+
+bool QSettingsDialog::hasDefaultCategory() const
+{
+	const Q_D(QSettingsDialog);
+	return d->defaultCategory;
 }
 
 QSize QSettingsDialog::categoryIconSize() const
