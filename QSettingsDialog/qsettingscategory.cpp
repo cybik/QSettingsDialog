@@ -59,6 +59,11 @@ QList<QSettingsSection *> QSettingsCategory::sections(bool includeDefault) const
 	return sections;
 }
 
+int QSettingsCategory::sectionCount() const
+{
+	return this->sects.size();
+}
+
 QSettingsSection *QSettingsCategory::sectionAt(int index) const
 {
 	Q_ASSERT_X2(index >= 0 && index < this->sects.size(), "index out of range");
@@ -121,6 +126,11 @@ QSettingsSection *QSettingsCategory::defaultSection()
 QSettingsGroup *QSettingsCategory::defaultGroup()
 {
 	return this->defaultSection()->defaultGroup();
+}
+
+bool QSettingsCategory::hasDefaultSection() const
+{
+	return this->defaultSect;
 }
 
 void QSettingsCategory::updateSectIndexes()

@@ -12,7 +12,7 @@ class QTabWidget;
 
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsCategory
 {
-	friend class QSettingsDialog;
+	friend class QSettingsDialog;//TODO add reference to dialog
 	friend class QSettingsDialogPrivate;
 
 public:
@@ -25,6 +25,7 @@ public:
 	void setToolTip(const QString &toolTip);
 
 	QList<QSettingsSection*> sections(bool includeDefault = false) const;
+	int sectionCount() const;
 	QSettingsSection *sectionAt(int index) const;
 	int sectionIndex(QSettingsSection *section) const;
 
@@ -40,6 +41,7 @@ public:
 
 	QSettingsSection *defaultSection();
 	QSettingsGroup *defaultGroup();
+	bool hasDefaultSection() const;
 
 private:
 	QListWidgetItem *listEntry;
