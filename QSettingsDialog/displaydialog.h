@@ -26,6 +26,9 @@ public:
 	QSize iconSize() const;
 	void updateIconSize(const QSize &size);
 
+protected:
+	void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+
 private slots:
 	void resetListSize();
 	void updateWidth(int width);

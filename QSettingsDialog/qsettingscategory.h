@@ -45,12 +45,13 @@ public:
 
 private:
 	QListWidgetItem *listEntry;
+	bool hasTooltip;
 	QTabWidget *contentWidget;
 
 	QSettingsSection *defaultSect;
 	QList<QSettingsSection*> sects;
 
-	QSettingsCategory(QListWidgetItem *listEntry, QTabWidget *contentWidget);
+	QSettingsCategory(QListWidgetItem *listEntry, bool hasTooltip, QTabWidget *contentWidget);
 	~QSettingsCategory();
 	void updateSectIndexes();
 

@@ -88,14 +88,25 @@ void DisplayDialog::updateIconSize(const QSize &size)
 	this->ui->categoryListWidget->setIconSize(size);
 }
 
+void DisplayDialog::showEvent(QShowEvent *event)
+{
+	this->ui->categoryListWidget->setCurrentItem(this->ui->categoryListWidget->item(0));
+	for(int i = 0, max = this->ui->contentStackWidget->count(); i < max; ++i) {
+		QTabWidget *tab = qobject_cast<QTabWidget*>(this->ui->contentStackWidget->widget(i));
+		if(tab)
+			tab->setCurrentIndex(0);
+	}
+	this->QDialog::showEvent(event);
+}
+
 void DisplayDialog::resetListSize()
 {
 	int max = this->ui->categoryListWidget->count();
 	if(max == 0)
 		this->ui->categoryContentWidget->hide();
 	else {
-		this->maxWidthBase = this->ui->categoryListWidget->sizeHint().width();
-		this->updateWidth(this->maxWidthBase);
+		this->maxWidthBase = 0;
+		this->updateWidth(this->ui->categoryListWidget->sizeHint().width() * 0.8);
 		this->ui->categoryContentWidget->show();
 	}
 }

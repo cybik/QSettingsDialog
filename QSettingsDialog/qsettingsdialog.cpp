@@ -159,10 +159,10 @@ QSettingsCategory *QSettingsDialogPrivate::createCategory(int index, const QStri
 	QListWidgetItem *item = new QListWidgetItem();
 	item->setText(name);
 	item->setIcon(icon);
-	item->setToolTip(toolTip.isEmpty() ? name : toolTip);
+	item->setToolTip(toolTip.isNull() ? name : toolTip);
 	QTabWidget *tab = new QTabWidget();
 	tab->setTabBarAutoHide(true);
 
 	this->mainDialg->insertItem(index, item, tab);
-	return new QSettingsCategory(item, tab);
+	return new QSettingsCategory(item, !toolTip.isNull(), tab);
 }

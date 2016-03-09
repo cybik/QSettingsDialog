@@ -7,8 +7,9 @@
 
 #define TEST_DEFAULT(index) (this->defaultSect ? (index + 1) : (index))
 
-QSettingsCategory::QSettingsCategory(QListWidgetItem *listEntry, QTabWidget *contentWidget) :
+QSettingsCategory::QSettingsCategory(QListWidgetItem *listEntry, bool hasTooltip, QTabWidget *contentWidget) :
 	listEntry(listEntry),
+	hasTooltip(hasTooltip),
 	contentWidget(contentWidget),
 	defaultSect(Q_NULLPTR),
 	sects()
@@ -39,6 +40,8 @@ QString QSettingsCategory::toolTip() const
 void QSettingsCategory::setName(const QString &name)
 {
 	this->listEntry->setText(name);
+	if(!this->hasTooltip)
+		this->listEntry->setToolTip(name);
 }
 
 void QSettingsCategory::setIcon(const QIcon &icon)
@@ -49,6 +52,7 @@ void QSettingsCategory::setIcon(const QIcon &icon)
 void QSettingsCategory::setToolTip(const QString &toolTip)
 {
 	this->listEntry->setToolTip(toolTip);
+	this->hasTooltip = !toolTip.isNull();
 }
 
 QList<QSettingsSection *> QSettingsCategory::sections(bool includeDefault) const
