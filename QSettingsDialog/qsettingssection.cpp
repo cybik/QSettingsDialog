@@ -1,5 +1,8 @@
 #include "qsettingssection.h"
 #include <QTabBar>
+#include "qsettingsgroup.h"
+#include <QGroupBox>
+#include <QVBoxLayout>
 
 QSettingsSection::QSettingsSection(QTabBar *tabBar, int tabIndex, QWidget *contentWidget) :
 	tabBar(tabBar),
@@ -7,12 +10,17 @@ QSettingsSection::QSettingsSection(QTabBar *tabBar, int tabIndex, QWidget *conte
 	contentWidget(contentWidget),
 	defaultGrp(Q_NULLPTR),
 	grps()
-{}
+{
+	QVBoxLayout *layout = new QVBoxLayout(this->contentWidget);
+	this->contentWidget->setLayout(layout);
+	layout->addStretch();
+}
 
 QSettingsSection::~QSettingsSection()
 {
 	delete this->defaultGrp;
-	qDeleteAll(this->grps);
+	foreach(QSettingsGroup *group, this->grps)
+		delete group;
 }
 
 void QSettingsSection::updateIndex(int tabIndex)
@@ -59,17 +67,28 @@ int QSettingsSection::groupIndex(QSettingsGroup *group) const
 	return this->grps.indexOf(group);
 }
 
-QSettingsGroup *QSettingsSection::insertGroup(int index, const QString &name)
+QSettingsGroup *QSettingsSection::insertGroup(int index, const QString &name, bool optional)
 {
 	Q_ASSERT_X2(index >= 0 && index <= this->grps.size(), "index out of range");
-	//TODO
-	return Q_NULLPTR;
+	QGroupBox *box = new QGroupBox(name);
+	if(optional) {
+		box->setCheckable(true);
+		box->setChecked(false);
+	}
+	QVBoxLayout *layout = static_cast<QVBoxLayout*>(this->contentWidget->layout());
+	layout->insertWidget(index, box);
+
+	QSettingsGroup *group = new QSettingsGroup(box);
+	this->grps.insert(index, group);
+
+	return group;
 }
 
 void QSettingsSection::deleteGroup(int index)
 {
 	Q_ASSERT_X2(index >= 0 && index < this->grps.size(), "index out of range");
-	//TODO
+	QVBoxLayout *layout = static_cast<QVBoxLayout*>(this->contentWidget->layout());
+	layout->itemAt(index)->widget()->deleteLater();
 	delete this->grps.takeAt(index);
 }
 
@@ -87,11 +106,19 @@ void QSettingsSection::moveGroup(int from, int to)
 {
 	Q_ASSERT_X2(from >= 0 && from < this->grps.size(), "index out of range");
 	Q_ASSERT_X2(to >= 0 && to < this->grps.size(), "index out of range");
+	QVBoxLayout *layout = static_cast<QVBoxLayout*>(this->contentWidget->layout());
+	QLayoutItem *item = layout->takeAt(from);
+	layout->insertItem(to, item);
 	this->grps.move(from, to);
-	//TODO
 }
 
 QSettingsGroup *QSettingsSection::defaultGroup()
 {
+	if(!this->defaultGrp) {
+		QWidget *defaultWidget = new QWidget();
+		QVBoxLayout *layout = static_cast<QVBoxLayout*>(this->contentWidget->layout());
+		layout->insertWidget(0, defaultWidget);
+		this->defaultGrp = new QSettingsGroup(defaultWidget);
+	}
 	return this->defaultGrp;
 }

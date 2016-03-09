@@ -17,14 +17,16 @@ SOURCES += \
 	qsettingsdialog.cpp \
     qsettingscategory.cpp \
     displaydialog.cpp \
-    qsettingssection.cpp
+    qsettingssection.cpp \
+    qsettingsgroup.cpp
 
 HEADERS += qsettingsdialog_global.h \
 	qsettingsdialog.h \
     qsettingsdialog_p.h \
     qsettingscategory.h \
     displaydialog.h \
-    qsettingssection.h
+    qsettingssection.h \
+    qsettingsgroup.h
 
 unix {
     target.path = /usr/lib

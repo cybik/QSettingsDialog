@@ -1,6 +1,7 @@
 #include "tst_qsettingscategory.h"
 #include "qsettingsdialog.h"
 #include "testglobal.h"
+#include "qsettingssection.h"
 
 #define SEC(name) this->sectMap[name]
 
@@ -54,25 +55,27 @@ void QSettingsCategoryTest::testSectionsInsert()
 
 	QCOMPARE(this->category->sectionCount(), prevCount);
 
-	QSettingsSection *cat = Q_NULLPTR;
+	QSettingsSection *sect = Q_NULLPTR;
 	if(index == -1) {
 		index = this->category->sectionCount();
-		cat = this->category->addSection(name);
+		sect = this->category->addSection(name);
 	} else
-		cat = this->category->insertSection(index, name);
-	QVERIFY(cat);
+		sect = this->category->insertSection(index, name);
+	QVERIFY(sect);
 
 	QCOMPARE(this->category->sectionCount(), prevCount + 1);
 
-	QCONTAINS(this->category->sections(), cat);
-	QCOMPARE(this->category->sectionIndex(cat), index);
+	QCONTAINS(this->category->sections(), sect);
+	QCOMPARE(this->category->sectionIndex(sect), index);
 	QCOMPARE(this->category->sectionIndex(Q_NULLPTR), -1);
-	QCOMPARE(this->category->sectionAt(index), cat);
+	QCOMPARE(this->category->sectionAt(index), sect);
+
+	QCOMPARE(sect->name(), name);
 
 	if(this->withDefault)
 		QCOMPARE(this->category->sections(true).first(), this->category->defaultSection());
 
-	this->sectMap.insert(name, cat);
+	this->sectMap.insert(name, sect);
 }
 
 void QSettingsCategoryTest::testSectionsPositons_data()
@@ -94,6 +97,7 @@ void QSettingsCategoryTest::testSectionsPositons()
 
 	QCOMPARE(this->category->sectionIndex(SEC(section)), index);
 	QCOMPARE(this->category->sectionAt(index), SEC(section));
+	QCOMPARE(SEC(section)->name(), section);
 }
 
 void QSettingsCategoryTest::testSectionsMove_data()

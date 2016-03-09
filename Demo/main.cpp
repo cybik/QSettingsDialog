@@ -3,6 +3,7 @@
 #include "qsettingsdialog.h"
 #include "qsettingscategory.h"
 #include "qsettingssection.h"
+#include "qsettingsgroup.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,6 +36,21 @@ int main(int argc, char *argv[])
 	cat2->defaultSection();
 	sec2->setIcon(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
 	sec3->setName("Baum == 42");
+
+	//groups
+	sec3->defaultGroup();
+
+	sec2->addGroup("Test1", false);
+	QSettingsGroup *grp2 = sec2->addGroup("Test2");
+	QSettingsGroup *grp3 = sec2->addGroup("Test3", true);
+	sec2->moveGroup(0, 2);//2, 3, 1
+	sec2->moveGroup(2, 1);//2, 1, 3
+	sec2->deleteGroup(1);//2, 3
+
+	//sec2->defaultGroup();
+	grp2->setOptional(true);
+	grp3->setName("Baum == 42");
+	grp3->setOptional(false);
 
 	dialog.showDialog();
 

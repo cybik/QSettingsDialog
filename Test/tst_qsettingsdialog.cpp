@@ -1,5 +1,6 @@
 #include "tst_qsettingsdialog.h"
 #include "testglobal.h"
+#include "qsettingscategory.h"
 
 #define CAT(name) this->catMap[name]
 
@@ -68,6 +69,8 @@ void QSettingsDialogTest::testCategoriesInsert()
 	QCOMPARE(this->dialog->categoryIndex(Q_NULLPTR), -1);
 	QCOMPARE(this->dialog->categoryAt(index), cat);
 
+	QCOMPARE(cat->name(), name);
+
 	if(this->withDefault)
 		QCOMPARE(this->dialog->categories(true).first(), this->dialog->defaultCategory());
 
@@ -93,6 +96,7 @@ void QSettingsDialogTest::testCategoriesPositons()
 
 	QCOMPARE(this->dialog->categoryIndex(CAT(category)), index);
 	QCOMPARE(this->dialog->categoryAt(index), CAT(category));
+	QCOMPARE(CAT(category)->name(), category);
 }
 
 void QSettingsDialogTest::testCategoriesMove_data()

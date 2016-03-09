@@ -23,9 +23,9 @@ public:
 	QSettingsGroup *groupAt(int index) const;
 	int groupIndex(QSettingsGroup *group) const;
 
-	QSettingsGroup *insertGroup(int index, const QString &name);
-	inline QSettingsGroup *addGroup(const QString &name) {
-		return this->insertGroup(this->grps.size(), name);
+	QSettingsGroup *insertGroup(int index, const QString &name, bool optional = false);
+	inline QSettingsGroup *addGroup(const QString &name, bool optional = false) {
+		return this->insertGroup(this->grps.size(), name, optional);
 	}
 
 	void deleteGroup(int index);
