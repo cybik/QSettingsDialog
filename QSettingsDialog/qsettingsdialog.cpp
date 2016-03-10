@@ -159,7 +159,7 @@ void QSettingsDialog::loadDone(const QVariant &data, bool isUser)
 		if(d->currentMax == d->progressDialog->maximum()) {
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEnabled(true);
+			d->mainDialog->setEditable(true);
 		}
 	}
 }
@@ -175,13 +175,13 @@ void QSettingsDialog::saveDone(bool successfull)
 			d->progressDialog->cancel();
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEnabled(true);
+			d->mainDialog->setEditable(true);
 			DialogMaster::critical(d->mainDialog,
 								   tr("Failed to save settings!"));
 		} else if(d->currentMax == d->progressDialog->maximum()) {
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEnabled(true);
+			d->mainDialog->setEditable(true);
 			if(d->closeDown)
 				d->mainDialog->accept();
 		}
@@ -199,15 +199,26 @@ void QSettingsDialog::resetDone(bool successfull)
 			d->progressDialog->cancel();
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEnabled(true);
+			d->mainDialog->setEditable(true);
 			DialogMaster::critical(d->mainDialog,
 								   tr("Failed to restore default settings!"));
 		} else if(d->currentMax == d->progressDialog->maximum()) {
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEnabled(true);
+			d->mainDialog->setEditable(true);
 			d->mainDialog->accept();
 		}
+	}
+}
+
+void QSettingsDialog::progressCanceled()
+{
+	Q_D(QSettingsDialog);
+	if(d->progressDialog) {
+		d->progressDialog->deleteLater();
+		d->progressDialog = Q_NULLPTR;
+		d->discard();
+		d->mainDialog->reject();
 	}
 }
 
@@ -265,16 +276,16 @@ void QSettingsDialogPrivate::removeSettingsEntry(QSettingsEntry *entry)
 
 void QSettingsDialogPrivate::startSaving(bool closeDown)
 {
+	Q_Q(QSettingsDialog);
 	this->closeDown = closeDown;
 	this->currentMax = 0;
-	this->mainDialog->setEnabled(false);
+	this->mainDialog->setEditable(false);
 	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
 														QSettingsDialog::tr("Saving settings…"),
-														this->entryMap.size(),
-														0,
-														false,
-														QString(),
-														1000);
+														this->entryMap.size());
+	QObject::connect(this->progressDialog, &QProgressDialog::canceled,
+					 q, &QSettingsDialog::progressCanceled,
+					 Qt::QueuedConnection);
 	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
 		if(!it.value()->group->isActivated() ||
 		   it.value()->optBox && !it.value()->optBox->isChecked()) {
@@ -295,15 +306,15 @@ void QSettingsDialogPrivate::discard()
 
 void QSettingsDialogPrivate::reset()
 {
+	Q_Q(QSettingsDialog);
 	this->currentMax = 0;
-	this->mainDialog->setEnabled(false);
+	this->mainDialog->setEditable(false);
 	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
 														QSettingsDialog::tr("Restoring defaults…"),
-														this->entryMap.size(),
-														0,
-														false,
-														QString(),
-														1000);
+														this->entryMap.size());
+	QObject::connect(this->progressDialog, &QProgressDialog::canceled,
+					 q, &QSettingsDialog::progressCanceled,
+					 Qt::QueuedConnection);
 	foreach(QSettingsLoader *loader, this->entryMap.keys())
 		QMetaObject::invokeMethod(loader, "resetData", Qt::QueuedConnection);
 }
@@ -323,18 +334,17 @@ QSettingsCategory *QSettingsDialogPrivate::createCategory(int index, const QStri
 
 void QSettingsDialogPrivate::startLoading()
 {
+	Q_Q(QSettingsDialog);
 	this->currentMax = 0;
-	QMetaObject::invokeMethod(this->mainDialog, "setEnabled", Qt::QueuedConnection,
-							  Q_ARG(bool, false));//TODO fails for whatever reason...
+	this->mainDialog->setEditable(false);
 	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
 														QSettingsDialog::tr("Loading settings…"),
-														this->entryMap.size(),
-														0,
-														false,
-														QString(),
-														1000);
+														this->entryMap.size());
+	QObject::connect(this->progressDialog, &QProgressDialog::canceled,
+					 q, &QSettingsDialog::progressCanceled,
+					 Qt::QueuedConnection);
 	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
-		it.value()->group->setActive(false);//TODO
+		it.value()->group->setActive(false);//TODO ineffective
 		QMetaObject::invokeMethod(it.key(), "loadData", Qt::QueuedConnection);
 	}
 }

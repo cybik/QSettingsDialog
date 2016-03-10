@@ -20,6 +20,8 @@ public:
 	explicit DisplayDialog(QSettingsDialogPrivate *priv, QWidget *parent = Q_NULLPTR);
 	~DisplayDialog();
 
+	void setEditable(bool editable);
+
 	void insertItem(int index, QListWidgetItem *item, QTabWidget *content);
 	void deleteItem(int index);
 	void moveItem(int from, int to);

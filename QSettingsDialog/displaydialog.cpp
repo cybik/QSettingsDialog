@@ -55,6 +55,12 @@ DisplayDialog::~DisplayDialog()
 	delete ui;
 }
 
+void DisplayDialog::setEditable(bool editable)
+{
+	this->ui->contentStackWidget->setEnabled(editable);
+	this->ui->buttonBox->setEnabled(editable);
+}
+
 void DisplayDialog::insertItem(int index, QListWidgetItem *item, QTabWidget *content)
 {
 	this->ui->contentStackWidget->insertWidget(index, content);

@@ -33,7 +33,7 @@ public slots:
 		emit saveDone(true);
 	}
 	void resetData() Q_DECL_OVERRIDE {
-		emit resetDone(true);
+		emit resetDone(false);
 	}
 };
 

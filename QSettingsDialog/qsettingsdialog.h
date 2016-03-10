@@ -51,6 +51,7 @@ private slots:
 	void loadDone(const QVariant &data, bool isUser);
 	void saveDone(bool successfull);
 	void resetDone(bool successfull);
+	void progressCanceled();
 
 private:
 	QScopedPointer<QSettingsDialogPrivate> d_ptr;

@@ -13,7 +13,7 @@ class QTabWidget;
 
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsCategory
 {
-	friend class QSettingsDialog;//TODO add reference to dialog
+	friend class QSettingsDialog;
 	friend class QSettingsDialogPrivate;
 
 public:
