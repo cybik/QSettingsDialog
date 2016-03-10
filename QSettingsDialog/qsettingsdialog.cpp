@@ -1,6 +1,7 @@
 #include "qsettingsdialog.h"
 #include "qsettingsdialog_p.h"
 #include <QListWidgetItem>
+#include <dialogmaster.h>
 #include "qsettingssection.h"
 
 #define TEST_DEFAULT(index) (d->defaultCategory ? (index + 1) : (index))
@@ -62,7 +63,7 @@ void QSettingsDialog::deleteCategory(int index)
 {
 	Q_D(QSettingsDialog);
 	Q_ASSERT_X2(index >= 0 && index < d->categories.size(), "index out of range");
-	d->mainDialg->deleteItem(TEST_DEFAULT(index));
+	d->mainDialog->deleteItem(TEST_DEFAULT(index));
 	delete d->categories.takeAt(index);
 }
 
@@ -83,7 +84,7 @@ void QSettingsDialog::moveCategory(int from, int to)
 	Q_ASSERT_X2(from >= 0 && from < d->categories.size(), "index out of range");
 	Q_ASSERT_X2(to >= 0 && to < d->categories.size(), "index out of range");
 	d->categories.move(from, to);
-	d->mainDialg->moveItem(TEST_DEFAULT(from), TEST_DEFAULT(to));
+	d->mainDialog->moveItem(TEST_DEFAULT(from), TEST_DEFAULT(to));
 }
 
 QSettingsCategory *QSettingsDialog::defaultCategory()
@@ -116,35 +117,109 @@ bool QSettingsDialog::hasDefaultCategory() const
 QSize QSettingsDialog::categoryIconSize() const
 {
 	const Q_D(QSettingsDialog);
-	return d->mainDialg->iconSize();
+	return d->mainDialog->iconSize();
 }
 
 void QSettingsDialog::showDialog()
 {
 	Q_D(QSettingsDialog);
-	d->mainDialg->open();
+	d->startLoading();
+	d->mainDialog->open();
 }
 
 void QSettingsDialog::setCategoryIconSize(QSize categoryIconSize)
 {
 	Q_D(QSettingsDialog);
-	d->mainDialg->updateIconSize(categoryIconSize);
+	d->mainDialog->updateIconSize(categoryIconSize);
 }
 
 void QSettingsDialog::resetCategoryIconSize()
 {
 	Q_D(QSettingsDialog);
-	int size = d->mainDialg->style()->pixelMetric(QStyle::PM_LargeIconSize);
-	d->mainDialg->updateIconSize({size, size});
+	int size = d->mainDialog->style()->pixelMetric(QStyle::PM_LargeIconSize);
+	d->mainDialog->updateIconSize({size, size});
 }
 
+void QSettingsDialog::loadDone(const QVariant &data, bool successfull)
+{
+	Q_D(QSettingsDialog);
+	if(d->progressDialog) {
+		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
+		Q_ASSERT_X2(loader, "loadDone signal from wrong sender received");
+		d->progressDialog->setValue(++d->currentMax);
+		QSettingsWidgetBase *widget = d->entryMap.value(loader);
+		if(widget) {
+			if(successfull)
+				widget->setValue(data);
+			else
+				widget->asWidget()->setEnabled(false);//TODO make label available to widget to disable it to
+		}
+		if(d->currentMax == d->progressDialog->maximum()) {
+			d->progressDialog->deleteLater();
+			d->progressDialog = Q_NULLPTR;
+			d->mainDialog->setEnabled(true);
+		}
+	}
+}
 
+void QSettingsDialog::saveDone(bool successfull)
+{
+	Q_D(QSettingsDialog);
+	if(d->progressDialog) {
+		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
+		Q_ASSERT_X2(loader, "saveDone signal from wrong sender received");
+		d->progressDialog->setValue(++d->currentMax);
+		if(!successfull) {
+			d->progressDialog->cancel();
+			d->progressDialog->deleteLater();
+			d->progressDialog = Q_NULLPTR;
+			d->mainDialog->setEnabled(true);
+			DialogMaster::critical(d->mainDialog,
+								   tr("Failed to save settings!"));
+		} else if(d->currentMax == d->progressDialog->maximum()) {
+			d->progressDialog->deleteLater();
+			d->progressDialog = Q_NULLPTR;
+			d->mainDialog->setEnabled(true);
+			if(d->closeDown)
+				d->mainDialog->accept();
+		}
+	}
+}
+
+void QSettingsDialog::resetDone(bool successfull)
+{
+	Q_D(QSettingsDialog);
+	if(d->progressDialog) {
+		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
+		Q_ASSERT_X2(loader, "resetDone signal from wrong sender received");
+		d->progressDialog->setValue(++d->currentMax);
+		if(!successfull) {
+			d->progressDialog->cancel();
+			d->progressDialog->deleteLater();
+			d->progressDialog = Q_NULLPTR;
+			d->mainDialog->setEnabled(true);
+			DialogMaster::critical(d->mainDialog,
+								   tr("Failed to restore default settings!"));
+		} else if(d->currentMax == d->progressDialog->maximum()) {
+			d->progressDialog->deleteLater();
+			d->progressDialog = Q_NULLPTR;
+			d->mainDialog->setEnabled(true);
+			d->mainDialog->accept();
+		}
+	}
+}
+
+// ------------------------- PRIVATE IMPLEMENTATION -------------------------
 
 QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
 	q_ptr(q_ptr),
-	mainDialg(new DisplayDialog(Q_NULLPTR)),
+	mainDialog(new DisplayDialog(this, Q_NULLPTR)),
 	defaultCategory(Q_NULLPTR),
-	categories()
+	categories(),
+	progressDialog(Q_NULLPTR),
+	currentMax(0),
+	closeDown(false),
+	entryMap()
 {}
 
 QSettingsDialogPrivate::~QSettingsDialogPrivate()
@@ -152,6 +227,78 @@ QSettingsDialogPrivate::~QSettingsDialogPrivate()
 	delete this->defaultCategory;
 	foreach (QSettingsCategory *cat, this->categories)
 		delete cat;
+	Q_ASSERT_X2(this->entryMap.isEmpty(), "Some entries have not been unloaded properly");
+}
+
+void QSettingsDialogPrivate::addSettingsEntry(QSettingsEntry *entry, QSettingsWidgetBase *widget)
+{
+	Q_Q(QSettingsDialog);
+	QSettingsLoader *loader = entry->getLoader();
+	Q_ASSERT_X2(loader, "loader with NULL-value passed");
+	QObject::connect(loader, &QSettingsLoader::loadDone,
+					 q, &QSettingsDialog::loadDone,
+					 Qt::QueuedConnection);
+	QObject::connect(loader, &QSettingsLoader::saveDone,
+					 q, &QSettingsDialog::saveDone,
+					 Qt::QueuedConnection);
+	QObject::connect(loader, &QSettingsLoader::resetDone,
+					 q, &QSettingsDialog::resetDone,
+					 Qt::QueuedConnection);
+	this->entryMap.insert(loader, widget);
+}
+
+void QSettingsDialogPrivate::removeSettingsEntry(QSettingsEntry *entry)
+{
+	Q_Q(QSettingsDialog);
+	QSettingsLoader *loader = entry->getLoader();
+	Q_ASSERT_X2(loader, "loader with NULL-value passed");
+	QObject::disconnect(loader, &QSettingsLoader::loadDone,
+						q, &QSettingsDialog::loadDone);
+	QObject::disconnect(loader, &QSettingsLoader::saveDone,
+						q, &QSettingsDialog::saveDone);
+	QObject::disconnect(loader, &QSettingsLoader::resetDone,
+						q, &QSettingsDialog::resetDone);
+	this->entryMap.remove(loader);
+}
+
+void QSettingsDialogPrivate::startSaving(bool closeDown)
+{
+	this->closeDown = closeDown;
+	this->currentMax = 0;
+	this->mainDialog->setEnabled(false);
+	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
+														QSettingsDialog::tr("Saving settings…"),
+														this->entryMap.size(),
+														0,
+														false,
+														QString(),
+														1000);
+	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
+		QVariant value = it.value()->getValue();
+		QMetaObject::invokeMethod(it.key(), "saveData", Qt::QueuedConnection,
+								  Q_ARG(QVariant, value));
+	}
+}
+
+void QSettingsDialogPrivate::discard()
+{
+	foreach(QSettingsWidgetBase *widget, this->entryMap)
+		widget->resetValue();
+}
+
+void QSettingsDialogPrivate::reset()
+{
+	this->currentMax = 0;
+	this->mainDialog->setEnabled(false);
+	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
+														QSettingsDialog::tr("Restoring defaults…"),
+														this->entryMap.size(),
+														0,
+														false,
+														QString(),
+														1000);
+	foreach(QSettingsLoader *loader, this->entryMap.keys())
+		QMetaObject::invokeMethod(loader, "resetData", Qt::QueuedConnection);
 }
 
 QSettingsCategory *QSettingsDialogPrivate::createCategory(int index, const QString &name, const QIcon &icon, const QString &toolTip)
@@ -163,6 +310,22 @@ QSettingsCategory *QSettingsDialogPrivate::createCategory(int index, const QStri
 	QTabWidget *tab = new QTabWidget();
 	tab->setTabBarAutoHide(true);
 
-	this->mainDialg->insertItem(index, item, tab);
-	return new QSettingsCategory(item, !toolTip.isNull(), tab);
+	this->mainDialog->insertItem(index, item, tab);
+	return new QSettingsCategory(item, !toolTip.isNull(), tab, this);
+}
+
+void QSettingsDialogPrivate::startLoading()
+{
+	this->currentMax = 0;
+	QMetaObject::invokeMethod(this->mainDialog, "setEnabled", Qt::QueuedConnection,
+							  Q_ARG(bool, false));//TODO fails for whatever reason...
+	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
+														QSettingsDialog::tr("Loading settings…"),
+														this->entryMap.size(),
+														0,
+														false,
+														QString(),
+														1000);
+	foreach(QSettingsLoader *loader, this->entryMap.keys())
+		QMetaObject::invokeMethod(loader, "loadData", Qt::QueuedConnection);
 }

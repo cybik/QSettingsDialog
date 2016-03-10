@@ -47,6 +47,11 @@ public slots:
 	void setCategoryIconSize(QSize categoryIconSize);
 	void resetCategoryIconSize();
 
+private slots:
+	void loadDone(const QVariant &data, bool successfull);
+	void saveDone(bool successfull);
+	void resetDone(bool successfull);
+
 private:
 	QScopedPointer<QSettingsDialogPrivate> d_ptr;
 	Q_DECLARE_PRIVATE(QSettingsDialog)

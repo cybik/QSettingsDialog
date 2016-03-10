@@ -3,8 +3,10 @@
 #include "qsettingsgroup.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
+#include "qsettingsdialog_p.h"
 
-QSettingsSection::QSettingsSection(QTabBar *tabBar, int tabIndex, QWidget *contentWidget) :
+QSettingsSection::QSettingsSection(QTabBar *tabBar, int tabIndex, QWidget *contentWidget, QSettingsDialogPrivate *priv) :
+	priv(priv),
 	tabBar(tabBar),
 	tabIndex(tabIndex),
 	contentWidget(contentWidget),
@@ -78,7 +80,7 @@ QSettingsGroup *QSettingsSection::insertGroup(int index, const QString &name, bo
 	QVBoxLayout *layout = static_cast<QVBoxLayout*>(this->contentWidget->layout());
 	layout->insertWidget(index, box);
 
-	QSettingsGroup *group = new QSettingsGroup(box);
+	QSettingsGroup *group = new QSettingsGroup(box, this->priv);
 	this->grps.insert(index, group);
 
 	return group;
@@ -118,7 +120,7 @@ QSettingsGroup *QSettingsSection::defaultGroup()
 		QWidget *defaultWidget = new QWidget(this->contentWidget);
 		QVBoxLayout *layout = static_cast<QVBoxLayout*>(this->contentWidget->layout());
 		layout->insertWidget(0, defaultWidget);
-		this->defaultGrp = new QSettingsGroup(defaultWidget);
+		this->defaultGrp = new QSettingsGroup(defaultWidget, this->priv);
 	}
 	return this->defaultGrp;
 }

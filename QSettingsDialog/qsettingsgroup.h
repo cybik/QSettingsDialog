@@ -3,6 +3,7 @@
 
 #include "qsettingsdialog_global.h"
 #include <QString>
+class QSettingsDialogPrivate;
 class QSettingsEntry;
 class QSettingsWidgetBase;
 class QGroupBox;
@@ -39,14 +40,16 @@ public:
 	void moveEntry(int from, int to);
 
 private:
+	QSettingsDialogPrivate *priv;
+
 	QGroupBox *box;
 	QWidget *widget;
 	QFormLayout *layout;
 
 	QList<QSettingsEntry *> entrs;
 
-	QSettingsGroup(QGroupBox *box);
-	QSettingsGroup(QWidget *widget);
+	QSettingsGroup(QGroupBox *box, QSettingsDialogPrivate *priv);
+	QSettingsGroup(QWidget *widget, QSettingsDialogPrivate *priv);
 	~QSettingsGroup();
 };
 

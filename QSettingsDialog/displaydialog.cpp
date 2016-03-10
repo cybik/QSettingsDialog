@@ -4,6 +4,7 @@
 #include <QtMath>
 #include <dialogmaster.h>
 #include <functional>
+#include "qsettingsdialog_p.h"
 
 class CategoryItemDelegate : public QStyledItemDelegate
 {
@@ -19,8 +20,9 @@ private:
 	std::function<void(int)> updateFunc;
 };
 
-DisplayDialog::DisplayDialog(QWidget *parent) :
+DisplayDialog::DisplayDialog(QSettingsDialogPrivate *priv, QWidget *parent) :
 	QDialog(parent),
+	priv(priv),
 	ui(new Ui::DisplayDialog),
 	delegate(Q_NULLPTR)
 {
@@ -126,12 +128,14 @@ void DisplayDialog::on_buttonBox_clicked(QAbstractButton *button)
 {
 	switch(this->ui->buttonBox->standardButton(button)) {
 	case QDialogButtonBox::Ok:
-		this->accept();
+		this->priv->startSaving(true);
 		break;
 	case QDialogButtonBox::Cancel:
+		this->priv->discard();
 		this->reject();
 		break;
 	case QDialogButtonBox::Apply:
+		this->priv->startSaving(false);
 		break;
 	case QDialogButtonBox::RestoreDefaults:
 		if(DialogMaster::warning(this,
@@ -142,7 +146,7 @@ void DisplayDialog::on_buttonBox_clicked(QAbstractButton *button)
 								 QMessageBox::Yes,
 								 QMessageBox::No)
 		   == QMessageBox::Yes) {
-			this->done(2);
+			this->priv->reset();
 		}
 		break;
 	default:

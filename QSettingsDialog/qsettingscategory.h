@@ -7,6 +7,7 @@
 #include <QList>
 class QSettingsSection;
 class QSettingsGroup;
+class QSettingsDialogPrivate;
 class QListWidgetItem;
 class QTabWidget;
 
@@ -44,6 +45,8 @@ public:
 	bool hasDefaultSection() const;
 
 private:
+	QSettingsDialogPrivate *priv;
+
 	QListWidgetItem *listEntry;
 	bool hasTooltip;
 	QTabWidget *contentWidget;
@@ -51,7 +54,10 @@ private:
 	QSettingsSection *defaultSect;
 	QList<QSettingsSection*> sects;
 
-	QSettingsCategory(QListWidgetItem *listEntry, bool hasTooltip, QTabWidget *contentWidget);
+	QSettingsCategory(QListWidgetItem *listEntry,
+					  bool hasTooltip,
+					  QTabWidget *contentWidget,
+					  QSettingsDialogPrivate *priv);
 	~QSettingsCategory();
 	void updateSectIndexes();
 

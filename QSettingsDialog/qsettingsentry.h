@@ -17,7 +17,7 @@ public:
 	virtual inline void destroyWidget(QSettingsWidgetBase *widget) {
 		widget->asWidget()->deleteLater();
 	}
-	virtual QSettingsLoader *getLoader() = 0;
+	virtual QSettingsLoader *getLoader() const = 0;
 
 	template<typename T>
 	static inline QVariant asParameter(const T *value) {

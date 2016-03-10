@@ -5,6 +5,7 @@
 #include <QString>
 #include <QIcon>
 #include <QList>
+class QSettingsDialogPrivate;
 class QSettingsGroup;
 class QTabBar;
 
@@ -36,6 +37,8 @@ public:
 	QSettingsGroup *defaultGroup();
 
 private:
+	QSettingsDialogPrivate *priv;
+
 	QTabBar *tabBar;
 	int tabIndex;
 	QWidget *contentWidget;
@@ -43,7 +46,7 @@ private:
 	QSettingsGroup *defaultGrp;
 	QList<QSettingsGroup*> grps;
 
-	QSettingsSection(QTabBar *tabBar, int tabIndex, QWidget *contentWidget);
+	QSettingsSection(QTabBar *tabBar, int tabIndex, QWidget *contentWidget, QSettingsDialogPrivate *priv);
 	~QSettingsSection();
 	void updateIndex(int tabIndex);
 };

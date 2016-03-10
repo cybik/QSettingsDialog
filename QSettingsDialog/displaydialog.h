@@ -5,6 +5,7 @@
 #include <QAbstractButton>
 #include <QListWidget>
 #include <QTableWidget>
+class QSettingsDialogPrivate;
 
 namespace Ui {
 	class DisplayDialog;
@@ -16,7 +17,7 @@ class DisplayDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit DisplayDialog(QWidget *parent = 0);
+	explicit DisplayDialog(QSettingsDialogPrivate *priv, QWidget *parent = Q_NULLPTR);
 	~DisplayDialog();
 
 	void insertItem(int index, QListWidgetItem *item, QTabWidget *content);
@@ -36,6 +37,8 @@ private slots:
 	void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
+	QSettingsDialogPrivate *priv;
+
 	Ui::DisplayDialog *ui;
 	CategoryItemDelegate *delegate;
 	int maxWidthBase;

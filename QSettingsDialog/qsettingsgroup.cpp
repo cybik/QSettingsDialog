@@ -4,9 +4,10 @@
 #include <QLabel>
 #include <QCheckBox>
 #include "qsettingsentry.h"
-#include "qsettingsdialog.h"
+#include "qsettingsdialog_p.h"
 
-QSettingsGroup::QSettingsGroup(QGroupBox *box) :
+QSettingsGroup::QSettingsGroup(QGroupBox *box, QSettingsDialogPrivate *priv) :
+	priv(priv),
 	box(box),
 	widget(Q_NULLPTR),
 	layout(new QFormLayout(this->box)),
@@ -15,7 +16,8 @@ QSettingsGroup::QSettingsGroup(QGroupBox *box) :
 	this->box->setLayout(this->layout);
 }
 
-QSettingsGroup::QSettingsGroup(QWidget *widget) :
+QSettingsGroup::QSettingsGroup(QWidget *widget, QSettingsDialogPrivate *priv) :
+	priv(priv),
 	box(Q_NULLPTR),
 	widget(widget),
 	layout(new QFormLayout(this->box)),
@@ -27,7 +29,15 @@ QSettingsGroup::QSettingsGroup(QWidget *widget) :
 
 QSettingsGroup::~QSettingsGroup()
 {
-	qDeleteAll(this->entrs);
+	for(int i = 0; i < this->entrs.size(); i++) {
+		QSettingsEntry *entry = this->entrs.at(i);
+		QWidget *widget = this->layout->itemAt(i, QFormLayout::FieldRole)->widget();
+		QSettingsWidgetBase *setWid = dynamic_cast<QSettingsWidgetBase*>(widget);
+		Q_ASSERT_X2(setWid, "Found non-QSettingsWidgetBase element inside group!");
+		this->priv->removeSettingsEntry(entry);
+		entry->destroyWidget(setWid);
+		delete entry;
+	}
 }
 
 bool QSettingsGroup::isActivated() const
@@ -87,8 +97,10 @@ int QSettingsGroup::entryIndex(QSettingsEntry *entry) const
 void QSettingsGroup::insertEntry(int index, QSettingsEntry *entry)
 {
 	Q_ASSERT_X2(index >= 0 && index <= this->entrs.size(), "index out of range");
+	Q_ASSERT_X2(entry, "entry must not be NULL");
 
-	QWidget *content = entry->createWidget(this->layout->widget())->asWidget();
+	QSettingsWidgetBase *setWid = entry->createWidget(this->layout->widget());
+	QWidget *content = setWid->asWidget();
 	if(entry->isOptional()) {
 		content->setEnabled(false);
 		QCheckBox *box = new QCheckBox(entry->entryName() + QSettingsDialog::tr(":"),
@@ -103,6 +115,7 @@ void QSettingsGroup::insertEntry(int index, QSettingsEntry *entry)
 	}
 
 	this->entrs.insert(index, entry);
+	this->priv->addSettingsEntry(entry, setWid);
 }
 
 QSettingsEntry *QSettingsGroup::takeEntry(int index)
@@ -111,7 +124,10 @@ QSettingsEntry *QSettingsGroup::takeEntry(int index)
 	this->layout->itemAt(index, QFormLayout::LabelRole)->widget()->deleteLater();
 	QSettingsEntry *entry = this->entrs.takeAt(index);
 	QWidget *widget = this->layout->itemAt(index, QFormLayout::FieldRole)->widget();
-	entry->destroyWidget(dynamic_cast<QSettingsWidgetBase*>(widget));
+	QSettingsWidgetBase *setWid = dynamic_cast<QSettingsWidgetBase*>(widget);
+	Q_ASSERT_X2(setWid, "Found non-QSettingsWidgetBase element inside group!");
+	this->priv->removeSettingsEntry(entry);
+	entry->destroyWidget(setWid);
 	return entry;
 }
 
@@ -131,7 +147,10 @@ void QSettingsGroup::deleteEntry(int index)
 	this->layout->itemAt(index, QFormLayout::LabelRole)->widget()->deleteLater();
 	QSettingsEntry *entry = this->entrs.takeAt(index);
 	QWidget *widget = this->layout->itemAt(index, QFormLayout::FieldRole)->widget();
-	entry->destroyWidget(dynamic_cast<QSettingsWidgetBase*>(widget));
+	QSettingsWidgetBase *setWid = dynamic_cast<QSettingsWidgetBase*>(widget);
+	Q_ASSERT_X2(setWid, "Found non-QSettingsWidgetBase element inside group!");
+	this->priv->removeSettingsEntry(entry);
+	entry->destroyWidget(setWid);
 	delete entry;
 }
 

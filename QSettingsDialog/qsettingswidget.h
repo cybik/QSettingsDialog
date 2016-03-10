@@ -10,6 +10,7 @@ public:
 
 	virtual QWidget *asWidget() = 0;
 
+	virtual bool hasValueChanged() const = 0;
 	virtual void setValue(const QVariant &value) = 0;
 	virtual QVariant getValue() = 0;
 	virtual void resetValue() = 0;

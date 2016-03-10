@@ -7,7 +7,8 @@
 
 #define TEST_DEFAULT(index) (this->defaultSect ? (index + 1) : (index))
 
-QSettingsCategory::QSettingsCategory(QListWidgetItem *listEntry, bool hasTooltip, QTabWidget *contentWidget) :
+QSettingsCategory::QSettingsCategory(QListWidgetItem *listEntry, bool hasTooltip, QTabWidget *contentWidget, QSettingsDialogPrivate *priv) :
+	priv(priv),
 	listEntry(listEntry),
 	hasTooltip(hasTooltip),
 	contentWidget(contentWidget),
@@ -159,5 +160,5 @@ QSettingsSection *QSettingsCategory::createSection(int index, const QString &nam
 	scrollArea->setWidget(scrollContent);
 
 	this->contentWidget->insertTab(index, scrollArea, icon, name);
-	return new QSettingsSection(this->contentWidget->tabBar(), index, scrollContent);
+	return new QSettingsSection(this->contentWidget->tabBar(), index, scrollContent, this->priv);
 }

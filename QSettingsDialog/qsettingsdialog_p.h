@@ -4,15 +4,27 @@
 #include "qsettingsdialog.h"
 #include "displaydialog.h"
 #include "qsettingscategory.h"
+#include "qsettingsentry.h"
 #include <QScopedPointer>
+#include <QHash>
+#include <QProgressDialog>
+#include <QSignalMapper>
 
 class QSettingsDialogPrivate
 {
 public:
-	static QSettingsDialogPrivate *getPrivate(QSettingsDialog *dialog);
-
 	~QSettingsDialogPrivate();
+
+	void addSettingsEntry(QSettingsEntry *entry, QSettingsWidgetBase *widget);
+	void removeSettingsEntry(QSettingsEntry *entry);
+
+	void startSaving(bool closeDown);
+	void discard();
+	void reset();
+
 private:
+	typedef QHash<QSettingsLoader*, QSettingsWidgetBase*>::const_iterator const_iter;
+
 	QSettingsDialog *q_ptr;
 	Q_DECLARE_PUBLIC(QSettingsDialog)
 
@@ -20,11 +32,17 @@ private:
 
 	QSettingsCategory *createCategory(int index, const QString &name, const QIcon &icon, const QString &toolTip = QString());
 
-	DisplayDialog *mainDialg;
+	void startLoading();
+
+	DisplayDialog *mainDialog;
 	QSettingsCategory *defaultCategory;
 	QList<QSettingsCategory*> categories;
-};
 
-#define SPRIV(dialog) QSettingsDialogPrivate::getPrivate(dialog)
+	QProgressDialog *progressDialog;
+	int currentMax;
+	bool closeDown;
+
+	QHash<QSettingsLoader*, QSettingsWidgetBase*> entryMap;
+};
 
 #endif // QSETTINGSDIALOG_P_H
