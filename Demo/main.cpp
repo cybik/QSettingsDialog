@@ -5,9 +5,22 @@
 #include "qsettingssection.h"
 #include "qsettingsgroup.h"
 
+#include <QVariant>
+#include "commandsettingsentry.h"
+
+struct SomeType {};
+Q_DECLARE_METATYPE(SomeType)
+
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+
+	//Variant test
+	qDebug() << "typeid" << qRegisterMetaType<SomeType>("SomeType");
+	QVariant varInt = QVariant::fromValue<int>(42);
+	QVariant varType = QVariant::fromValue<SomeType>(SomeType());
+	qDebug() << "varInt" << (int)varInt.type() << QMetaType::type(varInt.typeName()) << varInt.typeName() << varInt.value<int>();
+	qDebug() << "varType" << (int)varType.type() << QMetaType::type(varType.typeName()) << varType.typeName();// << varType.value<SomeType>();
 
 	QSettingsDialog dialog;
 	dialog.defaultGroup();
@@ -47,10 +60,18 @@ int main(int argc, char *argv[])
 	sec2->moveGroup(2, 1);//2, 1, 3
 	sec2->deleteGroup(1);//2, 3
 
-	//sec2->defaultGroup();
+	sec2->defaultGroup();
 	grp2->setOptional(true);
 	grp3->setName("Baum == 42");
 	grp3->setOptional(false);
+
+	//entries
+	sec2->defaultGroup()->addEntry(new CommandSettingsEntry("Test1"));
+	sec2->defaultGroup()->addEntry(new CommandSettingsEntry("Test2", false));
+	sec2->defaultGroup()->addEntry(new CommandSettingsEntry("Test3", false));
+	grp2->addEntry(new CommandSettingsEntry("Test4"));
+	grp2->addEntry(new CommandSettingsEntry("Test5", false));
+	grp3->addEntry(new CommandSettingsEntry("Test5", false));
 
 	dialog.showDialog();
 

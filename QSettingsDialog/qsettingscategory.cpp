@@ -145,7 +145,7 @@ void QSettingsCategory::updateSectIndexes()
 
 QSettingsSection *QSettingsCategory::createSection(int index, const QString &name, const QIcon &icon)
 {
-	QScrollArea *scrollArea = new QScrollArea();
+	QScrollArea *scrollArea = new QScrollArea(this->contentWidget);
 	scrollArea->setWidgetResizable(true);
 	scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
 	scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -155,7 +155,7 @@ QSettingsSection *QSettingsCategory::createSection(int index, const QString &nam
 	scrollArea->setPalette(pal);
 	scrollArea->setFrameShape(QFrame::NoFrame);
 
-	QWidget *scrollContent = new QWidget();
+	QWidget *scrollContent = new QWidget(scrollArea);
 	scrollArea->setWidget(scrollContent);
 
 	this->contentWidget->insertTab(index, scrollArea, icon, name);

@@ -70,7 +70,7 @@ int QSettingsSection::groupIndex(QSettingsGroup *group) const
 QSettingsGroup *QSettingsSection::insertGroup(int index, const QString &name, bool optional)
 {
 	Q_ASSERT_X2(index >= 0 && index <= this->grps.size(), "index out of range");
-	QGroupBox *box = new QGroupBox(name);
+	QGroupBox *box = new QGroupBox(name, this->contentWidget);
 	if(optional) {
 		box->setCheckable(true);
 		box->setChecked(false);
@@ -115,7 +115,7 @@ void QSettingsSection::moveGroup(int from, int to)
 QSettingsGroup *QSettingsSection::defaultGroup()
 {
 	if(!this->defaultGrp) {
-		QWidget *defaultWidget = new QWidget();
+		QWidget *defaultWidget = new QWidget(this->contentWidget);
 		QVBoxLayout *layout = static_cast<QVBoxLayout*>(this->contentWidget->layout());
 		layout->insertWidget(0, defaultWidget);
 		this->defaultGrp = new QSettingsGroup(defaultWidget);
