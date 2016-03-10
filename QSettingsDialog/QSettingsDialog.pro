@@ -29,7 +29,8 @@ HEADERS += qsettingsdialog_global.h \
     qsettingssection.h \
     qsettingsgroup.h \
     qsettingsentry.h \
-    qsettingsloader.h
+    qsettingsloader.h \
+    qsettingswidget.h
 
 unix {
     target.path = /usr/lib

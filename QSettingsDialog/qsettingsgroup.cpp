@@ -88,7 +88,7 @@ void QSettingsGroup::insertEntry(int index, QSettingsEntry *entry)
 {
 	Q_ASSERT_X2(index >= 0 && index <= this->entrs.size(), "index out of range");
 
-	QWidget *content = entry->createWidget(this->layout->widget());
+	QWidget *content = entry->createWidget(this->layout->widget())->asWidget();
 	if(entry->isOptional()) {
 		content->setEnabled(false);
 		QCheckBox *box = new QCheckBox(entry->entryName() + QSettingsDialog::tr(":"),
@@ -105,12 +105,34 @@ void QSettingsGroup::insertEntry(int index, QSettingsEntry *entry)
 	this->entrs.insert(index, entry);
 }
 
+QSettingsEntry *QSettingsGroup::takeEntry(int index)
+{
+	Q_ASSERT_X2(index >= 0 && index < this->entrs.size(), "index out of range");
+	this->layout->itemAt(index, QFormLayout::LabelRole)->widget()->deleteLater();
+	QSettingsEntry *entry = this->entrs.takeAt(index);
+	QWidget *widget = this->layout->itemAt(index, QFormLayout::FieldRole)->widget();
+	entry->destroyWidget(dynamic_cast<QSettingsWidgetBase*>(widget));
+	return entry;
+}
+
+bool QSettingsGroup::takeEntry(QSettingsEntry *entry)
+{
+	int index = this->entrs.indexOf(entry);
+	if(index >= 0) {
+		this->takeEntry(index);
+		return true;
+	} else
+		return false;
+}
+
 void QSettingsGroup::deleteEntry(int index)
 {
 	Q_ASSERT_X2(index >= 0 && index < this->entrs.size(), "index out of range");
 	this->layout->itemAt(index, QFormLayout::LabelRole)->widget()->deleteLater();
-	this->layout->itemAt(index, QFormLayout::FieldRole)->widget()->deleteLater();
-	delete this->entrs.takeAt(index);
+	QSettingsEntry *entry = this->entrs.takeAt(index);
+	QWidget *widget = this->layout->itemAt(index, QFormLayout::FieldRole)->widget();
+	entry->destroyWidget(dynamic_cast<QSettingsWidgetBase*>(widget));
+	delete entry;
 }
 
 bool QSettingsGroup::deleteEntry(QSettingsEntry *entry)

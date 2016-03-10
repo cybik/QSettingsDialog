@@ -3,21 +3,21 @@
 
 #include "qsettingsdialog_global.h"
 #include "qsettingsloader.h"
+#include "qsettingswidget.h"
+#include <QWidget>
 
 class QSettingsEntry
 {
 public:
-	virtual inline ~QSettingsEntry() {}
 
 	virtual QString entryName() const = 0;
 	virtual bool isOptional() const = 0;
 
-	virtual QWidget *createWidget(QWidget *parent) = 0;
-	virtual QSettingsLoader *createLoader() = 0;
-
-	virtual void setValue(QWidget *widget, const QVariant &value) = 0;
-	virtual QVariant getValue(QWidget *widget) = 0;
-	virtual void resetWidget(QWidget *widget) = 0;
+	virtual QSettingsWidgetBase *createWidget(QWidget *parent) = 0;
+	virtual inline void destroyWidget(QSettingsWidgetBase *widget) {
+		widget->asWidget()->deleteLater();
+	}
+	virtual QSettingsLoader *getLoader() = 0;
 
 	template<typename T>
 	static inline QVariant asParameter(const T *value) {

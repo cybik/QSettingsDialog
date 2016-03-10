@@ -11,11 +11,8 @@ public:
 	// QSettingsEntry interface
 	QString entryName() const Q_DECL_OVERRIDE;
 	bool isOptional() const Q_DECL_OVERRIDE;
-	QWidget *createWidget(QWidget *parent) Q_DECL_OVERRIDE;
-	QSettingsLoader *createLoader() Q_DECL_OVERRIDE;
-	void setValue(QWidget *widget, const QVariant &value) Q_DECL_OVERRIDE;
-	QVariant getValue(QWidget *widget) Q_DECL_OVERRIDE;
-	void resetWidget(QWidget *widget) Q_DECL_OVERRIDE;
+	QSettingsWidgetBase *createWidget(QWidget *parent) Q_DECL_OVERRIDE;
+	QSettingsLoader *getLoader() Q_DECL_OVERRIDE;
 
 private:
 	QString name;

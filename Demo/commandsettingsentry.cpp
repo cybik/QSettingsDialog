@@ -1,6 +1,23 @@
 #include "commandsettingsentry.h"
 #include <QLineEdit>
 
+class QSettingsLineEdit : public QSettingsWidget<QLineEdit>
+{
+public:
+	QSettingsLineEdit(QWidget *parent) :
+		QSettingsWidget(parent)
+	{}
+	void setValue(const QVariant &value) Q_DECL_OVERRIDE {
+		this->setText(value.toString());
+	}
+	QVariant getValue() Q_DECL_OVERRIDE {
+		return this->text();
+	}
+	void resetValue() Q_DECL_OVERRIDE {
+		this->clear();
+	}
+};
+
 CommandSettingsEntry::CommandSettingsEntry(QString name, bool optional) :
 	name(name),
 	optional(optional)
@@ -16,27 +33,12 @@ bool CommandSettingsEntry::isOptional() const
 	return optional;
 }
 
-QWidget *CommandSettingsEntry::createWidget(QWidget *parent)
+QSettingsWidgetBase *CommandSettingsEntry::createWidget(QWidget *parent)
 {
-	return new QLineEdit(parent);
+	return new QSettingsLineEdit(parent);
 }
 
-QSettingsLoader *CommandSettingsEntry::createLoader()
+QSettingsLoader *CommandSettingsEntry::getLoader()
 {
 	return Q_NULLPTR;
-}
-
-void CommandSettingsEntry::setValue(QWidget *widget, const QVariant &value)
-{
-	static_cast<QLineEdit*>(widget)->setText(value.toString());
-}
-
-QVariant CommandSettingsEntry::getValue(QWidget *widget)
-{
-	return static_cast<QLineEdit*>(widget)->text();
-}
-
-void CommandSettingsEntry::resetWidget(QWidget *widget)
-{
-	static_cast<QLineEdit*>(widget)->setText(QString());
 }

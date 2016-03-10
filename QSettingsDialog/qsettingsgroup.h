@@ -4,6 +4,7 @@
 #include "qsettingsdialog_global.h"
 #include <QString>
 class QSettingsEntry;
+class QSettingsWidgetBase;
 class QGroupBox;
 class QFormLayout;
 
@@ -28,6 +29,9 @@ public:
 	inline void addEntry(QSettingsEntry *entry) {
 		this->insertEntry(this->entrs.size(), entry);
 	}
+
+	QSettingsEntry *takeEntry(int index);
+	bool takeEntry(QSettingsEntry *entry);
 
 	void deleteEntry(int index);
 	bool deleteEntry(QSettingsEntry *entry);
