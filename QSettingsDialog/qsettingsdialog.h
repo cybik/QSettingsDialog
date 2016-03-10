@@ -43,6 +43,7 @@ public:
 
 public slots:
 	void showDialog();
+	int execDialog();
 
 	void setCategoryIconSize(QSize categoryIconSize);
 	void resetCategoryIconSize();

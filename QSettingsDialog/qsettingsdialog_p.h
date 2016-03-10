@@ -40,7 +40,7 @@ private:
 	QList<QSettingsCategory*> categories;
 
 	QProgressDialog *progressDialog;
-	int currentMax;
+	int currentValue;
 	bool closeDown;
 
 	QHash<QSettingsLoader*, QSettingsWidgetBase*> entryMap;

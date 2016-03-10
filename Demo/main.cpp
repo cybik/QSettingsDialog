@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 	grp2->addEntry(new CommandSettingsEntry("Test5", false));
 	grp3->addEntry(new CommandSettingsEntry("Test5", false));
 
-	dialog.showDialog();
+	return dialog.execDialog();
 
 //	QDirIterator it(":/", QDirIterator::Subdirectories);
 //	while(it.hasNext())
