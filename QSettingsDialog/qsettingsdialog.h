@@ -48,7 +48,7 @@ public slots:
 	void resetCategoryIconSize();
 
 private slots:
-	void loadDone(const QVariant &data, bool successfull);
+	void loadDone(const QVariant &data, bool isUser);
 	void saveDone(bool successfull);
 	void resetDone(bool successfull);
 

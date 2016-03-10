@@ -2,10 +2,16 @@
 #define QSETTINGSWIDGET_H
 
 #include "qsettingsdialog_global.h"
+class QCheckBox;
+class QSettingsGroup;
 
 class QSettingsWidgetBase
 {
-public:
+	friend class QSettingsDialog;
+	friend class QSettingsDialogPrivate;
+	friend class QSettingsGroup;
+
+public:	
 	virtual inline ~QSettingsWidgetBase() {}
 
 	virtual QWidget *asWidget() = 0;
@@ -14,6 +20,11 @@ public:
 	virtual void setValue(const QVariant &value) = 0;
 	virtual QVariant getValue() = 0;
 	virtual void resetValue() = 0;
+
+private:
+	//internal use only
+	QCheckBox *optBox;
+	QSettingsGroup *group;
 };
 
 template <class Widget>

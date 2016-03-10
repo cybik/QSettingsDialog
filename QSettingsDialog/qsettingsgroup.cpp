@@ -103,17 +103,18 @@ void QSettingsGroup::insertEntry(int index, QSettingsEntry *entry)
 	QWidget *content = setWid->asWidget();
 	if(entry->isOptional()) {
 		content->setEnabled(false);
-		QCheckBox *box = new QCheckBox(entry->entryName() + QSettingsDialog::tr(":"),
+		setWid->optBox = new QCheckBox(entry->entryName() + QSettingsDialog::tr(":"),
 									   this->layout->widget());
-		QObject::connect(box, &QCheckBox::toggled,
+		QObject::connect(setWid->optBox, &QCheckBox::toggled,
 						 content, &QWidget::setEnabled);
-		this->layout->insertRow(index, box, content);
+		this->layout->insertRow(index, setWid->optBox, content);
 	} else {
 		this->layout->insertRow(index,
 								entry->entryName() + QSettingsDialog::tr(":"),
 								content);
 	}
 
+	setWid->group = this;
 	this->entrs.insert(index, entry);
 	this->priv->addSettingsEntry(entry, setWid);
 }
@@ -174,4 +175,10 @@ void QSettingsGroup::moveEntry(int from, int to)
 	this->layout->removeWidget(fieldWigdet);
 	layout->insertRow(to, labelWigdet, fieldWigdet);
 	this->entrs.move(from, to);
+}
+
+void QSettingsGroup::setActive(bool active)
+{
+	if(this->box && this->box->isCheckable())
+		this->box->setChecked(active);
 }

@@ -27,7 +27,7 @@ class PseudoLoader : public QSettingsLoader
 {
 public slots:
 	void loadData() Q_DECL_OVERRIDE {
-		emit loadDone("test", true);
+		emit loadDone("test", false);
 	}
 	void saveData(const QVariant &data) Q_DECL_OVERRIDE {
 		emit saveDone(true);

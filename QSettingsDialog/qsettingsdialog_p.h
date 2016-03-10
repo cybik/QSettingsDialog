@@ -4,6 +4,7 @@
 #include "qsettingsdialog.h"
 #include "displaydialog.h"
 #include "qsettingscategory.h"
+#include "qsettingsgroup.h"
 #include "qsettingsentry.h"
 #include <QScopedPointer>
 #include <QHash>

@@ -140,7 +140,7 @@ void QSettingsDialog::resetCategoryIconSize()
 	d->mainDialog->updateIconSize({size, size});
 }
 
-void QSettingsDialog::loadDone(const QVariant &data, bool successfull)
+void QSettingsDialog::loadDone(const QVariant &data, bool isUser)
 {
 	Q_D(QSettingsDialog);
 	if(d->progressDialog) {
@@ -148,12 +148,14 @@ void QSettingsDialog::loadDone(const QVariant &data, bool successfull)
 		Q_ASSERT_X2(loader, "loadDone signal from wrong sender received");
 		d->progressDialog->setValue(++d->currentMax);
 		QSettingsWidgetBase *widget = d->entryMap.value(loader);
-		if(widget) {
-			if(successfull)
-				widget->setValue(data);
-			else
-				widget->asWidget()->setEnabled(false);//TODO make label available to widget to disable it to
-		}
+		if(widget->optBox)
+			widget->optBox->setChecked(isUser);
+		if(isUser)
+			widget->group->setActive(true);
+		if(!data.isNull())
+			widget->setValue(data);
+		else
+			widget->resetValue();
 		if(d->currentMax == d->progressDialog->maximum()) {
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
@@ -274,9 +276,14 @@ void QSettingsDialogPrivate::startSaving(bool closeDown)
 														QString(),
 														1000);
 	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
-		QVariant value = it.value()->getValue();
-		QMetaObject::invokeMethod(it.key(), "saveData", Qt::QueuedConnection,
-								  Q_ARG(QVariant, value));
+		if(!it.value()->group->isActivated() ||
+		   it.value()->optBox && !it.value()->optBox->isChecked()) {
+			QMetaObject::invokeMethod(it.key(), "resetData", Qt::QueuedConnection);
+		} else {
+			QVariant value = it.value()->getValue();
+			QMetaObject::invokeMethod(it.key(), "saveData", Qt::QueuedConnection,
+									  Q_ARG(QVariant, value));
+		}
 	}
 }
 
@@ -326,6 +333,8 @@ void QSettingsDialogPrivate::startLoading()
 														false,
 														QString(),
 														1000);
-	foreach(QSettingsLoader *loader, this->entryMap.keys())
-		QMetaObject::invokeMethod(loader, "loadData", Qt::QueuedConnection);
+	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
+		it.value()->group->setActive(false);//TODO
+		QMetaObject::invokeMethod(it.key(), "loadData", Qt::QueuedConnection);
+	}
 }
