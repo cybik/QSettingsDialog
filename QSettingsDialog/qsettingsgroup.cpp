@@ -48,6 +48,12 @@ bool QSettingsGroup::isActivated() const
 		return true;
 }
 
+void QSettingsGroup::setActive(bool active)
+{
+	if(this->box && this->box->isCheckable())
+		this->box->setChecked(active);
+}
+
 QString QSettingsGroup::name() const
 {
 	if(this->box)
@@ -175,10 +181,4 @@ void QSettingsGroup::moveEntry(int from, int to)
 	this->layout->removeWidget(fieldWigdet);
 	layout->insertRow(to, labelWigdet, fieldWigdet);
 	this->entrs.move(from, to);
-}
-
-void QSettingsGroup::setActive(bool active)
-{
-	if(this->box && this->box->isCheckable())
-		this->box->setChecked(active);
 }

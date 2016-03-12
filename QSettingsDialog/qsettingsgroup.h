@@ -11,12 +11,11 @@ class QFormLayout;
 
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsGroup
 {
-	friend class QSettingsDialog;
-	friend class QSettingsDialogPrivate;
 	friend class QSettingsSection;
 
 public:
 	bool isActivated() const;
+	void setActive(bool active);
 
 	QString name() const;
 	bool isOptional() const;
@@ -53,8 +52,6 @@ private:
 	QSettingsGroup(QGroupBox *box, QSettingsDialogPrivate *priv);
 	QSettingsGroup(QWidget *widget, QSettingsDialogPrivate *priv);
 	~QSettingsGroup();
-
-	void setActive(bool active);
 };
 
 #endif // QSETTINGSGROUP_H

@@ -147,23 +147,27 @@ void QSettingsDialog::resetCategoryIconSize()
 	d->mainDialog->updateIconSize({size, size});
 }
 
-void QSettingsDialog::loadDone(const QVariant &data, bool isUser)
+void QSettingsDialog::loadDone(const QVariant &data, bool isUserEdited)
 {
 	Q_D(QSettingsDialog);
 	if(d->progressDialog) {
 		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
 		Q_ASSERT_X2(loader, "loadDone signal from wrong sender received");
 		d->progressDialog->setValue(++d->currentValue);
+
 		QSettingsWidgetBase *widget = d->entryMap.value(loader);
-		if(widget->optBox)
-			widget->optBox->setChecked(isUser);
-		if(isUser)
-			widget->group->setActive(true);
-		if(!data.isNull())
-			widget->setValue(data);
-		else
-			widget->resetValue();
+		if(widget) {
+			if(!data.isNull())
+				widget->setValue(data);
+			else
+				widget->resetValue();
+			widget->setLoadState(isUserEdited);
+		}
+
 		if(d->currentValue == d->progressDialog->maximum()) {
+			foreach(QSettingsWidgetBase *widget, d->entryMap)
+				widget->resetChanged();
+
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
 			d->mainDialog->setEditable(true);
@@ -178,6 +182,7 @@ void QSettingsDialog::saveDone(bool successfull)
 		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
 		Q_ASSERT_X2(loader, "saveDone signal from wrong sender received");
 		d->progressDialog->setValue(++d->currentValue);
+
 		if(!successfull) {
 			d->progressDialog->cancel();
 			d->progressDialog->deleteLater();
@@ -185,7 +190,14 @@ void QSettingsDialog::saveDone(bool successfull)
 			d->mainDialog->setEditable(true);
 			DialogMaster::critical(d->mainDialog,
 								   tr("Failed to save settings!"));
-		} else if(d->currentValue == d->progressDialog->maximum()) {
+			return;
+		}
+
+		QSettingsWidgetBase *widget = d->entryMap.value(loader);
+		if(widget)
+			widget->resetChanged();
+
+		if(d->currentValue == d->progressDialog->maximum()) {
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
 			d->mainDialog->setEditable(true);
@@ -202,6 +214,7 @@ void QSettingsDialog::resetDone(bool successfull)
 		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
 		Q_ASSERT_X2(loader, "resetDone signal from wrong sender received");
 		d->progressDialog->setValue(++d->currentValue);
+
 		if(!successfull) {
 			d->progressDialog->cancel();
 			d->progressDialog->deleteLater();
@@ -209,7 +222,14 @@ void QSettingsDialog::resetDone(bool successfull)
 			d->mainDialog->setEditable(true);
 			DialogMaster::critical(d->mainDialog,
 								   tr("Failed to restore default settings!"));
-		} else if(d->currentValue == d->progressDialog->maximum()) {
+			return;
+		}
+
+		QSettingsWidgetBase *widget = d->entryMap.value(loader);
+		if(widget)
+			widget->resetChanged();
+
+		if(d->currentValue == d->progressDialog->maximum()) {
 			d->progressDialog->deleteLater();
 			d->progressDialog = Q_NULLPTR;
 			d->mainDialog->setEditable(true);
@@ -222,7 +242,7 @@ void QSettingsDialog::resetDone(bool successfull)
 void QSettingsDialog::progressCanceled()
 {
 	Q_D(QSettingsDialog);
-	if(d->progressDialog) {
+	if(d->progressDialog) {//TODO proper canceling...
 		d->progressDialog->deleteLater();
 		d->progressDialog = Q_NULLPTR;
 		d->discard();
@@ -291,15 +311,16 @@ void QSettingsDialogPrivate::startSaving(bool closeDown)
 
 	int max = 0;
 	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
-		if(!it.value()->group->isActivated() ||
-		   it.value()->optBox && !it.value()->optBox->isChecked()) {
-			max++;
-			QMetaObject::invokeMethod(it.key(), "resetData", Qt::QueuedConnection);
-		} else if(it.value()->hasValueChanged()) {//TODO make work for reset too
-			max++;
-			QVariant value = it.value()->getValue();
-			QMetaObject::invokeMethod(it.key(), "saveData", Qt::QueuedConnection,
-									  Q_ARG(QVariant, value));
+		if(it.value()->hasChanges()) {
+			if(it.value()->isActive()) {
+				max++;
+				QVariant value = it.value()->getValue();
+				QMetaObject::invokeMethod(it.key(), "saveData", Qt::QueuedConnection,
+										  Q_ARG(QVariant, value));
+			} else {
+				max++;
+				QMetaObject::invokeMethod(it.key(), "resetData", Qt::QueuedConnection);
+			}
 		}
 	}
 
@@ -364,7 +385,7 @@ void QSettingsDialogPrivate::startLoading()
 					 q, &QSettingsDialog::progressCanceled,
 					 Qt::QueuedConnection);
 	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
-		it.value()->group->setActive(false);//TODO ineffective
+		it.value()->group->setActive(false);
 		QMetaObject::invokeMethod(it.key(), "loadData", Qt::QueuedConnection);
 	}
 }

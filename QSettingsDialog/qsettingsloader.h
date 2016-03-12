@@ -16,7 +16,7 @@ public slots:
 	virtual void resetData() = 0;
 
 signals:
-	void loadDone(const QVariant &data, bool isUser = true);
+	void loadDone(const QVariant &data, bool isUserEdited = true);
 	void saveDone(bool successfull);
 	void resetDone(bool successfull);
 };

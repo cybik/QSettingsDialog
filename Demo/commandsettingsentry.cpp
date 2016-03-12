@@ -10,16 +10,17 @@ public:
 	bool hasValueChanged() const Q_DECL_OVERRIDE {
 		return isModified();
 	}
+	void resetValueChanged() Q_DECL_OVERRIDE {
+		setModified(false);
+	}
 	void setValue(const QVariant &value) Q_DECL_OVERRIDE {
 		setText(value.toString());
-		setModified(false);
 	}
 	QVariant getValue() Q_DECL_OVERRIDE {
 		return text();
 	}
 	void resetValue() Q_DECL_OVERRIDE {
 		clear();
-		setModified(false);
 	}
 };
 

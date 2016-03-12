@@ -19,7 +19,8 @@ SOURCES += \
     displaydialog.cpp \
     qsettingssection.cpp \
     qsettingsgroup.cpp \
-    qsettingsloader.cpp
+    qsettingsloader.cpp \
+    qsettingswidget.cpp
 
 HEADERS += qsettingsdialog_global.h \
 	qsettingsdialog.h \
