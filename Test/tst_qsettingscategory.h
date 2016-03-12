@@ -2,7 +2,7 @@
 #define QSETTINGSCATEGORYTEST_H
 
 #include <QObject>
-#include "qsettingscategory.h"
+#include "qsettingsdialog.h"
 
 class QSettingsCategoryTest : public QObject
 {
@@ -28,12 +28,20 @@ private slots:
 	void testSectionsPositons2_data();
 	void testSectionsPositons2();
 
+	void testSectionsTransfer_data();
+	void testSectionsTransfer();
+
+	void testSectionsPositons3_data();
+	void testSectionsPositons3();
+
 	void testSectionsDelete_data();
 	void testSectionsDelete();
 
 private:
 	const bool withDefault;
+	QSettingsDialog *dialog;
 	QSettingsCategory *category;
+	QSettingsCategory *transCat;
 
 	QHash<QString, QSettingsSection*> sectMap;
 };

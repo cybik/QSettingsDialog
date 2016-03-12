@@ -39,6 +39,7 @@ public:
 	bool deleteSection(QSettingsSection *section);
 
 	void moveSection(int from, int to);
+	void transferSection(int from, QSettingsCategory *target, int to);
 
 	QSettingsSection *defaultSection();
 	QSettingsGroup *defaultGroup();

@@ -119,6 +119,26 @@ void QSettingsCategory::moveSection(int from, int to)
 	this->updateSectIndexes();
 }
 
+void QSettingsCategory::transferSection(int from, QSettingsCategory *target, int to)
+{
+	Q_ASSERT_X2(target->priv == this->priv, "you can't move a section to another dialog");
+	Q_ASSERT_X2(from >= 0 && from < this->sects.size(), "index out of range");
+	Q_ASSERT_X2(to >= 0 && to <= target->sects.size(), "index out of range");
+
+	QSettingsSection * const section = this->sects.takeAt(from);
+	const QString name = section->name();
+	const QIcon icon = section->icon();
+	QWidget * const content = this->contentWidget->widget(TEST_DEFAULT(from));
+	this->contentWidget->removeTab(TEST_DEFAULT(from));
+	this->updateSectIndexes();
+
+	target->contentWidget->insertTab((target->defaultSect ? (to + 1) : to),
+									 content, icon, name);
+	section->tabBar = target->contentWidget->tabBar();
+	target->sects.insert(to, section);
+	target->updateSectIndexes();
+}
+
 QSettingsSection *QSettingsCategory::defaultSection()
 {
 	if(!this->defaultSect) {
