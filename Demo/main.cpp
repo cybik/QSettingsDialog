@@ -73,11 +73,16 @@ int main(int argc, char *argv[])
 	grp2->addEntry(new CommandSettingsEntry("Test5", false));
 	grp3->addEntry(new CommandSettingsEntry("Test5", false));
 
-	return dialog.execDialog();
+	if(dialog.execDialog() == 0)
+		return 1;
+	if(dialog.execDialog() == 0)
+		return 1;
+	if(dialog.execDialog() == 0)
+		return 1;
 
 //	QDirIterator it(":/", QDirIterator::Subdirectories);
 //	while(it.hasNext())
 //		qDebug(qPrintable(it.next()));
 
-	return a.exec();
+	return 0;
 }
