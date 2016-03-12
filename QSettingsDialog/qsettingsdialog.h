@@ -47,6 +47,11 @@ public slots:
 protected:
 	void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 
+private slots:
+	inline void accept() Q_DECL_FINAL {QDialog::accept();}
+	inline void reject() Q_DECL_FINAL {QDialog::reject();}
+	inline void done(int result) Q_DECL_FINAL {QDialog::done(result);}
+
 private:
 	QSettingsDialogPrivate *d_ptr;
 	Q_DECLARE_PRIVATE(QSettingsDialog)
