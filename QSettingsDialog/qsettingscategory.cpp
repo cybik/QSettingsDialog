@@ -121,7 +121,8 @@ void QSettingsCategory::moveSection(int from, int to)
 
 void QSettingsCategory::transferSection(int from, QSettingsCategory *target, int to)
 {
-	Q_ASSERT_X2(target->priv == this->priv, "you can't move a section to another dialog");
+	Q_ASSERT_X2(target != this, "you can't transfer a section to it's origin. Use moveSection instead");
+	Q_ASSERT_X2(target->priv == this->priv, "you can't transfer a section to another dialog");
 	Q_ASSERT_X2(from >= 0 && from < this->sects.size(), "index out of range");
 	Q_ASSERT_X2(to >= 0 && to <= target->sects.size(), "index out of range");
 

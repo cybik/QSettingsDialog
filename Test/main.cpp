@@ -4,6 +4,7 @@
 
 #include "tst_qsettingsdialog.h"
 #include "tst_qsettingscategory.h"
+#include "tst_qsettingssection.h"
 
 QT_BEGIN_NAMESPACE
 QTEST_ADD_GPU_BLACKLIST_SUPPORT_DEFS
@@ -21,7 +22,9 @@ int main(int argc, char *argv[])
 		{new QSettingsDialogTest(false), 0},
 		{new QSettingsDialogTest(true), 0},
 		{new QSettingsCategoryTest(false), 0},
-		{new QSettingsCategoryTest(true), 0}
+		{new QSettingsCategoryTest(true), 0},
+		{new QSettingsSectionTest(false), 0},
+		{new QSettingsSectionTest(true), 0}
 	};
 
 	foreach(QObject *testObject, testObjects.keys()) {

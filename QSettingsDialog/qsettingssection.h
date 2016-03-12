@@ -21,6 +21,7 @@ public:
 	void setIcon(const QIcon &icon);
 
 	QList<QSettingsGroup*> groups(bool includeDefault = false) const;
+	int groupCount() const;
 	QSettingsGroup *groupAt(int index) const;
 	int groupIndex(QSettingsGroup *group) const;
 
@@ -33,8 +34,10 @@ public:
 	bool deleteGroup(QSettingsGroup *group);
 
 	void moveGroup(int from, int to);
+	void transferGroup(int from, QSettingsSection *target, int to);
 
 	QSettingsGroup *defaultGroup();
+	bool hasDefaultGroup() const;
 
 private:
 	QSettingsDialogPrivate *priv;

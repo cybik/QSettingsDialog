@@ -16,13 +16,15 @@ TEMPLATE = app
 SOURCES += \
     main.cpp \
     tst_qsettingsdialog.cpp \
-    tst_qsettingscategory.cpp
+    tst_qsettingscategory.cpp \
+    tst_qsettingssection.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
     tst_qsettingsdialog.h \
     testglobal.h \
-    tst_qsettingscategory.h
+    tst_qsettingscategory.h \
+    tst_qsettingssection.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QSettingsDialog/release/ -lQSettingsDialog
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QSettingsDialog/debug/ -lQSettingsDialog

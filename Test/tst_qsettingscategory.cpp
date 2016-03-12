@@ -1,7 +1,7 @@
 #include "tst_qsettingscategory.h"
 #include "testglobal.h"
-#include "qsettingssection.h"
 #include "qsettingscategory.h"
+#include "qsettingssection.h"
 
 #define SEC(name) this->sectMap[name]
 
@@ -10,6 +10,7 @@ QSettingsCategoryTest::QSettingsCategoryTest(bool withDefault, QObject *parent) 
 	dialog(Q_NULLPTR),
 	withDefault(withDefault),
 	category(Q_NULLPTR),
+	transCat(Q_NULLPTR),
 	sectMap()
 {}
 
