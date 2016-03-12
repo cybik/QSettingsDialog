@@ -16,17 +16,16 @@ DEFINES += QSETTINGSDIALOG_LIBRARY
 SOURCES += \
 	qsettingsdialog.cpp \
     qsettingscategory.cpp \
-    displaydialog.cpp \
     qsettingssection.cpp \
     qsettingsgroup.cpp \
     qsettingsloader.cpp \
-    qsettingswidget.cpp
+    qsettingswidget.cpp \
+    qsettingsdialog_p.cpp
 
 HEADERS += qsettingsdialog_global.h \
 	qsettingsdialog.h \
     qsettingsdialog_p.h \
     qsettingscategory.h \
-    displaydialog.h \
     qsettingssection.h \
     qsettingsgroup.h \
     qsettingsentry.h \
@@ -39,7 +38,7 @@ unix {
 }
 
 FORMS += \
-    displaydialog.ui
+    qsettingsdialog.ui
 
 RESOURCES += \
     qsettingsdialog_res.qrc

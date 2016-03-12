@@ -2,7 +2,6 @@
 #define QSETTINGSDIALOG_P_H
 
 #include "qsettingsdialog.h"
-#include "displaydialog.h"
 #include "qsettingscategory.h"
 #include "qsettingsgroup.h"
 #include "qsettingsentry.h"
@@ -10,8 +9,14 @@
 #include <QHash>
 #include <QProgressDialog>
 #include <QSignalMapper>
+class QAbstractButton;
 
-class QSettingsDialogPrivate
+namespace Ui {
+	class QSettingsDialog;
+}
+class CategoryItemDelegate;
+
+class QSettingsDialogPrivate : public QObject
 {
 public:
 	~QSettingsDialogPrivate();
@@ -22,6 +27,17 @@ public:
 	void startSaving(bool closeDown);
 	void discard();
 	void reset();
+
+private slots:
+	void loadDone(const QVariant &data, bool isUser);
+	void saveDone(bool successfull);
+	void resetDone(bool successfull);
+	void progressCanceled();
+
+	void resetListSize();
+	void updateWidth(int width);
+
+	void buttonBoxClicked(QAbstractButton *button);
 
 private:
 	typedef QHash<QSettingsLoader*, QSettingsWidgetBase*>::const_iterator const_iter;
@@ -35,9 +51,14 @@ private:
 
 	void startLoading();
 
-	DisplayDialog *mainDialog;
+	void setEditable(bool editable);
+
 	QSettingsCategory *defaultCategory;
 	QList<QSettingsCategory*> categories;
+
+	Ui::QSettingsDialog *ui;
+	CategoryItemDelegate *delegate;
+	int maxWidthBase;
 
 	QProgressDialog *progressDialog;
 	int currentValue;

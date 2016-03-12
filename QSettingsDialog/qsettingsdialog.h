@@ -2,15 +2,14 @@
 #define QSETTINGSDIALOG_H
 
 #include "qsettingsdialog_global.h"
-#include <QObject>
-#include <QScopedPointer>
+#include <QDialog>
 #include <QIcon>
 class QSettingsCategory;
 class QSettingsSection;
 class QSettingsGroup;
 
 class QSettingsDialogPrivate;
-class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
+class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QDialog
 {
 	Q_OBJECT
 	Q_DISABLE_COPY(QSettingsDialog)
@@ -18,7 +17,7 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
 	Q_PROPERTY(QSize categoryIconSize READ categoryIconSize WRITE setCategoryIconSize RESET resetCategoryIconSize)
 
 public:
-	QSettingsDialog(QObject *parent = Q_NULLPTR);
+	QSettingsDialog(QWidget *parent = Q_NULLPTR);
 	~QSettingsDialog();
 
 	QList<QSettingsCategory*> categories(bool includeDefault = false) const;
@@ -42,20 +41,14 @@ public:
 	QSize categoryIconSize() const;
 
 public slots:
-	void showDialog();
-	int execDialog();
-
 	void setCategoryIconSize(QSize categoryIconSize);
 	void resetCategoryIconSize();
 
-private slots:
-	void loadDone(const QVariant &data, bool isUser);
-	void saveDone(bool successfull);
-	void resetDone(bool successfull);
-	void progressCanceled();
+protected:
+	void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 
 private:
-	QScopedPointer<QSettingsDialogPrivate> d_ptr;
+	QSettingsDialogPrivate *d_ptr;
 	Q_DECLARE_PRIVATE(QSettingsDialog)
 };
 

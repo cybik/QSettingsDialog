@@ -1,13 +1,12 @@
 #include "qsettingsdialog.h"
 #include "qsettingsdialog_p.h"
-#include <QListWidgetItem>
-#include <dialogmaster.h>
+#include "ui_qsettingsdialog.h"
 #include "qsettingssection.h"
 
 #define TEST_DEFAULT(index) (d->defaultCategory ? (index + 1) : (index))
 
-QSettingsDialog::QSettingsDialog(QObject *parent) :
-	QObject(parent),
+QSettingsDialog::QSettingsDialog(QWidget *parent) :
+	QDialog(parent),
 	d_ptr(new QSettingsDialogPrivate(this))
 {
 	this->resetCategoryIconSize();
@@ -63,7 +62,13 @@ void QSettingsDialog::deleteCategory(int index)
 {
 	Q_D(QSettingsDialog);
 	Q_ASSERT_X2(index >= 0 && index < d->categories.size(), "index out of range");
-	d->mainDialog->deleteItem(TEST_DEFAULT(index));
+
+	QWidget *w = d->ui->contentStackWidget->widget(TEST_DEFAULT(index));
+	d->ui->contentStackWidget->removeWidget(w);
+	w->deleteLater();
+	delete d->ui->categoryListWidget->item(TEST_DEFAULT(index));
+	d->resetListSize();
+
 	delete d->categories.takeAt(index);
 }
 
@@ -84,7 +89,12 @@ void QSettingsDialog::moveCategory(int from, int to)
 	Q_ASSERT_X2(from >= 0 && from < d->categories.size(), "index out of range");
 	Q_ASSERT_X2(to >= 0 && to < d->categories.size(), "index out of range");
 	d->categories.move(from, to);
-	d->mainDialog->moveItem(TEST_DEFAULT(from), TEST_DEFAULT(to));
+
+	QWidget *w = d->ui->contentStackWidget->widget(TEST_DEFAULT(from));
+	d->ui->contentStackWidget->removeWidget(w);
+	d->ui->contentStackWidget->insertWidget(TEST_DEFAULT(to), w);
+	QListWidgetItem *item = d->ui->categoryListWidget->takeItem(TEST_DEFAULT(from));
+	d->ui->categoryListWidget->insertItem(TEST_DEFAULT(to), item);
 }
 
 QSettingsCategory *QSettingsDialog::defaultCategory()
@@ -117,275 +127,32 @@ bool QSettingsDialog::hasDefaultCategory() const
 QSize QSettingsDialog::categoryIconSize() const
 {
 	const Q_D(QSettingsDialog);
-	return d->mainDialog->iconSize();
-}
-
-void QSettingsDialog::showDialog()
-{
-	Q_D(QSettingsDialog);
-	d->startLoading();
-	d->mainDialog->open();
-}
-
-int QSettingsDialog::execDialog()
-{
-	Q_D(QSettingsDialog);
-	d->startLoading();
-	return d->mainDialog->exec();
+	return d->ui->categoryListWidget->iconSize();
 }
 
 void QSettingsDialog::setCategoryIconSize(QSize categoryIconSize)
 {
 	Q_D(QSettingsDialog);
-	d->mainDialog->updateIconSize(categoryIconSize);
+	d->ui->categoryListWidget->setIconSize(categoryIconSize);
 }
 
 void QSettingsDialog::resetCategoryIconSize()
 {
 	Q_D(QSettingsDialog);
-	int size = d->mainDialog->style()->pixelMetric(QStyle::PM_LargeIconSize);
-	d->mainDialog->updateIconSize({size, size});
+	int size = this->style()->pixelMetric(QStyle::PM_LargeIconSize);
+	d->ui->categoryListWidget->setIconSize({size, size});
 }
 
-void QSettingsDialog::loadDone(const QVariant &data, bool isUserEdited)
+void QSettingsDialog::showEvent(QShowEvent *event)
 {
 	Q_D(QSettingsDialog);
-	if(d->progressDialog) {
-		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
-		Q_ASSERT_X2(loader, "loadDone signal from wrong sender received");
-		d->progressDialog->setValue(++d->currentValue);
+	d->startLoading();
 
-		QSettingsWidgetBase *widget = d->entryMap.value(loader);
-		if(widget) {
-			if(!data.isNull())
-				widget->setValue(data);
-			else
-				widget->resetValue();
-			widget->setLoadState(isUserEdited);
-		}
-
-		if(d->currentValue == d->progressDialog->maximum()) {
-			foreach(QSettingsWidgetBase *widget, d->entryMap)
-				widget->resetChanged();
-
-			d->progressDialog->deleteLater();
-			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEditable(true);
-		}
+	d->ui->categoryListWidget->setCurrentItem(d->ui->categoryListWidget->item(0));
+	for(int i = 0, max = d->ui->contentStackWidget->count(); i < max; ++i) {
+		QTabWidget *tab = qobject_cast<QTabWidget*>(d->ui->contentStackWidget->widget(i));
+		if(tab)
+			tab->setCurrentIndex(0);
 	}
-}
-
-void QSettingsDialog::saveDone(bool successfull)
-{
-	Q_D(QSettingsDialog);
-	if(d->progressDialog) {
-		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
-		Q_ASSERT_X2(loader, "saveDone signal from wrong sender received");
-		d->progressDialog->setValue(++d->currentValue);
-
-		if(!successfull) {
-			d->progressDialog->cancel();
-			d->progressDialog->deleteLater();
-			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEditable(true);
-			DialogMaster::critical(d->mainDialog,
-								   tr("Failed to save settings!"));
-			return;
-		}
-
-		QSettingsWidgetBase *widget = d->entryMap.value(loader);
-		if(widget)
-			widget->resetChanged();
-
-		if(d->currentValue == d->progressDialog->maximum()) {
-			d->progressDialog->deleteLater();
-			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEditable(true);
-			if(d->closeDown)
-				d->mainDialog->accept();
-		}
-	}
-}
-
-void QSettingsDialog::resetDone(bool successfull)
-{
-	Q_D(QSettingsDialog);
-	if(d->progressDialog) {
-		QSettingsLoader *loader = qobject_cast<QSettingsLoader*>(QObject::sender());
-		Q_ASSERT_X2(loader, "resetDone signal from wrong sender received");
-		d->progressDialog->setValue(++d->currentValue);
-
-		if(!successfull) {
-			d->progressDialog->cancel();
-			d->progressDialog->deleteLater();
-			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEditable(true);
-			DialogMaster::critical(d->mainDialog,
-								   tr("Failed to restore default settings!"));
-			return;
-		}
-
-		QSettingsWidgetBase *widget = d->entryMap.value(loader);
-		if(widget)
-			widget->resetChanged();
-
-		if(d->currentValue == d->progressDialog->maximum()) {
-			d->progressDialog->deleteLater();
-			d->progressDialog = Q_NULLPTR;
-			d->mainDialog->setEditable(true);
-			if(d->closeDown)
-				d->mainDialog->accept();
-		}
-	}
-}
-
-void QSettingsDialog::progressCanceled()
-{
-	Q_D(QSettingsDialog);
-	if(d->progressDialog) {//TODO proper canceling...
-		d->progressDialog->deleteLater();
-		d->progressDialog = Q_NULLPTR;
-		d->discard();
-		d->mainDialog->reject();
-	}
-}
-
-// ------------------------- PRIVATE IMPLEMENTATION -------------------------
-
-QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
-	q_ptr(q_ptr),
-	mainDialog(new DisplayDialog(this, Q_NULLPTR)),
-	defaultCategory(Q_NULLPTR),
-	categories(),
-	progressDialog(Q_NULLPTR),
-	currentValue(0),
-	closeDown(false),
-	entryMap()
-{}
-
-QSettingsDialogPrivate::~QSettingsDialogPrivate()
-{
-	delete this->defaultCategory;
-	foreach (QSettingsCategory *cat, this->categories)
-		delete cat;
-	Q_ASSERT_X2(this->entryMap.isEmpty(), "Some entries have not been unloaded properly");
-}
-
-void QSettingsDialogPrivate::addSettingsEntry(QSettingsEntry *entry, QSettingsWidgetBase *widget)
-{
-	Q_Q(QSettingsDialog);
-	QSettingsLoader *loader = entry->getLoader();
-	Q_ASSERT_X2(loader, "loader with NULL-value passed");
-	QObject::connect(loader, &QSettingsLoader::loadDone,
-					 q, &QSettingsDialog::loadDone,
-					 Qt::QueuedConnection);
-	QObject::connect(loader, &QSettingsLoader::saveDone,
-					 q, &QSettingsDialog::saveDone,
-					 Qt::QueuedConnection);
-	QObject::connect(loader, &QSettingsLoader::resetDone,
-					 q, &QSettingsDialog::resetDone,
-					 Qt::QueuedConnection);
-	this->entryMap.insert(loader, widget);
-}
-
-void QSettingsDialogPrivate::removeSettingsEntry(QSettingsEntry *entry)
-{
-	Q_Q(QSettingsDialog);
-	QSettingsLoader *loader = entry->getLoader();
-	Q_ASSERT_X2(loader, "loader with NULL-value passed");
-	QObject::disconnect(loader, &QSettingsLoader::loadDone,
-						q, &QSettingsDialog::loadDone);
-	QObject::disconnect(loader, &QSettingsLoader::saveDone,
-						q, &QSettingsDialog::saveDone);
-	QObject::disconnect(loader, &QSettingsLoader::resetDone,
-						q, &QSettingsDialog::resetDone);
-	this->entryMap.remove(loader);
-}
-
-void QSettingsDialogPrivate::startSaving(bool closeDown)
-{
-	Q_Q(QSettingsDialog);
-	this->closeDown = closeDown;
-	this->currentValue = 0;
-	this->mainDialog->setEditable(false);
-
-	int max = 0;
-	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
-		if(it.value()->hasChanges()) {
-			if(it.value()->isActive()) {
-				max++;
-				QVariant value = it.value()->getValue();
-				QMetaObject::invokeMethod(it.key(), "saveData", Qt::QueuedConnection,
-										  Q_ARG(QVariant, value));
-			} else {
-				max++;
-				QMetaObject::invokeMethod(it.key(), "resetData", Qt::QueuedConnection);
-			}
-		}
-	}
-
-	if(max == 0) {
-		this->mainDialog->setEditable(true);
-		if(this->closeDown)
-			this->mainDialog->accept();
-	} else {
-		this->progressDialog = DialogMaster::createProgress(this->mainDialog,
-															QSettingsDialog::tr("Saving settings…"),
-															max);
-		QObject::connect(this->progressDialog, &QProgressDialog::canceled,
-						 q, &QSettingsDialog::progressCanceled,
-						 Qt::QueuedConnection);
-	}
-}
-
-void QSettingsDialogPrivate::discard()
-{
-	foreach(QSettingsWidgetBase *widget, this->entryMap)
-		widget->resetValue();
-}
-
-void QSettingsDialogPrivate::reset()
-{
-	Q_Q(QSettingsDialog);
-	this->closeDown = true;
-	this->currentValue = 0;
-	this->mainDialog->setEditable(false);
-	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
-														QSettingsDialog::tr("Restoring defaults…"),
-														this->entryMap.size());
-	QObject::connect(this->progressDialog, &QProgressDialog::canceled,
-					 q, &QSettingsDialog::progressCanceled,
-					 Qt::QueuedConnection);
-	foreach(QSettingsLoader *loader, this->entryMap.keys())
-		QMetaObject::invokeMethod(loader, "resetData", Qt::QueuedConnection);
-}
-
-QSettingsCategory *QSettingsDialogPrivate::createCategory(int index, const QString &name, const QIcon &icon, const QString &toolTip)
-{
-	QListWidgetItem *item = new QListWidgetItem();
-	item->setText(name);
-	item->setIcon(icon);
-	item->setToolTip(toolTip.isNull() ? name : toolTip);
-	QTabWidget *tab = new QTabWidget();
-	tab->setTabBarAutoHide(true);
-
-	this->mainDialog->insertItem(index, item, tab);
-	return new QSettingsCategory(item, !toolTip.isNull(), tab, this);
-}
-
-void QSettingsDialogPrivate::startLoading()
-{
-	Q_Q(QSettingsDialog);
-	this->currentValue = 0;
-	this->mainDialog->setEditable(false);
-	this->progressDialog = DialogMaster::createProgress(this->mainDialog,
-														QSettingsDialog::tr("Loading settings…"),
-														this->entryMap.size());
-	QObject::connect(this->progressDialog, &QProgressDialog::canceled,
-					 q, &QSettingsDialog::progressCanceled,
-					 Qt::QueuedConnection);
-	for(const_iter it = this->entryMap.constBegin(), end = this->entryMap.constEnd(); it != end; ++it) {
-		it.value()->group->setActive(false);
-		QMetaObject::invokeMethod(it.key(), "loadData", Qt::QueuedConnection);
-	}
+	this->QDialog::showEvent(event);
 }

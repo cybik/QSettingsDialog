@@ -14,7 +14,7 @@ QSettingsCategoryTest::QSettingsCategoryTest(bool withDefault, QObject *parent) 
 
 void QSettingsCategoryTest::initTestCase()
 {
-	this->category = (new QSettingsDialog(this))->defaultCategory();
+	this->category = (new QSettingsDialog(Q_NULLPTR))->defaultCategory();
 	if(this->withDefault)
 		this->category->defaultSection();
 }

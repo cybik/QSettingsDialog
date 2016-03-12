@@ -13,7 +13,7 @@ QSettingsDialogTest::QSettingsDialogTest(bool withDefault, QObject *parent) :
 
 void QSettingsDialogTest::initTestCase()
 {
-	this->dialog = new QSettingsDialog(this);
+	this->dialog = new QSettingsDialog(Q_NULLPTR);
 	if(this->withDefault)
 		this->dialog->defaultCategory();
 }
