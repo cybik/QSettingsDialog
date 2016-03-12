@@ -24,38 +24,12 @@ public:
 	}
 };
 
-class PseudoLoader : public QSettingsLoader
-{
-public:
-	PseudoLoader(QVariant value) :
-		value(value),
-		origVal(value),
-		mod(false)
-	{}
-public slots:
-	void loadData() Q_DECL_OVERRIDE {
-		emit loadDone(value, mod);
-	}
-	void saveData(const QVariant &data) Q_DECL_OVERRIDE {
-		value = data;
-		mod = true;
-		emit saveDone(true);
-	}
-	void resetData() Q_DECL_OVERRIDE {
-		value = origVal;
-		mod = false;
-		emit resetDone(true);
-	}
-private:
-	QVariant value;
-	QVariant origVal;
-	bool mod;
-};
-
 CommandSettingsEntry::CommandSettingsEntry(QString name, bool optional) :
 	name(name),
 	optional(optional),
-	loader(new PseudoLoader("test"))
+	value("test"),
+	origVal("test"),
+	mod(false)
 {}
 
 QString CommandSettingsEntry::entryName() const
@@ -73,7 +47,20 @@ QSettingsWidgetBase *CommandSettingsEntry::createWidget(QWidget *parent)
 	return new QSettingsLineEdit(parent);
 }
 
-QSettingsLoader *CommandSettingsEntry::getLoader() const
+void CommandSettingsEntry::loadData() {
+	emit loadDone(value, mod);
+}
+
+void CommandSettingsEntry::saveData(const QVariant &data)
 {
-	return loader;
+	value = data;
+	mod = true;
+	emit saveDone(true);
+}
+
+void CommandSettingsEntry::resetData()
+{
+	value = origVal;
+	mod = false;
+	emit resetDone(true);
 }

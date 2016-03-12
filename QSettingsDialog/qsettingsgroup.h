@@ -24,6 +24,7 @@ public:
 	void setOptional(bool optional);
 
 	QList<QSettingsEntry*> entries() const;
+	int entryCount() const;
 	QSettingsEntry *entryAt(int index) const;
 	int entryIndex(QSettingsEntry *entry) const;
 
@@ -39,6 +40,7 @@ public:
 	bool deleteEntry(QSettingsEntry *entry);
 
 	void moveEntry(int from, int to);
+	void transferEntry(int from, QSettingsGroup *target, int to);
 
 private:
 	QSettingsDialogPrivate *priv;

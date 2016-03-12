@@ -20,7 +20,8 @@ SOURCES += \
     qsettingsgroup.cpp \
     qsettingsloader.cpp \
     qsettingswidget.cpp \
-    qsettingsdialog_p.cpp
+    qsettingsdialog_p.cpp \
+    qsettingsloaderentry.cpp
 
 HEADERS += qsettingsdialog_global.h \
 	qsettingsdialog.h \
@@ -30,7 +31,8 @@ HEADERS += qsettingsdialog_global.h \
     qsettingsgroup.h \
     qsettingsentry.h \
     qsettingsloader.h \
-    qsettingswidget.h
+    qsettingswidget.h \
+    qsettingsloaderentry.h
 
 unix {
     target.path = /usr/lib

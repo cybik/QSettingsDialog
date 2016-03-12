@@ -89,6 +89,11 @@ QList<QSettingsEntry *> QSettingsGroup::entries() const
 	return this->entrs;
 }
 
+int QSettingsGroup::entryCount() const
+{
+	return this->entrs.size();
+}
+
 QSettingsEntry *QSettingsGroup::entryAt(int index) const
 {
 	Q_ASSERT_X2(index >= 0 && index < this->entrs.size(), "index out of range");
@@ -181,4 +186,13 @@ void QSettingsGroup::moveEntry(int from, int to)
 	this->layout->removeWidget(fieldWigdet);
 	layout->insertRow(to, labelWigdet, fieldWigdet);
 	this->entrs.move(from, to);
+}
+
+void QSettingsGroup::transferEntry(int from, QSettingsGroup *target, int to)
+{
+	Q_ASSERT_X2(target != this, "you can't transfer an entry to it's origin. Use moveEntry instead");
+	Q_ASSERT_X2(target->priv == this->priv, "you can't transfer an entry to another dialog");
+	Q_ASSERT_X2(from >= 0 && from < this->entrs.size(), "index out of range");
+	Q_ASSERT_X2(to >= 0 && to <= this->entrs.size(), "index out of range");
+	target->insertEntry(to, this->takeEntry(from));
 }

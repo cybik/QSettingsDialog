@@ -1,10 +1,9 @@
 #ifndef COMMANDSETTINGSENTRY_H
 #define COMMANDSETTINGSENTRY_H
 
-#include "qsettingsentry.h"
-class PseudoLoader;
+#include "qsettingsloaderentry.h"
 
-class CommandSettingsEntry : public QSettingsEntry
+class CommandSettingsEntry : public QSettingsLoaderEntry
 {
 public:
 	CommandSettingsEntry(QString name = "Baum == 42", bool optional = true);
@@ -13,12 +12,18 @@ public:
 	QString entryName() const Q_DECL_OVERRIDE;
 	bool isOptional() const Q_DECL_OVERRIDE;
 	QSettingsWidgetBase *createWidget(QWidget *parent) Q_DECL_OVERRIDE;
-	QSettingsLoader *getLoader() const Q_DECL_OVERRIDE;
 
+public slots:
+	void loadData() Q_DECL_OVERRIDE;
+	void saveData(const QVariant &data) Q_DECL_OVERRIDE;
+	void resetData() Q_DECL_OVERRIDE;
 private:
 	QString name;
 	bool optional;
-	PseudoLoader *loader;
+
+	QVariant value;
+	QVariant origVal;
+	bool mod;
 };
 
 #endif // COMMANDSETTINGSENTRY_H

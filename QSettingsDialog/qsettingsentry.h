@@ -9,6 +9,7 @@
 class QSettingsEntry
 {
 public:
+	inline virtual ~QSettingsEntry() {}
 
 	virtual QString entryName() const = 0;
 	virtual bool isOptional() const = 0;
