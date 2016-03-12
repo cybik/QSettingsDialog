@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     commandsettingsentry.cpp
 
 HEADERS  += \
-    commandsettingsentry.h
+    commandsettingsentry.h \
+    typeloader.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QSettingsDialog/release/ -lQSettingsDialog
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QSettingsDialog/debug/ -lQSettingsDialog

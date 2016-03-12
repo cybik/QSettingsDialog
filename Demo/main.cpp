@@ -4,9 +4,11 @@
 #include "qsettingscategory.h"
 #include "qsettingssection.h"
 #include "qsettingsgroup.h"
+#include "qsettingsvariantentry.h"
 
 #include <QVariant>
 #include "commandsettingsentry.h"
+#include "typeloader.h"
 
 struct SomeType {};
 Q_DECLARE_METATYPE(SomeType)
@@ -72,6 +74,12 @@ int main(int argc, char *argv[])
 	grp2->addEntry(new CommandSettingsEntry("Test4"));
 	grp2->addEntry(new CommandSettingsEntry("Test5", false));
 	grp3->addEntry(new CommandSettingsEntry("Test5", false));
+
+	//type tests
+	QSettingsGroup *tGrp = dialog.defaultGroup();
+	tGrp->addEntry(new QSettingsVariantEntry("QString", false, new TypeLoader<QString>("default")));
+	tGrp->addEntry(new QSettingsVariantEntry("QByteArray", false, new TypeLoader<QByteArray>("default")));
+	tGrp->addEntry(new QSettingsVariantEntry("bool", false, new TypeLoader<bool>(true)));
 
 	if(dialog.exec() == 0)
 		return 1;

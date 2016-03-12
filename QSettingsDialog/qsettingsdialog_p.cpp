@@ -2,27 +2,8 @@
 #include "qsettingsdialog_p.h"
 #include "ui_qsettingsdialog.h"
 #include <QListWidgetItem>
-#include <QStyledItemDelegate>
 #include <QtMath>
-#include <functional>
 #include <dialogmaster.h>
-
-
-class CategoryItemDelegate : public QStyledItemDelegate
-{
-public:
-	CategoryItemDelegate(std::function<void(int)> updateFunc, int layoutSpacing, QObject *parent = Q_NULLPTR);
-
-	void setIconSize(const QSize &size);
-
-	QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
-private:
-	int spacing;
-	QSize extendSize;
-	std::function<void(int)> updateFunc;
-};
-
-
 
 QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
 	QObject(q_ptr),

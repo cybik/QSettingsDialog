@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += widgets
+CONFIG *= C++11
 
 TARGET = QSettingsDialog
 TEMPLATE = lib
@@ -21,7 +22,8 @@ SOURCES += \
     qsettingsloader.cpp \
     qsettingswidget.cpp \
     qsettingsdialog_p.cpp \
-    qsettingsloaderentry.cpp
+    qsettingsloaderentry.cpp \
+    qsettingsvariantentry.cpp
 
 HEADERS += qsettingsdialog_global.h \
 	qsettingsdialog.h \
@@ -32,15 +34,14 @@ HEADERS += qsettingsdialog_global.h \
     qsettingsentry.h \
     qsettingsloader.h \
     qsettingswidget.h \
-    qsettingsloaderentry.h
-
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}
+    qsettingsloaderentry.h \
+    qsettingsvariantentry.h \
+	qsettingsvariantentry_p.h
 
 FORMS += \
     qsettingsdialog.ui
 
 RESOURCES += \
     qsettingsdialog_res.qrc
+
+include(./standardSettingsWidgets/standardSettingsWidgets.pri)

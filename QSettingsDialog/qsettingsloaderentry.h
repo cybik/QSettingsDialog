@@ -10,7 +10,7 @@ public:
 	QSettingsLoaderEntry();
 
 	// QSettingsEntry interface
-	QSettingsLoader *getLoader() const Q_DECL_OVERRIDE;
+	QSettingsLoader *getLoader() const Q_DECL_FINAL;
 };
 
 #endif // QSETTINGSLOADERENTRY_H

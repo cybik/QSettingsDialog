@@ -9,12 +9,27 @@
 #include <QHash>
 #include <QProgressDialog>
 #include <QSignalMapper>
+#include <QStyledItemDelegate>
+#include <functional>
 class QAbstractButton;
 
 namespace Ui {
 	class QSettingsDialog;
 }
-class CategoryItemDelegate;
+
+class CategoryItemDelegate : public QStyledItemDelegate
+{
+public:
+	CategoryItemDelegate(std::function<void(int)> updateFunc, int layoutSpacing, QObject *parent = Q_NULLPTR);
+
+	void setIconSize(const QSize &size);
+
+	QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+private:
+	int spacing;
+	QSize extendSize;
+	std::function<void(int)> updateFunc;//TODO use signal/slot instead!
+};
 
 class QSettingsDialogPrivate : public QObject
 {
