@@ -96,10 +96,11 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY(unsigned short, 42));
 	tGrp->addEntry(CREATE_ENTRY(signed char, -42));
 	tGrp->addEntry(CREATE_ENTRY(unsigned char, 42));
-	tGrp->addEntry(CREATE_ENTRY(float, 666.13));
+	tGrp->addEntry(CREATE_ENTRY(float, 666.13f));
 	tGrp->addEntry(CREATE_ENTRY(QDate, QDate::currentDate()));
 	tGrp->addEntry(CREATE_ENTRY(QTime, QTime::currentTime()));
 	tGrp->addEntry(CREATE_ENTRY(QColor, Qt::darkCyan));
+	tGrp->addEntry(CREATE_ENTRY(QStringList, QStringList()));
 	tGrp->addEntry(CREATE_ENTRY(QDateTime, QDateTime::currentDateTime()));
 
 	if(dialog.exec() == 0)

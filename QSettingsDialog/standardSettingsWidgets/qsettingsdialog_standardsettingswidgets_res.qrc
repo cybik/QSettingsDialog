@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/QSettingsDialog/icons/standardSettingsWidgets">
+        <file alias="add.ico">resources/Fatcow-Farm-Fresh-Add.ico</file>
+        <file alias="moveDown.ico">resources/Fatcow-Farm-Fresh-Arrow-down.ico</file>
+        <file alias="moveUp.ico">resources/Fatcow-Farm-Fresh-Arrow-up.ico</file>
+        <file alias="delete.ico">resources/Fatcow-Farm-Fresh-Delete.ico</file>
+    </qresource>
+</RCC>

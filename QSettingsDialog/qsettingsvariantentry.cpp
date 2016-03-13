@@ -7,6 +7,7 @@
 #include "standardSettingsWidgets/settingsspinbox.h"
 #include "standardSettingsWidgets/settingsdatetimeedit.h"
 #include "standardSettingsWidgets/settingscoloredit.h"
+#include "standardSettingsWidgets/settingslistedit.h"
 
 QSettingsVariantEntry::QSettingsVariantEntry(const QString &entryName, bool isOptional, QSettingsVariantLoader *loader) :
 	QSettingsEntry(),
@@ -89,6 +90,7 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	this->factoryMap.insert(QMetaType::QDate, new GenericSettingsWidgetFactory<SettingsDateEdit>());
 	this->factoryMap.insert(QMetaType::QTime, new GenericSettingsWidgetFactory<SettingsTimeEdit>());
 	this->factoryMap.insert(QMetaType::QColor, new GenericSettingsWidgetFactory<SettingsColorEdit>());
+	this->factoryMap.insert(QMetaType::QStringList, new GenericSettingsWidgetFactory<SettingsListEditWidget>());
 	this->factoryMap.insert(QMetaType::QDateTime, new GenericSettingsWidgetFactory<SettingsDateTimeEdit>());
 }
 
