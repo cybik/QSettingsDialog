@@ -104,6 +104,7 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY(QStringList, QStringList()));
 	tGrp->addEntry(CREATE_ENTRY(QUrl, QUrl("http://google.de")));
 	tGrp->addEntry(CREATE_ENTRY(QDateTime, QDateTime::currentDateTime()));
+	tGrp->addEntry(CREATE_ENTRY(QFont, QApplication::font()));
 
 	if(dialog.exec() == 0)
 		return 1;

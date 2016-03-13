@@ -8,6 +8,7 @@
 #include "standardSettingsWidgets/settingsdatetimeedit.h"
 #include "standardSettingsWidgets/settingscoloredit.h"
 #include "standardSettingsWidgets/settingslistedit.h"
+#include "standardSettingsWidgets/settingsfontcombobox.h"
 
 QSettingsVariantEntry::QSettingsVariantEntry(const QString &entryName, bool isOptional, QSettingsVariantLoader *loader) :
 	QSettingsEntry(),
@@ -93,6 +94,7 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	this->factoryMap.insert(QMetaType::QStringList, new GenericSettingsWidgetFactory<SettingsListEditWidget>());
 	this->factoryMap.insert(QMetaType::QUrl, new GenericSettingsWidgetFactory<SettingsUrlLineEdit>());
 	this->factoryMap.insert(QMetaType::QDateTime, new GenericSettingsWidgetFactory<SettingsDateTimeEdit>());
+	this->factoryMap.insert(QMetaType::QFont, new GenericSettingsWidgetFactory<SettingsFontComboBox>());
 }
 
 QSettingsVariantWidgetProvider::~QSettingsVariantWidgetProvider()
