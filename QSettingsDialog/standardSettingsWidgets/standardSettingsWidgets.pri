@@ -1,5 +1,7 @@
 HEADERS += \
-    $$PWD/settingslineedit.h
+    $$PWD/settingslineedit.h \
+    $$PWD/settingscheckbox.h
 
 SOURCES += \
-    $$PWD/settingslineedit.cpp
+    $$PWD/settingslineedit.cpp \
+    $$PWD/settingscheckbox.cpp

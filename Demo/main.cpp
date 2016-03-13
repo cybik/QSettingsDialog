@@ -10,6 +10,9 @@
 #include "commandsettingsentry.h"
 #include "typeloader.h"
 
+#define CREATE_ENTRY(type, def) new QSettingsVariantEntry(#type, false, new TypeLoader<type>(def))
+#define CREATE_ENTRY_PARAM(type, def, ...)  new QSettingsVariantEntry(#type, false, new TypeLoader<type>(def, __VA_ARGS__))
+
 struct SomeType {};
 Q_DECLARE_METATYPE(SomeType)
 
@@ -77,9 +80,9 @@ int main(int argc, char *argv[])
 
 	//type tests
 	QSettingsGroup *tGrp = dialog.defaultGroup();
-	tGrp->addEntry(new QSettingsVariantEntry("QString", false, new TypeLoader<QString>("default", {{"placeholderText", "Baum == 42"}})));
-	tGrp->addEntry(new QSettingsVariantEntry("QByteArray", false, new TypeLoader<QByteArray>("default")));
-	tGrp->addEntry(new QSettingsVariantEntry("bool", false, new TypeLoader<bool>(true)));
+	tGrp->addEntry(CREATE_ENTRY_PARAM(QString, "default", {{"placeholderText", "Baum == 42"}}));
+	tGrp->addEntry(CREATE_ENTRY(QByteArray, "default"));
+	tGrp->addEntry(CREATE_ENTRY(bool, true));
 
 	if(dialog.exec() == 0)
 		return 1;

@@ -3,6 +3,7 @@
 #include <QGlobalStatic>
 
 #include "standardSettingsWidgets/settingslineedit.h"
+#include "standardSettingsWidgets/settingscheckbox.h"
 
 QSettingsVariantEntry::QSettingsVariantEntry(const QString &entryName, bool isOptional, QSettingsVariantLoader *loader) :
 	QSettingsEntry(),
@@ -68,6 +69,7 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 {
 	this->factoryMap.insert(QMetaType::QString, new GenericSettingsWidgetFactory<SettingsLineEdit>());
 	this->factoryMap.insert(QMetaType::QByteArray, new GenericSettingsWidgetFactory<SettingsLineEdit>());
+	this->factoryMap.insert(QMetaType::Bool, new GenericSettingsWidgetFactory<SettingsCheckBox>());
 }
 
 QSettingsVariantWidgetProvider::~QSettingsVariantWidgetProvider()
