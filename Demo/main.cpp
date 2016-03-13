@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY(bool, true));
 	tGrp->addEntry(CREATE_ENTRY(int, -42));
 	tGrp->addEntry(CREATE_ENTRY(unsigned int, 42));
+	tGrp->addEntry(CREATE_ENTRY(double, 666.13));
 
 	if(dialog.exec() == 0)
 		return 1;
