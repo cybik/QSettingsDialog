@@ -5,7 +5,7 @@
 #include "standardSettingsWidgets/settingslineedit.h"
 #include "standardSettingsWidgets/settingscheckbox.h"
 #include "standardSettingsWidgets/settingsspinbox.h"
-#include "standardSettingsWidgets/settingsdoublespinbox.h"
+#include "standardSettingsWidgets/settingsdatetimeedit.h"
 
 QSettingsVariantEntry::QSettingsVariantEntry(const QString &entryName, bool isOptional, QSettingsVariantLoader *loader) :
 	QSettingsEntry(),
@@ -85,6 +85,9 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	this->factoryMap.insert(QMetaType::SChar, new SpinBoxFactory(CHAR_MAX, CHAR_MIN));
 	this->factoryMap.insert(QMetaType::UChar, new SpinBoxFactory(UCHAR_MAX, 0));
 	this->factoryMap.insert(QMetaType::Float, new DoubleSpinBoxFactory(FLT_MAX, FLT_MIN));
+	this->factoryMap.insert(QMetaType::QDate, new GenericSettingsWidgetFactory<SettingsDateEdit>());
+	this->factoryMap.insert(QMetaType::QTime, new GenericSettingsWidgetFactory<SettingsTimeEdit>());
+	this->factoryMap.insert(QMetaType::QDateTime, new GenericSettingsWidgetFactory<SettingsDateTimeEdit>());
 }
 
 QSettingsVariantWidgetProvider::~QSettingsVariantWidgetProvider()
