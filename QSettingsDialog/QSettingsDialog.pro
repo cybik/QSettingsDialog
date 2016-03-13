@@ -11,6 +11,7 @@ TARGET = QSettingsDialog
 TEMPLATE = lib
 
 include(C:/C++Libraries/Qt/DialogMaster/dialogmaster.pri)
+include(C:/C++Libraries/Qt/QColorEdit/qcoloredit.pri)
 
 DEFINES += QSETTINGSDIALOG_LIBRARY
 
