@@ -8,6 +8,7 @@
 
 #include <QVariant>
 #include <QDateTime>
+#include <QUrl>
 #include "commandsettingsentry.h"
 #include "typeloader.h"
 
@@ -101,6 +102,7 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY(QTime, QTime::currentTime()));
 	tGrp->addEntry(CREATE_ENTRY(QColor, Qt::darkCyan));
 	tGrp->addEntry(CREATE_ENTRY(QStringList, QStringList()));
+	tGrp->addEntry(CREATE_ENTRY(QUrl, QUrl("http://google.de")));
 	tGrp->addEntry(CREATE_ENTRY(QDateTime, QDateTime::currentDateTime()));
 
 	if(dialog.exec() == 0)

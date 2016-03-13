@@ -2,6 +2,7 @@
 #include "qsettingsdialog_p.h"
 #include "ui_qsettingsdialog.h"
 #include <QListWidgetItem>
+#include <QPushButton>
 #include <QtMath>
 #include <dialogmaster.h>
 
@@ -22,6 +23,13 @@ QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
 	DialogMaster::masterDialog(this->q_ptr);
 	connect(this->ui->buttonBox, &QDialogButtonBox::clicked,
 			this, &QSettingsDialogPrivate::buttonBoxClicked);
+
+	foreach(QAbstractButton *button, this->ui->buttonBox->buttons()){
+		QPushButton *btn = dynamic_cast<QPushButton*>(button);
+		if(btn)
+			btn->setAutoDefault(false);
+	}
+	this->ui->buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
 	int listSpacing = this->q_ptr->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
 	this->delegate = new CategoryItemDelegate(std::bind(&QSettingsDialogPrivate::updateWidth, this, std::placeholders::_1),

@@ -91,6 +91,7 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	this->factoryMap.insert(QMetaType::QTime, new GenericSettingsWidgetFactory<SettingsTimeEdit>());
 	this->factoryMap.insert(QMetaType::QColor, new GenericSettingsWidgetFactory<SettingsColorEdit>());
 	this->factoryMap.insert(QMetaType::QStringList, new GenericSettingsWidgetFactory<SettingsListEditWidget>());
+	this->factoryMap.insert(QMetaType::QUrl, new GenericSettingsWidgetFactory<SettingsUrlLineEdit>());
 	this->factoryMap.insert(QMetaType::QDateTime, new GenericSettingsWidgetFactory<SettingsDateTimeEdit>());
 }
 
