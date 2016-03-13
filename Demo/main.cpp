@@ -83,6 +83,8 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY_PARAM(QString, "default", {{"placeholderText", "Baum == 42"}}));
 	tGrp->addEntry(CREATE_ENTRY(QByteArray, "default"));
 	tGrp->addEntry(CREATE_ENTRY(bool, true));
+	tGrp->addEntry(CREATE_ENTRY(int, -42));
+	tGrp->addEntry(CREATE_ENTRY(unsigned int, 42));
 
 	if(dialog.exec() == 0)
 		return 1;

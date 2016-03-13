@@ -4,6 +4,7 @@
 
 #include "standardSettingsWidgets/settingslineedit.h"
 #include "standardSettingsWidgets/settingscheckbox.h"
+#include "standardSettingsWidgets/settingsspinbox.h"
 
 QSettingsVariantEntry::QSettingsVariantEntry(const QString &entryName, bool isOptional, QSettingsVariantLoader *loader) :
 	QSettingsEntry(),
@@ -67,9 +68,12 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	factoryMap(),
 	fallbackFactory(new GenericSettingsWidgetFactory<SettingsLineEdit>())
 {
+	this->factoryMap.insert(QMetaType::Bool, new GenericSettingsWidgetFactory<SettingsCheckBox>());
+	this->factoryMap.insert(QMetaType::Int, new SpinBoxFactory());
+	this->factoryMap.insert(QMetaType::UInt, new SpinBoxFactory(INT_MAX, 0));
+
 	this->factoryMap.insert(QMetaType::QString, new GenericSettingsWidgetFactory<SettingsLineEdit>());
 	this->factoryMap.insert(QMetaType::QByteArray, new GenericSettingsWidgetFactory<SettingsLineEdit>());
-	this->factoryMap.insert(QMetaType::Bool, new GenericSettingsWidgetFactory<SettingsCheckBox>());
 }
 
 QSettingsVariantWidgetProvider::~QSettingsVariantWidgetProvider()
