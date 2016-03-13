@@ -80,12 +80,22 @@ int main(int argc, char *argv[])
 
 	//type tests
 	QSettingsGroup *tGrp = dialog.defaultGroup();
-	tGrp->addEntry(CREATE_ENTRY_PARAM(QString, "default", {{"placeholderText", "Baum == 42"}}));
-	tGrp->addEntry(CREATE_ENTRY(QByteArray, "default"));
 	tGrp->addEntry(CREATE_ENTRY(bool, true));
 	tGrp->addEntry(CREATE_ENTRY(int, -42));
 	tGrp->addEntry(CREATE_ENTRY(unsigned int, 42));
 	tGrp->addEntry(CREATE_ENTRY(double, 666.13));
+	tGrp->addEntry(CREATE_ENTRY_PARAM(QString, "default", {{"placeholderText", "Baum == 42"}}));
+	tGrp->addEntry(CREATE_ENTRY(QByteArray, "default"));
+	tGrp->addEntry(CREATE_ENTRY(long, -42));
+	tGrp->addEntry(CREATE_ENTRY(long long, -42));
+	tGrp->addEntry(CREATE_ENTRY(short, -42));
+	tGrp->addEntry(CREATE_ENTRY(char, -42));
+	tGrp->addEntry(CREATE_ENTRY(unsigned long, 42));
+	tGrp->addEntry(CREATE_ENTRY(unsigned long long, 42));
+	tGrp->addEntry(CREATE_ENTRY(unsigned short, 42));
+	tGrp->addEntry(CREATE_ENTRY(signed char, -42));
+	tGrp->addEntry(CREATE_ENTRY(unsigned char, 42));
+	tGrp->addEntry(CREATE_ENTRY(float, 666.13));
 
 	if(dialog.exec() == 0)
 		return 1;

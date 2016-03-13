@@ -72,9 +72,19 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	this->factoryMap.insert(QMetaType::Bool, new GenericSettingsWidgetFactory<SettingsCheckBox>());
 	this->factoryMap.insert(QMetaType::Int, new SpinBoxFactory());
 	this->factoryMap.insert(QMetaType::UInt, new SpinBoxFactory(INT_MAX, 0));
-	this->factoryMap.insert(QMetaType::Double, new GenericSettingsWidgetFactory<SettingsDoubleSpinBox>());
+	this->factoryMap.insert(QMetaType::Double, new DoubleSpinBoxFactory());
 	this->factoryMap.insert(QMetaType::QString, new GenericSettingsWidgetFactory<SettingsLineEdit>());
 	this->factoryMap.insert(QMetaType::QByteArray, new GenericSettingsWidgetFactory<SettingsLineEdit>());
+	this->factoryMap.insert(QMetaType::Long, new SpinBoxFactory(LONG_MAX, LONG_MIN));
+	this->factoryMap.insert(QMetaType::LongLong, new SpinBoxFactory(LONG_MAX, LONG_MIN));
+	this->factoryMap.insert(QMetaType::Short, new SpinBoxFactory(SHRT_MAX, SHRT_MIN));
+	this->factoryMap.insert(QMetaType::Char, new SpinBoxFactory(CHAR_MAX, CHAR_MIN));
+	this->factoryMap.insert(QMetaType::ULong, new SpinBoxFactory(LONG_MAX, 0));
+	this->factoryMap.insert(QMetaType::ULongLong, new SpinBoxFactory(LONG_MAX, 0));
+	this->factoryMap.insert(QMetaType::UShort, new SpinBoxFactory(USHRT_MAX, 0));
+	this->factoryMap.insert(QMetaType::SChar, new SpinBoxFactory(CHAR_MAX, CHAR_MIN));
+	this->factoryMap.insert(QMetaType::UChar, new SpinBoxFactory(UCHAR_MAX, 0));
+	this->factoryMap.insert(QMetaType::Float, new DoubleSpinBoxFactory(FLT_MAX, FLT_MIN));
 }
 
 QSettingsVariantWidgetProvider::~QSettingsVariantWidgetProvider()

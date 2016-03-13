@@ -2,6 +2,7 @@
 #define SETTINGSDOUBLESPINBOX_H
 
 #include "qsettingswidget.h"
+#include "qsettingsvariantentry.h"
 #include <QDoubleSpinBox>
 
 class SettingsDoubleSpinBox : public QSettingsWidget<QDoubleSpinBox>
@@ -18,6 +19,20 @@ public:
 
 private:
 	double state;
+};
+
+class DoubleSpinBoxFactory : public QSettingsWidgetFactory
+{
+public:
+	DoubleSpinBoxFactory(double max = DBL_MAX, double min = DBL_MIN);
+
+	// QSettingsWidgetFactory interface
+	QSettingsWidgetBase *createWidget(QWidget *parent) Q_DECL_OVERRIDE;
+	void destroyWidget(QSettingsWidgetBase *widget) Q_DECL_OVERRIDE;
+
+private:
+	double min;
+	double max;
 };
 
 #endif // SETTINGSDOUBLESPINBOX_H

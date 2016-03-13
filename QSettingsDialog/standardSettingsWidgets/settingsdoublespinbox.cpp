@@ -3,9 +3,7 @@
 SettingsDoubleSpinBox::SettingsDoubleSpinBox(QWidget *parent) :
 	QSettingsWidget(parent),
 	state(0.0)
-{
-	this->setRange(DBL_MIN, DBL_MAX);
-}
+{}
 
 bool SettingsDoubleSpinBox::hasValueChanged() const
 {
@@ -31,3 +29,23 @@ void SettingsDoubleSpinBox::resetValue()
 {
 	this->clear();
 }
+
+
+
+DoubleSpinBoxFactory::DoubleSpinBoxFactory(double max, double min) :
+	max(max),
+	min(min)
+{}
+
+QSettingsWidgetBase *DoubleSpinBoxFactory::createWidget(QWidget *parent)
+{
+	SettingsDoubleSpinBox *box = new SettingsDoubleSpinBox(parent);
+	box->setRange(this->min, this->max);
+	return box;
+}
+
+void DoubleSpinBoxFactory::destroyWidget(QSettingsWidgetBase *widget)
+{
+	widget->asWidget()->deleteLater();
+}
+
