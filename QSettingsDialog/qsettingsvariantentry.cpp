@@ -95,6 +95,7 @@ QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	this->factoryMap.insert(QMetaType::QUrl, new GenericSettingsWidgetFactory<SettingsUrlLineEdit>());
 	this->factoryMap.insert(QMetaType::QDateTime, new GenericSettingsWidgetFactory<SettingsDateTimeEdit>());
 	this->factoryMap.insert(QMetaType::QFont, new GenericSettingsWidgetFactory<SettingsFontComboBox>());
+	this->factoryMap.insert(QMetaType::QByteArrayList, new GenericSettingsWidgetFactory<SettingsListEditWidget>());
 }
 
 QSettingsVariantWidgetProvider::~QSettingsVariantWidgetProvider()

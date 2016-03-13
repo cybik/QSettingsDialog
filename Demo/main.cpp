@@ -105,6 +105,7 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY(QUrl, QUrl("http://google.de")));
 	tGrp->addEntry(CREATE_ENTRY(QDateTime, QDateTime::currentDateTime()));
 	tGrp->addEntry(CREATE_ENTRY(QFont, QApplication::font()));
+	tGrp->addEntry(CREATE_ENTRY_PARAM(QByteArrayList, QByteArrayList(), {{"buttonsVisible", false}}));
 
 	if(dialog.exec() == 0)
 		return 1;
