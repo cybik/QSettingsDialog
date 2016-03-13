@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
 	//type tests
 	QSettingsGroup *tGrp = dialog.defaultGroup();
-	tGrp->addEntry(new QSettingsVariantEntry("QString", false, new TypeLoader<QString>("default")));
+	tGrp->addEntry(new QSettingsVariantEntry("QString", false, new TypeLoader<QString>("default", {{"placeholderText", "Baum == 42"}})));
 	tGrp->addEntry(new QSettingsVariantEntry("QByteArray", false, new TypeLoader<QByteArray>("default")));
 	tGrp->addEntry(new QSettingsVariantEntry("bool", false, new TypeLoader<bool>(true)));
 

@@ -8,14 +8,19 @@ template <typename T>
 class TypeLoader : public QSettingsVariantLoader
 {
 public:
-	TypeLoader(const T &value = T()) :
+	TypeLoader(const T &value = T(), const PropertyMap &properties = PropertyMap()) :
 		value(value),
 		defaultValue(value),
+		properties(properties),
 		changed(false)
 	{}
 
 	int variantTypeID() const Q_DECL_OVERRIDE {
 		return qMetaTypeId<T>();
+	}
+
+	PropertyMap widgetProperties() const Q_DECL_OVERRIDE {
+		return this->properties;
 	}
 
 public slots:
@@ -36,6 +41,7 @@ public slots:
 private:
 	T value;
 	T defaultValue;
+	PropertyMap properties;
 	bool changed;
 };
 

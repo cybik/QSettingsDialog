@@ -23,7 +23,19 @@ bool QSettingsVariantEntry::isOptional() const
 
 QSettingsWidgetBase *QSettingsVariantEntry::createWidget(QWidget *parent)
 {
-	return QSettingsVariantWidgetProvider::instance()->getFactory(this->loader->variantTypeID())->createWidget(parent);
+	QSettingsWidgetBase *setWid;
+	setWid = QSettingsVariantWidgetProvider::instance()->getFactory(this->loader->variantTypeID())->createWidget(parent);
+
+	QSettingsVariantLoader::PropertyMap properties = this->loader->widgetProperties();
+	QWidget *widget = setWid->asWidget();
+	for(QSettingsVariantLoader::PropertyMap::const_iterator it = properties.constBegin(),
+															end = properties.constEnd();
+		it != end;
+		++it) {
+		widget->setProperty(it.key().toLocal8Bit().constData(), it.value());
+	}
+
+	return setWid;
 }
 
 void QSettingsVariantEntry::destroyWidget(QSettingsWidgetBase *widget)

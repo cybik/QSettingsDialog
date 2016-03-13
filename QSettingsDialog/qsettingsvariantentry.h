@@ -7,7 +7,10 @@
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsVariantLoader : public QSettingsLoader
 {
 public:
+	typedef QHash<QString, QVariant> PropertyMap;
+
 	virtual int variantTypeID() const = 0;
+	virtual PropertyMap widgetProperties() const = 0;
 };
 
 class QSettingsWidgetFactory
