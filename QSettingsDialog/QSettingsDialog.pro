@@ -10,8 +10,13 @@ CONFIG *= C++11
 TARGET = QSettingsDialog
 TEMPLATE = lib
 
-include(C:/C++Libraries/Qt/DialogMaster/dialogmaster.pri)
-include(C:/C++Libraries/Qt/QColorEdit/qcoloredit.pri)
+win32 {
+	include(C:/C++Libraries/Qt/DialogMaster/dialogmaster.pri)
+	include(C:/C++Libraries/Qt/QColorEdit/qcoloredit.pri)
+} else:mac {
+	include(/Library/C++Libraries/Qt/DialogMaster/dialogmaster.pri)
+	include(/Library/C++Libraries/Qt/QColorEdit/qcoloredit.pri)
+}
 
 DEFINES += QSETTINGSDIALOG_LIBRARY
 

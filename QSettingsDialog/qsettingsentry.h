@@ -37,7 +37,7 @@ public:
 
 	template<typename T>
 	static inline T asValue(const QVariant &parameter) {
-		T *vPtr = QSettingsEntry::asValuePtr(parameter);
+		T *vPtr = QSettingsEntry::asValuePtr<T>(parameter);
 		T value = *vPtr;
 		delete vPtr;
 		return value;
