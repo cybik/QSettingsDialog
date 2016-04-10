@@ -10,6 +10,7 @@
 #include <QDateTime>
 #include <QUrl>
 #include "commandsettingsentry.h"
+#include "enumobject.h"
 #include "typeloader.h"
 
 #define CREATE_ENTRY(type, def) new QSettingsVariantEntry(#type, false, new TypeLoader<type>(def))
@@ -17,7 +18,7 @@
 
 struct SomeType {};
 Q_DECLARE_METATYPE(SomeType)
-
+#include <QMetaEnum>
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
@@ -106,6 +107,8 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY(QDateTime, QDateTime::currentDateTime()));
 	tGrp->addEntry(CREATE_ENTRY(QFont, QApplication::font()));
 	tGrp->addEntry(CREATE_ENTRY_PARAM(QByteArrayList, QByteArrayList(), {{"buttonsVisible", false}}));
+	qDebug() << QMetaEnum::fromType<EnumObject::DemoEnum>().keyCount();
+	tGrp->addEntry(CREATE_ENTRY(EnumObject::DemoEnum, EnumObject::SomeEnumValue1));
 
 	if(dialog.exec() == 0)
 		return 1;

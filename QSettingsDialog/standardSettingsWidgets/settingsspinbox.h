@@ -43,8 +43,8 @@ public:
 	SpinBoxFactory(int max = INT_MAX, int min = INT_MIN);
 
 	// QSettingsWidgetFactory interface
-	QSettingsWidgetBase *createWidget(QWidget *parent) Q_DECL_OVERRIDE;
-	void destroyWidget(QSettingsWidgetBase *widget) Q_DECL_OVERRIDE;
+	QSettingsWidgetBase *createWidget(QWidget *parent) Q_DECL_FINAL;
+	void destroyWidget(QSettingsWidgetBase *widget) Q_DECL_FINAL;
 
 private:
 	int min;
@@ -57,8 +57,8 @@ public:
 	DoubleSpinBoxFactory(double max = DBL_MAX, double min = DBL_MIN);
 
 	// QSettingsWidgetFactory interface
-	QSettingsWidgetBase *createWidget(QWidget *parent) Q_DECL_OVERRIDE;
-	void destroyWidget(QSettingsWidgetBase *widget) Q_DECL_OVERRIDE;
+	QSettingsWidgetBase *createWidget(QWidget *parent) Q_DECL_FINAL;
+	void destroyWidget(QSettingsWidgetBase *widget) Q_DECL_FINAL;
 
 private:
 	double min;

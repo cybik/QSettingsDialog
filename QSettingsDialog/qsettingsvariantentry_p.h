@@ -2,6 +2,7 @@
 #define QSETTINGSVARIANTENTRY_P_H
 
 #include "qsettingsvariantentry.h"
+#include "standardSettingsWidgets/settingsenumcombobox.h"
 
 class QSettingsVariantWidgetProvider
 {
@@ -17,6 +18,7 @@ public:
 private:
 	QHash<int, QSettingsWidgetFactory*> factoryMap;
 	QSettingsWidgetFactory *fallbackFactory;
+	EnumSettingsWidgetFactory *enumFactory;
 };
 
 #endif // QSETTINGSVARIANTENTRY_P_H

@@ -70,7 +70,8 @@ QSettingsVariantWidgetProvider *QSettingsVariantWidgetProvider::instance()
 
 QSettingsVariantWidgetProvider::QSettingsVariantWidgetProvider() :
 	factoryMap(),
-	fallbackFactory(new GenericSettingsWidgetFactory<SettingsLineEdit>())
+	fallbackFactory(new GenericSettingsWidgetFactory<SettingsLineEdit>()),
+	enumFactory(new EnumSettingsWidgetFactory())
 {
 	this->factoryMap.insert(QMetaType::Bool, new GenericSettingsWidgetFactory<SettingsCheckBox>());
 	this->factoryMap.insert(QMetaType::Int, new SpinBoxFactory());
@@ -102,11 +103,15 @@ QSettingsVariantWidgetProvider::~QSettingsVariantWidgetProvider()
 {
 	qDeleteAll(this->factoryMap.values());
 	delete this->fallbackFactory;
+	delete this->enumFactory;
 }
 
 QSettingsWidgetFactory *QSettingsVariantWidgetProvider::getFactory(int type)
 {
-	return this->factoryMap.value(type, this->fallbackFactory);
+	if(this->enumFactory->prepareForEnum(type))
+		return this->enumFactory;
+	else
+		return this->factoryMap.value(type, this->fallbackFactory);
 }
 
 void QSettingsVariantWidgetProvider::addFactory(int type, QSettingsWidgetFactory *factory)

@@ -30,7 +30,7 @@ public slots:
 	void saveData(const QVariant &data) Q_DECL_OVERRIDE {
 		this->value = data.value<T>();
 		this->changed = true;
-		qDebug() << "SAVE:  " << QMetaType::typeName(qMetaTypeId<T>());
+		qDebug() << "SAVE:  " << QMetaType::typeName(qMetaTypeId<T>()) << data;
 		emit saveDone(true);
 	}
 	void resetData() Q_DECL_OVERRIDE {

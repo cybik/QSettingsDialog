@@ -5,7 +5,8 @@ HEADERS += \
     $$PWD/settingsdatetimeedit.h \
     $$PWD/settingscoloredit.h \
     $$PWD/settingslistedit.h \
-    $$PWD/settingsfontcombobox.h
+    $$PWD/settingsfontcombobox.h \
+    $$PWD/settingsenumcombobox.h
 
 SOURCES += \
     $$PWD/settingslineedit.cpp \
@@ -14,7 +15,8 @@ SOURCES += \
     $$PWD/settingsdatetimeedit.cpp \
     $$PWD/settingscoloredit.cpp \
     $$PWD/settingslistedit.cpp \
-    $$PWD/settingsfontcombobox.cpp
+    $$PWD/settingsfontcombobox.cpp \
+    $$PWD/settingsenumcombobox.cpp
 
 FORMS += \
     $$PWD/settingslistedit.ui

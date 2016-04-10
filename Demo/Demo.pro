@@ -13,11 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    commandsettingsentry.cpp
+    commandsettingsentry.cpp \
+    enumobject.cpp
 
 HEADERS  += \
     commandsettingsentry.h \
-    typeloader.h
+    typeloader.h \
+    enumobject.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QSettingsDialog/release/ -lQSettingsDialog
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QSettingsDialog/debug/ -lQSettingsDialog
