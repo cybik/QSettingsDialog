@@ -31,7 +31,7 @@ QVariant SettingsEnumComboBox::getValue()
 {
 	QVariant variant(this->currentText());
 	bool ok = variant.convert(this->typeId);
-	Q_ASSERT_X2(ok, "A QVariant combobox must always be able to convert it's data!");
+	Q_ASSERT_X2(ok, "Failed to convert QMetaEnum to QVariant");
 	return variant;
 }
 

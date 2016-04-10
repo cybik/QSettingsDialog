@@ -14,6 +14,15 @@ public:
 	};
 	Q_ENUM(DemoEnum)
 
+	enum DemoFlag {
+		SomeFlag0 = 0x00,
+		SomeFlag1 = 0x01,
+		SomeFlag2 = 0x02,
+		SomeFlag3 = 0x03
+	};
+	Q_DECLARE_FLAGS(DemoFlags, DemoFlag)
+	Q_FLAG(DemoFlags)
+
 	explicit EnumObject(QObject *parent = 0);
 
 signals:
