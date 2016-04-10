@@ -24,15 +24,23 @@ void SettingsEnumComboBox::resetValueChanged()
 
 void SettingsEnumComboBox::setValue(const QVariant &value)
 {
+	qDebug() << value;
 	this->setCurrentText(value.toString());
 }
 
 QVariant SettingsEnumComboBox::getValue()
 {
-	QVariant variant(this->currentText());
-	bool ok = variant.convert(this->typeId);
-	Q_ASSERT_X2(ok, "Failed to convert QMetaEnum to QVariant");
-	return variant;
+	if(this->metaEnum.isFlag()) {
+		QVariant variant(this->currentData());
+		bool ok = variant.convert(this->typeId);
+		Q_ASSERT_X2(ok, "Failed to convert QMetaEnum-Flag to QVariant");
+		return variant;
+	} else {
+		QVariant variant(this->currentText());
+		bool ok = variant.convert(this->typeId);
+		Q_ASSERT_X2(ok, "Failed to convert QMetaEnum to QVariant");
+		return variant;
+	}
 }
 
 void SettingsEnumComboBox::resetValue()
@@ -42,12 +50,12 @@ void SettingsEnumComboBox::resetValue()
 
 
 
-EnumSettingsWidgetFactory::EnumSettingsWidgetFactory() :
+MetaEnumSettingsWidgetFactory::MetaEnumSettingsWidgetFactory() :
 	QSettingsWidgetFactory(),
 	currentMetaEnum()
 {}
 
-bool EnumSettingsWidgetFactory::prepareForEnum(int typeId)
+bool MetaEnumSettingsWidgetFactory::prepareForEnum(int typeId)
 {
 	if(!QMetaType::typeFlags(typeId).testFlag(QMetaType::IsEnumeration))
 		return false;
@@ -65,12 +73,12 @@ bool EnumSettingsWidgetFactory::prepareForEnum(int typeId)
 	return true;
 }
 
-QSettingsWidgetBase *EnumSettingsWidgetFactory::createWidget(QWidget *parent)
+QSettingsWidgetBase *MetaEnumSettingsWidgetFactory::createWidget(QWidget *parent)
 {
 	return new SettingsEnumComboBox(this->currentTypeId, this->currentMetaEnum, parent);
 }
 
-void EnumSettingsWidgetFactory::destroyWidget(QSettingsWidgetBase *widget)
+void MetaEnumSettingsWidgetFactory::destroyWidget(QSettingsWidgetBase *widget)
 {
 	widget->asWidget()->deleteLater();
 }

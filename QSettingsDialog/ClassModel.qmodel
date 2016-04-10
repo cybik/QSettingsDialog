@@ -1772,9 +1772,48 @@
                       </DDependency>
                      </instance>
                     </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{da131c6f-e3aa-4327-929e-cd5031d5f85e}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{aab24694-e4e4-45b6-8787-1ce7ec238aa0}</object>
+                         <context>QSettingsDialog</context>
+                         <name>GenericEnumSettingsWidgetFactory</name>
+                         <pos>x:1130;y:630</pos>
+                         <rect>x:-90;y:-30;w:180;h:60</rect>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DDependency">
+                      <DDependency>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{7bb7fc20-ab7a-42a3-b05c-31a610a12c71}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{da4797e7-bf9e-4e86-af8e-59dcb04be94f}</object>
+                         <a>{da131c6f-e3aa-4327-929e-cd5031d5f85e}</a>
+                         <b>{71891c17-08d4-441e-8343-dd336d50b27e}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DDependency>
+                     </instance>
+                    </item>
                    </qlist>
                   </elements>
-                  <last-modified>1460300471625</last-modified>
+                  <last-modified>1460302576341</last-modified>
                  </MDiagram>
                 </base-MDiagram>
                </MCanvasDiagram>
@@ -3998,6 +4037,58 @@
                             </MObject>
                            </base-MObject>
                           </MPackage>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{aab24694-e4e4-45b6-8787-1ce7ec238aa0}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{aab24694-e4e4-45b6-8787-1ce7ec238aa0}</uid>
+                               <flags>1</flags>
+                              </MElement>
+                             </base-MElement>
+                             <name>GenericEnumSettingsWidgetFactory</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{da4797e7-bf9e-4e86-af8e-59dcb04be94f}</uid>
+                                   <target>
+                                    <instance type="MDependency">
+                                     <MDependency>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{da4797e7-bf9e-4e86-af8e-59dcb04be94f}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{aab24694-e4e4-45b6-8787-1ce7ec238aa0}</a>
+                                        <b>{c537dd5b-3e90-4e0b-b8c3-588b12e67d7e}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MDependency>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
                          </instance>
                         </target>
                        </handle>

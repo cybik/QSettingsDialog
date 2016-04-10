@@ -5,6 +5,7 @@
 #include "qsettingssection.h"
 #include "qsettingsgroup.h"
 #include "qsettingsvariantentry.h"
+#include "genericenumsettingswidgetfactory.h"
 
 #include <QVariant>
 #include <QDateTime>
@@ -107,8 +108,14 @@ int main(int argc, char *argv[])
 	tGrp->addEntry(CREATE_ENTRY(QDateTime, QDateTime::currentDateTime()));
 	tGrp->addEntry(CREATE_ENTRY(QFont, QApplication::font()));
 	tGrp->addEntry(CREATE_ENTRY_PARAM(QByteArrayList, QByteArrayList(), {{"buttonsVisible", false}}));
-	qDebug() << QMetaEnum::fromType<EnumObject::DemoEnum>().keyCount();
+
+	GenericEnumSettingsWidgetFactory::registerEnumFactory<EnumObject::DemoEnum>();
 	tGrp->addEntry(CREATE_ENTRY(EnumObject::DemoEnum, EnumObject::SomeEnumValue1));
+	GenericEnumSettingsWidgetFactory::registerEnumFactory<EnumObject::DemoFlags>();
+	tGrp->addEntry(CREATE_ENTRY(EnumObject::DemoFlags, EnumObject::SomeFlag2));
+
+	QVariant var = QVariant::fromValue<EnumObject::DemoFlags>(EnumObject::SomeFlag2);
+	qDebug() << var;
 
 	if(dialog.exec() == 0)
 		return 1;

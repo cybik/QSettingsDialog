@@ -24,10 +24,10 @@ private:
 	int resetState;
 };
 
-class EnumSettingsWidgetFactory : public QSettingsWidgetFactory
+class MetaEnumSettingsWidgetFactory : public QSettingsWidgetFactory
 {
 public:
-	EnumSettingsWidgetFactory();
+	MetaEnumSettingsWidgetFactory();
 
 	bool prepareForEnum(int typeId);
 

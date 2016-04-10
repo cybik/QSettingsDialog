@@ -18,7 +18,7 @@ public:
 private:
 	QHash<int, QSettingsWidgetFactory*> factoryMap;
 	QSettingsWidgetFactory *fallbackFactory;
-	EnumSettingsWidgetFactory *enumFactory;
+	MetaEnumSettingsWidgetFactory *enumFactory;
 };
 
 #endif // QSETTINGSVARIANTENTRY_P_H

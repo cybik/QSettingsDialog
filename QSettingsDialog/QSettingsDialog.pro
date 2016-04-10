@@ -28,7 +28,8 @@ SOURCES += \
     qsettingswidget.cpp \
     qsettingsdialog_p.cpp \
     qsettingsloaderentry.cpp \
-    qsettingsvariantentry.cpp
+    qsettingsvariantentry.cpp \
+    genericenumsettingswidgetfactory.cpp
 
 HEADERS += qsettingsdialog_global.h \
 	qsettingsdialog.h \
@@ -41,7 +42,8 @@ HEADERS += qsettingsdialog_global.h \
     qsettingswidget.h \
     qsettingsloaderentry.h \
     qsettingsvariantentry.h \
-	qsettingsvariantentry_p.h
+	qsettingsvariantentry_p.h \
+    genericenumsettingswidgetfactory.h
 
 FORMS += \
     qsettingsdialog.ui

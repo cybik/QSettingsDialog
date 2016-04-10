@@ -6,6 +6,9 @@
 class EnumObject : public QObject
 {
 	Q_OBJECT
+
+	Q_PROPERTY(DemoFlags name READ name WRITE setName NOTIFY nameChanged)
+
 public:
 	enum DemoEnum {
 		SomeEnumValue0,
@@ -25,9 +28,27 @@ public:
 
 	explicit EnumObject(QObject *parent = 0);
 
+	DemoFlags name() const
+	{
+		return m_name;
+	}
+
 signals:
 
+	void nameChanged(DemoFlags name);
+
 public slots:
+	void setName(DemoFlags name)
+	{
+		if (m_name == name)
+			return;
+
+		m_name = name;
+		emit nameChanged(name);
+	}
+
+private:
+	DemoFlags m_name;
 };
 
 #endif // ENUMOBJECT_H
