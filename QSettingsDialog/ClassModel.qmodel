@@ -1272,7 +1272,7 @@
                          <object>{c0f6d12c-63d1-4876-a37a-8c793cac8253}</object>
                          <context>StandardSettingsWidgets</context>
                          <name>SettingsSpinBox</name>
-                         <pos>x:275;y:1205</pos>
+                         <pos>x:285;y:1190</pos>
                          <rect>x:-45;y:-30;w:90;h:60</rect>
                          <visual-role>0</visual-role>
                         </DObject>
@@ -1293,7 +1293,7 @@
                          <object>{6ccb7d26-ab1a-44e6-9f1a-9d70b9390fbd}</object>
                          <context>StandardSettingsWidgets</context>
                          <name>SettingsDoubleSpinBox</name>
-                         <pos>x:285;y:1295</pos>
+                         <pos>x:280;y:1270</pos>
                          <rect>x:-60;y:-30;w:120;h:60</rect>
                          <visual-role>0</visual-role>
                         </DObject>
@@ -1314,7 +1314,7 @@
                          <object>{659b2a0c-9ab3-461b-b311-1bf5672c7473}</object>
                          <context>StandardSettingsWidgets</context>
                          <name>DoubleSpinBoxFactory</name>
-                         <pos>x:630;y:1305</pos>
+                         <pos>x:595;y:1265</pos>
                          <rect>x:-60;y:-30;w:120;h:60</rect>
                          <visual-role>0</visual-role>
                         </DObject>
@@ -1335,7 +1335,7 @@
                          <object>{4bb20d0d-c0ef-4f49-8406-66bebf4052ba}</object>
                          <context>StandardSettingsWidgets</context>
                          <name>SpinBoxFactory</name>
-                         <pos>x:500;y:1215</pos>
+                         <pos>x:505;y:1185</pos>
                          <rect>x:-45;y:-30;w:90;h:60</rect>
                          <visual-role>0</visual-role>
                         </DObject>
@@ -1671,9 +1671,110 @@
                       </DDependency>
                      </instance>
                     </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{8378b0b5-7f88-43d1-b459-13e72c1c8330}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{4910f018-d965-4f07-b28a-2b2eda96f645}</object>
+                         <context>StandardSettingsWidgets</context>
+                         <name>SettingsEnumComboBox</name>
+                         <pos>x:285;y:1350</pos>
+                         <rect>x:-65;y:-30;w:130;h:60</rect>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{b84a6e7b-56cd-46cc-89ca-622b91fed0bc}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{449349a9-b8f6-46ed-95ef-8935875e3bee}</object>
+                         <context>StandardSettingsWidgets</context>
+                         <name>EnumSettingsWidgetFactory</name>
+                         <pos>x:750;y:1340</pos>
+                         <rect>x:-75;y:-30;w:150;h:60</rect>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DAssociation">
+                      <DAssociation>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{dfc6d142-11b6-4a0f-a980-2d6078a6cdda}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{f6d8f0e7-45d9-4e7c-836a-e5a2e8ede41f}</object>
+                         <a>{b84a6e7b-56cd-46cc-89ca-622b91fed0bc}</a>
+                         <b>{8378b0b5-7f88-43d1-b459-13e72c1c8330}</b>
+                        </DRelation>
+                       </base-DRelation>
+                       <a>
+                        <DAssociationEnd>
+                         <navigable>true</navigable>
+                        </DAssociationEnd>
+                       </a>
+                      </DAssociation>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DDependency">
+                      <DDependency>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{f3ebc134-7838-4ce6-a2fb-8bc8d8f5e3cc}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{4631ec1c-2e2d-450e-a980-7a5564d68e0e}</object>
+                         <a>{8378b0b5-7f88-43d1-b459-13e72c1c8330}</a>
+                         <b>{9ecc1a04-c0a9-41d1-944e-e0bed453347a}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DDependency>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DDependency">
+                      <DDependency>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{3116af81-3ca9-4a77-8170-65d253b61ca6}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{214d325f-b439-4384-abb9-e4b97d833a7a}</object>
+                         <a>{b84a6e7b-56cd-46cc-89ca-622b91fed0bc}</a>
+                         <b>{71891c17-08d4-441e-8343-dd336d50b27e}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DDependency>
+                     </instance>
+                    </item>
                    </qlist>
                   </elements>
-                  <last-modified>1460295297260</last-modified>
+                  <last-modified>1460300471625</last-modified>
                  </MDiagram>
                 </base-MDiagram>
                </MCanvasDiagram>
@@ -3740,6 +3841,137 @@
                                                     </MElement>
                                                    </base-MElement>
                                                    <a>{4bb20d0d-c0ef-4f49-8406-66bebf4052ba}</a>
+                                                   <b>{c537dd5b-3e90-4e0b-b8c3-588b12e67d7e}</b>
+                                                  </MRelation>
+                                                 </base-MRelation>
+                                                </MDependency>
+                                               </instance>
+                                              </target>
+                                             </handle>
+                                            </item>
+                                           </qlist>
+                                          </handles>
+                                         </handles>
+                                        </relations>
+                                       </MObject>
+                                      </base-MObject>
+                                     </MClass>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                 <item>
+                                  <handle>
+                                   <uid>{4910f018-d965-4f07-b28a-2b2eda96f645}</uid>
+                                   <target>
+                                    <instance type="MClass">
+                                     <MClass>
+                                      <base-MObject>
+                                       <MObject>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{4910f018-d965-4f07-b28a-2b2eda96f645}</uid>
+                                          <flags>1</flags>
+                                         </MElement>
+                                        </base-MElement>
+                                        <name>SettingsEnumComboBox</name>
+                                        <relations>
+                                         <handles>
+                                          <handles>
+                                           <qlist>
+                                            <item>
+                                             <handle>
+                                              <uid>{4631ec1c-2e2d-450e-a980-7a5564d68e0e}</uid>
+                                              <target>
+                                               <instance type="MDependency">
+                                                <MDependency>
+                                                 <base-MRelation>
+                                                  <MRelation>
+                                                   <base-MElement>
+                                                    <MElement>
+                                                     <uid>{4631ec1c-2e2d-450e-a980-7a5564d68e0e}</uid>
+                                                    </MElement>
+                                                   </base-MElement>
+                                                   <a>{4910f018-d965-4f07-b28a-2b2eda96f645}</a>
+                                                   <b>{ab7d88fe-6ec1-42d2-98fc-6a64d5373dfe}</b>
+                                                  </MRelation>
+                                                 </base-MRelation>
+                                                </MDependency>
+                                               </instance>
+                                              </target>
+                                             </handle>
+                                            </item>
+                                           </qlist>
+                                          </handles>
+                                         </handles>
+                                        </relations>
+                                       </MObject>
+                                      </base-MObject>
+                                     </MClass>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                 <item>
+                                  <handle>
+                                   <uid>{449349a9-b8f6-46ed-95ef-8935875e3bee}</uid>
+                                   <target>
+                                    <instance type="MClass">
+                                     <MClass>
+                                      <base-MObject>
+                                       <MObject>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{449349a9-b8f6-46ed-95ef-8935875e3bee}</uid>
+                                          <flags>1</flags>
+                                         </MElement>
+                                        </base-MElement>
+                                        <name>EnumSettingsWidgetFactory</name>
+                                        <relations>
+                                         <handles>
+                                          <handles>
+                                           <qlist>
+                                            <item>
+                                             <handle>
+                                              <uid>{f6d8f0e7-45d9-4e7c-836a-e5a2e8ede41f}</uid>
+                                              <target>
+                                               <instance type="MAssociation">
+                                                <MAssociation>
+                                                 <base-MRelation>
+                                                  <MRelation>
+                                                   <base-MElement>
+                                                    <MElement>
+                                                     <uid>{f6d8f0e7-45d9-4e7c-836a-e5a2e8ede41f}</uid>
+                                                    </MElement>
+                                                   </base-MElement>
+                                                   <a>{449349a9-b8f6-46ed-95ef-8935875e3bee}</a>
+                                                   <b>{4910f018-d965-4f07-b28a-2b2eda96f645}</b>
+                                                  </MRelation>
+                                                 </base-MRelation>
+                                                 <a>
+                                                  <MAssociationEnd>
+                                                   <navigable>true</navigable>
+                                                  </MAssociationEnd>
+                                                 </a>
+                                                </MAssociation>
+                                               </instance>
+                                              </target>
+                                             </handle>
+                                            </item>
+                                            <item>
+                                             <handle>
+                                              <uid>{214d325f-b439-4384-abb9-e4b97d833a7a}</uid>
+                                              <target>
+                                               <instance type="MDependency">
+                                                <MDependency>
+                                                 <base-MRelation>
+                                                  <MRelation>
+                                                   <base-MElement>
+                                                    <MElement>
+                                                     <uid>{214d325f-b439-4384-abb9-e4b97d833a7a}</uid>
+                                                    </MElement>
+                                                   </base-MElement>
+                                                   <a>{449349a9-b8f6-46ed-95ef-8935875e3bee}</a>
                                                    <b>{c537dd5b-3e90-4e0b-b8c3-588b12e67d7e}</b>
                                                   </MRelation>
                                                  </base-MRelation>
