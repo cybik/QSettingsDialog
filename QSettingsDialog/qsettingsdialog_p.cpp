@@ -188,8 +188,7 @@ void QSettingsDialogPrivate::saveDone(bool successfull)
 			this->progressDialog->deleteLater();
 			this->progressDialog = Q_NULLPTR;
 			this->setEditable(true);
-			DialogMaster::critical(q,
-								   tr("Failed to save settings!"));
+			DialogMaster::critical(q, tr("Failed to save settings!"));
 			return;
 		}
 
@@ -220,8 +219,7 @@ void QSettingsDialogPrivate::resetDone(bool successfull)
 			this->progressDialog->deleteLater();
 			this->progressDialog = Q_NULLPTR;
 			this->setEditable(true);
-			DialogMaster::critical(q,
-								   tr("Failed to restore default settings!"));
+			DialogMaster::critical(q, tr("Failed to restore default settings!"));
 			return;
 		}
 
@@ -293,6 +291,7 @@ void QSettingsDialogPrivate::buttonBoxClicked(QAbstractButton *button)
 									"This cannot be undone."),
 								 tr("%1?").arg(button->text()),
 								 QString(),
+								 QMessageBox::Yes | QMessageBox::No,
 								 QMessageBox::Yes,
 								 QMessageBox::No)
 		   == QMessageBox::Yes) {

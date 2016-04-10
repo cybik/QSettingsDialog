@@ -50,3 +50,6 @@ RESOURCES += \
     qsettingsdialog_res.qrc
 
 include(./standardSettingsWidgets/standardSettingsWidgets.pri)
+
+DISTFILES += \
+    ClassModel.qmodel
