@@ -164,7 +164,7 @@ void QSettingsDialogPrivate::loadDone(const QVariant &data, bool isUserEdited)
 			widget->setLoadState(isUserEdited);
 		}
 
-		if(this->currentValue == this->progressDialog->maximum()) {
+		if(this->currentValue == this->progressDialog->maximum()) {//FIXME crash here!!! why?
 			foreach(QSettingsWidgetBase *widget, this->entryMap)
 				widget->resetChanged();
 
