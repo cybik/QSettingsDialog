@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/QSettingsDialog/icons">
-        <file alias="general.ico">resources/Fatcow-Farm-Fresh-Setting-tools.ico</file>
-    </qresource>
-</RCC>
