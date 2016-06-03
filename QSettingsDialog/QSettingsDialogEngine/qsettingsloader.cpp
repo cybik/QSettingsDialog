@@ -1,28 +1,28 @@
 #include "qsettingsloader.h"
 
-QSettingsLoader::QSettingsLoader(QObject *parent) :
-	QObject(parent)
-{}
-
-
-
-QSimpleSettingsLoader::QSimpleSettingsLoader(QObject *parent):
-	QSettingsLoader(parent)
-{}
-
-void QSimpleSettingsLoader::loadData()
+bool QSimpleSettingsLoader::isAsync() const
 {
-	bool userEdited = false;
-	auto data = this->load(userEdited);
-	emit loadDone(data, userEdited);
+	return false;
 }
 
-void QSimpleSettingsLoader::saveData(const QVariant &data)
+bool QAsyncSettingsLoader::isAsync() const
 {
-	emit saveDone(this->save(data));
+	return true;
 }
 
-void QSimpleSettingsLoader::resetData()
+QAsyncSettingsLoader::QAsyncSettingsLoader(QObject *parent) :
+	QObject(parent),
+	QSettingsLoader()
+{}
+
+QSimpleSettingsLoader *QSettingsLoader::simple()
 {
-	emit resetDone(this->reset());
+	Q_ASSERT_X(dynamic_cast<QSimpleSettingsLoader*>(this), Q_FUNC_INFO, "Can't cast to QSimpleSettingsLoader");
+	return static_cast<QSimpleSettingsLoader*>(this);
+}
+
+QAsyncSettingsLoader *QSettingsLoader::async()
+{
+	Q_ASSERT_X(dynamic_cast<QAsyncSettingsLoader*>(this), Q_FUNC_INFO, "Can't cast to QSimpleSettingsLoader");
+	return static_cast<QAsyncSettingsLoader*>(this);
 }

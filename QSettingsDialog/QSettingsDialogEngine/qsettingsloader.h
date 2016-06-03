@@ -5,11 +5,37 @@
 #include <QObject>
 #include <QVariant>
 
-class QSETTINGSDIALOGSHARED_EXPORT QSettingsLoader : public QObject
+class QSimpleSettingsLoader;
+class QAsyncSettingsLoader;
+
+class QSETTINGSDIALOGSHARED_EXPORT QSettingsLoader
+{
+public:
+	virtual inline ~QSettingsLoader() {}
+	virtual bool isAsync() const = 0;
+
+	QSimpleSettingsLoader *simple();
+	QAsyncSettingsLoader *async();
+};
+
+class QSETTINGSDIALOGSHARED_EXPORT QSimpleSettingsLoader : public QSettingsLoader
+{
+public:
+	bool isAsync() const final;
+
+	virtual QVariant load(bool outParam userEdited) = 0;
+	virtual bool save(const QVariant &data) = 0;
+	virtual bool reset() = 0;
+};
+
+class QSETTINGSDIALOGSHARED_EXPORT QAsyncSettingsLoader : public QObject, public QSettingsLoader
 {
 	Q_OBJECT
+
 public:
-	QSettingsLoader(QObject *parent = Q_NULLPTR);
+	QAsyncSettingsLoader(QObject *parent = nullptr);
+
+	bool isAsync() const final;
 
 public slots:
 	virtual void loadData() = 0;
@@ -20,22 +46,6 @@ signals:
 	void loadDone(const QVariant &data, bool isUserEdited = true);
 	void saveDone(bool successfull);
 	void resetDone(bool successfull);
-};
-
-class QSETTINGSDIALOGSHARED_EXPORT QSimpleSettingsLoader : public QSettingsLoader
-{
-	Q_OBJECT
-public:
-	QSimpleSettingsLoader(QObject *parent = Q_NULLPTR);
-
-	virtual QVariant load(bool /*out*/ &userEdited) = 0;
-	virtual bool save(const QVariant &data) = 0;
-	virtual bool reset() = 0;
-
-public slots:
-	void loadData() final;
-	void saveData(const QVariant &data) final;
-	void resetData() final;
 };
 
 #endif // QSETTINGSLOADER_H

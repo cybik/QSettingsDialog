@@ -9,4 +9,6 @@
 #  define QSETTINGSDIALOGSHARED_IMPORT
 #endif
 
+#define outParam &
+
 #endif // QSETTINGSDIALOGENGINE_GLOBAL_H

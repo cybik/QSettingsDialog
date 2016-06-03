@@ -3,21 +3,25 @@
 
 #include "qsettingsdialog_global.h"
 #include <QWidget>
+#include <QVariant>
 
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsWidgetBase
 {
-public:	
+public:
 	QSettingsWidgetBase();
-	virtual inline ~QSettingsWidgetBase() {}
+	virtual ~QSettingsWidgetBase();
 
 	virtual QWidget *asWidget() = 0;
 
-	virtual bool hasValueChanged() const = 0;
-	virtual void resetValueChanged() = 0;
+	virtual bool hasValueChanged() const;
+	virtual void resetValueChanged();
 
 	virtual void setValue(const QVariant &value) = 0;
-	virtual QVariant getValue() = 0;
+	virtual QVariant getValue() const = 0;
 	virtual void resetValue() = 0;
+
+private:
+	QVariant changedCache;
 };
 
 template <class Widget>

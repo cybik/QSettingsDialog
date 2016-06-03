@@ -19,7 +19,8 @@ public:
 		widget->asWidget()->deleteLater();
 	}
 
-	virtual QSettingsLoader *getLoader() const = 0;
+	virtual QSettingsLoader *getLoader() = 0;
+	virtual inline void freeLoader(QSettingsLoader *loader) {Q_UNUSED(loader);}
 };
 
 #endif // QSETTINGSENTRY_H
