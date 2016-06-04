@@ -48,6 +48,7 @@ public:
 				  const QString &tooltip = QString());
 
 	void setContainer(const QString &containerPath);
+	void removeContainer(const QString &containerPath);
 
 	//entry organisation
 	int appendEntry(QSettingsEntry *entry);
@@ -61,10 +62,13 @@ public:
 	void moveEntry(int id, int indexTo);
 
 	//helper
-	static QString createContainerPath(const QString &category = QString(),
-									   const QString &section = QString(),
-									   const QString &group = QString(),
-									   bool escapeAll = false);
+	static QString createContainerPath(QString category = QString(),
+									   QString section = QString(),
+									   QString group = QString());
+	QString createContainerPath(QString category = QString(),
+								QString section = QString(),
+								QString group = QString(),
+								bool escapeAll = false);
 
 	static QSettingsDialog *defaultInstance();
 

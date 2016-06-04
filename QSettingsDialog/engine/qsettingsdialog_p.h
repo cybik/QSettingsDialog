@@ -19,14 +19,12 @@ public:
 	QString categoryId;
 	QString sectionId;
 	QString groupId;
-
 	int currentIndexMax;
-	QHash<int, EntryElement> entryMap;
 
-	QSharedPointer<SettingsCategory> getCategory(const QString &categoryId = QString());
-	QSharedPointer<SettingsSection> getSection(const QString &sectionId = QString(),
+	QSharedPointer<SettingsCategory> getCategory(QString categoryId = QString());
+	QSharedPointer<SettingsSection> getSection(QString sectionId = QString(),
 											   const QString &categoryId = QString());
-	QSharedPointer<SettingsGroup> getGroup(const QString &groupId = QString(),
+	QSharedPointer<SettingsGroup> getGroup(QString groupId = QString(),
 										   const QString &sectionId = QString(),
 										   const QString &categoryId = QString());
 

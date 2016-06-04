@@ -4,7 +4,9 @@
 #include "qsettingsdialog_global.h"
 #include <QObject>
 #include <QList>
+#include <QIcon>
 class QSettingsDialogPrivate;
+class QSettingsDialog;
 
 template <class SettingsLayout>
 class QSETTINGSDIALOGSHARED_EXPORT LayoutList

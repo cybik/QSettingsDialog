@@ -29,9 +29,6 @@ public:
 	QSharedPointer<SettingsGroup> defaultGroup;
 	QHash<QString, QSharedPointer<SettingsGroup>> groups;
 	QStringList groupOrder;
-
-private:
-	QScopedPointer<SettingsGroup> defaultGrp;
 };
 
 class SettingsCategory
@@ -49,7 +46,7 @@ public:
 class SettingsRoot
 {
 public:
-	QSharedPointer<SettingsCategory> defaultcategory;
+	QSharedPointer<SettingsCategory> defaultCategory;
 	QHash<QString, QSharedPointer<SettingsCategory>> categories;
 	QStringList categoryOrder;
 };
