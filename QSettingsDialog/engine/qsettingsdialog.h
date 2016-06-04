@@ -5,8 +5,10 @@
 #include <QObject>
 #include <QString>
 #include <QIcon>
+#include <QScopedPointer>
 #include "qtexception.h"
 #include "qsettingsentry.h"
+class QSettingsDialogLayout;
 
 class QSETTINGSDIALOGSHARED_EXPORT InvalidContainerPathException : public QtException
 {
@@ -23,16 +25,13 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
 public:
 	explicit QSettingsDialog(QObject *parent = 0);
 
+	QSettingsDialogLayout *layout();
+
 	//container organisation - getters
 	QString containerPath() const;
 	QString categoryId() const;
 	QString sectionId() const;
 	QString groupId() const;
-
-	QString name(const QString &containerPath) const;
-	QIcon icon(const QString &containerPath) const;
-	QString tooltip(const QString &containerPath) const;
-	bool isOptional(const QString &groupPath) const;
 
 	//container organisation - setters
 	void setCategory(const QString &id,
@@ -49,21 +48,16 @@ public:
 				  const QString &tooltip = QString());
 
 	void setContainer(const QString &containerPath);
-	void moveContainer(const QString &fromPath,
-					   const QString &toPath);
-
-	void setName(const QString &containerPath, const QString &name);
-	void setIcon(const QString &containerPath, const QIcon &icon);
-	void setTooltip(const QString &containerPath, const QString &tolltip);
-	void setOptional(const QString &groupPath, bool optional);
-	void setOptional(bool optional);
 
 	//entry organisation
 	int addEntry(QSettingsEntry *entry);
 	int addEntry(const QString &containerPath, QSettingsEntry *entry);
+	int insertEntry(int index, QSettingsEntry *entry);
+	int insertEntry(const QString &containerPath, int index, QSettingsEntry *entry);
 	QSettingsEntry *getEntry(int id) const;
 	bool removeEntry(int id);
-	void moveEntry(int id, const QString &targetContainerPath);
+	void moveEntry(int id, int indexTo);
+	void shiftEntry(int id, const QString &targetContainerPath);
 
 	//helper
 	static QString createContainerPath(const QString &category = QString(),
@@ -81,7 +75,7 @@ signals:
 	void resetted();
 
 private:
-	QSettingsDialogPrivate *d_ptr;
+	QScopedPointer<QSettingsDialogPrivate> d_ptr;
 };
 
 #endif // QSETTINGSDIALOG_H

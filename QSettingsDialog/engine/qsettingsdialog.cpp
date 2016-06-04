@@ -1,4 +1,5 @@
 #include "qsettingsdialog.h"
+#include "qsettingsdialog_p.h"
 
 InvalidContainerPathException::InvalidContainerPathException() :
 	QtException("Invalid container format!")
@@ -6,10 +7,10 @@ InvalidContainerPathException::InvalidContainerPathException() :
 
 
 
-QSettingsDialog::QSettingsDialog(QObject *parent) : QObject(parent)
-{
-
-}
+QSettingsDialog::QSettingsDialog(QObject *parent) :
+	QObject(parent),
+	d_ptr(new QSettingsDialogPrivate(this))
+{}
 
 QString QSettingsDialog::containerPath() const
 {
@@ -111,8 +112,19 @@ int QSettingsDialog::addEntry(const QString &containerPath, QSettingsEntry *entr
 
 }
 
+int QSettingsDialog::insertEntry(int index, QSettingsEntry *entry)
+{
+
+}
+
+int QSettingsDialog::insertEntry(const QString &containerPath, int index, QSettingsEntry *entry)
+{
+
+}
+
 QSettingsEntry *QSettingsDialog::getEntry(int id) const
 {
+
 }
 
 bool QSettingsDialog::removeEntry(int id)
@@ -120,7 +132,12 @@ bool QSettingsDialog::removeEntry(int id)
 
 }
 
-void QSettingsDialog::moveEntry(int id, const QString &targetContainerPath)
+void QSettingsDialog::moveEntry(int id, int indexTo)
+{
+
+}
+
+void QSettingsDialog::shiftEntry(int id, const QString &targetContainerPath)
 {
 
 }
@@ -136,6 +153,18 @@ QSettingsDialog *QSettingsDialog::defaultInstance()
 }
 
 void QSettingsDialog::showSettings(QWidget *parentWindow)
+{
+
+}
+
+
+
+QSettingsDialogPrivate *QSettingsDialogPrivate::getPrivateInstance(QSettingsDialog *dialog)
+{
+	return dialog->d_ptr.data();
+}
+
+QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr)
 {
 
 }

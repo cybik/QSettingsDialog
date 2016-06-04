@@ -1,14 +1,15 @@
 default format:
 {categoryId}[/{sectionId}[/{groupId}]]
 
+allowed id charaters:
+ 0..9 a..z A..Z _ -
+
 special characters:
  <empty> -> current element
  . -> default element
+ / -> seperator between path elements
 
 special sequenzes:
  <empty> -> current path
  .. -> all default
-
-escaping:
- \{char} -> escapes the next character (including \)
 
