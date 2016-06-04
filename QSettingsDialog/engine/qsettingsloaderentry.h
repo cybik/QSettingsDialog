@@ -5,7 +5,7 @@
 #include "qsettingsentry.h"
 #include "qsettingsloader.h"
 
-class QSettingsLoaderEntry : public QSettingsEntry, public QSimpleSettingsLoader
+class QSETTINGSDIALOGSHARED_EXPORT QSettingsLoaderEntry : public QSettingsEntry, public QSimpleSettingsLoader
 {
 public:
 	QSettingsLoaderEntry();
