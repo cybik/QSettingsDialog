@@ -50,14 +50,15 @@ public:
 	void setContainer(const QString &containerPath);
 
 	//entry organisation
-	int addEntry(QSettingsEntry *entry);
-	int addEntry(const QString &containerPath, QSettingsEntry *entry);
-	int insertEntry(int index, QSettingsEntry *entry);
-	int insertEntry(const QString &containerPath, int index, QSettingsEntry *entry);
+	int appendEntry(QSettingsEntry *entry);
+	int appendEntry(const QString &containerPath, QSettingsEntry *entry);
+	int prependEntry(QSettingsEntry *entry);
+	int prependEntry(const QString &containerPath, QSettingsEntry *entry);
+
 	QSettingsEntry *getEntry(int id) const;
+	QString getEntryPath(int id) const;
 	bool removeEntry(int id);
 	void moveEntry(int id, int indexTo);
-	void shiftEntry(int id, const QString &targetContainerPath);
 
 	//helper
 	static QString createContainerPath(const QString &category = QString(),

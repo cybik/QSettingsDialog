@@ -2,49 +2,56 @@
 #define CONTAINERELEMENT_H
 
 #include <QList>
+#include <QHash>
 #include <QString>
 #include <QIcon>
-#include <QScopedPointer>
 #include <QSharedPointer>
+#include "qsettingsentry.h"
 
-class QSettingsGroup
+class SettingsGroup
 {
 public:
 	QString name;
 	QString tooltip;
 	bool isOptional;
+
+	QHash<int, QSharedPointer<QSettingsEntry>> entries;
+	QList<int> entryOrder;
 };
 
-class QSettingsSection
+class SettingsSection
 {
 public:
 	QString name;
 	QIcon icon;
 	QString tooltip;
 
-	QScopedPointer<QSettingsGroup> defaultGroup;
-	QList<QSharedPointer<QSettingsGroup>> groups;
+	QSharedPointer<SettingsGroup> defaultGroup;
+	QHash<QString, QSharedPointer<SettingsGroup>> groups;
+	QStringList groupOrder;
 
 private:
-	QScopedPointer<QSettingsGroup> defaultGrp;
+	QScopedPointer<SettingsGroup> defaultGrp;
 };
 
-class QSettingsCategory
+class SettingsCategory
 {
 public:
 	QString name;
 	QIcon icon;
 	QString tooltip;
 
-	QScopedPointer<QSettingsSection> defaultSection;
-	QList<QSharedPointer<QSettingsSection>> sections;
+	QSharedPointer<SettingsSection> defaultSection;
+	QHash<QString, QSharedPointer<SettingsSection>> sections;
+	QStringList sectionOrder;
 };
 
-class QSettingsRoot
+class SettingsRoot
 {
 public:
-	QScopedPointer<QSettingsCategory> defaultcategory;
-	QList<QSharedPointer<QSettingsCategory>> categories;
+	QSharedPointer<SettingsCategory> defaultcategory;
+	QHash<QString, QSharedPointer<SettingsCategory>> categories;
+	QStringList categoryOrder;
 };
 
 #endif // CONTAINERELEMENT_H
