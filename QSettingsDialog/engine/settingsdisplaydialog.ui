@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Settings</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../qsettingsdialog_res.qrc">
+    <normaloff>:/QSettingsDialog/icons/gearSettings.ico</normaloff>:/QSettingsDialog/icons/gearSettings.ico</iconset>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
    <property name="spacing">
     <number>0</number>
@@ -188,7 +192,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../qsettingsdialog_res.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>categoryListWidget</sender>

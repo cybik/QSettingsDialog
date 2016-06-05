@@ -11,6 +11,8 @@ TEMPLATE = lib
 
 DEFINES += QSETTINGSDIALOG_LIBRARY
 
+include(./DialogMaster/dialogmaster.pri)
+
 HEADERS += qsettingsdialog_global.h \
 	qtexception.h
 
@@ -19,3 +21,6 @@ include(./engine/engine.pri)
 
 SOURCES += \
 	qtexception.cpp
+
+RESOURCES += \
+    qsettingsdialog_res.qrc
