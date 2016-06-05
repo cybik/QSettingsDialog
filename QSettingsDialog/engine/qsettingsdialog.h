@@ -24,6 +24,7 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
 
 public:
 	explicit QSettingsDialog(QObject *parent = 0);
+	~QSettingsDialog();
 
 	QSettingsDialogLayout *layout();
 

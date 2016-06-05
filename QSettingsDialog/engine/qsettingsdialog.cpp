@@ -16,6 +16,8 @@ QSettingsDialog::QSettingsDialog(QObject *parent) :
 	d_ptr(new QSettingsDialogPrivate(this))
 {}
 
+QSettingsDialog::~QSettingsDialog() {}
+
 QSettingsDialogLayout *QSettingsDialog::layout()
 {
 	Q_UNIMPLEMENTED();
@@ -352,7 +354,7 @@ QString QSettingsDialogPrivate::findEntryPath(int id)
 				groupIt != groupEnd;
 				++groupIt) {
 
-				const QSharedPointer<SettingsGroup> &group = sectionIt.value();
+				const QSharedPointer<SettingsGroup> &group = groupIt.value();
 				if(group->entries.contains(id)) {
 					return SettingsPathParser::createPath(categoryIt.key(),
 														  sectionIt.key(),

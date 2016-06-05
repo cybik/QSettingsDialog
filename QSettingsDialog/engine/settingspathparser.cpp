@@ -51,7 +51,7 @@ QStringList SettingsPathParser::parsePartialPath(const QString &path)
 		throw InvalidContainerPathException();
 
 	if(match.captured(1).isEmpty())
-		return QVector<QString>(3, QString());
+		return QVector<QString>(3, QString()).toList();
 	else if(match.captured(1) == QStringLiteral(".."))
 		return {QStringLiteral("."), QStringLiteral("."), QStringLiteral(".")};
 	else {
