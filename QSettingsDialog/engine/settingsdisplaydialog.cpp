@@ -164,6 +164,9 @@ void SettingsDisplayDialog::createDefaultGroup(const QSharedPointer<SettingsGrou
 	layout->setContentsMargins(QMargins());
 	defaultWidget->setLayout(layout);
 	contentWidget->layout()->addWidget(defaultWidget);
+
+	foreach(auto entry, group->entries)
+		this->createEntry(entry.second, contentWidget);
 }
 
 void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget)
@@ -176,6 +179,31 @@ void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &gro
 	}
 	box->setLayout(new QFormLayout(box));
 	contentWidget->layout()->addWidget(box);
+
+	foreach(auto entry, group->entries)
+		this->createEntry(entry.second, box);
+}
+
+void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget)
+{
+	QWidget *content = nullptr;
+	auto settingsWidget = entry->createWidget(groupWidget);
+	if(settingsWidget)
+		content = settingsWidget->asWidget();
+	else
+		content = new QLabel("<i>Failed to load element</i>", groupWidget);//TODO enhance
+
+	auto layout = static_cast<QFormLayout*>(groupWidget->layout());
+	if(entry->isOptional()) {
+		content->setEnabled(false);
+		auto optBox = new QCheckBox(entry->entryName() + tr(":"), groupWidget);
+		QObject::connect(optBox, &QCheckBox::toggled,
+						 content, &QWidget::setEnabled);
+		layout->addRow(optBox, content);
+	} else
+		layout->addRow(entry->entryName() + tr(":"), content);
+
+	//TODO tell engine the widget and the loader
 }
 
 
