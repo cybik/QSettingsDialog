@@ -220,6 +220,7 @@ QSettingsDialog *QSettingsDialog::defaultInstance()
 void QSettingsDialog::showSettings(QWidget *parentWindow)
 {
 	Q_UNIMPLEMENTED();
+	emit resetted();
 }
 
 

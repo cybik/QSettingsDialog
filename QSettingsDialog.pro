@@ -1,7 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \ 
-	QSettingsDialog
+	QSettingsDialog \
+    Examples
 
 DISTFILES += \
 	README.md \

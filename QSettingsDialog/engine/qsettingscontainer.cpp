@@ -88,7 +88,7 @@ void QSettingsContainer::moveEntry(int indexFrom, int indexTo)
 QAsyncSettingsContainer::QAsyncSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent) :
 	QSettingsContainer(settingsDialog, containerPath, parent)
 {
-	Q_ASSERT_X(this->q_ptr->thread() == settingsDialog->thread(), Q_FUNC_INFO, "The container must be created on the same thread as the dialog");
+	Q_ASSERT_X(this->thread() == settingsDialog->thread(), Q_FUNC_INFO, "The container must be created on the same thread as the dialog");
 	if(!d->group->locker.testAndSetOrdered(nullptr, this))
 		throw ContainerLockedException();
 }

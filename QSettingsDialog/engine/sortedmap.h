@@ -42,7 +42,7 @@ public:
 	{
 		friend class SortedMap<TId, TEntry>;
 	public:
-		const typename SortedMap<TId, TEntry>::Entry &operator*();
+		typename SortedMap<TId, TEntry>::Entry operator*();
 		bool operator!=(const const_iterator& other) const;
 		const_iterator &operator++();
 
@@ -246,7 +246,7 @@ SortedMap<TId, TEntry>::const_iterator::const_iterator(const SortedMap<TId, TEnt
 {}
 
 template <typename TId, typename TEntry>
-const typename SortedMap<TId, TEntry>::Entry &SortedMap<TId, TEntry>::const_iterator::operator*()
+typename SortedMap<TId, TEntry>::Entry SortedMap<TId, TEntry>::const_iterator::operator*()
 {
 	return this->map.entry(this->index);
 }
