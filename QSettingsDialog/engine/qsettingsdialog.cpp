@@ -5,12 +5,6 @@
 
 #define d this->d_ptr
 
-InvalidContainerPathException::InvalidContainerPathException() :
-	QtException("Invalid container format!")
-{}
-
-
-
 QSettingsDialog::QSettingsDialog(QObject *parent) :
 	QObject(parent),
 	d_ptr(new QSettingsDialogPrivate(this))
@@ -102,20 +96,16 @@ bool QSettingsDialog::removeContainer(const QString &containerPath)
 		if(elements[0] == QStringLiteral(".")) {
 			d->rootElement->defaultCategory.reset();
 			return true;
-		} else {
-			d->rootElement->categories.remove(elements[0]);
-			return d->rootElement->categoryOrder.removeOne(elements[0]);
-		}
+		} else
+			return d->rootElement->categories.removeId(elements[0]);
 	case 2:
 	{
 		auto category = d->getCategory(elements[0]);
 		if(elements[1] == QStringLiteral(".")) {
 			category->defaultSection.reset();
 			return true;
-		} else {
-			category->sections.remove(elements[1]);
-			return category->sectionOrder.removeOne(elements[1]);
-		}
+		} else
+			return category->sections.removeId(elements[1]);
 	}
 	case 3:
 	{
@@ -123,10 +113,8 @@ bool QSettingsDialog::removeContainer(const QString &containerPath)
 		if(elements[2] == QStringLiteral(".")) {
 			section->defaultGroup.reset();
 			return true;
-		} else {
-			section->groups.remove(elements[2]);
-			return section->groupOrder.removeOne(elements[2]);
-		}
+		} else
+			return section->groups.removeId(elements[2]);
 	}
 	default:
 		Q_UNREACHABLE();
@@ -138,21 +126,21 @@ int QSettingsDialog::appendEntry(QSettingsEntry *entry)
 	auto group = d->getGroup();
 	Q_ASSERT(!group.isNull());
 
-	group->entries.insert(++d->currentIndexMax, QSharedPointer<QSettingsEntry>(entry));
-	group->entryOrder.append(d->currentIndexMax);
-	return d->currentIndexMax;
+	auto id = d->getNextId();
+	group->entries.append(id, entry);
+	return id;
 }
 
 int QSettingsDialog::appendEntry(const QString &containerPath, QSettingsEntry *entry)
 {
 	auto elements = SettingsPathParser::parseFullPath(containerPath);
 	Q_ASSERT(elements.size() == 3);
-	auto group = d->getGroup(elements[0], elements[1], elements[2]);
+	auto group = d->getGroup(elements[2], elements[1], elements[0]);
 	Q_ASSERT(!group.isNull());
 
-	group->entries.insert(++d->currentIndexMax, QSharedPointer<QSettingsEntry>(entry));
-	group->entryOrder.append(d->currentIndexMax);
-	return d->currentIndexMax;
+	auto id = d->getNextId();
+	group->entries.append(id, entry);
+	return id;
 }
 
 int QSettingsDialog::prependEntry(QSettingsEntry *entry)
@@ -160,21 +148,21 @@ int QSettingsDialog::prependEntry(QSettingsEntry *entry)
 	auto group = d->getGroup();
 	Q_ASSERT(!group.isNull());
 
-	group->entries.insert(++d->currentIndexMax, QSharedPointer<QSettingsEntry>(entry));
-	group->entryOrder.prepend(d->currentIndexMax);
-	return d->currentIndexMax;
+	auto id = d->getNextId();
+	group->entries.prepend(id, entry);
+	return id;
 }
 
 int QSettingsDialog::prependEntry(const QString &containerPath, QSettingsEntry *entry)
 {
 	auto elements = SettingsPathParser::parseFullPath(containerPath);
 	Q_ASSERT(elements.size() == 3);
-	auto group = d->getGroup(elements[0], elements[1], elements[2]);
+	auto group = d->getGroup(elements[2], elements[1], elements[0]);
 	Q_ASSERT(!group.isNull());
 
-	group->entries.insert(++d->currentIndexMax, QSharedPointer<QSettingsEntry>(entry));
-	group->entryOrder.prepend(d->currentIndexMax);
-	return d->currentIndexMax;
+	auto id = d->getNextId();
+	group->entries.prepend(id, entry);
+	return id;
 }
 
 QSettingsEntry *QSettingsDialog::getEntry(int id) const
@@ -196,10 +184,8 @@ bool QSettingsDialog::removeEntry(int id)
 	auto group = d->findEntryGroup(id);
 	if(group.isNull())
 		return false;
-	else {
-		group->entries.remove(id);
-		return group->entryOrder.removeOne(id);
-	}
+	else
+		return group->entries.removeId(id);
 }
 
 QString QSettingsDialog::createContainerPath(QString category, QString section, QString group)
@@ -239,13 +225,18 @@ QSettingsDialogPrivate *QSettingsDialogPrivate::getPrivateInstance(QSettingsDial
 	return dialog->d_ptr.data();
 }
 
+int QSettingsDialogPrivate::getNextId()
+{
+	return ++this->currentIdMax;
+}
+
 QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
 	q_ptr(q_ptr),
 	rootElement(),
 	categoryId(QStringLiteral(".")),
 	sectionId(QStringLiteral(".")),
 	groupId(QStringLiteral(".")),
-	currentIndexMax(0)
+	currentIdMax(0)
 {}
 
 QSharedPointer<SettingsCategory> QSettingsDialogPrivate::getCategory(QString categoryId)
@@ -261,12 +252,9 @@ QSharedPointer<SettingsCategory> QSettingsDialogPrivate::getCategory(QString cat
 		}
 		return this->rootElement->defaultCategory;
 	} else {
-		auto element = this->rootElement->categories.value(categoryId);
-		if(element.isNull()) {
-			element.reset(new SettingsCategory());
-			this->rootElement->categories.insert(categoryId, element);
-			this->rootElement->categoryOrder.append(categoryId);
-		}
+		auto element = this->rootElement->categories.valueId(categoryId);
+		if(element.isNull())
+			element = this->rootElement->categories.append(categoryId, new SettingsCategory());
 		return element;
 	}
 }
@@ -287,12 +275,9 @@ QSharedPointer<SettingsSection> QSettingsDialogPrivate::getSection(QString secti
 		}
 		return category->defaultSection;
 	} else {
-		auto element = category->sections.value(sectionId);
-		if(element.isNull()) {
-			element.reset(new SettingsSection());
-			category->sections.insert(sectionId, element);
-			category->sectionOrder.append(sectionId);
-		}
+		auto element = category->sections.valueId(sectionId);
+		if(element.isNull())
+			element = category->sections.append(sectionId, new SettingsSection());
 		return element;
 	}
 }
@@ -313,12 +298,9 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::getGroup(QString groupId, 
 		}
 		return section->defaultGroup;
 	} else {
-		auto element = section->groups.value(groupId);
-		if(element.isNull()) {
-			element.reset(new SettingsGroup());
-			section->groups.insert(groupId, element);
-			section->groupOrder.append(groupId);
-		}
+		auto element = section->groups.valueId(groupId);
+		if(element.isNull())
+			element = section->groups.append(groupId, new SettingsGroup());
 		return element;
 	}
 }
@@ -327,38 +309,29 @@ QString QSettingsDialogPrivate::findEntryPath(int id)
 {
 	auto categories = this->rootElement->categories;
 	if(!this->rootElement->defaultCategory.isNull())
-		categories.insert(QStringLiteral("."), this->rootElement->defaultCategory);
+		categories.append(QStringLiteral("."), this->rootElement->defaultCategory);
 
-	for(QHash<QString, QSharedPointer<SettingsCategory>>::const_iterator categoryIt = categories.constBegin(),
-		categoryEnd = categories.constEnd();
-		categoryIt != categoryEnd;
-		++categoryIt) {
+	foreach(auto categoryElement, categories) {
+		const QSharedPointer<SettingsCategory> &category = categoryElement.second;
 
-		const QSharedPointer<SettingsCategory> &category = categoryIt.value();
 		auto sections = category->sections;
 		if(!category->defaultSection.isNull())
-			sections.insert(QStringLiteral("."), category->defaultSection);
+			sections.append(QStringLiteral("."), category->defaultSection);
 
-		for(QHash<QString, QSharedPointer<SettingsSection>>::const_iterator sectionIt = sections.constBegin(),
-			sectionEnd = sections.constEnd();
-			sectionIt != sectionEnd;
-			++sectionIt) {
+		foreach(auto sectionElement, sections) {
+			const QSharedPointer<SettingsSection> &section = sectionElement.second;
 
-			const QSharedPointer<SettingsSection> &section = sectionIt.value();
 			auto groups = section->groups;
 			if(!section->defaultGroup.isNull())
-				groups.insert(QStringLiteral("."), section->defaultGroup);
+				groups.append(QStringLiteral("."), section->defaultGroup);
 
-			for(QHash<QString, QSharedPointer<SettingsGroup>>::const_iterator groupIt = groups.constBegin(),
-				groupEnd = groups.constEnd();
-				groupIt != groupEnd;
-				++groupIt) {
+			foreach(auto groupElement, groups) {
+				const QSharedPointer<SettingsGroup> &group = groupElement.second;
 
-				const QSharedPointer<SettingsGroup> &group = groupIt.value();
 				if(group->entries.contains(id)) {
-					return SettingsPathParser::createPath(categoryIt.key(),
-														  sectionIt.key(),
-														  groupIt.key());
+					return SettingsPathParser::createPath(categoryElement.first,
+														  sectionElement.first,
+														  groupElement.first);
 				}
 			}
 
@@ -376,6 +349,6 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::findEntryGroup(int id)
 	else {
 		auto elements = SettingsPathParser::parseFullPath(path);
 		Q_ASSERT(elements.size() == 3);
-		return this->getGroup(elements[0], elements[1], elements[2]);
+		return this->getGroup(elements[2], elements[1], elements[0]);
 	}
 }

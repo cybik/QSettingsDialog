@@ -1,54 +1,48 @@
 #ifndef CONTAINERELEMENT_H
 #define CONTAINERELEMENT_H
 
-#include <QList>
-#include <QHash>
 #include <QString>
 #include <QIcon>
 #include <QSharedPointer>
+#include <QMutex>
+#include "sortedmap.h"
 #include "qsettingsentry.h"
 
-class SettingsGroup
+struct SettingsGroup
 {
-public:
+	QMutex lock;
+
 	QString name;
 	QString tooltip;
 	bool isOptional;
 
-	QHash<int, QSharedPointer<QSettingsEntry>> entries;
-	QList<int> entryOrder;
+	SortedMap<int, QSettingsEntry> entries;
 };
 
-class SettingsSection
+struct SettingsSection
 {
-public:
 	QString name;
 	QIcon icon;
 	QString tooltip;
 
 	QSharedPointer<SettingsGroup> defaultGroup;
-	QHash<QString, QSharedPointer<SettingsGroup>> groups;
-	QStringList groupOrder;
+	SortedMap<QString, SettingsGroup> groups;
 };
 
-class SettingsCategory
+struct SettingsCategory
 {
-public:
 	QString name;
 	QIcon icon;
 	QString tooltip;
 
 	QSharedPointer<SettingsSection> defaultSection;
-	QHash<QString, QSharedPointer<SettingsSection>> sections;
-	QStringList sectionOrder;
+	SortedMap<QString, SettingsSection> sections;
 };
 
-class SettingsRoot
+struct SettingsRoot
 {
-public:
 	QSharedPointer<SettingsCategory> defaultCategory;
-	QHash<QString, QSharedPointer<SettingsCategory>> categories;
-	QStringList categoryOrder;
+	SortedMap<QString, SettingsCategory> categories;
 };
 
 #endif // CONTAINERELEMENT_H

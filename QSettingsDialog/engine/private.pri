@@ -1,7 +1,8 @@
 HEADERS += \
     $$PWD/qsettingsdialog_p.h \
     $$PWD/containerelements.h \
-    $$PWD/settingspathparser.h
+    $$PWD/settingspathparser.h \
+    $$PWD/sortedmap.h
 
 SOURCES += \
 	$$PWD/qsettingsloader.cpp \
@@ -9,4 +10,6 @@ SOURCES += \
 	$$PWD/qsettingsdialog.cpp \
 	$$PWD/containerelements.cpp \
 	$$PWD/qsettingsdialoglayout.cpp \
-    $$PWD/settingspathparser.cpp
+	$$PWD/settingspathparser.cpp \
+	$$PWD/qsettingscontainer.cpp \
+    $$PWD/exceptions.cpp

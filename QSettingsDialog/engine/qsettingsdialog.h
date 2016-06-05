@@ -6,15 +6,9 @@
 #include <QString>
 #include <QIcon>
 #include <QScopedPointer>
-#include "qtexception.h"
+#include "exceptions.h"
 #include "qsettingsentry.h"
 class QSettingsDialogLayout;
-
-class QSETTINGSDIALOGSHARED_EXPORT InvalidContainerPathException : public QtException
-{
-public:
-	InvalidContainerPathException();
-};
 
 class QSettingsDialogPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
