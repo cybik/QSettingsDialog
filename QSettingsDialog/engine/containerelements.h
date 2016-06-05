@@ -4,19 +4,26 @@
 #include <QString>
 #include <QIcon>
 #include <QSharedPointer>
-#include <QMutex>
 #include "sortedmap.h"
 #include "qsettingsentry.h"
+#include "exceptions.h"
+#include <QAtomicPointer>
 
+class QSettingsContainer;
 struct SettingsGroup
 {
-	QMutex lock;
+	QAtomicPointer<QSettingsContainer> locker;
 
 	QString name;
 	QString tooltip;
 	bool isOptional;
 
 	SortedMap<int, QSettingsEntry> entries;
+
+	inline void testNotLocked() const {
+		if(this->locker != nullptr)
+			throw ContainerLockedException();
+	}
 };
 
 struct SettingsSection

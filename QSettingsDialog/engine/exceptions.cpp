@@ -5,5 +5,5 @@ InvalidContainerPathException::InvalidContainerPathException() :
 {}
 
 ContainerLockedException::ContainerLockedException() :
-	QtException("Container is already locked!")
+	QtException("Container is locked! Only the locker can access it")
 {}

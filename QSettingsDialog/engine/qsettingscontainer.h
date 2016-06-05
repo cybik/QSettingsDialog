@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QScopedPointer>
 #include "qsettingsentry.h"
+#include "exceptions.h"
 class QSettingsDialog;
 
 class QSettingsContainerPrivate;
@@ -29,8 +30,15 @@ public:
 	bool removeEntryFromIndex(int index);
 	void moveEntry(int indexFrom, int indexTo);
 
-private:
+protected:
 	QScopedPointer<QSettingsContainerPrivate> d_ptr;
+};
+
+class QSETTINGSDIALOGSHARED_EXPORT QAsyncSettingsContainer : public QSettingsContainer
+{
+public:
+	explicit QAsyncSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
+	~QAsyncSettingsContainer();
 };
 
 #endif // QSETTINGSCONTAINER_H

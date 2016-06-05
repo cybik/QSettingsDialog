@@ -125,6 +125,7 @@ int QSettingsDialog::appendEntry(QSettingsEntry *entry)
 {
 	auto group = d->getGroup();
 	Q_ASSERT(!group.isNull());
+	group->testNotLocked();
 
 	auto id = d->getNextId();
 	group->entries.append(id, entry);
@@ -137,6 +138,7 @@ int QSettingsDialog::appendEntry(const QString &containerPath, QSettingsEntry *e
 	Q_ASSERT(elements.size() == 3);
 	auto group = d->getGroup(elements[2], elements[1], elements[0]);
 	Q_ASSERT(!group.isNull());
+	group->testNotLocked();
 
 	auto id = d->getNextId();
 	group->entries.append(id, entry);
@@ -147,6 +149,7 @@ int QSettingsDialog::prependEntry(QSettingsEntry *entry)
 {
 	auto group = d->getGroup();
 	Q_ASSERT(!group.isNull());
+	group->testNotLocked();
 
 	auto id = d->getNextId();
 	group->entries.prepend(id, entry);
@@ -159,6 +162,7 @@ int QSettingsDialog::prependEntry(const QString &containerPath, QSettingsEntry *
 	Q_ASSERT(elements.size() == 3);
 	auto group = d->getGroup(elements[2], elements[1], elements[0]);
 	Q_ASSERT(!group.isNull());
+	group->testNotLocked();
 
 	auto id = d->getNextId();
 	group->entries.prepend(id, entry);
@@ -327,6 +331,7 @@ QString QSettingsDialogPrivate::findEntryPath(int id)
 
 			foreach(auto groupElement, groups) {
 				const QSharedPointer<SettingsGroup> &group = groupElement.second;
+				group->testNotLocked();//TODO no good
 
 				if(group->entries.contains(id)) {
 					return SettingsPathParser::createPath(categoryElement.first,
