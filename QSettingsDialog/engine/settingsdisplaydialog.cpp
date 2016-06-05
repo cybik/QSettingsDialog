@@ -1,6 +1,11 @@
 #include "settingsdisplaydialog.h"
 #include "ui_settingsdisplaydialog.h"
 #include <dialogmaster.h>
+#include <QTabWidget>
+#include <QScrollArea>
+#include <QGroupBox>
+#include <QVBoxLayout>
+#include <QFormLayout>
 
 SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
 	QDialog(parent),
@@ -28,8 +33,6 @@ SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
 											 0,
 											 QSizePolicy::Fixed,
 											 QSizePolicy::Fixed);
-
-	this->resetListSize();
 }
 
 SettingsDisplayDialog::~SettingsDisplayDialog()
@@ -37,10 +40,21 @@ SettingsDisplayDialog::~SettingsDisplayDialog()
 	delete ui;
 }
 
+void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &elementRoot)
+{
+	if(elementRoot->defaultCategory)
+		this->createCategory(elementRoot->defaultCategory);
+	foreach(auto category, elementRoot->categories)
+		this->createCategory(category.second);
+
+	this->resetListSize();
+	this->ui->categoryListWidget->setCurrentRow(0);
+}
+
 void SettingsDisplayDialog::resetListSize()
 {
 	int max = this->ui->categoryListWidget->count();
-	if(max == 0) {
+	if(max <= 1) {
 		this->ui->categoryContentWidget->hide();
 		this->resize(this->width() - this->ui->categoryContentWidget->sizeHint().width(),
 					 this->height());
@@ -94,6 +108,74 @@ void SettingsDisplayDialog::buttonBoxClicked(QAbstractButton *button)
 	default:
 		Q_UNREACHABLE();
 	}
+}
+
+void SettingsDisplayDialog::createCategory(const QSharedPointer<SettingsCategory> &category)
+{
+	auto item = new QListWidgetItem();
+	item->setText(category->name);
+	item->setIcon(category->icon);
+	item->setToolTip(category->tooltip.isNull() ? category->name : category->tooltip);
+	auto tab = new QTabWidget();
+	tab->setTabBarAutoHide(true);
+
+	this->ui->contentStackWidget->addWidget(tab);
+	this->ui->categoryListWidget->addItem(item);
+
+	if(category->defaultSection)
+		this->createSection(category->defaultSection, tab);
+	foreach(auto section, category->sections)
+		this->createSection(section.second, tab);
+}
+
+void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> &section, QTabWidget *tabWidget)
+{
+	auto scrollArea = new QScrollArea();
+	scrollArea->setWidgetResizable(true);
+	scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+	scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	scrollArea->setAutoFillBackground(true);
+	auto pal = scrollArea->palette();
+	pal.setColor(QPalette::Window, Qt::transparent);
+	scrollArea->setPalette(pal);
+	scrollArea->setFrameShape(QFrame::NoFrame);
+
+	auto scrollContent = new QWidget(scrollArea);
+	auto layout = new QVBoxLayout(scrollContent);
+	scrollContent->setLayout(layout);
+	scrollArea->setWidget(scrollContent);
+
+	auto index = tabWidget->addTab(scrollArea, section->icon, section->name);
+	tabWidget->tabBar()->setTabToolTip(index, section->tooltip.isNull() ? section->name : section->tooltip);
+
+	if(section->defaultGroup)
+		this->createDefaultGroup(section->defaultGroup, scrollContent);
+	foreach(auto group, section->groups)
+		this->createGroup(group.second, scrollContent);
+
+	layout->addStretch();
+}
+
+void SettingsDisplayDialog::createDefaultGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget)
+{
+	auto defaultWidget = new QWidget(contentWidget);
+	defaultWidget->setToolTip(group->tooltip.isNull() ? group->name : group->tooltip);
+	auto layout = new QFormLayout(defaultWidget);
+	layout->setContentsMargins(QMargins());
+	defaultWidget->setLayout(layout);
+	contentWidget->layout()->addWidget(defaultWidget);
+}
+
+void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget)
+{
+	auto box = new QGroupBox(group->name, contentWidget);
+	box->setToolTip(group->tooltip.isNull() ? group->name : group->tooltip);
+	if(group->isOptional) {
+		box->setCheckable(true);
+		box->setChecked(false);
+	}
+	box->setLayout(new QFormLayout(box));
+	contentWidget->layout()->addWidget(box);
 }
 
 

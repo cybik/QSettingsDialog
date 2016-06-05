@@ -222,6 +222,7 @@ void QSettingsDialog::showSettings(QWidget *parentWindow)
 {
 	Q_UNIMPLEMENTED();
 	SettingsDisplayDialog dialog(parentWindow);
+	dialog.createUi(d->rootElement);
 	dialog.exec();
 	emit resetted();
 }
@@ -240,7 +241,7 @@ int QSettingsDialogPrivate::getNextId()
 
 QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
 	q_ptr(q_ptr),
-	rootElement(),
+	rootElement(new SettingsRoot()),
 	categoryId(QStringLiteral(".")),
 	sectionId(QStringLiteral(".")),
 	groupId(QStringLiteral(".")),
@@ -255,8 +256,10 @@ QSharedPointer<SettingsCategory> QSettingsDialogPrivate::getCategory(QString cat
 
 	if(categoryId == QLatin1String(".")) {
 		if(this->rootElement->defaultCategory.isNull()) {
-			this->rootElement->defaultCategory.reset(new SettingsCategory());
-			//TODO setup default name/icon/tooltip
+			auto cat = new SettingsCategory();
+			cat->name = QSettingsDialog::tr("General Settings");
+			cat->icon = QIcon(QStringLiteral(":/QSettingsDialog/icons/settings.ico"));
+			this->rootElement->defaultCategory.reset(cat);
 		}
 		return this->rootElement->defaultCategory;
 	} else {
@@ -278,8 +281,10 @@ QSharedPointer<SettingsSection> QSettingsDialogPrivate::getSection(QString secti
 
 	if(sectionId == QLatin1String(".")) {
 		if(category->defaultSection.isNull()) {
-			category->defaultSection.reset(new SettingsSection());
-			//TODO setup default name/icon/tooltip
+			auto sect = new SettingsSection();
+			sect->name = QSettingsDialog::tr("General");
+			sect->icon = QIcon(QStringLiteral(":/QSettingsDialog/icons/settings.ico"));
+			category->defaultSection.reset(sect);
 		}
 		return category->defaultSection;
 	} else {
@@ -301,8 +306,9 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::getGroup(QString groupId, 
 
 	if(groupId == QLatin1String(".")) {
 		if(section->defaultGroup.isNull()) {
-			section->defaultGroup.reset(new SettingsGroup());
-			//TODO setup default name/icon/tooltip
+			auto grp = new SettingsGroup();
+			grp->name = QSettingsDialog::tr("General");
+			section->defaultGroup.reset(grp);
 		}
 		return section->defaultGroup;
 	} else {

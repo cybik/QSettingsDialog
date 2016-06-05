@@ -5,6 +5,7 @@
 #include <QStyledItemDelegate>
 #include <QAbstractButton>
 #include <functional>
+#include "containerelements.h"
 
 namespace Ui {
 	class SettingsDisplayDialog;
@@ -21,7 +22,7 @@ public:
 	QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 private:
 	QSize iconSize;
-	std::function<void(int)> updateFunc;//TODO use signal/slot instead!
+	std::function<void(int)> updateFunc;
 };
 
 class SettingsDisplayDialog : public QDialog
@@ -31,6 +32,8 @@ class SettingsDisplayDialog : public QDialog
 public:
 	explicit SettingsDisplayDialog(QWidget *parent = 0);
 	~SettingsDisplayDialog();
+
+	void createUi(const QSharedPointer<SettingsRoot> &elementRoot);
 
 signals:
 	void save(bool quitAfter);
@@ -46,6 +49,11 @@ private:
 	Ui::SettingsDisplayDialog *ui;	
 	CategoryItemDelegate *delegate;
 	int maxWidthBase;
+
+	void createCategory(const QSharedPointer<SettingsCategory> &category);
+	void createSection(const QSharedPointer<SettingsSection> &section, QTabWidget *tabWidget);
+	void createDefaultGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget);
+	void createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget);
 };
 
 #endif // SETTINGSDISPLAYDIALOG_H
