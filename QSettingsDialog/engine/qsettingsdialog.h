@@ -48,7 +48,7 @@ public:
 				  const QString &tooltip = QString());
 
 	void setContainer(const QString &containerPath);
-	void removeContainer(const QString &containerPath);
+	bool removeContainer(const QString &containerPath);
 
 	//entry organisation
 	int appendEntry(QSettingsEntry *entry);
@@ -59,7 +59,6 @@ public:
 	QSettingsEntry *getEntry(int id) const;
 	QString getEntryPath(int id) const;
 	bool removeEntry(int id);
-	void moveEntry(int id, int indexTo);
 
 	//helper
 	static QString createContainerPath(QString category = QString(),
