@@ -1,6 +1,7 @@
 #include "qsettingsdialog.h"
 #include "qsettingsdialog_p.h"
 #include "settingspathparser.h"
+#include "settingsdisplaydialog.h"
 #include <QGlobalStatic>
 
 #define d this->d_ptr
@@ -220,6 +221,8 @@ QSettingsDialog *QSettingsDialog::defaultInstance()
 void QSettingsDialog::showSettings(QWidget *parentWindow)
 {
 	Q_UNIMPLEMENTED();
+	SettingsDisplayDialog dialog(parentWindow);
+	dialog.exec();
 	emit resetted();
 }
 
