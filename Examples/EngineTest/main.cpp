@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <qsettingsdialog.h>
+#include "testentry.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,11 @@ int main(int argc, char *argv[])
 	dialog.setSection("__", "Is it true?", QIcon(), "some tooltop");
 	dialog.setGroup(".");
 	dialog.setGroup("42", "Yes it is!", true, "Even here...");
+
+	dialog.appendEntry(new TestEntry());
+
+	dialog.setContainer("..");
+	dialog.appendEntry(new TestEntry());
 
 	dialog.showSettings();
 	return a.exec();

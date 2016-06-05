@@ -166,7 +166,7 @@ void SettingsDisplayDialog::createDefaultGroup(const QSharedPointer<SettingsGrou
 	contentWidget->layout()->addWidget(defaultWidget);
 
 	foreach(auto entry, group->entries)
-		this->createEntry(entry.second, contentWidget);
+		this->createEntry(entry.second, defaultWidget);
 }
 
 void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget)
@@ -190,9 +190,24 @@ void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &en
 	auto settingsWidget = entry->createWidget(groupWidget);
 	if(settingsWidget)
 		content = settingsWidget->asWidget();
-	else
-		content = new QLabel("<i>Failed to load element</i>", groupWidget);//TODO enhance
+	else {
+		content = new QWidget(groupWidget);
+		auto layout = new QHBoxLayout(content);
+		layout->setContentsMargins(QMargins());
+		content->setLayout(layout);
 
+		auto iconLabel = new QLabel(content);
+		iconLabel->setPixmap(this->style()->standardIcon(QStyle::SP_MessageBoxWarning).pixmap(16, 16));
+		layout->addWidget(iconLabel);
+		layout->setStretchFactor(iconLabel, 0);
+
+		auto errorTextLabel = new QLabel(tr("<i>Failed to load element</i>"), content);
+		errorTextLabel->setEnabled(false);
+		layout->addWidget(errorTextLabel);
+		layout->setStretchFactor(errorTextLabel, 1);
+	}
+
+	Q_ASSERT(dynamic_cast<QFormLayout*>(groupWidget->layout()));
 	auto layout = static_cast<QFormLayout*>(groupWidget->layout());
 	if(entry->isOptional()) {
 		content->setEnabled(false);

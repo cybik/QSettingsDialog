@@ -12,7 +12,8 @@ TARGET = EngineTest
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    testentry.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/release/ -lQSettingsDialog
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/debug/ -lQSettingsDialog
@@ -21,3 +22,6 @@ else:unix: LIBS += -L$$OUT_PWD/../../QSettingsDialog/ -lQSettingsDialog
 INCLUDEPATH += $$PWD/../../QSettingsDialog
 INCLUDEPATH += $$PWD/../../QSettingsDialog/engine
 DEPENDPATH += $$PWD/../../QSettingsDialog
+
+HEADERS += \
+    testentry.h
