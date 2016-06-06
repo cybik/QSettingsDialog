@@ -6,7 +6,7 @@
 class TestEntry : public QSettingsLoaderEntry
 {
 public:
-	TestEntry();
+	TestEntry(bool optional, bool working, QVariant data = QVariant());
 
 	QVariant load(bool &userEdited) override;
 	bool save(const QVariant &data) override;
@@ -14,7 +14,13 @@ public:
 
 	QString entryName() const override;
 	bool isOptional() const override;
+	QString tooltip() const override;
 	QSettingsWidgetBase *createWidget(QWidget *parent) override;
+
+private:
+	bool optional;
+	bool working;
+	QVariant data;
 };
 
 #endif // TESTENTRY_H

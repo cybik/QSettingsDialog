@@ -283,7 +283,6 @@ QSharedPointer<SettingsSection> QSettingsDialogPrivate::getSection(QString secti
 		if(category->defaultSection.isNull()) {
 			auto sect = new SettingsSection();
 			sect->name = QSettingsDialog::tr("General");
-			sect->icon = QIcon(QStringLiteral(":/QSettingsDialog/icons/settings.ico"));
 			category->defaultSection.reset(sect);
 		}
 		return category->defaultSection;

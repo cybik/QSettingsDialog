@@ -209,14 +209,23 @@ void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &en
 
 	Q_ASSERT(dynamic_cast<QFormLayout*>(groupWidget->layout()));
 	auto layout = static_cast<QFormLayout*>(groupWidget->layout());
+	QWidget *label = nullptr;
 	if(entry->isOptional()) {
-		content->setEnabled(false);
 		auto optBox = new QCheckBox(entry->entryName() + tr(":"), groupWidget);
 		QObject::connect(optBox, &QCheckBox::toggled,
 						 content, &QWidget::setEnabled);
-		layout->addRow(optBox, content);
+		label = optBox;
 	} else
-		layout->addRow(entry->entryName() + tr(":"), content);
+		label = new QLabel(entry->entryName() + tr(":"), groupWidget);
+
+	label->setToolTip(entry->tooltip());
+	if(content->toolTip().isNull())
+		content->setToolTip(entry->tooltip());
+	if(!settingsWidget)
+		label->setEnabled(false);
+	else
+		content->setEnabled(!entry->isOptional());
+	layout->addRow(label, content);
 
 	//TODO tell engine the widget and the loader
 }

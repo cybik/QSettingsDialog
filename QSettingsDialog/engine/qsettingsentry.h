@@ -13,6 +13,7 @@ public:
 
 	virtual QString entryName() const = 0;
 	virtual bool isOptional() const = 0;
+	virtual QString tooltip() const = 0;
 
 	virtual QSettingsWidgetBase *createWidget(QWidget *parent) = 0;
 	virtual inline void destroyWidget(QSettingsWidgetBase *widget) {

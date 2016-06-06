@@ -11,17 +11,45 @@ int main(int argc, char *argv[])
 					 qApp, &QApplication::quit,
 					 Qt::QueuedConnection);
 
-	dialog.setGroup(".");
+	//container demo
 	dialog.setCategory("baum", "Baum == 42");
 	dialog.setSection(".");
 	dialog.setSection("__", "Is it true?", QIcon(), "some tooltop");
+
 	dialog.setGroup(".");
+	dialog.appendEntry(new TestEntry(false, true, "moreText"));
+
 	dialog.setGroup("42", "Yes it is!", true, "Even here...");
+	dialog.appendEntry(new TestEntry(false, false));
+	dialog.appendEntry(new TestEntry(false, true));
+	dialog.appendEntry(new TestEntry(true, false));
+	dialog.appendEntry(new TestEntry(true, true));
 
-	dialog.appendEntry(new TestEntry());
-
+	// settings widget optional handling
 	dialog.setContainer("..");
-	dialog.appendEntry(new TestEntry());
+	dialog.appendEntry(new TestEntry(false, false));
+	dialog.appendEntry(new TestEntry(false, true));
+	dialog.appendEntry(new TestEntry(true, false));
+	dialog.appendEntry(new TestEntry(true, true));
+
+	dialog.setGroup("normal", "normal");
+	dialog.appendEntry(new TestEntry(false, true));
+	dialog.appendEntry(new TestEntry(false, true, "withFixedData"));
+	dialog.appendEntry(new TestEntry(true, true));
+	dialog.appendEntry(new TestEntry(true, true, "withOptionalData"));
+
+	dialog.setGroup("optional1", "optional - no data", true);
+	dialog.appendEntry(new TestEntry(false, true));
+	dialog.appendEntry(new TestEntry(true, true));
+
+	dialog.setGroup("optional2", "optional - fixed data", true);
+	dialog.appendEntry(new TestEntry(false, true, "fixed group data"));
+	dialog.appendEntry(new TestEntry(true, true));
+
+	dialog.setGroup("optional3", "optional - optional subdata", true);
+	dialog.appendEntry(new TestEntry(false, true));
+	dialog.appendEntry(new TestEntry(true, true, "optional group data"));
+
 
 	dialog.showSettings();
 	return a.exec();
