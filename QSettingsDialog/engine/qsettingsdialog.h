@@ -55,6 +55,16 @@ public:
 	QString getEntryPath(int id) const;
 	bool removeEntry(int id);
 
+	//custom groups
+	int appendCustomGroup(void *customGroup);
+	int appendCustomGroup(const QString &containerPath, void *customGroup);
+	int prependCustomGroup(void *customGroup);
+	int prependCustomGroup(const QString &containerPath, void *customGroup);
+
+	void *getCustomGroup(int id) const;
+	QString getCustomGroupPath(int id) const;
+	bool removeCustomGroup(int id);
+
 	//helper
 	static QString createContainerPath(QString category = QString(),
 									   QString section = QString(),

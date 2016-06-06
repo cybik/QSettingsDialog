@@ -11,7 +11,7 @@ public:
 	QSettingsLoader *getLoader() final {
 		return this;
 	}
-	void freeLoader(QSettingsLoader */*loader*/) final {}
+	void freeLoader(QSettingsLoader *) final {}
 };
 
 #endif // QSETTINGSLOADERENTRY_H
