@@ -114,8 +114,12 @@ bool QSettingsDialog::removeContainer(const QString &containerPath)
 		if(elements[2] == QStringLiteral(".")) {
 			section->defaultGroup.reset();
 			return true;
-		} else
-			return section->groups.removeId(elements[2]);
+		} else {
+			if (section->groups.removeId(elements[2])) {
+				section->totalOrder.removeOne(elements[2]);
+				return true;
+			}
+		}
 	}
 	default:
 		Q_UNREACHABLE();
@@ -176,7 +180,7 @@ int QSettingsDialog::appendEntryAsGroup(QSettingsEntry *entry)
 	Q_ASSERT(!section.isNull());
 
 	auto id = d->getNextId();
-	section->groups.append(id, new CustomSettingsGroup(entry));
+	section->customGroups.append(id, entry);
 	return id;
 }
 
@@ -337,8 +341,10 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::getGroup(QString groupId, 
 		return section->defaultGroup;
 	} else {
 		auto element = section->groups.valueId(groupId);
-		if(element.isNull())
+		if(element.isNull()) {
 			element = section->groups.append(groupId, new SettingsGroup());
+			section->totalOrder.append(groupId);
+		}
 		return element;
 	}
 }
@@ -359,13 +365,20 @@ QString QSettingsDialogPrivate::findEntryPath(int id)
 		foreach(auto sectionElement, sections) {
 			const QSharedPointer<SettingsSection> &section = sectionElement.second;
 
+			if(section->customGroups.contains(id)) {
+				//TODO only 2 elements
+				return SettingsPathParser::createPath(categoryElement.first,
+													  sectionElement.first,
+													  QString());
+			}
+
 			auto groups = section->groups;
 			if(!section->defaultGroup.isNull())
 				groups.append(QStringLiteral("."), section->defaultGroup);
 
 			foreach(auto groupElement, groups) {
 				const QSharedPointer<SettingsGroup> &group = groupElement.second;
-				group->testNotLocked();//TODO no good
+				group->testNotLocked();
 
 				if(group->entries.contains(id)) {
 					return SettingsPathParser::createPath(categoryElement.first,

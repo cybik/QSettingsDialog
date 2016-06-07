@@ -3,6 +3,7 @@ default format:
 
 allowed id charaters:
  0..9 a..z A..Z _ -
+  -> NO LEADING NUMBERS
 
 special characters:
  <empty> -> current element

@@ -34,6 +34,9 @@ struct SettingsSection
 
 	QSharedPointer<SettingsGroup> defaultGroup;
 	SortedMap<QString, SettingsGroup> groups;
+	SortedMap<int, QSettingsEntry> customGroups;
+
+	QVariantList totalOrder;
 };
 
 struct SettingsCategory
