@@ -5,6 +5,7 @@
 #include <QIcon>
 #include <QSharedPointer>
 #include "sortedmap.h"
+#include "specialgroupmap.h"
 #include "qsettingsentry.h"
 #include "exceptions.h"
 #include <QAtomicPointer>
@@ -33,10 +34,7 @@ struct SettingsSection
 	QString tooltip;
 
 	QSharedPointer<SettingsGroup> defaultGroup;
-	SortedMap<QString, SettingsGroup> groups;
-	SortedMap<int, QSettingsEntry> customGroups;
-
-	QVariantList totalOrder;
+	SpecialGroupMap groups;
 };
 
 struct SettingsCategory

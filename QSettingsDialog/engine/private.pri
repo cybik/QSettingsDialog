@@ -4,7 +4,8 @@ HEADERS += \
     $$PWD/settingspathparser.h \
     $$PWD/sortedmap.h \
     $$PWD/settingsdisplaydialog.h \
-    $$PWD/settingsengine.h
+    $$PWD/settingsengine.h \
+    $$PWD/specialgroupmap.h
 
 SOURCES += \
 	$$PWD/qsettingsloader.cpp \
@@ -15,7 +16,8 @@ SOURCES += \
 	$$PWD/qsettingscontainer.cpp \
     $$PWD/exceptions.cpp \
     $$PWD/settingsdisplaydialog.cpp \
-    $$PWD/settingsengine.cpp
+    $$PWD/settingsengine.cpp \
+    $$PWD/specialgroupmap.cpp
 
 FORMS += \
     $$PWD/settingsdisplaydialog.ui

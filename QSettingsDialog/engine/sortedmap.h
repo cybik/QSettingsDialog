@@ -25,9 +25,11 @@ public:
 	bool hasIndex(int index) const;
 	bool contains(const TId &id) const;
 
+	Entry entry(int index) const;
+	QList<Entry> entries(int index) const;
+
 	QList<TId> keys() const;
 	TId key(int index) const;
-	Entry entry(int index) const;
 
 	QList<QSharedPointer<TEntry>> values() const;
 	QSharedPointer<TEntry> value(int index) const;
