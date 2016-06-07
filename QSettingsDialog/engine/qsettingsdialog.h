@@ -51,19 +51,14 @@ public:
 	int prependEntry(QSettingsEntry *entry);
 	int prependEntry(const QString &containerPath, QSettingsEntry *entry);
 
+	int appendEntryAsGroup(QSettingsEntry *entry);
+	int appendEntryAsGroup(const QString &containerPath, QSettingsEntry *entry);
+	int prependEntryAsGroup(QSettingsEntry *entry);
+	int prependEntryAsGroup(const QString &containerPath, QSettingsEntry *entry);
+
 	QSettingsEntry *getEntry(int id) const;
 	QString getEntryPath(int id) const;
 	bool removeEntry(int id);
-
-	//custom groups
-	int appendCustomGroup(void *customGroup);
-	int appendCustomGroup(const QString &containerPath, void *customGroup);
-	int prependCustomGroup(void *customGroup);
-	int prependCustomGroup(const QString &containerPath, void *customGroup);
-
-	void *getCustomGroup(int id) const;
-	QString getCustomGroupPath(int id) const;
-	bool removeCustomGroup(int id);
 
 	//helper
 	static QString createContainerPath(QString category = QString(),

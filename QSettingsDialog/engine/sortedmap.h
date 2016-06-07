@@ -21,6 +21,7 @@ public:
 	int index(const TId &id) const;
 	TId id(int index) const;
 
+	int size() const;
 	bool hasIndex(int index) const;
 	bool contains(const TId &id) const;
 
@@ -126,6 +127,12 @@ TId SortedMap<TId, TEntry>::id(int index) const
 {
 	Q_ASSERT(index < this->entryOrder.size());
 	return this->entryOrder[index];
+}
+
+template <typename TId, typename TEntry>
+int SortedMap<TId, TEntry>::size() const
+{
+	return this->entryOrder.size();
 }
 
 template <typename TId, typename TEntry>

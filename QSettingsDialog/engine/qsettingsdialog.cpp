@@ -170,6 +170,31 @@ int QSettingsDialog::prependEntry(const QString &containerPath, QSettingsEntry *
 	return id;
 }
 
+int QSettingsDialog::appendEntryAsGroup(QSettingsEntry *entry)
+{
+	auto section = d->getSection();
+	Q_ASSERT(!section.isNull());
+
+	auto id = d->getNextId();
+	section->groups.append(id, new CustomSettingsGroup(entry));
+	return id;
+}
+
+int QSettingsDialog::appendEntryAsGroup(const QString &containerPath, QSettingsEntry *entry)
+{
+
+}
+
+int QSettingsDialog::prependEntryAsGroup(QSettingsEntry *entry)
+{
+
+}
+
+int QSettingsDialog::prependEntryAsGroup(const QString &containerPath, QSettingsEntry *entry)
+{
+
+}
+
 QSettingsEntry *QSettingsDialog::getEntry(int id) const
 {
 	auto group = d->findEntryGroup(id);

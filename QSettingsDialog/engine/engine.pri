@@ -6,8 +6,7 @@ HEADERS += \
 	$$PWD/qsettingsdialog.h \
     $$PWD/qsettingsdialoglayout.h \
     $$PWD/qsettingscontainer.h \
-    $$PWD/exceptions.h \
-    $$PWD/qcustomsettingsgroup.h
+    $$PWD/exceptions.h
 
 INCLUDEPATH += $$PWD
 

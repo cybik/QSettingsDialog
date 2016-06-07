@@ -10,7 +10,6 @@ SOURCES += \
 	$$PWD/qsettingsloader.cpp \
 	$$PWD/qsettingswidget.cpp \
 	$$PWD/qsettingsdialog.cpp \
-	$$PWD/containerelements.cpp \
 	$$PWD/qsettingsdialoglayout.cpp \
 	$$PWD/settingspathparser.cpp \
 	$$PWD/qsettingscontainer.cpp \
