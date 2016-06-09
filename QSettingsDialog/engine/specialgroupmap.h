@@ -4,23 +4,27 @@
 #include <QHash>
 #include <QList>
 #include <QSharedPointer>
+#include <QVariant>
+#include "sortedmap.h"
 struct SettingsGroup;
 class QSettingsEntry;
 
 class SpecialGroupMap
 {
 public:
-	typedef QPair<QVariant, QPair<QSharedPointer<SettingsGroup>, QSharedPointer<QSettingsEntry>>> Entry;
+	typedef QPair<QSharedPointer<SettingsGroup>, QSharedPointer<QSettingsEntry>> Value;
+	typedef QPair<QVariant, Value> Entry;
 
 	SpecialGroupMap();
 
 	//global operations
 	int size() const;
 	bool hasIndex(int index) const;
+	QVariant id(int index) const;
+	QList<Entry> entries() const;
 	Entry entry(int index) const;
-	QList<Entry> entries(int index) const;
 	bool remove(int index);
-	QSharedPointer<void> take(int index);
+	Entry take(int index);
 	void move(int indexFrom, int indexTo);
 
 	//group base operations
@@ -32,17 +36,13 @@ public:
 	void insert(int index, const QString &id, const QSharedPointer<SettingsGroup> &entry);
 
 	int index(const QString &id) const;
-	QString idGroup(int index) const;
-
 	bool contains(const QString &id) const;
 
 	QList<QString> groupKeys() const;
-	QString groupKey(int index) const;
-
 	QList<QSharedPointer<SettingsGroup>> groupValues() const;
-	QSharedPointer<SettingsGroup> groupValue(int index) const;
-	QSharedPointer<SettingsGroup> valueId(const QString &id) const;
+	SortedMap<QString, SettingsGroup> createGroupMap() const;
 
+	QSharedPointer<SettingsGroup> valueId(const QString &id) const;
 	bool removeId(const QString &id);
 	QSharedPointer<SettingsGroup> takeId(const QString &id);
 
@@ -55,17 +55,13 @@ public:
 	void insert(int index, const int &id, const QSharedPointer<QSettingsEntry> &entry);
 
 	int index(const int &id) const;
-	int idCustom(int index) const;
-
 	bool contains(const int &id) const;
 
 	QList<int> customKeys() const;
-	int customKey(int index) const;
-
 	QList<QSharedPointer<QSettingsEntry>> customValues() const;
-	QSharedPointer<QSettingsEntry> customValue(int index) const;
-	QSharedPointer<QSettingsEntry> valueId(const int &id) const;
+	SortedMap<int, QSettingsEntry> createCustomMap() const;
 
+	QSharedPointer<QSettingsEntry> valueId(const int &id) const;
 	bool removeId(const int &id);
 	QSharedPointer<QSettingsEntry> takeId(const int &id);
 
@@ -91,6 +87,8 @@ private:
 	QHash<QString, QSharedPointer<SettingsGroup>> groups;
 	QHash<int, QSharedPointer<QSettingsEntry>> customGroups;
 	QVariantList totalOrder;
+
+	void cleanTotal(const QVariant &value);
 };
 
 #endif // SPECIALGROUPMAP_H

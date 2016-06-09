@@ -23,10 +23,11 @@ public:
 	}
 };
 
-TestEntry::TestEntry(bool optional, bool working, QVariant data) :
+TestEntry::TestEntry(bool optional, bool working, QVariant data, bool hasName) :
 	optional(optional),
 	working(working),
-	data(data)
+	data(data),
+	hasName(hasName)
 {}
 
 QVariant TestEntry::load(bool &userEdited)
@@ -50,7 +51,7 @@ bool TestEntry::reset()
 
 QString TestEntry::entryName() const
 {
-	return "Test Entry";
+	return this->hasName ? "Test Entry" : QString();
 }
 
 bool TestEntry::isOptional() const

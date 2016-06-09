@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new TestEntry(true, true));
 	dialog.appendEntry(new TestEntry(true, true, "withOptionalData"));
 
+	dialog.appendEntryAsGroup(new TestEntry(true, true, "LOOOOL"));
+
 	dialog.setGroup("optional1", "optional - no data", true);
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true));
@@ -49,6 +51,10 @@ int main(int argc, char *argv[])
 	dialog.setGroup("optional3", "optional - optional subdata", true);
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true, "optional group data"));
+
+	dialog.appendEntryAsGroup(new TestEntry(false, false));
+	dialog.appendEntryAsGroup(new TestEntry(false, true, QVariant(), false));
+	dialog.appendEntryAsGroup(new TestEntry(false, false, QVariant(), false));
 
 
 	dialog.showSettings();

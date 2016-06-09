@@ -6,7 +6,7 @@
 class TestEntry : public QSettingsLoaderEntry
 {
 public:
-	TestEntry(bool optional, bool working, QVariant data = QVariant());
+	TestEntry(bool optional, bool working, QVariant data = QVariant(), bool hasName = true);
 
 	QVariant load(bool &userEdited) override;
 	bool save(const QVariant &data) override;
@@ -21,6 +21,7 @@ private:
 	bool optional;
 	bool working;
 	QVariant data;
+	bool hasName;
 };
 
 #endif // TESTENTRY_H

@@ -54,7 +54,10 @@ private:
 	void createSection(const QSharedPointer<SettingsSection> &section, QTabWidget *tabWidget);
 	void createDefaultGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget);
 	void createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget);
+	void createCustomGroup(const QSharedPointer<QSettingsEntry> &group, QWidget *contentWidget);
 	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget);
+
+	QWidget *createErrorWidget(QWidget *parent);
 };
 
 #endif // SETTINGSDISPLAYDIALOG_H

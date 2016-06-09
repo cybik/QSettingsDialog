@@ -150,8 +150,12 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 
 	if(section->defaultGroup)
 		this->createDefaultGroup(section->defaultGroup, scrollContent);
-	foreach(auto group, section->groups)
-		this->createGroup(group.second, scrollContent);
+	foreach(auto group, section->groups) {
+		if(group.first.type() == QMetaType::Int)
+			this->createCustomGroup(group.second.second, scrollContent);
+		else
+			this->createGroup(group.second.first, scrollContent);
+	}
 
 	layout->addStretch();
 }
@@ -184,28 +188,45 @@ void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &gro
 		this->createEntry(entry.second, box);
 }
 
+void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntry> &group, QWidget *contentWidget)
+{
+	auto rContainer = contentWidget;
+
+	if(!group->entryName().isNull() ||
+	   group->isOptional()) {
+		auto box = new QGroupBox(group->entryName(), contentWidget);
+		auto ttip = group->tooltip();
+		box->setToolTip(ttip.isNull() ? group->entryName() : ttip);
+
+		if(group->isOptional()) {
+			box->setCheckable(true);
+			box->setChecked(false);
+		}
+
+		box->setLayout(new QVBoxLayout(box));
+		contentWidget->layout()->addWidget(box);
+		rContainer = box;
+	}
+
+	QWidget *content = nullptr;
+	auto settingsWidget = group->createWidget(rContainer);
+	if(settingsWidget)
+		content = settingsWidget->asWidget();
+	else
+		content = this->createErrorWidget(rContainer);
+	rContainer->layout()->addWidget(content);
+
+	//TODO tell engine the widget and the loader
+}
+
 void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget)
 {
 	QWidget *content = nullptr;
 	auto settingsWidget = entry->createWidget(groupWidget);
 	if(settingsWidget)
 		content = settingsWidget->asWidget();
-	else {
-		content = new QWidget(groupWidget);
-		auto layout = new QHBoxLayout(content);
-		layout->setContentsMargins(QMargins());
-		content->setLayout(layout);
-
-		auto iconLabel = new QLabel(content);
-		iconLabel->setPixmap(this->style()->standardIcon(QStyle::SP_MessageBoxWarning).pixmap(16, 16));
-		layout->addWidget(iconLabel);
-		layout->setStretchFactor(iconLabel, 0);
-
-		auto errorTextLabel = new QLabel(tr("<i>Failed to load element</i>"), content);
-		errorTextLabel->setEnabled(false);
-		layout->addWidget(errorTextLabel);
-		layout->setStretchFactor(errorTextLabel, 1);
-	}
+	else
+		content = this->createErrorWidget(groupWidget);
 
 	Q_ASSERT(dynamic_cast<QFormLayout*>(groupWidget->layout()));
 	auto layout = static_cast<QFormLayout*>(groupWidget->layout());
@@ -228,6 +249,26 @@ void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &en
 	layout->addRow(label, content);
 
 	//TODO tell engine the widget and the loader
+}
+
+QWidget *SettingsDisplayDialog::createErrorWidget(QWidget *parent)
+{
+	auto content = new QWidget(parent);
+	auto layout = new QHBoxLayout(content);
+	layout->setContentsMargins(QMargins());
+	content->setLayout(layout);
+
+	auto iconLabel = new QLabel(content);
+	iconLabel->setPixmap(this->style()->standardIcon(QStyle::SP_MessageBoxWarning).pixmap(16, 16));
+	layout->addWidget(iconLabel);
+	layout->setStretchFactor(iconLabel, 0);
+
+	auto errorTextLabel = new QLabel(tr("<i>Failed to load element</i>"), content);
+	errorTextLabel->setEnabled(false);
+	layout->addWidget(errorTextLabel);
+	layout->setStretchFactor(errorTextLabel, 1);
+
+	return content;
 }
 
 

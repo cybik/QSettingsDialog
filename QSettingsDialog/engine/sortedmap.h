@@ -60,7 +60,7 @@ public:
 	const_iterator end() const;
 
 private:
-	QHash<TId, QSharedPointer<TEntry>> entries;
+	QHash<TId, QSharedPointer<TEntry>> entryMap;
 	QList<TId> entryOrder;
 };
 
@@ -77,7 +77,7 @@ QSharedPointer<TEntry> SortedMap<TId, TEntry>::append(const TId &id, TEntry *ent
 template <typename TId, typename TEntry>
 void SortedMap<TId, TEntry>::append(const TId &id, const QSharedPointer<TEntry> &entry)
 {
-	this->entries.insert(id, entry);
+	this->entryMap.insert(id, entry);
 	if(this->entryOrder.contains(id))
 		this->entryOrder.removeOne(id);
 	this->entryOrder.append(id);
@@ -94,7 +94,7 @@ QSharedPointer<TEntry> SortedMap<TId, TEntry>::prepend(const TId &id, TEntry *en
 template <typename TId, typename TEntry>
 void SortedMap<TId, TEntry>::prepend(const TId &id, const QSharedPointer<TEntry> &entry)
 {
-	this->entries.insert(id, entry);
+	this->entryMap.insert(id, entry);
 	if(this->entryOrder.contains(id))
 		this->entryOrder.removeOne(id);
 	this->entryOrder.prepend(id);
@@ -112,7 +112,7 @@ template <typename TId, typename TEntry>
 void SortedMap<TId, TEntry>::insert(int index, const TId &id, const QSharedPointer<TEntry> &entry)
 {
 	Q_ASSERT(index <= this->entryOrder.size());
-	this->entries.insert(id, entry);
+	this->entryMap.insert(id, entry);
 	if(this->entryOrder.contains(id))
 		this->entryOrder.removeOne(id);
 	this->entryOrder.insert(index, id);
@@ -147,7 +147,7 @@ bool SortedMap<TId, TEntry>::hasIndex(int index) const
 template <typename TId, typename TEntry>
 bool SortedMap<TId, TEntry>::contains(const TId &id) const
 {
-	return this->entries.contains(id);
+	return this->entryMap.contains(id);
 }
 
 template <typename TId, typename TEntry>
@@ -170,7 +170,7 @@ typename SortedMap<TId, TEntry>::Entry SortedMap<TId, TEntry>::entry(int index) 
 	auto id = this->entryOrder[index];
 	return {
 		id,
-		this->entries.value(id)
+		this->entryMap.value(id)
 	};
 }
 
@@ -179,7 +179,7 @@ QList<QSharedPointer<TEntry>> SortedMap<TId, TEntry>::values() const
 {
 	QList<QSharedPointer<TEntry>> entryList;
 	foreach(TId id, this->entryOrder)
-		entryList.append(this->entries.value(id));
+		entryList.append(this->entryMap.value(id));
 	return entryList;
 }
 
@@ -187,13 +187,13 @@ template <typename TId, typename TEntry>
 QSharedPointer<TEntry> SortedMap<TId, TEntry>::value(int index) const
 {
 	Q_ASSERT(index < this->entryOrder.size());
-	return this->entries.value(this->entryOrder[index]);
+	return this->entryMap.value(this->entryOrder[index]);
 }
 
 template <typename TId, typename TEntry>
 QSharedPointer<TEntry> SortedMap<TId, TEntry>::valueId(const TId &id) const
 {
-	return this->entries.value(id);
+	return this->entryMap.value(id);
 }
 
 template <typename TId, typename TEntry>
@@ -201,13 +201,13 @@ bool SortedMap<TId, TEntry>::remove(int index)
 {
 	Q_ASSERT(index < this->entryOrder.size());
 	TId id = this->entryOrder.takeAt(index);
-	return this->entries.remove(id) > 0;
+	return this->entryMap.remove(id) > 0;
 }
 
 template <typename TId, typename TEntry>
 bool SortedMap<TId, TEntry>::removeId(const TId &id)
 {
-	this->entries.remove(id);
+	this->entryMap.remove(id);
 	return this->entryOrder.removeOne(id);
 }
 
@@ -216,14 +216,14 @@ QSharedPointer<TEntry> SortedMap<TId, TEntry>::take(int index)
 {
 	Q_ASSERT(index < this->entryOrder.size());
 	TId id = this->entryOrder.takeAt(index);
-	return this->entries.take(id);
+	return this->entryMap.take(id);
 }
 
 template <typename TId, typename TEntry>
 QSharedPointer<TEntry> SortedMap<TId, TEntry>::takeId(const TId &id)
 {
 	this->entryOrder.removeOne(id);
-	return this->entries.take(id);
+	return this->entryMap.take(id);
 }
 
 template <typename TId, typename TEntry>

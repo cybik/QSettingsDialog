@@ -9,6 +9,9 @@ const QRegularExpression SettingsPathParser::allIdRegex(QStringLiteral(R"__(^([0
 const QRegularExpression SettingsPathParser::fullPathRegex(QStringLiteral(R"__(^(\.\.|([0-9a-z_\-]*|\.)\/([0-9a-z_\-]*|\.)\/([0-9a-z_\-]*|\.))?$)__"),
 														   QRegularExpression::CaseInsensitiveOption |
 														   QRegularExpression::OptimizeOnFirstUsageOption);
+const QRegularExpression SettingsPathParser::fullSectionPathRegex(QStringLiteral(R"__(^(\.\.|([0-9a-z_\-]*|\.)\/([0-9a-z_\-]*|\.))?$)__"),
+																  QRegularExpression::CaseInsensitiveOption |
+																  QRegularExpression::OptimizeOnFirstUsageOption);
 const QRegularExpression SettingsPathParser::partialPathRegex(QStringLiteral(R"__(^(\.\.|([0-9a-z_\-]*|\.)(?:\/([0-9a-z_\-]*|\.)(?:\/([0-9a-z_\-]*|\.))?)?)?$)__"),
 															  QRegularExpression::CaseInsensitiveOption |
 															  QRegularExpression::OptimizeOnFirstUsageOption);
@@ -39,6 +42,24 @@ QVector<QString> SettingsPathParser::parseFullPath(const QString &path)
 			match.captured(2),
 			match.captured(3),
 			match.captured(4)
+		};
+	}
+}
+
+QVector<QString> SettingsPathParser::parseSectionPath(const QString &path)
+{
+	auto match = fullSectionPathRegex.match(path);
+	if(!match.hasMatch())
+		throw InvalidContainerPathException();
+
+	if(match.captured(1).isEmpty())
+		return QVector<QString>(2, QString());
+	else if(match.captured(1) == QStringLiteral(".."))
+		return {QStringLiteral("."), QStringLiteral(".")};
+	else {
+		return {
+			match.captured(2),
+			match.captured(3)
 		};
 	}
 }
