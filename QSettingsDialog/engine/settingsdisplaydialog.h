@@ -4,8 +4,10 @@
 #include <QDialog>
 #include <QStyledItemDelegate>
 #include <QAbstractButton>
+#include <QProgressDialog>
 #include <functional>
 #include "containerelements.h"
+class SettingsEngine;
 
 namespace Ui {
 	class SettingsDisplayDialog;
@@ -30,25 +32,34 @@ class SettingsDisplayDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit SettingsDisplayDialog(QWidget *parent = 0);
+	explicit SettingsDisplayDialog(SettingsEngine *engine, QWidget *parent = 0);
 	~SettingsDisplayDialog();
 
 	void createUi(const QSharedPointer<SettingsRoot> &elementRoot);
+
+public slots:
+	int exec() override;
 
 signals:
 	void save(bool quitAfter);
 	void reset();
 
 private slots:
+	void loadFinished();
+
 	void resetListSize();
 	void updateWidth(int width);
 
 	void buttonBoxClicked(QAbstractButton *button);
 
 private:
+	SettingsEngine *engine;
+
 	Ui::SettingsDisplayDialog *ui;	
 	CategoryItemDelegate *delegate;
 	int maxWidthBase;
+
+	QProgressDialog *workingDialog;
 
 	void createCategory(const QSharedPointer<SettingsCategory> &category);
 	void createSection(const QSharedPointer<SettingsSection> &section, QTabWidget *tabWidget);
@@ -58,6 +69,7 @@ private:
 	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget);
 
 	QWidget *createErrorWidget(QWidget *parent);
+	void setContentEnabled(bool enabled);
 };
 
 #endif // SETTINGSDISPLAYDIALOG_H

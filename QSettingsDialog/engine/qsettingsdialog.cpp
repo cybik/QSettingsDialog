@@ -1,6 +1,7 @@
 #include "qsettingsdialog.h"
 #include "qsettingsdialog_p.h"
 #include "settingspathparser.h"
+#include "settingsengine.h"
 #include "settingsdisplaydialog.h"
 #include <QGlobalStatic>
 
@@ -265,7 +266,8 @@ QSettingsDialog *QSettingsDialog::defaultInstance()
 void QSettingsDialog::showSettings(QWidget *parentWindow)
 {
 	Q_UNIMPLEMENTED();
-	SettingsDisplayDialog dialog(parentWindow);
+	SettingsEngine engine(this);
+	SettingsDisplayDialog dialog(&engine, parentWindow);
 	dialog.createUi(d->rootElement);
 	dialog.exec();
 	emit resetted();

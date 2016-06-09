@@ -6,9 +6,12 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QFormLayout>
+#include <QPushButton>
+#include "settingsengine.h"
 
-SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
+SettingsDisplayDialog::SettingsDisplayDialog(SettingsEngine *engine, QWidget *parent) :
 	QDialog(parent),
+	engine(engine),
 	ui(new Ui::SettingsDisplayDialog),
 	delegate(nullptr),
 	maxWidthBase(0)
@@ -33,6 +36,10 @@ SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
 											 0,
 											 QSizePolicy::Fixed,
 											 QSizePolicy::Fixed);
+
+	//engine
+	connect(this->engine, &SettingsEngine::loadCompleted,
+			this, &SettingsDisplayDialog::loadFinished);
 }
 
 SettingsDisplayDialog::~SettingsDisplayDialog()
@@ -49,6 +56,32 @@ void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &element
 
 	this->resetListSize();
 	this->ui->categoryListWidget->setCurrentRow(0);
+}
+
+int SettingsDisplayDialog::exec()
+{
+	this->workingDialog = DialogMaster::createProgress(this, tr("Loading settings…"));
+	this->workingDialog->setAutoClose(false);
+	this->workingDialog->setAutoReset(false);
+	//TODO handle cancel
+	connect(this->engine, &SettingsEngine::progressMaxChanged,
+			this->workingDialog, &QProgressDialog::setMaximum);
+	connect(this->engine, &SettingsEngine::progressValueChanged,
+			this->workingDialog, &QProgressDialog::setValue);
+
+	this->setContentEnabled(false);
+	this->engine->startLoading();
+	return this->QDialog::exec();
+}
+
+void SettingsDisplayDialog::loadFinished()
+{
+	if(this->workingDialog) {
+		this->workingDialog->close();
+		this->workingDialog->deleteLater();
+		this->workingDialog = nullptr;
+	}
+	this->setContentEnabled(true);
 }
 
 void SettingsDisplayDialog::resetListSize()
@@ -216,7 +249,7 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 		content = this->createErrorWidget(rContainer);
 	rContainer->layout()->addWidget(content);
 
-	//TODO tell engine the widget and the loader
+	this->engine->addEntry(group, settingsWidget);
 }
 
 void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget)
@@ -248,7 +281,7 @@ void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &en
 		content->setEnabled(!entry->isOptional());
 	layout->addRow(label, content);
 
-	//TODO tell engine the widget and the loader
+	this->engine->addEntry(entry, settingsWidget);
 }
 
 QWidget *SettingsDisplayDialog::createErrorWidget(QWidget *parent)
@@ -269,6 +302,14 @@ QWidget *SettingsDisplayDialog::createErrorWidget(QWidget *parent)
 	layout->setStretchFactor(errorTextLabel, 1);
 
 	return content;
+}
+
+void SettingsDisplayDialog::setContentEnabled(bool enabled)
+{
+	this->ui->contentStackWidget->setEnabled(enabled);
+	this->ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
+	this->ui->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(enabled);
+	this->ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setEnabled(enabled);
 }
 
 
