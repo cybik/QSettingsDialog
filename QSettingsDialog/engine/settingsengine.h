@@ -2,6 +2,7 @@
 #define SETTINGSENGINE_H
 
 #include <QObject>
+#include <QSignalMapper>
 #include "qsettingsentry.h"
 #include "qsettingsloader.h"
 #include "qsettingswidget.h"
@@ -23,14 +24,21 @@ signals:
 
 	void loadCompleted();
 
+private slots:
+	void entryLoaded
+
 private:
+	template<class TLoader>
 	struct EntryInfo {
 		QSharedPointer<QSettingsEntry> entry;
 		QSettingsWidgetBase *currentWidget;
-		QSettingsLoader *currentLoader;
+		TLoader *currentLoader;
 	};
 
-	QList<EntryInfo> settingsEntries;
+	QList<EntryInfo<QSimpleSettingsLoader>> simpleEntries;
+	QList<EntryInfo<QAsyncSettingsLoader>> asyncEntries;
+
+	QHash<QObject, int> activeAsyncs;
 };
 
 #endif // SETTINGSENGINE_H
