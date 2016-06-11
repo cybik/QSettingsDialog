@@ -381,10 +381,8 @@ QString QSettingsDialogPrivate::findEntryPath(int id)
 			const QSharedPointer<SettingsSection> &section = sectionElement.second;
 
 			if(section->groups.contains(id)) {
-				//TODO only 2 elements
-				return SettingsPathParser::createPath(categoryElement.first,
-													  sectionElement.first,
-													  QString());
+				return SettingsPathParser::createCustomPath(categoryElement.first,
+															sectionElement.first);
 			}
 
 			auto groups = section->groups.createGroupMap();

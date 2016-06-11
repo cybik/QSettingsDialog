@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <qsettingsdialog.h>
 #include "testentry.h"
+#include "delayedtestentry.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,8 +26,9 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new TestEntry(true, false));
 	dialog.appendEntry(new TestEntry(true, true));
 
-	// settings widget optional handling
+	// general test on typical appeareances of normal items
 	dialog.setContainer("..");
+	dialog.setSection("generalTest", "generalTest");
 	dialog.appendEntry(new TestEntry(false, false));
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, false));
@@ -38,8 +40,8 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new TestEntry(true, true));
 	dialog.appendEntry(new TestEntry(true, true, "withOptionalData"));
 
-	dialog.appendEntryAsGroup(new TestEntry(true, true, "LOOOOL"));
-
+	//checking test, does auto-checking work?
+	dialog.setSection("checkingTest", "checkingTest");
 	dialog.setGroup("optional1", "optional - no data", true);
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true));
@@ -52,10 +54,25 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true, "optional group data"));
 
+	//custom group test
+	dialog.setSection("customGroupsTest", "customGroupsTest");
+	dialog.setGroup(".");
+	dialog.appendEntry(new TestEntry(false, true));
+	dialog.appendEntry(new TestEntry(false, true));
+
+	dialog.appendEntryAsGroup(new TestEntry(true, true, "LOOOOL"));
+	dialog.setGroup("someGroup", "someGroup");
 	dialog.appendEntryAsGroup(new TestEntry(false, false));
 	dialog.appendEntryAsGroup(new TestEntry(false, true, QVariant(), false));
 	dialog.appendEntryAsGroup(new TestEntry(false, false, QVariant(), false));
 
+	//async test
+	dialog.setSection("asyncTest", "asyncTest");
+	dialog.setGroup(".");
+
+	dialog.appendEntry(new DelayedTestEntry("test500", 500, qApp));
+	dialog.appendEntry(new DelayedTestEntry("test1000", 1000, qApp));
+	dialog.appendEntry(new DelayedTestEntry("test1500", 1500, qApp));
 
 	dialog.showSettings();
 	return a.exec();

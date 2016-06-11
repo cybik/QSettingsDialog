@@ -13,7 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    testentry.cpp
+    testentry.cpp \
+    delayedtestentry.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/release/ -lQSettingsDialog
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/debug/ -lQSettingsDialog
@@ -24,4 +25,6 @@ INCLUDEPATH += $$PWD/../../QSettingsDialog/engine
 DEPENDPATH += $$PWD/../../QSettingsDialog
 
 HEADERS += \
-    testentry.h
+    testentry.h \
+    delayedtestentry.h \
+    swidget.h

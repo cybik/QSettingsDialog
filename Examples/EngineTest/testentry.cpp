@@ -1,27 +1,6 @@
 #include "testentry.h"
-#include <QLineEdit>
 #include <QDebug>
-
-class TestWidget : public QSettingsWidget<QLineEdit>
-{
-public:
-	TestWidget(QWidget *parent, bool ttip) :
-		QSettingsWidget(parent)
-	{
-		if(ttip)
-			this->setToolTip("Mikeichalt");
-	}
-
-	void setValue(const QVariant &value) override {
-		this->setText(value.toString());
-	}
-	QVariant getValue() const override {
-		return this->text();
-	}
-	void resetValue() override {
-		this->clear();
-	}
-};
+#include "swidget.h"
 
 TestEntry::TestEntry(bool optional, bool working, QVariant data, bool hasName) :
 	optional(optional),

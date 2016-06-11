@@ -90,3 +90,10 @@ QString SettingsPathParser::createPath(const QString &categoryId, const QString 
 	validateId(groupId, false);
 	return QStringList({categoryId, sectionId, groupId}).join(QLatin1Char('/'));
 }
+
+QString SettingsPathParser::createCustomPath(const QString &categoryId, const QString &sectionId)
+{
+	validateId(categoryId, false);
+	validateId(sectionId, false);
+	return QStringList({categoryId, sectionId}).join(QLatin1Char('/'));
+}

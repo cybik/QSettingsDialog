@@ -70,7 +70,6 @@ private:
 	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper);
 
 	QWidget *createErrorWidget(QWidget *parent);
-	void setContentEnabled(bool enabled);
 };
 
 #endif // SETTINGSDISPLAYDIALOG_H

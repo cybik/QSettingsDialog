@@ -15,6 +15,7 @@ public:
 	static QStringList parsePartialPath(const QString &path);
 
 	static QString createPath(const QString &categoryId, const QString &sectionId, const QString &groupId);
+	static QString createCustomPath(const QString &categoryId, const QString &sectionId);
 
 private:
 	static const QRegularExpression realIdRegex;

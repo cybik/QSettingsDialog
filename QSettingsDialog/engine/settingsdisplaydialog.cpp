@@ -60,7 +60,8 @@ void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &element
 
 int SettingsDisplayDialog::exec()
 {
-	this->workingDialog = DialogMaster::createProgress(this, tr("Loading settings…"));
+	this->workingDialog = DialogMaster::createProgress(this, tr("Loading settings…"), 1);
+	this->workingDialog->setMaximum(0);
 	this->workingDialog->setAutoClose(false);
 	this->workingDialog->setAutoReset(false);
 	//TODO handle cancel
@@ -69,7 +70,6 @@ int SettingsDisplayDialog::exec()
 	connect(this->engine, &SettingsEngine::progressValueChanged,
 			this->workingDialog, &QProgressDialog::setValue);
 
-	this->setContentEnabled(false);
 	this->engine->startLoading();
 	return this->QDialog::exec();
 }
@@ -81,7 +81,6 @@ void SettingsDisplayDialog::loadFinished()
 		this->workingDialog->deleteLater();
 		this->workingDialog = nullptr;
 	}
-	this->setContentEnabled(true);
 }
 
 void SettingsDisplayDialog::resetListSize()
@@ -111,6 +110,9 @@ void SettingsDisplayDialog::updateWidth(int width)
 
 void SettingsDisplayDialog::buttonBoxClicked(QAbstractButton *button)
 {
+	if(this->workingDialog)
+		return;
+
 	switch(this->ui->buttonBox->standardButton(button)) {
 	case QDialogButtonBox::Ok:
 		emit save(true);
@@ -315,14 +317,6 @@ QWidget *SettingsDisplayDialog::createErrorWidget(QWidget *parent)
 	layout->setStretchFactor(errorTextLabel, 1);
 
 	return content;
-}
-
-void SettingsDisplayDialog::setContentEnabled(bool enabled)
-{
-	this->ui->contentStackWidget->setEnabled(enabled);
-	this->ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
-	this->ui->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(enabled);
-	this->ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setEnabled(enabled);
 }
 
 
