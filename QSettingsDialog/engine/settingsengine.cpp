@@ -9,6 +9,14 @@ SettingsEngine::SettingsEngine(QObject *parent) :
 	errorCount(0)
 {}
 
+SettingsEngine::~SettingsEngine()
+{
+	foreach(auto entry, this->simpleEntries)
+		entry.entry->freeLoader(entry.currentLoader);
+	foreach(auto entry, this->asyncEntries)
+		entry.entry->freeLoader(entry.currentLoader);
+}
+
 void SettingsEngine::addEntry(QSharedPointer<QSettingsEntry> entry, QSettingsWidgetBase *currentWidget, CheckingHelper *checkingHelper)
 {
 	auto loader = entry->getLoader();

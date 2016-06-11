@@ -4,6 +4,8 @@ SUBDIRS += \
 	QSettingsDialog \
     Examples
 
+Examples.depends += QSettingsDialog
+
 DISTFILES += \
 	README.md \
 	LICENSE \

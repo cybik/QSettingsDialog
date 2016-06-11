@@ -13,6 +13,7 @@ class SettingsEngine : public QObject
 	Q_OBJECT
 public:
 	explicit SettingsEngine(QObject *parent = nullptr);
+	~SettingsEngine();
 
 	void addEntry(QSharedPointer<QSettingsEntry> entry,
 				  QSettingsWidgetBase *currentWidget,
