@@ -203,12 +203,13 @@ void SettingsDisplayDialog::createDefaultGroup(const QSharedPointer<SettingsGrou
 	contentWidget->layout()->addWidget(defaultWidget);
 
 	foreach(auto entry, group->entries)
-		this->createEntry(entry.second, defaultWidget);
+		this->createEntry(entry.second, defaultWidget, nullptr);
 }
 
 void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget)
 {
-	auto box = new QGroupBox(group->name, contentWidget);
+	auto box = new CheckingGroupBox(contentWidget);
+	box->setTitle(group->name);
 	box->setToolTip(group->tooltip.isNull() ? group->name : group->tooltip);
 	if(group->isOptional) {
 		box->setCheckable(true);
@@ -218,22 +219,25 @@ void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &gro
 	contentWidget->layout()->addWidget(box);
 
 	foreach(auto entry, group->entries)
-		this->createEntry(entry.second, box);
+		this->createEntry(entry.second, box, group->isOptional ? box : nullptr);
 }
 
 void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntry> &group, QWidget *contentWidget)
 {
 	auto rContainer = contentWidget;
+	CheckingHelper *helper = nullptr;
 
 	if(!group->entryName().isNull() ||
 	   group->isOptional()) {
-		auto box = new QGroupBox(group->entryName(), contentWidget);
+		auto box = new CheckingGroupBox(contentWidget);
+		box->setTitle(group->entryName());
 		auto ttip = group->tooltip();
 		box->setToolTip(ttip.isNull() ? group->entryName() : ttip);
 
 		if(group->isOptional()) {
 			box->setCheckable(true);
 			box->setChecked(false);
+			helper = box;
 		}
 
 		box->setLayout(new QVBoxLayout(box));
@@ -249,10 +253,11 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 		content = this->createErrorWidget(rContainer);
 	rContainer->layout()->addWidget(content);
 
-	this->engine->addEntry(group, settingsWidget);
+	if(settingsWidget)
+		this->engine->addEntry(group, settingsWidget, helper);
 }
 
-void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget)
+void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper)
 {
 	QWidget *content = nullptr;
 	auto settingsWidget = entry->createWidget(groupWidget);
@@ -264,13 +269,20 @@ void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &en
 	Q_ASSERT(dynamic_cast<QFormLayout*>(groupWidget->layout()));
 	auto layout = static_cast<QFormLayout*>(groupWidget->layout());
 	QWidget *label = nullptr;
+	CheckingHelper *labelAsHelper = nullptr;
 	if(entry->isOptional()) {
-		auto optBox = new QCheckBox(entry->entryName() + tr(":"), groupWidget);
+		auto optBox = new CheckingCheckBox(groupWidget, helper);
+		optBox->setText(entry->entryName() + tr(":"));
 		QObject::connect(optBox, &QCheckBox::toggled,
 						 content, &QWidget::setEnabled);
 		label = optBox;
-	} else
-		label = new QLabel(entry->entryName() + tr(":"), groupWidget);
+		labelAsHelper = optBox;
+	} else {
+		auto cLabel = new CheckingLabel(groupWidget, helper);
+		cLabel->setText(entry->entryName() + tr(":"));
+		label = cLabel;
+		labelAsHelper = cLabel;
+	}
 
 	label->setToolTip(entry->tooltip());
 	if(content->toolTip().isNull())
@@ -281,7 +293,8 @@ void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &en
 		content->setEnabled(!entry->isOptional());
 	layout->addRow(label, content);
 
-	this->engine->addEntry(entry, settingsWidget);
+	if(settingsWidget)
+		this->engine->addEntry(entry, settingsWidget, labelAsHelper);
 }
 
 QWidget *SettingsDisplayDialog::createErrorWidget(QWidget *parent)

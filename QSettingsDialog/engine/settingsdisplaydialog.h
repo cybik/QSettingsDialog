@@ -7,6 +7,7 @@
 #include <QProgressDialog>
 #include <functional>
 #include "containerelements.h"
+#include "checkinghelper.h"
 class SettingsEngine;
 
 namespace Ui {
@@ -66,7 +67,7 @@ private:
 	void createDefaultGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget);
 	void createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget);
 	void createCustomGroup(const QSharedPointer<QSettingsEntry> &group, QWidget *contentWidget);
-	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget);
+	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper);
 
 	QWidget *createErrorWidget(QWidget *parent);
 	void setContentEnabled(bool enabled);
