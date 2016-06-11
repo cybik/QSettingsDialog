@@ -12,6 +12,7 @@ public:
 	inline virtual ~CheckingHelper() {}
 
 	virtual void doCheck() = 0;
+	virtual bool testChecked() const = 0;
 	virtual void disable() = 0;
 };
 
@@ -26,6 +27,13 @@ public:
 	inline void doCheck() override {
 		if(this->checker)
 			this->checker->doCheck();
+	}
+
+	inline bool testChecked() const override {
+		if(this->checker)
+			return this->checker->testChecked();
+		else
+			return true;
 	}
 
 	inline void disable() override {
@@ -50,6 +58,13 @@ public:
 			this->checker->doCheck();
 	}
 
+	inline bool testChecked() const override {
+		if(this->checker && !this->checker->testChecked())
+			return false;
+		else
+			return this->isChecked();
+	}
+
 	inline void disable() override {
 		this->setEnabled(false);
 	}
@@ -70,6 +85,13 @@ public:
 			this->setChecked(true);
 	}
 
+	inline bool testChecked() const override {
+		if(this->isCheckable())
+			return this->isChecked();
+		else
+			return true;
+	}
+
 	inline void disable() override {
 		this->setEnabled(false);
 	}
@@ -87,6 +109,10 @@ public:
 	}
 
 	inline void doCheck() override {}
+
+	inline bool testChecked() const override {
+		return true;
+	}
 
 	inline void disable() override {
 		this->element->setEnabled(false);

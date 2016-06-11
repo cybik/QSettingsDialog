@@ -27,6 +27,9 @@ void SettingsEngine::addEntry(QSharedPointer<QSettingsEntry> entry, QSettingsWid
 		connect(loader->async(), &QAsyncSettingsLoader::saveDone,
 				this, &SettingsEngine::entrySaved,
 				Qt::QueuedConnection);
+		connect(loader->async(), &QAsyncSettingsLoader::resetDone,
+				this, &SettingsEngine::entryResetted,
+				Qt::QueuedConnection);
 
 		this->asyncEntries.append({
 									  entry,
@@ -69,7 +72,7 @@ void SettingsEngine::startLoading()
 	}
 
 	if(this->activeAsyncs.isEmpty())
-		emit loadCompleted(this->errorCount);
+		emit operationCompleted(this->errorCount);
 }
 
 void SettingsEngine::startSaving()
@@ -80,27 +83,60 @@ void SettingsEngine::startSaving()
 
 	for(int i = 0, total = this->asyncEntries.size(); i < total; ++i) {
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[i];
-		if(entry.currentWidget->hasValueChanged()) {
-			auto data = entry.currentWidget->getValue();
+		if(entry.checkingHelper->testChecked()) {
+			if(entry.currentWidget->hasValueChanged()) {
+				auto data = entry.currentWidget->getValue();
+				this->activeAsyncs.insert(entry.currentLoader, i);
+				QMetaObject::invokeMethod(entry.currentLoader, "saveData", Qt::QueuedConnection,
+										  Q_ARG(QVariant, data));
+			}
+		} else {
 			this->activeAsyncs.insert(entry.currentLoader, i);
-			QMetaObject::invokeMethod(entry.currentLoader, "saveData", Qt::QueuedConnection,
-									  Q_ARG(QVariant, data));
+			QMetaObject::invokeMethod(entry.currentLoader, "resetData", Qt::QueuedConnection);
 		}
 	}
 	this->currentCount = 0;
 	emit progressMaxChanged(this->activeAsyncs.size());
 
 	foreach(auto entry, this->simpleEntries) {
-		if(entry.currentWidget->hasValueChanged()) {
-			if(entry.currentLoader->save(entry.currentWidget->getValue()))
-				entry.currentWidget->resetValueChanged();
-			else
+		if(entry.checkingHelper->testChecked()) {
+			if(entry.currentWidget->hasValueChanged()) {
+				if(entry.currentLoader->save(entry.currentWidget->getValue()))
+					entry.currentWidget->resetValueChanged();
+				else
+					this->errorCount++;
+			}
+		} else {
+			if(!entry.currentLoader->reset())
 				this->errorCount++;
 		}
 	}
 
 	if(this->activeAsyncs.isEmpty())
-		emit saveCompleted(this->errorCount);
+		emit operationCompleted(this->errorCount);
+}
+
+void SettingsEngine::startResetting()
+{
+	if(!this->activeAsyncs.isEmpty())
+		return;
+	this->errorCount = 0;
+
+	for(int i = 0, total = this->asyncEntries.size(); i < total; ++i) {
+		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[i];
+		this->activeAsyncs.insert(entry.currentLoader, i);
+		QMetaObject::invokeMethod(entry.currentLoader, "resetData", Qt::QueuedConnection);
+	}
+	this->currentCount = 0;
+	emit progressMaxChanged(this->activeAsyncs.size());
+
+	foreach(auto entry, this->simpleEntries) {
+		if(!entry.currentLoader->reset())
+			this->errorCount++;
+	}
+
+	if(this->activeAsyncs.isEmpty())
+		emit operationCompleted(this->errorCount);
 }
 
 void SettingsEngine::abortOperation()
@@ -124,7 +160,7 @@ void SettingsEngine::entryLoaded(bool successfull, const QVariant &data, bool is
 
 		emit progressValueChanged(++this->currentCount);
 		if(this->activeAsyncs.isEmpty())
-			emit loadCompleted(this->errorCount);
+			emit operationCompleted(this->errorCount);
 	}
 }
 
@@ -141,7 +177,20 @@ void SettingsEngine::entrySaved(bool successfull)
 
 		emit progressValueChanged(++this->currentCount);
 		if(this->activeAsyncs.isEmpty())
-			emit saveCompleted(this->errorCount);
+			emit operationCompleted(this->errorCount);
+	}
+}
+
+void SettingsEngine::entryResetted(bool successfull)
+{
+	if(this->activeAsyncs.contains(QObject::sender())) {
+		this->activeAsyncs.remove(QObject::sender());
+		if(!successfull)
+			this->errorCount++;
+
+		emit progressValueChanged(++this->currentCount);
+		if(this->activeAsyncs.isEmpty())
+			emit operationCompleted(this->errorCount);
 	}
 }
 

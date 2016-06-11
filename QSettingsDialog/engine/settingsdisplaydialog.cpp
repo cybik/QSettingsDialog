@@ -40,10 +40,8 @@ SettingsDisplayDialog::SettingsDisplayDialog(SettingsEngine *engine, QWidget *pa
 											 QSizePolicy::Fixed);
 
 	//engine
-	connect(this->engine, &SettingsEngine::loadCompleted,
-			this, &SettingsDisplayDialog::loadFinished);
-	connect(this->engine, &SettingsEngine::saveCompleted,
-			this, &SettingsDisplayDialog::saveFinished);
+	connect(this->engine, &SettingsEngine::operationCompleted,
+			this, &SettingsDisplayDialog::engineFinished);
 	connect(this->engine, &SettingsEngine::operationAborted,
 			this, &SettingsDisplayDialog::completeAbort);
 }
@@ -101,61 +99,93 @@ void SettingsDisplayDialog::startSaving(bool isApply)
 	this->engine->startSaving();
 }
 
-void SettingsDisplayDialog::loadFinished(int errorCount)
+void SettingsDisplayDialog::startResetting()
 {
-	if(this->workingDialog) {
-		this->workingDialog->close();
-		this->workingDialog->deleteLater();
-		this->workingDialog = nullptr;
-	}
-	Q_ASSERT(this->currentMode == Load);
+	this->workingDialog = DialogMaster::createProgress(this, tr("Restoring default settings…"), 1);
+	this->workingDialog->setMaximum(0);
+	this->workingDialog->setAutoClose(false);
+	this->workingDialog->setAutoReset(false);
 
-	if(errorCount > 0) {
-		auto res = DialogMaster::warning(this,
-										 tr("Loading finished with errors. %1 entries failed to load their data.")
-										 .arg(errorCount),
-										 tr("Loading errors"),
-										 QString(),
-										 QMessageBox::Close | QMessageBox::Ignore,
-										 QMessageBox::Close,
-										 QMessageBox::Ignore);
-		if(res == QMessageBox::Close)
-			this->reject();
-	}
+	connect(this->workingDialog, &QProgressDialog::canceled,
+			this->engine, &SettingsEngine::abortOperation);
+	connect(this->engine, &SettingsEngine::progressMaxChanged,
+			this->workingDialog, &QProgressDialog::setMaximum);
+	connect(this->engine, &SettingsEngine::progressValueChanged,
+			this->workingDialog, &QProgressDialog::setValue);
 
-	this->currentMode = Idle;
+	this->engine->startResetting();
 }
 
-void SettingsDisplayDialog::saveFinished(int errorCount)
+void SettingsDisplayDialog::engineFinished(int errorCount)
 {
 	if(this->workingDialog) {
 		this->workingDialog->close();
 		this->workingDialog->deleteLater();
 		this->workingDialog = nullptr;
 	}
-	Q_ASSERT(this->currentMode == Save || this->currentMode == Apply);
 
-	auto retry = false;
-	if(errorCount > 0) {
-		auto res = DialogMaster::warning(this,
-										 tr("Saving finished with errors. %1 entries failed to save their data.")
-										 .arg(errorCount),
-										 tr("Saving errors"),
-										 QString(),
-										 QMessageBox::Ignore | QMessageBox::Retry,
-										 QMessageBox::Retry,
-										 QMessageBox::Ignore);
-		if(res == QMessageBox::Retry)
-			retry = true;
-		else if(res == QMessageBox::Ignore &&
-				this->currentMode == Save)
+	auto wasApply = false;
+	switch (this->currentMode) {
+	case Load:
+		if(errorCount > 0) {
+			auto res = DialogMaster::warning(this,
+											 tr("Loading finished with errors. %1 entries failed to load their data.")
+											 .arg(errorCount),
+											 tr("Loading errors"),
+											 QString(),
+											 QMessageBox::Close | QMessageBox::Ignore,
+											 QMessageBox::Close,
+											 QMessageBox::Ignore);
+			if(res == QMessageBox::Close)
+				this->reject();
+		}
+		break;
+	case Apply:
+		wasApply = true;
+	case Save:
+		if(errorCount > 0) {
+			auto res = DialogMaster::warning(this,
+											 tr("Saving finished with errors. %1 entries failed to save their data.")
+											 .arg(errorCount),
+											 tr("Saving errors"),
+											 QString(),
+											 QMessageBox::Ignore | QMessageBox::Retry,
+											 QMessageBox::Retry,
+											 QMessageBox::Ignore);
+			if(res == QMessageBox::Retry) {
+				QMetaObject::invokeMethod(this, "startSaving", Qt::QueuedConnection,
+										  Q_ARG(bool, wasApply));
+			} else if(res == QMessageBox::Ignore &&
+					  !wasApply) {
+				this->accept();
+			}
+		} else {
+			if(!wasApply)
+				this->accept();
+		}
+		break;
+	case Reset:
+		if(errorCount > 0) {
+			auto res = DialogMaster::warning(this,
+											 tr("Restoring defaults finished with errors. %1 entries failed to reset their data.")
+											 .arg(errorCount),
+											 tr("Resetting errors"),
+											 QString(),
+											 QMessageBox::Ignore | QMessageBox::Retry,
+											 QMessageBox::Retry,
+											 QMessageBox::Ignore);
+			if(res == QMessageBox::Retry)
+				QMetaObject::invokeMethod(this, "startResetting", Qt::QueuedConnection);
+			else if(res == QMessageBox::Ignore)
+				this->accept();
+		} else
 			this->accept();
+		break;
+	default:
+		break;
 	}
 
-	auto wasApply = this->currentMode == Apply;
 	this->currentMode = Idle;
-	if(retry)
-		this->startSaving(wasApply);
 }
 
 void SettingsDisplayDialog::completeAbort()
@@ -222,7 +252,7 @@ void SettingsDisplayDialog::buttonBoxClicked(QAbstractButton *button)
 								 QMessageBox::No)
 		   == QMessageBox::Yes) {
 			this->currentMode = Reset;
-			//TODO start reset
+			this->startResetting();
 		}
 		break;
 	default:
@@ -298,15 +328,16 @@ void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &gro
 	auto box = new CheckingGroupBox(contentWidget);
 	box->setTitle(group->name);
 	box->setToolTip(group->tooltip.isNull() ? group->name : group->tooltip);
-	if(group->isOptional) {
+	if(group->isOptional)
 		box->setCheckable(true);
-		box->setChecked(false);
-	}
 	box->setLayout(new QFormLayout(box));
 	contentWidget->layout()->addWidget(box);
 
 	foreach(auto entry, group->entries)
 		this->createEntry(entry.second, box, group->isOptional ? box : nullptr);
+
+	if(group->isOptional)
+		box->setChecked(false);
 }
 
 void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntry> &group, QWidget *contentWidget)

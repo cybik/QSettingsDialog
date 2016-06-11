@@ -46,9 +46,9 @@ signals:
 
 private slots:
 	void startSaving(bool isApply);
+	void startResetting();
 
-	void loadFinished(int errorCount);
-	void saveFinished(int errorCount);
+	void engineFinished(int errorCount);
 	void completeAbort();
 
 	void resetListSize();
