@@ -46,7 +46,8 @@ signals:
 	void reset();
 
 private slots:
-	void loadFinished();
+	void loadFinished(int errorCount);
+	void loadAborted();
 
 	void resetListSize();
 	void updateWidth(int width);

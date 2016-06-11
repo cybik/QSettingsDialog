@@ -40,6 +40,8 @@ SettingsDisplayDialog::SettingsDisplayDialog(SettingsEngine *engine, QWidget *pa
 	//engine
 	connect(this->engine, &SettingsEngine::loadCompleted,
 			this, &SettingsDisplayDialog::loadFinished);
+	connect(this->engine, &SettingsEngine::loadAborted,
+			this, &SettingsDisplayDialog::loadAborted);
 }
 
 SettingsDisplayDialog::~SettingsDisplayDialog()
@@ -64,7 +66,9 @@ int SettingsDisplayDialog::exec()
 	this->workingDialog->setMaximum(0);
 	this->workingDialog->setAutoClose(false);
 	this->workingDialog->setAutoReset(false);
-	//TODO handle cancel
+
+	connect(this->workingDialog, &QProgressDialog::canceled,
+			this->engine, &SettingsEngine::abortLoading);
 	connect(this->engine, &SettingsEngine::progressMaxChanged,
 			this->workingDialog, &QProgressDialog::setMaximum);
 	connect(this->engine, &SettingsEngine::progressValueChanged,
@@ -74,13 +78,36 @@ int SettingsDisplayDialog::exec()
 	return this->QDialog::exec();
 }
 
-void SettingsDisplayDialog::loadFinished()
+void SettingsDisplayDialog::loadFinished(int errorCount)
 {
 	if(this->workingDialog) {
 		this->workingDialog->close();
 		this->workingDialog->deleteLater();
 		this->workingDialog = nullptr;
 	}
+
+	if(errorCount > 0) {
+		QMessageBox::StandardButton res = DialogMaster::warning(this,
+																tr("Loading finished with errors. %1 entries failed to load their data.")
+																.arg(errorCount),
+																tr("Loading errors"),
+																QString(),
+																QMessageBox::Close | QMessageBox::Ignore,
+																QMessageBox::Close,
+																QMessageBox::Ignore);
+		if(res == QMessageBox::Close)
+			this->reject();
+	}
+}
+
+void SettingsDisplayDialog::loadAborted()
+{
+	if(this->workingDialog) {
+		this->workingDialog->close();
+		this->workingDialog->deleteLater();
+		this->workingDialog = nullptr;
+	}
+	this->reject();
 }
 
 void SettingsDisplayDialog::resetListSize()
@@ -256,7 +283,7 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 	rContainer->layout()->addWidget(content);
 
 	if(settingsWidget)
-		this->engine->addEntry(group, settingsWidget, helper);
+		this->engine->addEntry(group, settingsWidget, helper ? helper : new CheckingWrapper(content));
 }
 
 void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper)

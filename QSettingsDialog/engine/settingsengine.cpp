@@ -5,7 +5,8 @@ SettingsEngine::SettingsEngine(QObject *parent) :
 	simpleEntries(),
 	asyncEntries(),
 	activeAsyncs(),
-	currentCount(0)
+	currentCount(0),
+	errorCount(0)
 {}
 
 void SettingsEngine::addEntry(QSharedPointer<QSettingsEntry> entry, QSettingsWidgetBase *currentWidget, CheckingHelper *checkingHelper)
@@ -43,25 +44,41 @@ void SettingsEngine::startLoading()
 
 	foreach(auto entry, this->simpleEntries) {
 		bool edited = false;
-		auto data = entry.currentLoader->load(edited);
-		this->updateEntry(entry, data, edited);
+		QVariant data;
+		auto ok = entry.currentLoader->load(data, edited);
+		if(ok)
+			this->updateEntry(entry, data, edited);
+		else
+			this->disableEntry(entry);
 	}
 
 	if(this->activeAsyncs.isEmpty())
-		emit loadCompleted();
+		emit loadCompleted(this->errorCount);
 }
 
-void SettingsEngine::entryLoaded(const QVariant &data, bool isUserEdited)
+void SettingsEngine::abortLoading()
+{
+	if(!this->activeAsyncs.isEmpty()) {
+		this->activeAsyncs.clear();
+		emit loadAborted();
+	}
+}
+
+void SettingsEngine::entryLoaded(bool successfull, const QVariant &data, bool isUserEdited)
 {
 	if(this->activeAsyncs.contains(QObject::sender())) {
 		auto index = this->activeAsyncs.take(QObject::sender());
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[index];
-		this->updateEntry(entry, data, isUserEdited);
-	}
 
-	emit progressValueChanged(++this->currentCount);
-	if(this->activeAsyncs.isEmpty())
-		emit loadCompleted();
+		if(successfull)
+			this->updateEntry(entry, data, isUserEdited);
+		else
+			this->disableEntry(entry);
+
+		emit progressValueChanged(++this->currentCount);
+		if(this->activeAsyncs.isEmpty())
+			emit loadCompleted(this->errorCount);
+	}
 }
 
 void SettingsEngine::updateEntry(EntryInfoBase &entry, const QVariant &data, bool isUserEdited)
@@ -72,6 +89,13 @@ void SettingsEngine::updateEntry(EntryInfoBase &entry, const QVariant &data, boo
 		entry.currentWidget->resetValue();
 	entry.currentWidget->resetValueChanged();
 
-	if(isUserEdited && entry.checkingHelper)
+	if(isUserEdited)
 		entry.checkingHelper->doCheck();
+}
+
+void SettingsEngine::disableEntry(SettingsEngine::EntryInfoBase &entry)
+{
+	entry.currentWidget->asWidget()->setEnabled(false);
+	entry.checkingHelper->disable();
+	this->errorCount++;
 }

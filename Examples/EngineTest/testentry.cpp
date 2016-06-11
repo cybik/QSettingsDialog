@@ -9,11 +9,12 @@ TestEntry::TestEntry(bool optional, bool working, QVariant data, bool hasName) :
 	hasName(hasName)
 {}
 
-QVariant TestEntry::load(bool &userEdited)
+bool TestEntry::load(QVariant outParam data, bool outParam userEdited)
 {
 	qDebug() << "LOADING" << this->data;
 	userEdited = !this->data.isNull();
-	return this->data;
+	data = this->data;
+	return true;
 }
 
 bool TestEntry::save(const QVariant &data)

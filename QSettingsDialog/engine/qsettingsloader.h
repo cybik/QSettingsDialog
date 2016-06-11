@@ -23,7 +23,7 @@ class QSETTINGSDIALOGSHARED_EXPORT QSimpleSettingsLoader : public QSettingsLoade
 public:
 	bool isAsync() const final;
 
-	virtual QVariant load(bool outParam userEdited) = 0;
+	virtual bool load(QVariant outParam data, bool outParam userEdited) = 0;
 	virtual bool save(const QVariant &data) = 0;
 	virtual bool reset() = 0;
 };
@@ -43,7 +43,7 @@ public slots:
 	virtual void resetData() = 0;
 
 signals:
-	void loadDone(const QVariant &data, bool isUserEdited = true);
+	void loadDone(bool successfull, const QVariant &data, bool isUserEdited = true);
 	void saveDone(bool successfull);
 	void resetDone(bool successfull);
 };

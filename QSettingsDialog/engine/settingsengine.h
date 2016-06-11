@@ -20,15 +20,17 @@ public:
 
 public slots:
 	void startLoading();
+	void abortLoading();
 
 signals:
 	void progressMaxChanged(int max);
 	void progressValueChanged(int value);
 
-	void loadCompleted();
+	void loadCompleted(int errorCount);
+	void loadAborted();
 
 private slots:
-	void entryLoaded(const QVariant &data, bool isUserEdited);
+	void entryLoaded(bool successfull, const QVariant &data, bool isUserEdited);
 
 private:
 	struct EntryInfoBase {
@@ -54,8 +56,10 @@ private:
 
 	QHash<QObject*, int> activeAsyncs;
 	int currentCount;
+	int errorCount;
 
 	void updateEntry(EntryInfoBase &entry, const QVariant &data, bool isUserEdited);
+	void disableEntry(EntryInfoBase &entry);
 };
 
 #endif // SETTINGSENGINE_H

@@ -42,7 +42,7 @@ void DelayedTestEntry::loadData()
 {
 	QTimer::singleShot(this->delayMSecs, this, [=]() {
 		qDebug() << "LOADING" << this->data;
-		emit loadDone(this->data, !this->data.isNull());
+		emit loadDone(true, this->data, !this->data.isNull());
 	});
 }
 
