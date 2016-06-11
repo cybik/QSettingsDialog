@@ -14,7 +14,9 @@ SettingsDisplayDialog::SettingsDisplayDialog(SettingsEngine *engine, QWidget *pa
 	engine(engine),
 	ui(new Ui::SettingsDisplayDialog),
 	delegate(nullptr),
-	maxWidthBase(0)
+	maxWidthBase(0),
+	currentMode(Idle),
+	workingDialog(nullptr)
 {
 	ui->setupUi(this);
 	DialogMaster::masterDialog(this);
@@ -40,8 +42,10 @@ SettingsDisplayDialog::SettingsDisplayDialog(SettingsEngine *engine, QWidget *pa
 	//engine
 	connect(this->engine, &SettingsEngine::loadCompleted,
 			this, &SettingsDisplayDialog::loadFinished);
-	connect(this->engine, &SettingsEngine::loadAborted,
-			this, &SettingsDisplayDialog::loadAborted);
+	connect(this->engine, &SettingsEngine::saveCompleted,
+			this, &SettingsDisplayDialog::saveFinished);
+	connect(this->engine, &SettingsEngine::operationAborted,
+			this, &SettingsDisplayDialog::completeAbort);
 }
 
 SettingsDisplayDialog::~SettingsDisplayDialog()
@@ -62,13 +66,14 @@ void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &element
 
 int SettingsDisplayDialog::exec()
 {
+	this->currentMode = Load;
 	this->workingDialog = DialogMaster::createProgress(this, tr("Loading settings…"), 1);
 	this->workingDialog->setMaximum(0);
 	this->workingDialog->setAutoClose(false);
 	this->workingDialog->setAutoReset(false);
 
 	connect(this->workingDialog, &QProgressDialog::canceled,
-			this->engine, &SettingsEngine::abortLoading);
+			this->engine, &SettingsEngine::abortOperation);
 	connect(this->engine, &SettingsEngine::progressMaxChanged,
 			this->workingDialog, &QProgressDialog::setMaximum);
 	connect(this->engine, &SettingsEngine::progressValueChanged,
@@ -78,6 +83,24 @@ int SettingsDisplayDialog::exec()
 	return this->QDialog::exec();
 }
 
+void SettingsDisplayDialog::startSaving(bool isApply)
+{
+	this->currentMode = isApply ? Apply : Save;
+	this->workingDialog = DialogMaster::createProgress(this, tr("Saving settings…"), 1);
+	this->workingDialog->setMaximum(0);
+	this->workingDialog->setAutoClose(false);
+	this->workingDialog->setAutoReset(false);
+
+	connect(this->workingDialog, &QProgressDialog::canceled,
+			this->engine, &SettingsEngine::abortOperation);
+	connect(this->engine, &SettingsEngine::progressMaxChanged,
+			this->workingDialog, &QProgressDialog::setMaximum);
+	connect(this->engine, &SettingsEngine::progressValueChanged,
+			this->workingDialog, &QProgressDialog::setValue);
+
+	this->engine->startSaving();
+}
+
 void SettingsDisplayDialog::loadFinished(int errorCount)
 {
 	if(this->workingDialog) {
@@ -85,29 +108,67 @@ void SettingsDisplayDialog::loadFinished(int errorCount)
 		this->workingDialog->deleteLater();
 		this->workingDialog = nullptr;
 	}
+	Q_ASSERT(this->currentMode == Load);
 
 	if(errorCount > 0) {
-		QMessageBox::StandardButton res = DialogMaster::warning(this,
-																tr("Loading finished with errors. %1 entries failed to load their data.")
-																.arg(errorCount),
-																tr("Loading errors"),
-																QString(),
-																QMessageBox::Close | QMessageBox::Ignore,
-																QMessageBox::Close,
-																QMessageBox::Ignore);
+		auto res = DialogMaster::warning(this,
+										 tr("Loading finished with errors. %1 entries failed to load their data.")
+										 .arg(errorCount),
+										 tr("Loading errors"),
+										 QString(),
+										 QMessageBox::Close | QMessageBox::Ignore,
+										 QMessageBox::Close,
+										 QMessageBox::Ignore);
 		if(res == QMessageBox::Close)
 			this->reject();
 	}
+
+	this->currentMode = Idle;
 }
 
-void SettingsDisplayDialog::loadAborted()
+void SettingsDisplayDialog::saveFinished(int errorCount)
 {
 	if(this->workingDialog) {
 		this->workingDialog->close();
 		this->workingDialog->deleteLater();
 		this->workingDialog = nullptr;
 	}
-	this->reject();
+	Q_ASSERT(this->currentMode == Save || this->currentMode == Apply);
+
+	auto retry = false;
+	if(errorCount > 0) {
+		auto res = DialogMaster::warning(this,
+										 tr("Saving finished with errors. %1 entries failed to save their data.")
+										 .arg(errorCount),
+										 tr("Saving errors"),
+										 QString(),
+										 QMessageBox::Ignore | QMessageBox::Retry,
+										 QMessageBox::Retry,
+										 QMessageBox::Ignore);
+		if(res == QMessageBox::Retry)
+			retry = true;
+		else if(res == QMessageBox::Ignore &&
+				this->currentMode == Save)
+			this->accept();
+	}
+
+	auto wasApply = this->currentMode == Apply;
+	this->currentMode = Idle;
+	if(retry)
+		this->startSaving(wasApply);
+}
+
+void SettingsDisplayDialog::completeAbort()
+{
+	if(this->workingDialog) {
+		this->workingDialog->close();
+		this->workingDialog->deleteLater();
+		this->workingDialog = nullptr;
+	}
+
+	if(this->currentMode == Load)
+		this->reject();
+	this->currentMode = Idle;
 }
 
 void SettingsDisplayDialog::resetListSize()
@@ -137,20 +198,18 @@ void SettingsDisplayDialog::updateWidth(int width)
 
 void SettingsDisplayDialog::buttonBoxClicked(QAbstractButton *button)
 {
-	if(this->workingDialog)
+	if(this->currentMode != Idle)
 		return;
 
 	switch(this->ui->buttonBox->standardButton(button)) {
 	case QDialogButtonBox::Ok:
-		emit save(true);
-		//DEBUG
-		this->accept();
+		this->startSaving(false);
 		break;
 	case QDialogButtonBox::Cancel:
 		this->reject();
 		break;
 	case QDialogButtonBox::Apply:
-		emit save(false);
+		this->startSaving(true);
 		break;
 	case QDialogButtonBox::RestoreDefaults:
 		if(DialogMaster::warning(this,
@@ -162,9 +221,8 @@ void SettingsDisplayDialog::buttonBoxClicked(QAbstractButton *button)
 								 QMessageBox::Yes,
 								 QMessageBox::No)
 		   == QMessageBox::Yes) {
-			emit reset();
-			//DEBUG
-			this->accept();
+			this->currentMode = Reset;
+			//TODO start reset
 		}
 		break;
 	default:

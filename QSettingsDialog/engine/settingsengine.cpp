@@ -22,7 +22,11 @@ void SettingsEngine::addEntry(QSharedPointer<QSettingsEntry> entry, QSettingsWid
 	auto loader = entry->getLoader();
 	if(loader->isAsync()) {
 		connect(loader->async(), &QAsyncSettingsLoader::loadDone,
-				this, &SettingsEngine::entryLoaded);
+				this, &SettingsEngine::entryLoaded,
+				Qt::QueuedConnection);
+		connect(loader->async(), &QAsyncSettingsLoader::saveDone,
+				this, &SettingsEngine::entrySaved,
+				Qt::QueuedConnection);
 
 		this->asyncEntries.append({
 									  entry,
@@ -42,6 +46,10 @@ void SettingsEngine::addEntry(QSharedPointer<QSettingsEntry> entry, QSettingsWid
 
 void SettingsEngine::startLoading()
 {
+	if(!this->activeAsyncs.isEmpty())
+		return;
+	this->errorCount = 0;
+
 	for(int i = 0, total = this->asyncEntries.size(); i < total; ++i) {
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[i];
 		this->activeAsyncs.insert(entry.currentLoader, i);
@@ -64,11 +72,42 @@ void SettingsEngine::startLoading()
 		emit loadCompleted(this->errorCount);
 }
 
-void SettingsEngine::abortLoading()
+void SettingsEngine::startSaving()
+{
+	if(!this->activeAsyncs.isEmpty())
+		return;
+	this->errorCount = 0;
+
+	for(int i = 0, total = this->asyncEntries.size(); i < total; ++i) {
+		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[i];
+		if(entry.currentWidget->hasValueChanged()) {
+			auto data = entry.currentWidget->getValue();
+			this->activeAsyncs.insert(entry.currentLoader, i);
+			QMetaObject::invokeMethod(entry.currentLoader, "saveData", Qt::QueuedConnection,
+									  Q_ARG(QVariant, data));
+		}
+	}
+	this->currentCount = 0;
+	emit progressMaxChanged(this->activeAsyncs.size());
+
+	foreach(auto entry, this->simpleEntries) {
+		if(entry.currentWidget->hasValueChanged()) {
+			if(entry.currentLoader->save(entry.currentWidget->getValue()))
+				entry.currentWidget->resetValueChanged();
+			else
+				this->errorCount++;
+		}
+	}
+
+	if(this->activeAsyncs.isEmpty())
+		emit saveCompleted(this->errorCount);
+}
+
+void SettingsEngine::abortOperation()
 {
 	if(!this->activeAsyncs.isEmpty()) {
 		this->activeAsyncs.clear();
-		emit loadAborted();
+		emit operationAborted();
 	}
 }
 
@@ -86,6 +125,23 @@ void SettingsEngine::entryLoaded(bool successfull, const QVariant &data, bool is
 		emit progressValueChanged(++this->currentCount);
 		if(this->activeAsyncs.isEmpty())
 			emit loadCompleted(this->errorCount);
+	}
+}
+
+void SettingsEngine::entrySaved(bool successfull)
+{
+	if(this->activeAsyncs.contains(QObject::sender())) {
+		auto index = this->activeAsyncs.take(QObject::sender());
+		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[index];
+
+		if(successfull)
+			entry.currentWidget->resetValueChanged();
+		else
+			this->errorCount++;
+
+		emit progressValueChanged(++this->currentCount);
+		if(this->activeAsyncs.isEmpty())
+			emit saveCompleted(this->errorCount);
 	}
 }
 

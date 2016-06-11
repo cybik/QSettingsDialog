@@ -42,12 +42,14 @@ public slots:
 	int exec() override;
 
 signals:
-	void save(bool quitAfter);
 	void reset();
 
 private slots:
+	void startSaving(bool isApply);
+
 	void loadFinished(int errorCount);
-	void loadAborted();
+	void saveFinished(int errorCount);
+	void completeAbort();
 
 	void resetListSize();
 	void updateWidth(int width);
@@ -55,12 +57,21 @@ private slots:
 	void buttonBoxClicked(QAbstractButton *button);
 
 private:
+	enum OperationMode {
+		Idle,
+		Load,
+		Save,
+		Apply,
+		Reset
+	};
+
 	SettingsEngine *engine;
 
 	Ui::SettingsDisplayDialog *ui;	
 	CategoryItemDelegate *delegate;
 	int maxWidthBase;
 
+	OperationMode currentMode;
 	QProgressDialog *workingDialog;
 
 	void createCategory(const QSharedPointer<SettingsCategory> &category);

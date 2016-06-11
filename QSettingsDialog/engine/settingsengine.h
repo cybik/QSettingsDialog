@@ -21,17 +21,22 @@ public:
 
 public slots:
 	void startLoading();
-	void abortLoading();
+	void startSaving();
+
+	void abortOperation();
 
 signals:
 	void progressMaxChanged(int max);
 	void progressValueChanged(int value);
 
 	void loadCompleted(int errorCount);
-	void loadAborted();
+	void saveCompleted(int errorCount);
+
+	void operationAborted();
 
 private slots:
 	void entryLoaded(bool successfull, const QVariant &data, bool isUserEdited);
+	void entrySaved(bool successfull);
 
 private:
 	struct EntryInfoBase {
