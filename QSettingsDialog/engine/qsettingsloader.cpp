@@ -17,12 +17,10 @@ QAsyncSettingsLoader::QAsyncSettingsLoader(QObject *parent) :
 
 QSimpleSettingsLoader *QSettingsLoader::simple()
 {
-	Q_ASSERT_X(dynamic_cast<QSimpleSettingsLoader*>(this), Q_FUNC_INFO, "Can't cast to QSimpleSettingsLoader");
-	return static_cast<QSimpleSettingsLoader*>(this);
+	return safe_cast<QSimpleSettingsLoader*>(this);
 }
 
 QAsyncSettingsLoader *QSettingsLoader::async()
 {
-	Q_ASSERT_X(dynamic_cast<QAsyncSettingsLoader*>(this), Q_FUNC_INFO, "Can't cast to QSimpleSettingsLoader");
-	return static_cast<QAsyncSettingsLoader*>(this);
+	return safe_cast<QAsyncSettingsLoader*>(this);
 }

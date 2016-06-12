@@ -57,6 +57,7 @@ void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &element
 		this->createCategory(elementRoot->defaultCategory);
 	foreach(auto category, elementRoot->categories)
 		this->createCategory(category.second);
+	this->ui->contentStackWidget->addWidget(new QWidget(this->ui->contentStackWidget));
 
 	this->resetListSize();
 	this->ui->categoryListWidget->setCurrentRow(0);
@@ -266,6 +267,14 @@ void SettingsDisplayDialog::buttonBoxClicked(QAbstractButton *button)
 	}
 }
 
+void SettingsDisplayDialog::on_filterLineEdit_textChanged(const QString &searchText)
+{
+	auto regex = QRegularExpression::escape(searchText);
+	regex.replace(QStringLiteral("\\*"), QStringLiteral(".*"));
+	regex.replace(QStringLiteral("\\?"), QStringLiteral("."));
+	this->searchInDialog(QRegularExpression(regex, QRegularExpression::CaseInsensitiveOption));
+}
+
 void SettingsDisplayDialog::createCategory(const QSharedPointer<SettingsCategory> &category)
 {
 	auto item = new QListWidgetItem();
@@ -390,8 +399,7 @@ void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &en
 	else
 		content = this->createErrorWidget(groupWidget);
 
-	Q_ASSERT(dynamic_cast<QFormLayout*>(groupWidget->layout()));
-	auto layout = static_cast<QFormLayout*>(groupWidget->layout());
+	auto layout = safe_cast<QFormLayout*>(groupWidget->layout());
 	QWidget *label = nullptr;
 	CheckingHelper *labelAsHelper = nullptr;
 	if(entry->isOptional()) {
@@ -439,6 +447,44 @@ QWidget *SettingsDisplayDialog::createErrorWidget(QWidget *parent)
 	layout->setStretchFactor(errorTextLabel, 1);
 
 	return content;
+}
+
+void SettingsDisplayDialog::searchInDialog(const QRegularExpression &regex)
+{
+	for(int i = 0, max = this->ui->categoryListWidget->count(); i < max; ++i) {
+		auto item = this->ui->categoryListWidget->item(i);
+		auto tab = safe_cast<QTabWidget*>(this->ui->contentStackWidget->widget(i));
+
+		if(regex.match(item->text()).hasMatch() ||
+		   this->searchInCategory(regex, tab)) {
+			item->setHidden(false);
+
+			if(this->ui->categoryListWidget->currentRow() == -1)
+				this->ui->categoryListWidget->setCurrentRow(i);
+		} else {
+			item->setHidden(true);
+
+			if(this->ui->categoryListWidget->currentRow() == i) {
+				auto found = false;
+				for(int j = 0; j < max; j++) {
+					if(!this->ui->categoryListWidget->item(j)->isHidden()){
+						this->ui->categoryListWidget->setCurrentRow(j);
+						found = true;
+						break;
+					}
+				}
+				if(!found) {
+					this->ui->categoryListWidget->setCurrentRow(-1);
+					this->ui->contentStackWidget->setCurrentIndex(max);
+				}
+			}
+		}
+	}
+}
+
+bool SettingsDisplayDialog::searchInCategory(const QRegularExpression &regex, QTabWidget *tab)
+{
+	return false;
 }
 
 

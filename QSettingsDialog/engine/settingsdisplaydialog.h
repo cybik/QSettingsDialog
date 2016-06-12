@@ -56,6 +56,7 @@ private slots:
 	void updateWidth(int width);
 
 	void buttonBoxClicked(QAbstractButton *button);
+	void on_filterLineEdit_textChanged(const QString &searchText);
 
 private:
 	enum OperationMode {
@@ -83,6 +84,11 @@ private:
 	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper);
 
 	QWidget *createErrorWidget(QWidget *parent);
+
+	void searchInDialog(const QRegularExpression &regex);
+	bool searchInCategory(const QRegularExpression &regex, QTabWidget *tab);
+	bool searchInSection(const QRegularExpression &regex);
+	bool searchInGroup(const QRegularExpression &regex);
 };
 
 #endif // SETTINGSDISPLAYDIALOG_H

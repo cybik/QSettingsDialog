@@ -153,9 +153,6 @@
        </item>
        <item>
         <widget class="QLineEdit" name="filterLineEdit">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -169,7 +166,7 @@
           </size>
          </property>
          <property name="placeholderText">
-          <string>Filter…</string>
+          <string>Search in settings…</string>
          </property>
          <property name="clearButtonEnabled">
           <bool>true</bool>

@@ -4,6 +4,7 @@
 #include "qsettingsdialog_global.h"
 #include <QWidget>
 #include <QVariant>
+#include <QRegularExpression>
 
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsWidgetBase
 {
@@ -19,6 +20,11 @@ public:
 	virtual void setValue(const QVariant &value) = 0;
 	virtual QVariant getValue() const = 0;
 	virtual void resetValue() = 0;
+
+	virtual inline bool searchExpression(const QRegularExpression &regex) {
+		return false;
+	}
+	virtual inline void endSearch() {}
 
 private:
 	QVariant changedCache;
