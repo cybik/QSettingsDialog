@@ -72,11 +72,13 @@ public:
 	static QSettingsDialog *defaultInstance();
 
 public slots:
-	void showSettings(QWidget *parentWindow = nullptr);
+	void openSettings(QWidget *parentWindow = nullptr);
+	int execSettings(QWidget *parentWindow = nullptr);
 
 signals:
-	void saved();
+	void saved(bool closed);
 	void resetted();
+	void canceled();
 
 private:
 	QScopedPointer<QSettingsDialogPrivate> d_ptr;

@@ -33,16 +33,17 @@ class SettingsDisplayDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit SettingsDisplayDialog(SettingsEngine *engine, QWidget *parent = 0);
+	explicit SettingsDisplayDialog(QWidget *parent = 0);
 	~SettingsDisplayDialog();
 
 	void createUi(const QSharedPointer<SettingsRoot> &elementRoot);
 
-public slots:
-	int exec() override;
-
 signals:
-	void reset();
+	void saved(bool closed);
+	void resetted();
+
+protected:
+	void showEvent(QShowEvent *ev) override;
 
 private slots:
 	void startSaving(bool isApply);

@@ -1,9 +1,9 @@
 #include "qsettingsdialog.h"
 #include "qsettingsdialog_p.h"
 #include "settingspathparser.h"
-#include "settingsengine.h"
 #include "settingsdisplaydialog.h"
 #include <QGlobalStatic>
+#include <QDebug>
 
 #define d this->d_ptr
 
@@ -268,14 +268,14 @@ QSettingsDialog *QSettingsDialog::defaultInstance()
 	return defaultDialogInstance;
 }
 
-void QSettingsDialog::showSettings(QWidget *parentWindow)
+void QSettingsDialog::openSettings(QWidget *parentWindow)
 {
-	Q_UNIMPLEMENTED();
-	SettingsEngine engine(this);
-	SettingsDisplayDialog dialog(&engine, parentWindow);
-	dialog.createUi(d->rootElement);
-	dialog.exec();
-	emit resetted();
+	d->showDialog(false, parentWindow);
+}
+
+int QSettingsDialog::execSettings(QWidget *parentWindow)
+{
+	return d->showDialog(true, parentWindow);
 }
 
 
@@ -417,5 +417,31 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::findEntryGroup(int id)
 		auto elements = SettingsPathParser::parseFullPath(path);
 		Q_ASSERT(elements.size() == 3);
 		return this->getGroup(elements[2], elements[1], elements[0]);
+	}
+}
+
+int QSettingsDialogPrivate::showDialog(bool asExec, QWidget *parentWindow)
+{
+	if(!this->currentDialog.isNull()) {
+		qWarning() << "Only one settings dialog can be shown at a time";//TOD exception?
+		return -1;
+	}
+
+	this->currentDialog = new SettingsDisplayDialog(parentWindow);
+	this->currentDialog->setAttribute(Qt::WA_DeleteOnClose);
+	this->currentDialog->createUi(this->rootElement);
+
+	QObject::connect(this->currentDialog.data(), &SettingsDisplayDialog::saved,
+					 this->q_ptr, &QSettingsDialog::saved);
+	QObject::connect(this->currentDialog.data(), &SettingsDisplayDialog::resetted,
+					 this->q_ptr, &QSettingsDialog::resetted);
+	QObject::connect(this->currentDialog.data(), &SettingsDisplayDialog::rejected,
+					 this->q_ptr, &QSettingsDialog::canceled);
+
+	if(asExec)
+		return this->currentDialog->exec();
+	else {
+		this->currentDialog->open();
+		return 0;
 	}
 }

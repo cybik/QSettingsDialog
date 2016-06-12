@@ -3,7 +3,10 @@
 
 #include "qsettingsdialog.h"
 #include "containerelements.h"
+#include "settingsengine.h"
+#include "settingsdisplaydialog.h"
 #include <QAtomicInt>
+#include <QPointer>
 
 class QSettingsDialogPrivate
 {	
@@ -23,6 +26,8 @@ public:
 	QString sectionId;
 	QString groupId;
 
+	QPointer<SettingsDisplayDialog> currentDialog;
+
 	int getNextId();
 
 	QSharedPointer<SettingsCategory> getCategory(QString categoryId = QString());
@@ -34,6 +39,8 @@ public:
 
 	QString findEntryPath(int id);
 	QSharedPointer<SettingsGroup> findEntryGroup(int id);
+
+	int showDialog(bool asExec, QWidget *parentWindow);
 };
 
 #endif // QSETTINGSDIALOG_P_H

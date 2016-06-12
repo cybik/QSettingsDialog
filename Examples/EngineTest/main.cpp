@@ -14,6 +14,16 @@ int main(int argc, char *argv[])
 					 qApp, &QApplication::quit,
 					 Qt::QueuedConnection);
 
+	QObject::connect(&dialog, &QSettingsDialog::saved, [](bool close) {
+		qDebug() << "---- Save completed" << (close ? "with" : "without") << "closing ----";
+	});
+	QObject::connect(&dialog, &QSettingsDialog::resetted, []() {
+		qDebug() << "---- Reset completed ----";
+	});
+	QObject::connect(&dialog, &QSettingsDialog::canceled, []() {
+		qDebug() << "---- Dialog was canceled ----";
+	});
+
 	//container demo
 	dialog.setCategory("baum", "Baum == 42");
 	dialog.setSection(".");
@@ -113,6 +123,7 @@ int main(int argc, char *argv[])
 		qDebug() << e.what();
 	}
 
-	dialog.showSettings();
+	dialog.openSettings();
+	dialog.execSettings();
 	return a.exec();
 }

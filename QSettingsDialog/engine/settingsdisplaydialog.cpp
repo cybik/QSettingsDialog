@@ -9,9 +9,9 @@
 #include <QPushButton>
 #include "settingsengine.h"
 
-SettingsDisplayDialog::SettingsDisplayDialog(SettingsEngine *engine, QWidget *parent) :
+SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
 	QDialog(parent),
-	engine(engine),
+	engine(new SettingsEngine(this)),
 	ui(new Ui::SettingsDisplayDialog),
 	delegate(nullptr),
 	maxWidthBase(0),
@@ -62,7 +62,7 @@ void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &element
 	this->ui->categoryListWidget->setCurrentRow(0);
 }
 
-int SettingsDisplayDialog::exec()
+void SettingsDisplayDialog::showEvent(QShowEvent *ev)
 {
 	this->currentMode = Load;
 	this->workingDialog = DialogMaster::createProgress(this, tr("Loading settings…"), 1);
@@ -78,7 +78,7 @@ int SettingsDisplayDialog::exec()
 			this->workingDialog, &QProgressDialog::setValue);
 
 	this->engine->startLoading();
-	return this->QDialog::exec();
+	this->QDialog::showEvent(ev);
 }
 
 void SettingsDisplayDialog::startSaving(bool isApply)
@@ -155,11 +155,13 @@ void SettingsDisplayDialog::engineFinished(int errorCount)
 			if(res == QMessageBox::Retry) {
 				QMetaObject::invokeMethod(this, "startSaving", Qt::QueuedConnection,
 										  Q_ARG(bool, wasApply));
-			} else if(res == QMessageBox::Ignore &&
-					  !wasApply) {
-				this->accept();
+			} else {
+				emit saved(!wasApply);
+				if(!wasApply)
+					this->accept();
 			}
 		} else {
+			emit saved(!wasApply);
 			if(!wasApply)
 				this->accept();
 		}
@@ -176,10 +178,14 @@ void SettingsDisplayDialog::engineFinished(int errorCount)
 											 QMessageBox::Ignore);
 			if(res == QMessageBox::Retry)
 				QMetaObject::invokeMethod(this, "startResetting", Qt::QueuedConnection);
-			else if(res == QMessageBox::Ignore)
+			else if(res == QMessageBox::Ignore) {
+				emit resetted();
 				this->accept();
-		} else
+			}
+		} else {
+			emit resetted();
 			this->accept();
+		}
 		break;
 	default:
 		break;
