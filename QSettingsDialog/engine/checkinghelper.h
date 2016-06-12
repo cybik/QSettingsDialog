@@ -17,18 +17,12 @@ public:
 	inline void resetInitState() {
 		this->initState = this->testChecked();
 	}
-	inline void check()  {
-		this->initState = true;
-		this->doCheck();
-	}
+	virtual void doCheck() = 0;
 	inline bool checkedChanged() const {
 		return this->initState != this->testChecked();
 	}
 	virtual bool testChecked() const = 0;
 	virtual void disable() = 0;
-
-protected:
-	virtual void doCheck() = 0;
 
 private:
 	bool initState;
@@ -43,6 +37,11 @@ public:
 		checker(checker)
 	{}
 
+	inline void doCheck() override {
+		if(this->checker)
+			this->checker->doCheck();
+	}
+
 	inline bool testChecked() const override {
 		if(this->checker)
 			return this->checker->testChecked();
@@ -52,12 +51,6 @@ public:
 
 	inline void disable() override {
 		this->setEnabled(false);
-	}
-
-protected:
-	inline void doCheck() override {
-		if(this->checker)
-			this->checker->check();
 	}
 
 private:
@@ -73,6 +66,12 @@ public:
 		checker(checker)
 	{}
 
+	inline void doCheck() override {
+		this->setChecked(true);
+		if(this->checker)
+			this->checker->doCheck();
+	}
+
 	inline bool testChecked() const override {
 		if(this->checker && !this->checker->testChecked())
 			return false;
@@ -82,13 +81,6 @@ public:
 
 	inline void disable() override {
 		this->setEnabled(false);
-	}
-
-protected:
-	inline void doCheck() override {
-		this->setChecked(true);
-		if(this->checker)
-			this->checker->check();
 	}
 
 private:
@@ -103,6 +95,11 @@ public:
 		CheckingHelper()
 	{}
 
+	inline void doCheck() override {
+		if(this->isCheckable())
+			this->setChecked(true);
+	}
+
 	inline bool testChecked() const override {
 		if(this->isCheckable())
 			return this->isChecked();
@@ -112,12 +109,6 @@ public:
 
 	inline void disable() override {
 		this->setEnabled(false);
-	}
-
-protected:
-	inline void doCheck() override {
-		if(this->isCheckable())
-			this->setChecked(true);
 	}
 };
 
@@ -133,6 +124,8 @@ public:
 		});
 	}
 
+	inline void doCheck() override {}
+
 	inline bool testChecked() const override {
 		return true;
 	}
@@ -140,9 +133,6 @@ public:
 	inline void disable() override {
 		this->element->setEnabled(false);
 	}
-
-protected:
-	inline void doCheck() override {}
 
 private:
 	QWidget *element;

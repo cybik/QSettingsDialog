@@ -206,7 +206,7 @@ void SettingsEngine::updateEntry(EntryInfoBase &entry, const QVariant &data, boo
 	entry.currentWidget->resetValueChanged();
 
 	if(isUserEdited)
-		entry.checkingHelper->check();
+		entry.checkingHelper->doCheck();
 }
 
 void SettingsEngine::disableEntry(SettingsEngine::EntryInfoBase &entry)
