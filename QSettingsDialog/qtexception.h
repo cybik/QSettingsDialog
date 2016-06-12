@@ -15,7 +15,7 @@ public:
 	const char *what() const final;
 
 private:
-	const QString error;
+	const QByteArray error;
 	const int eCode;
 };
 

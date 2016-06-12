@@ -2,13 +2,13 @@
 
 QtException::QtException(const QString &what, int code) :
 	std::exception(),
-	error(what),
+	error(what.toUtf8()),
 	eCode(code)
 {}
 
 QString QtException::qWhat() const
 {
-	return this->error;
+	return QString::fromUtf8(this->error);
 }
 
 int QtException::code() const
@@ -18,5 +18,5 @@ int QtException::code() const
 
 const char *QtException::what() const
 {
-	return this->error.toLocal8Bit().constData();
+	return this->error.constData();
 }

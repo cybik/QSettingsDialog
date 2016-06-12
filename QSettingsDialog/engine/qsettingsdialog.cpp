@@ -72,6 +72,7 @@ void QSettingsDialog::setGroup(const QString &id, const QString &name, bool opti
 {
 	auto element = d->getGroup(id);
 	Q_ASSERT(!element.isNull());
+	element->testNotLocked();
 	d->groupId = id;
 
 	if(!name.isNull())
@@ -220,8 +221,10 @@ QSettingsEntry *QSettingsDialog::getEntry(int id) const
 	auto group = d->findEntryGroup(id);
 	if(group.isNull())
 		return nullptr;
-	else
+	else {
+		group->testNotLocked();
 		return group->entries.value(id).data();
+	}
 }
 
 QString QSettingsDialog::getEntryPath(int id) const
@@ -234,8 +237,10 @@ bool QSettingsDialog::removeEntry(int id)
 	auto group = d->findEntryGroup(id);
 	if(group.isNull())
 		return false;
-	else
+	else {
+		group->testNotLocked();
 		return group->entries.removeId(id);
+	}
 }
 
 QString QSettingsDialog::createContainerPath(QString category, QString section, QString group)
@@ -302,8 +307,7 @@ QSharedPointer<SettingsCategory> QSettingsDialogPrivate::getCategory(QString cat
 
 	if(categoryId == QLatin1String(".")) {
 		if(this->rootElement->defaultCategory.isNull()) {
-			auto cat = new SettingsCategory();
-			cat->name = QSettingsDialog::tr("General Settings");
+			auto cat = new SettingsCategory(QSettingsDialog::tr("General Settings"));
 			cat->icon = QIcon(QStringLiteral(":/QSettingsDialog/icons/settings.ico"));
 			this->rootElement->defaultCategory.reset(cat);
 		}
@@ -311,7 +315,7 @@ QSharedPointer<SettingsCategory> QSettingsDialogPrivate::getCategory(QString cat
 	} else {
 		auto element = this->rootElement->categories.valueId(categoryId);
 		if(element.isNull())
-			element = this->rootElement->categories.append(categoryId, new SettingsCategory());
+			element = this->rootElement->categories.append(categoryId, new SettingsCategory(categoryId));
 		return element;
 	}
 }
@@ -327,15 +331,14 @@ QSharedPointer<SettingsSection> QSettingsDialogPrivate::getSection(QString secti
 
 	if(sectionId == QLatin1String(".")) {
 		if(category->defaultSection.isNull()) {
-			auto sect = new SettingsSection();
-			sect->name = QSettingsDialog::tr("General");
+			auto sect = new SettingsSection(QSettingsDialog::tr("General"));
 			category->defaultSection.reset(sect);
 		}
 		return category->defaultSection;
 	} else {
 		auto element = category->sections.valueId(sectionId);
 		if(element.isNull())
-			element = category->sections.append(sectionId, new SettingsSection());
+			element = category->sections.append(sectionId, new SettingsSection(sectionId));
 		return element;
 	}
 }
@@ -351,15 +354,14 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::getGroup(QString groupId, 
 
 	if(groupId == QLatin1String(".")) {
 		if(section->defaultGroup.isNull()) {
-			auto grp = new SettingsGroup();
-			grp->name = QSettingsDialog::tr("General");
+			auto grp = new SettingsGroup(QSettingsDialog::tr("General"));
 			section->defaultGroup.reset(grp);
 		}
 		return section->defaultGroup;
 	} else {
 		auto element = section->groups.valueId(groupId);
 		if(element.isNull())
-			element = section->groups.append(groupId, new SettingsGroup());
+			element = section->groups.append(groupId, new SettingsGroup(groupId));
 		return element;
 	}
 }

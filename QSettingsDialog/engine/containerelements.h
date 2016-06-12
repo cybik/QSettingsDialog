@@ -21,8 +21,19 @@ struct SettingsGroup
 
 	SortedMap<int, QSettingsEntry> entries;
 
+	inline SettingsGroup(const QString &name) :
+		name(name),
+		tooltip(),
+		isOptional(false),
+		entries()
+	{}
+
 	inline void testNotLocked() const {
 		if(this->locker != nullptr)
+			throw ContainerLockedException();
+	}
+	inline void testNotLocked(QSettingsContainer *locker) const {
+		if(this->locker != nullptr && this->locker != locker)
 			throw ContainerLockedException();
 	}
 };
@@ -35,6 +46,14 @@ struct SettingsSection
 
 	QSharedPointer<SettingsGroup> defaultGroup;
 	SpecialGroupMap groups;
+
+	inline SettingsSection(const QString &name) :
+		name(name),
+		icon(),
+		tooltip(),
+		defaultGroup(),
+		groups()
+	{}
 };
 
 struct SettingsCategory
@@ -45,6 +64,14 @@ struct SettingsCategory
 
 	QSharedPointer<SettingsSection> defaultSection;
 	SortedMap<QString, SettingsSection> sections;
+
+	inline SettingsCategory(const QString &name) :
+		name(name),
+		icon(),
+		tooltip(),
+		defaultSection(),
+		sections()
+	{}
 };
 
 struct SettingsRoot

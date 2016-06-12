@@ -1,5 +1,7 @@
 #include <QApplication>
+#include <QDebug>
 #include <qsettingsdialog.h>
+#include <qsettingscontainer.h>
 #include "testentry.h"
 #include "delayedtestentry.h"
 
@@ -73,6 +75,43 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new DelayedTestEntry("test500", 500, qApp));
 	dialog.appendEntry(new DelayedTestEntry("test1000", 1000, qApp));
 	dialog.appendEntry(new DelayedTestEntry("test1500", 1500, qApp));
+
+	//container test
+	dialog.setContainer("containerTest/b/normal");
+	dialog.appendEntry(new TestEntry(false, true));
+
+	QSettingsContainer container(&dialog, "containerTest/b/normal");
+	container.appendEntry(new TestEntry(true, true));
+	auto rem = dialog.appendEntry(new TestEntry(false, true));
+	container.insertEntry(1, new TestEntry(false, false));
+
+	QSettingsContainer container2(&dialog, "containerTest/b/normal");
+	container2.removeEntry(rem);
+	dialog.prependEntry(new TestEntry(false, true));
+
+	//async container test
+	QAsyncSettingsContainer asyncContainer(&dialog, "containerTest/b/async");
+	asyncContainer.appendEntry(new TestEntry(false, false));
+	dialog.appendEntry(new TestEntry(true, true));
+	try {
+		dialog.appendEntry("containerTest/b/async", new TestEntry(true, true));
+		Q_ASSERT(false);
+	} catch(ContainerLockedException e) {
+		qDebug() << e.what();
+	}
+	try {
+		QAsyncSettingsContainer asyncContainer2(&dialog, "containerTest/b/async");
+		Q_ASSERT(false);
+	} catch(ContainerLockedException e) {
+		qDebug() << e.what();
+	}
+	try {
+		QSettingsContainer container3(&dialog, "containerTest/b/async");
+		container3.appendEntry(new TestEntry(true, false));
+		Q_ASSERT(false);
+	} catch(ContainerLockedException e) {
+		qDebug() << e.what();
+	}
 
 	dialog.showSettings();
 	return a.exec();
