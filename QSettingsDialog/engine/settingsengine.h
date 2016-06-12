@@ -66,6 +66,8 @@ private:
 
 	void updateEntry(EntryInfoBase &entry, const QVariant &data, bool isUserEdited);
 	void disableEntry(EntryInfoBase &entry);
+	void updateProgress(bool increment);
+	void tryLoadComplete();
 };
 
 #endif // SETTINGSENGINE_H

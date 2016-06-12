@@ -25,7 +25,7 @@ bool TestEntry::save(const QVariant &data)
 
 bool TestEntry::reset()
 {
-	qDebug() << "RESETTING to " << this->data;
+	qDebug() << "RESETTING to" << this->data;
 	return true;
 }
 

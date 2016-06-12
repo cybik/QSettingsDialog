@@ -57,7 +57,7 @@ void DelayedTestEntry::saveData(const QVariant &data)
 void DelayedTestEntry::resetData()
 {
 	QTimer::singleShot(this->delayMSecs, this, [=]() {
-		qDebug() << "RESETTING to " << this->data;
+		qDebug() << "RESETTING to" << this->data;
 		emit resetDone(true);
 	});
 }

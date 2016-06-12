@@ -71,8 +71,8 @@ void SettingsEngine::startLoading()
 			this->disableEntry(entry);
 	}
 
-	if(this->activeAsyncs.isEmpty())
-		emit operationCompleted(this->errorCount);
+	this->tryLoadComplete();
+	this->updateProgress(false);
 }
 
 void SettingsEngine::startSaving()
@@ -84,13 +84,14 @@ void SettingsEngine::startSaving()
 	for(int i = 0, total = this->asyncEntries.size(); i < total; ++i) {
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[i];
 		if(entry.checkingHelper->testChecked()) {
-			if(entry.currentWidget->hasValueChanged()) {
+			if(entry.currentWidget->hasValueChanged() ||
+			   entry.checkingHelper->checkedChanged()) {
 				auto data = entry.currentWidget->getValue();
 				this->activeAsyncs.insert(entry.currentLoader, i);
 				QMetaObject::invokeMethod(entry.currentLoader, "saveData", Qt::QueuedConnection,
 										  Q_ARG(QVariant, data));
 			}
-		} else {
+		} else if(entry.checkingHelper->checkedChanged()) {
 			this->activeAsyncs.insert(entry.currentLoader, i);
 			QMetaObject::invokeMethod(entry.currentLoader, "resetData", Qt::QueuedConnection);
 		}
@@ -100,20 +101,23 @@ void SettingsEngine::startSaving()
 
 	foreach(auto entry, this->simpleEntries) {
 		if(entry.checkingHelper->testChecked()) {
-			if(entry.currentWidget->hasValueChanged()) {
-				if(entry.currentLoader->save(entry.currentWidget->getValue()))
+			if(entry.currentWidget->hasValueChanged() ||
+			   entry.checkingHelper->checkedChanged()) {
+				if(entry.currentLoader->save(entry.currentWidget->getValue())) {
 					entry.currentWidget->resetValueChanged();
-				else
+					entry.checkingHelper->resetInitState();
+				} else
 					this->errorCount++;
 			}
-		} else {
-			if(!entry.currentLoader->reset())
+		} else if(entry.checkingHelper->checkedChanged()) {
+			if(entry.currentLoader->reset())
+				entry.checkingHelper->resetInitState();
+			else
 				this->errorCount++;
 		}
 	}
 
-	if(this->activeAsyncs.isEmpty())
-		emit operationCompleted(this->errorCount);
+	this->updateProgress(false);
 }
 
 void SettingsEngine::startResetting()
@@ -135,8 +139,7 @@ void SettingsEngine::startResetting()
 			this->errorCount++;
 	}
 
-	if(this->activeAsyncs.isEmpty())
-		emit operationCompleted(this->errorCount);
+	this->updateProgress(false);
 }
 
 void SettingsEngine::abortOperation()
@@ -158,9 +161,8 @@ void SettingsEngine::entryLoaded(bool successfull, const QVariant &data, bool is
 		else
 			this->disableEntry(entry);
 
-		emit progressValueChanged(++this->currentCount);
-		if(this->activeAsyncs.isEmpty())
-			emit operationCompleted(this->errorCount);
+		this->tryLoadComplete();
+		this->updateProgress(true);
 	}
 }
 
@@ -170,27 +172,28 @@ void SettingsEngine::entrySaved(bool successfull)
 		auto index = this->activeAsyncs.take(QObject::sender());
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[index];
 
-		if(successfull)
+		if(successfull) {
 			entry.currentWidget->resetValueChanged();
-		else
+			entry.checkingHelper->resetInitState();
+		} else
 			this->errorCount++;
 
-		emit progressValueChanged(++this->currentCount);
-		if(this->activeAsyncs.isEmpty())
-			emit operationCompleted(this->errorCount);
+		this->updateProgress(true);
 	}
 }
 
 void SettingsEngine::entryResetted(bool successfull)
 {
 	if(this->activeAsyncs.contains(QObject::sender())) {
-		this->activeAsyncs.remove(QObject::sender());
-		if(!successfull)
+		auto index = this->activeAsyncs.take(QObject::sender());
+		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[index];
+
+		if(successfull)
+			entry.checkingHelper->resetInitState();
+		else
 			this->errorCount++;
 
-		emit progressValueChanged(++this->currentCount);
-		if(this->activeAsyncs.isEmpty())
-			emit operationCompleted(this->errorCount);
+		this->updateProgress(true);
 	}
 }
 
@@ -203,7 +206,7 @@ void SettingsEngine::updateEntry(EntryInfoBase &entry, const QVariant &data, boo
 	entry.currentWidget->resetValueChanged();
 
 	if(isUserEdited)
-		entry.checkingHelper->doCheck();
+		entry.checkingHelper->check();
 }
 
 void SettingsEngine::disableEntry(SettingsEngine::EntryInfoBase &entry)
@@ -211,4 +214,22 @@ void SettingsEngine::disableEntry(SettingsEngine::EntryInfoBase &entry)
 	entry.currentWidget->asWidget()->setEnabled(false);
 	entry.checkingHelper->disable();
 	this->errorCount++;
+}
+
+void SettingsEngine::updateProgress(bool increment)
+{
+	if(increment)
+		emit progressValueChanged(++this->currentCount);
+	if(this->activeAsyncs.isEmpty())
+		emit operationCompleted(this->errorCount);
+}
+
+void SettingsEngine::tryLoadComplete()
+{
+	if(this->activeAsyncs.isEmpty()) {
+		foreach(auto entry, this->asyncEntries)
+			entry.checkingHelper->resetInitState();
+		foreach(auto entry, this->simpleEntries)
+			entry.checkingHelper->resetInitState();
+	}
 }
