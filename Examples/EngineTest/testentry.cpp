@@ -11,7 +11,6 @@ TestEntry::TestEntry(bool optional, bool working, QVariant data, bool hasName) :
 
 bool TestEntry::load(QVariant outParam data, bool outParam userEdited)
 {
-	qDebug() << "LOADING" << this->data;
 	userEdited = !this->data.isNull();
 	data = this->data;
 	return true;

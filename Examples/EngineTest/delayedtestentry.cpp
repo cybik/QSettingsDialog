@@ -41,7 +41,6 @@ void DelayedTestEntry::freeLoader(QSettingsLoader *)
 void DelayedTestEntry::loadData()
 {
 	QTimer::singleShot(this->delayMSecs, this, [=]() {
-		qDebug() << "LOADING" << this->data;
 		emit loadDone(true, this->data, !this->data.isNull());
 	});
 }
