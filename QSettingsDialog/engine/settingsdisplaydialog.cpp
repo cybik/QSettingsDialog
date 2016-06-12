@@ -9,6 +9,9 @@
 #include <QPushButton>
 #include "settingsengine.h"
 
+#define CUSTOM_WIDGET_PROPERTY "customWidgetContent"
+#define TAB_CONTENT_NAME "tabContent_371342666"
+
 SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
 	QDialog(parent),
 	engine(new SettingsEngine(this)),
@@ -306,6 +309,7 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 	scrollArea->setFrameShape(QFrame::NoFrame);
 
 	auto scrollContent = new QWidget(scrollArea);
+	scrollContent->setObjectName(TAB_CONTENT_NAME);
 	auto layout = new QVBoxLayout(scrollContent);
 	scrollContent->setLayout(layout);
 	scrollArea->setWidget(scrollContent);
@@ -358,11 +362,12 @@ void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &gro
 void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntry> &group, QWidget *contentWidget)
 {
 	auto rContainer = contentWidget;
+	CheckingGroupBox *box = nullptr;
 	CheckingHelper *helper = nullptr;
 
 	if(!group->entryName().isNull() ||
 	   group->isOptional()) {
-		auto box = new CheckingGroupBox(contentWidget);
+		box = new CheckingGroupBox(contentWidget);
 		box->setTitle(group->entryName());
 		auto ttip = group->tooltip();
 		box->setToolTip(ttip.isNull() ? group->entryName() : ttip);
@@ -384,6 +389,8 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 		content = settingsWidget->asWidget();
 	else
 		content = this->createErrorWidget(rContainer);
+
+	(box ? box : content)->setProperty(CUSTOM_WIDGET_PROPERTY, QVariant::fromValue(settingsWidget));
 	rContainer->layout()->addWidget(content);
 
 	if(settingsWidget)
@@ -455,8 +462,8 @@ void SettingsDisplayDialog::searchInDialog(const QRegularExpression &regex)
 		auto item = this->ui->categoryListWidget->item(i);
 		auto tab = safe_cast<QTabWidget*>(this->ui->contentStackWidget->widget(i));
 
-		if(regex.match(item->text()).hasMatch() ||
-		   this->searchInCategory(regex, tab)) {
+		if(this->searchInCategory(regex, tab) ||
+		   regex.match(item->text()).hasMatch()) {
 			item->setHidden(false);
 
 			if(this->ui->categoryListWidget->currentRow() == -1)
@@ -484,7 +491,82 @@ void SettingsDisplayDialog::searchInDialog(const QRegularExpression &regex)
 
 bool SettingsDisplayDialog::searchInCategory(const QRegularExpression &regex, QTabWidget *tab)
 {
-	return false;
+	auto someFound = false;
+
+	for(int i = 0, max = tab->count(); i < max; ++i) {
+		if(this->searchInSection(regex, tab->widget(i)->findChild<QWidget*>(TAB_CONTENT_NAME)) ||
+		   regex.match(tab->tabText(i)).hasMatch()){
+			tab->setTabEnabled(i, true);
+			someFound = true;
+		} else
+			tab->setTabEnabled(i, false);
+	}
+
+	return someFound;
+}
+
+bool SettingsDisplayDialog::searchInSection(const QRegularExpression &regex, QWidget *contentWidget)
+{
+	auto someFound = false;
+
+	auto children = contentWidget->findChildren<QWidget*>(QString(), Qt::FindDirectChildrenOnly);
+	foreach(auto child, children) {
+		bool hasMatch = false;
+
+		//test if custom group
+		if(child->dynamicPropertyNames().contains(CUSTOM_WIDGET_PROPERTY)) {
+			auto settingsWidget = child->property(CUSTOM_WIDGET_PROPERTY).value<QSettingsWidgetBase*>();
+			if(settingsWidget)
+				hasMatch = settingsWidget->searchExpression(regex);
+		} else
+			hasMatch = this->searchInGroup(regex, child);
+
+		if(!hasMatch) {
+			auto asGroup = qobject_cast<QGroupBox*>(child);
+			if(asGroup)
+				hasMatch = regex.match(asGroup->title()).hasMatch();
+			else
+				hasMatch = regex.pattern().isEmpty();
+		}
+
+		child->setVisible(hasMatch);
+		if(hasMatch)
+			someFound = true;
+	}
+
+	return someFound;
+}
+
+bool SettingsDisplayDialog::searchInGroup(const QRegularExpression &regex, QWidget *groupWidget)
+{
+	const static QString styleSheet = QStringLiteral("QLabel {"
+													 "    background-color: rgba(19,232,51,0.4);"
+													 "    border: 1px solid rgba(19,196,45,0.8);"
+													 "    border-radius: 4px;"
+													 "}"
+													 "QCheckBox {"
+													 "    background-color: rgba(19,232,51,0.4);"
+													 "    padding: 1px;"
+													 "    border: 1px solid rgba(19,196,45,0.8);"
+													 "    border-radius: 4px;"
+													 "}");
+	auto someFound = false;
+
+	auto layout = safe_cast<QFormLayout*>(groupWidget->layout());
+	for(int i = 0, max = layout->rowCount(); i < max; ++i) {
+		auto label = layout->itemAt(i, QFormLayout::LabelRole)->widget();
+		auto content = dynamic_cast<QSettingsWidgetBase*>(layout->itemAt(i, QFormLayout::FieldRole)->widget());
+
+		if(!regex.pattern().isEmpty() &&
+		   (regex.match(label->property("text").toString()).hasMatch() ||
+			(content && content->searchExpression(regex)))) {
+			label->setStyleSheet(styleSheet);
+			someFound = true;
+		} else
+			label->setStyleSheet(QString());
+	}
+
+	return someFound;
 }
 
 

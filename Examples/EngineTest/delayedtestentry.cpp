@@ -11,7 +11,7 @@ DelayedTestEntry::DelayedTestEntry(QVariant data, int delayMSecs, QObject *paren
 
 QString DelayedTestEntry::entryName() const
 {
-	return "Test Entry";
+	return "delayed Entry";
 }
 
 bool DelayedTestEntry::isOptional() const
@@ -26,7 +26,7 @@ QString DelayedTestEntry::tooltip() const
 
 QSettingsWidgetBase *DelayedTestEntry::createWidget(QWidget *parent)
 {
-	return new TestWidget(parent, true);
+	return new TestWidget(parent, true, "qu");
 }
 
 QSettingsLoader *DelayedTestEntry::getLoader()
@@ -34,7 +34,7 @@ QSettingsLoader *DelayedTestEntry::getLoader()
 	return this;
 }
 
-void DelayedTestEntry::freeLoader(QSettingsLoader *loader)
+void DelayedTestEntry::freeLoader(QSettingsLoader *)
 {
 }
 

@@ -87,8 +87,8 @@ private:
 
 	void searchInDialog(const QRegularExpression &regex);
 	bool searchInCategory(const QRegularExpression &regex, QTabWidget *tab);
-	bool searchInSection(const QRegularExpression &regex);
-	bool searchInGroup(const QRegularExpression &regex);
+	bool searchInSection(const QRegularExpression &regex, QWidget *contentWidget);
+	bool searchInGroup(const QRegularExpression &regex, QWidget *groupWidget);
 };
 
 #endif // SETTINGSDISPLAYDIALOG_H

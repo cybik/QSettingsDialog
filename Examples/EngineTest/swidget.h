@@ -7,8 +7,9 @@
 class TestWidget : public QSettingsWidget<QLineEdit>
 {
 public:
-	TestWidget(QWidget *parent, bool ttip) :
-		QSettingsWidget(parent)
+	TestWidget(QWidget *parent, bool ttip, QString pattern = QString()) :
+		QSettingsWidget(parent),
+		pattern(pattern)
 	{
 		if(ttip)
 			this->setToolTip("Mikeichalt");
@@ -23,6 +24,12 @@ public:
 	void resetValue() override {
 		this->clear();
 	}
+	bool searchExpression(const QRegularExpression &regex) override {
+		return regex.match(pattern).hasMatch();
+	}
+
+private:
+	QString pattern;
 };
 
 #endif // SWIDGET_H

@@ -22,9 +22,8 @@ public:
 	virtual void resetValue() = 0;
 
 	virtual inline bool searchExpression(const QRegularExpression &regex) {
-		return false;
+		return regex.pattern().isEmpty();
 	}
-	virtual inline void endSearch() {}
 
 private:
 	QVariant changedCache;
@@ -43,5 +42,7 @@ public:
 		return this;
 	}
 };
+
+Q_DECLARE_METATYPE(QSettingsWidgetBase*)
 
 #endif // QSETTINGSWIDGET_H
