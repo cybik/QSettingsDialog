@@ -1,5 +1,5 @@
-#ifndef QSETTINGSDIALOGLAYOUT_H
-#define QSETTINGSDIALOGLAYOUT_H
+#ifndef QSETTINGSCONTAINERLAYOUT_H
+#define QSETTINGSCONTAINERLAYOUT_H
 
 #include "qsettingsdialog_global.h"
 #include "exceptions.h"
@@ -12,26 +12,6 @@ class QSettingsDialog;
 
 class QSettingsContainerLayout;
 
-class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialogLayout : public QObject
-{
-	Q_OBJECT
-public:
-	enum LayoutType {
-		DialogLayout,
-		CategoryLayout,
-		SectionLayout,
-		GroupLayout
-	};
-	Q_ENUM(LayoutType)
-
-	explicit QSettingsDialogLayout(QSettingsDialog *settingsDialog, QObject *parent = 0);
-
-	QSettingsContainerLayout dialogLayout() const;
-
-private:
-	QSettingsDialogPrivate *dialog;
-};
-
 class QSettingsContainerLayoutPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsContainerLayout
 {
@@ -42,8 +22,17 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsContainerLayout
 	friend class SettingsRootLayout;
 
 public:
+	enum LayoutType {
+		DialogLayout,
+		CategoryLayout,
+		SectionLayout,
+		GroupLayout
+	};
+
+	static QSettingsContainerLayout dialogLayout(QSettingsDialog *settingsDialog);
+
 	QString id() const;
-	QSettingsDialogLayout::LayoutType layoutType() const;
+	LayoutType layoutType() const;
 	bool isNull() const;
 
 	QString name() const;
@@ -79,4 +68,4 @@ private:
 	QSettingsContainerLayout(QSettingsContainerLayoutPrivate *d_ptr);
 };
 
-#endif // QSETTINGSDIALOGLAYOUT_H
+#endif // QSETTINGSCONTAINERLAYOUT_H

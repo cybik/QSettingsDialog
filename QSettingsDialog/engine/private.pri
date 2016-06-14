@@ -13,13 +13,13 @@ SOURCES += \
 	$$PWD/qsettingsloader.cpp \
 	$$PWD/qsettingswidget.cpp \
 	$$PWD/qsettingsdialog.cpp \
-	$$PWD/qsettingsdialoglayout.cpp \
 	$$PWD/settingspathparser.cpp \
 	$$PWD/qsettingscontainer.cpp \
     $$PWD/exceptions.cpp \
     $$PWD/settingsdisplaydialog.cpp \
     $$PWD/settingsengine.cpp \
-    $$PWD/specialgroupmap.cpp
+    $$PWD/specialgroupmap.cpp \
+    $$PWD/qsettingscontainerlayout.cpp
 
 FORMS += \
     $$PWD/settingsdisplaydialog.ui

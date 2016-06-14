@@ -4,9 +4,9 @@ HEADERS += \
 	$$PWD/qsettingswidget.h \
 	$$PWD/qsettingsloaderentry.h \
 	$$PWD/qsettingsdialog.h \
-    $$PWD/qsettingsdialoglayout.h \
     $$PWD/qsettingscontainer.h \
-    $$PWD/exceptions.h
+    $$PWD/exceptions.h \
+    $$PWD/qsettingscontainerlayout.h
 
 INCLUDEPATH += $$PWD
 

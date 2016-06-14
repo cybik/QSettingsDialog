@@ -1,20 +1,12 @@
-#include "qsettingsdialoglayout.h"
+#include "qsettingscontainerlayout.h"
 #include "qsettingsdialog_p.h"
 #include "qsettingscontainerlayout_p.h"
 
 #define d this->d_ptr
 
-QSettingsDialogLayout::QSettingsDialogLayout(QSettingsDialog *settingsDialog, QObject *parent) :
-	QObject(parent),
-	dialog(QSettingsDialogPrivate::getPrivateInstance(settingsDialog))
+QSettingsContainerLayout QSettingsContainerLayout::dialogLayout(QSettingsDialog *settingsDialog)
 {
-	connect(settingsDialog, &QSettingsDialog::destroyed,
-			this, &QSettingsDialogLayout::deleteLater);
-}
-
-QSettingsContainerLayout QSettingsDialogLayout::dialogLayout() const
-{
-	return QSettingsContainerLayout(new SettingsRootLayout(QString(), this->dialog->rootElement));//TODO
+	return QSettingsContainerLayout(new SettingsRootLayout(QString(), QSettingsDialogPrivate::getPrivateInstance(settingsDialog)->rootElement));
 }
 
 QString QSettingsContainerLayout::id() const
@@ -22,7 +14,7 @@ QString QSettingsContainerLayout::id() const
 	return d->id;
 }
 
-QSettingsDialogLayout::LayoutType QSettingsContainerLayout::layoutType() const
+QSettingsContainerLayout::LayoutType QSettingsContainerLayout::layoutType() const
 {
 	return d->layoutType;
 }

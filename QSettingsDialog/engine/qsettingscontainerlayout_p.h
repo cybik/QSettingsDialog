@@ -2,20 +2,20 @@
 #define QSETTINGSCONTAINERLAYOUT_P_H
 
 #include "qsettingsdialog_global.h"
-#include "qsettingsdialoglayout.h"
+#include "qsettingscontainerlayout.h"
 #include "containerelements.h"
 
 class QSettingsContainerLayoutPrivate
 {
 public:
-	inline QSettingsContainerLayoutPrivate(const QString &id, QSettingsDialogLayout::LayoutType layoutType) :
+	inline QSettingsContainerLayoutPrivate(const QString &id, QSettingsContainerLayout::LayoutType layoutType) :
 		id(id),
 		layoutType(layoutType)
 	{}
 
 	inline virtual ~QSettingsContainerLayoutPrivate() {}
 
-	QSettingsDialogLayout::LayoutType layoutType;
+	QSettingsContainerLayout::LayoutType layoutType;
 	const QString id;
 
 	virtual bool testNull() const = 0;
@@ -42,7 +42,7 @@ class SettingsGroupLayout : public QSettingsContainerLayoutPrivate
 	friend class SettingsSectionLayout;
 public:
 	SettingsGroupLayout(const QString &id, QSharedPointer<SettingsGroup> element) :
-		QSettingsContainerLayoutPrivate(id, layoutType),
+		QSettingsContainerLayoutPrivate(id, QSettingsContainerLayout::GroupLayout),
 		element(element)
 	{}
 
@@ -107,7 +107,7 @@ class SettingsSectionLayout : public QSettingsContainerLayoutPrivate
 	friend class SettingsCategoryLayout;
 public:
 	SettingsSectionLayout(const QString &id, QSharedPointer<SettingsSection> element) :
-		QSettingsContainerLayoutPrivate(id, layoutType),
+		QSettingsContainerLayoutPrivate(id, QSettingsContainerLayout::SectionLayout),
 		element(element)
 	{}
 
@@ -184,7 +184,7 @@ class SettingsCategoryLayout : public QSettingsContainerLayoutPrivate
 	friend class SettingsRootLayout;
 public:
 	SettingsCategoryLayout(const QString &id, QSharedPointer<SettingsCategory> element) :
-		QSettingsContainerLayoutPrivate(id, layoutType),
+		QSettingsContainerLayoutPrivate(id, QSettingsContainerLayout::CategoryLayout),
 		element(element)
 	{}
 
@@ -250,7 +250,7 @@ class SettingsRootLayout : public QSettingsContainerLayoutPrivate
 {
 public:
 	SettingsRootLayout(const QString &id, QSharedPointer<SettingsRoot> element) :
-		QSettingsContainerLayoutPrivate(id, layoutType),
+		QSettingsContainerLayoutPrivate(id, QSettingsContainerLayout::DialogLayout),
 		element(element)
 	{}
 
