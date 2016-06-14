@@ -6,7 +6,8 @@ HEADERS += \
     $$PWD/settingsdisplaydialog.h \
     $$PWD/settingsengine.h \
     $$PWD/specialgroupmap.h \
-    $$PWD/checkinghelper.h
+    $$PWD/checkinghelper.h \
+    $$PWD/qsettingscontainerlayout_p.h
 
 SOURCES += \
 	$$PWD/qsettingsloader.cpp \

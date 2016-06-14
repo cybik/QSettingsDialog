@@ -1,55 +1,127 @@
-//#include "qsettingsdialoglayout.h"
-//#include "qsettingsdialog_p.h"
+#include "qsettingsdialoglayout.h"
+#include "qsettingsdialog_p.h"
+#include "qsettingscontainerlayout_p.h"
 
-//QSettingsDialogLayout::QSettingsDialogLayout(QSettingsDialog *settingsDialog, QObject *parent) :
-//	QObject(parent),
-//	dialog(QSettingsDialogPrivate::getPrivateInstance(settingsDialog))
-//{
-//	connect(settingsDialog, &QSettingsDialog::destroyed,
-//			this, &QSettingsDialogLayout::deleteLater);
-//}
+#define d this->d_ptr
 
-//QSettingsCategoryLayout QSettingsDialogLayout::createCategory(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)
-//{
+QSettingsDialogLayout::QSettingsDialogLayout(QSettingsDialog *settingsDialog, QObject *parent) :
+	QObject(parent),
+	dialog(QSettingsDialogPrivate::getPrivateInstance(settingsDialog))
+{
+	connect(settingsDialog, &QSettingsDialog::destroyed,
+			this, &QSettingsDialogLayout::deleteLater);
+}
 
-//}
+QSettingsContainerLayout QSettingsDialogLayout::dialogLayout() const
+{
+	return QSettingsContainerLayout(new SettingsRootLayout(QString(), this->dialog->rootElement));//TODO
+}
 
-//void QSettingsDialogLayout::removeSecCategory(int index)
-//{
+QString QSettingsContainerLayout::id() const
+{
+	return d->id;
+}
 
-//}
+QSettingsDialogLayout::LayoutType QSettingsContainerLayout::layoutType() const
+{
+	return d->layoutType;
+}
 
-//QSettingsGroupLayout::QSettingsGroupLayout(const QString &id, QString &name, QString &tooltip, bool &isOptional)
-//{
+bool QSettingsContainerLayout::isNull() const
+{
+	return d->testNull();
+}
 
-//}
+QString QSettingsContainerLayout::name() const
+{
+	return d->createNameRef();
+}
 
-//QSettingsGroupLayout QSettingsSectionLayout::createGroup(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
-//{
+void QSettingsContainerLayout::setName(const QString &name)
+{
+	d->createNameRef() = name;
+}
 
-//}
+QIcon QSettingsContainerLayout::icon() const
+{
+	return d->createIconRef();
+}
 
-//void QSettingsSectionLayout::removeGroup(int index)
-//{
+void QSettingsContainerLayout::setIcon(const QIcon &icon)
+{
+	d->createIconRef() = icon;
+}
 
-//}
+QString QSettingsContainerLayout::tooltip() const
+{
+	return d->createTooltipRef();
+}
 
-//QSettingsSectionLayout::QSettingsSectionLayout(const QString &id, QString &name, QIcon &icon, QString &tooltip)
-//{
+void QSettingsContainerLayout::setTooltip(const QString &tooltip)
+{
+	d->createTooltipRef() = tooltip;
+}
 
-//}
+bool QSettingsContainerLayout::isOptional() const
+{
+	return d->createOptionalRef();
+}
 
-//QSettingsGroupLayout QSettingsCategoryLayout::createSection(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)
-//{
+void QSettingsContainerLayout::setOptional(bool optional)
+{
+	d->createOptionalRef() = optional;
+}
 
-//}
+QSettingsContainerLayout QSettingsContainerLayout::defaultElement() const
+{
+	return d->creatDefaultElement();
+}
 
-//void QSettingsCategoryLayout::removeSection(int index)
-//{
+int QSettingsContainerLayout::elementCount() const
+{
+	return d->elementCount();
+}
 
-//}
+QSettingsContainerLayout QSettingsContainerLayout::elementAt(int index) const
+{
+	return d->elementAt(index);
+}
 
-//QSettingsCategoryLayout::QSettingsCategoryLayout(const QString &id, QString &name, QIcon &icon, QString &tooltip)
-//{
+int QSettingsContainerLayout::indexOfElement(const QSettingsContainerLayout &element) const
+{
+	return d->indexOfElement(element);
+}
 
-//}
+QSettingsContainerLayout QSettingsContainerLayout::createElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
+{
+	auto element = d->createEmptySubElement(id);
+	element.setName(name);
+	element.setOptional(optional);
+	element.setTooltip(tooltip);
+	d->insertElement(index, element);
+	return element;
+}
+
+QSettingsContainerLayout QSettingsContainerLayout::createElement(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)
+{
+	auto element = d->createEmptySubElement(id);
+	element.setName(name);
+	element.setIcon(icon);
+	element.setTooltip(tooltip);
+	d->insertElement(index, element);
+	return element;
+}
+
+void QSettingsContainerLayout::removeElement(int index)
+{
+	d->removeElement(index);
+}
+
+void QSettingsContainerLayout::moveElement(int indexFrom, int indexTo)
+{
+	d->moveElement(indexFrom, indexTo);
+}
+
+QSettingsContainerLayout::QSettingsContainerLayout(QSettingsContainerLayoutPrivate *d_ptr) :
+	d_ptr(d_ptr)
+{}

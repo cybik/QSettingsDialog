@@ -1,147 +1,82 @@
-//#ifndef QSETTINGSDIALOGLAYOUT_H
-//#define QSETTINGSDIALOGLAYOUT_H
+#ifndef QSETTINGSDIALOGLAYOUT_H
+#define QSETTINGSDIALOGLAYOUT_H
 
-//#include "qsettingsdialog_global.h"
-//#include <QObject>
-//#include <QList>
-//#include <QIcon>
-//class QSettingsDialogPrivate;
-//class QSettingsDialog;
+#include "qsettingsdialog_global.h"
+#include "exceptions.h"
+#include <QObject>
+#include <QList>
+#include <QIcon>
+#include <QSharedPointer>
+class QSettingsDialogPrivate;
+class QSettingsDialog;
 
-//template <class SettingsLayout>
-//class QSETTINGSDIALOGSHARED_EXPORT LayoutList
-//{
-//	friend class QSettingsDialogLayout;
-//public:
-//	int size() const;
+class QSettingsContainerLayout;
 
-//	void move(int indexFrom, int indexTo);
-//	SettingsLayout at(int index) const;
-//	int indexOf(const SettingsLayout &element) const;
+class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialogLayout : public QObject
+{
+	Q_OBJECT
+public:
+	enum LayoutType {
+		DialogLayout,
+		CategoryLayout,
+		SectionLayout,
+		GroupLayout
+	};
+	Q_ENUM(LayoutType)
 
-//	SettingsLayout &operator[](int index);
+	explicit QSettingsDialogLayout(QSettingsDialog *settingsDialog, QObject *parent = 0);
 
-//private:
-//	QList<SettingsLayout> dataList;
-//};
+	QSettingsContainerLayout dialogLayout() const;
 
-//class QSETTINGSDIALOGSHARED_EXPORT QSettingsGroupLayout
-//{
-//	friend class QSettingsSectionLayout;
-//public:
-//	const QString &id;
+private:
+	QSettingsDialogPrivate *dialog;
+};
 
-//	QString &name;
-//	QString &tooltip;
-//	bool &isOptional;
+class QSettingsContainerLayoutPrivate;
+class QSETTINGSDIALOGSHARED_EXPORT QSettingsContainerLayout
+{
+	friend class QSettingsDialogLayout;
+	friend class SettingsGroupLayout;
+	friend class SettingsSectionLayout;
+	friend class SettingsCategoryLayout;
+	friend class SettingsRootLayout;
 
-//	//TODO createContainer
+public:
+	QString id() const;
+	QSettingsDialogLayout::LayoutType layoutType() const;
+	bool isNull() const;
 
-//private:
-//	QSettingsGroupLayout(const QString &id,
-//						 QString &name,
-//						 QString &tooltip,
-//						 bool &isOptional);
-//};
+	QString name() const;
+	void setName(const QString &name);
+	QIcon icon() const;
+	void setIcon(const QIcon &icon);
+	QString tooltip() const;
+	void setTooltip(const QString &tooltip);
+	bool isOptional() const;
+	void setOptional(bool optional);
 
-//class QSETTINGSDIALOGSHARED_EXPORT QSettingsSectionLayout
-//{
-//	friend class QSettingsCategoryLayout;
-//public:
-//	const QString &id;
+	QSettingsContainerLayout defaultElement() const;
 
-//	QString &name;
-//	QIcon &icon;
-//	QString &tooltip;
+	int elementCount() const;
+	QSettingsContainerLayout elementAt(int index) const;
+	int indexOfElement(const QSettingsContainerLayout &element) const;
+	QSettingsContainerLayout createElement(int index,
+										   const QString &id,
+										   const QString &name = QString(),
+										   bool optional = false,
+										   const QString &tooltip = QString());
+	QSettingsContainerLayout createElement(int index,
+										   const QString &id,
+										   const QString &name = QString(),
+										   const QIcon &icon = QIcon(),
+										   const QString &tooltip = QString());
+	void removeElement(int index);
+	void moveElement(int indexFrom, int indexTo);
 
-//	QSettingsGroupLayout defaultGroup;
-//	LayoutList<QSettingsGroupLayout> groups;
+private:
+	QSharedPointer<QSettingsContainerLayoutPrivate> d_ptr;
 
-//	QSettingsGroupLayout createGroup(int index,
-//									 const QString &id,
-//									 const QString &name = QString(),
-//									 bool optional = false,
-//									 const QString &tooltip = QString());
-//	void removeGroup(int index);
+	QSettingsContainerLayout(QSettingsContainerLayoutPrivate *d_ptr);
+};
 
-//private:
-//	QSettingsSectionLayout(const QString &id,
-//						   QString &name,
-//						   QIcon &icon,
-//						   QString &tooltip);
-//};
-
-//class QSETTINGSDIALOGSHARED_EXPORT QSettingsCategoryLayout
-//{
-//	friend class QSettingsDialogLayout;
-//public:
-//	const QString &id;
-
-//	QString &name;
-//	QIcon &icon;
-//	QString &tooltip;
-
-//	QSettingsSectionLayout defaultSection;
-//	LayoutList<QSettingsSectionLayout> sections;
-
-//	QSettingsGroupLayout createSection(int index,
-//									   const QString &id,
-//									   const QString &name = QString(),
-//									   const QIcon &icon = QIcon(),
-//									   const QString &tooltip = QString());
-//	void removeSection(int index);
-
-//private:
-//	QSettingsCategoryLayout(const QString &id,
-//							QString &name,
-//							QIcon &icon,
-//							QString &tooltip);
-//};
-
-//class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialogLayout : public QObject
-//{
-//	Q_OBJECT
-//public:
-//	explicit QSettingsDialogLayout(QSettingsDialog *settingsDialog, QObject *parent = 0);
-
-//	QSettingsCategoryLayout defaultCategory;
-//	LayoutList<QSettingsCategoryLayout> categories;
-
-//	QSettingsCategoryLayout createCategory(int index,
-//										   const QString &id,
-//										   const QString &name = QString(),
-//										   const QIcon &icon = QIcon(),
-//										   const QString &tooltip = QString());
-//	void removeSecCategory(int index);
-//private:
-//	QSettingsDialogPrivate *dialog;
-//};
-
-//// --------------------------- IMPLEMENTATION --------------------------
-
-//template <class SettingsLayout>
-//int LayoutList<SettingsLayout>::size() const {
-//	return this->dataList.size();
-//}
-
-//template <class SettingsLayout>
-//void LayoutList<SettingsLayout>::move(int indexFrom, int indexTo) {
-//	this->dataList.move(indexFrom, indexTo);
-//}
-
-//template <class SettingsLayout>
-//typename SettingsLayout LayoutList<SettingsLayout>::at(int index) const {
-//	return this->dataList.at(index);
-//}
-
-//template <class SettingsLayout>
-//int LayoutList<SettingsLayout>::indexOf(const SettingsLayout &element) const {
-//	return this->dataList.indexOf(element);
-//}
-
-//template <class SettingsLayout>
-//typename SettingsLayout &LayoutList<SettingsLayout>::operator[](int index) {
-//	return this->dataList[index];
-//}
-
-//#endif // QSETTINGSDIALOGLAYOUT_H
+#endif // QSETTINGSDIALOGLAYOUT_H

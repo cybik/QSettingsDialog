@@ -16,11 +16,13 @@ public:
 	typedef QPair<QVariant, Value> Entry;
 
 	SpecialGroupMap();
+	~SpecialGroupMap();
 
 	//global operations
 	int size() const;
 	bool hasIndex(int index) const;
 	QVariant id(int index) const;
+	int index(const QVariant &id) const;
 	QList<Entry> entries() const;
 	Entry entry(int index) const;
 	bool remove(int index);

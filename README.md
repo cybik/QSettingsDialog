@@ -7,7 +7,7 @@ A library to easily create a settings dialog for user configurable settings
   + ui
   + save/load/reset engine
   + exec/show
-  - search filter
+  + search filter
   - Layout
 - variant
 - properties

@@ -16,4 +16,10 @@ public:
 	ContainerLockedException();
 };
 
+class QSETTINGSDIALOGSHARED_EXPORT LayoutPropertyNotDefinedException : public QtException
+{
+public:
+	LayoutPropertyNotDefinedException();
+};
+
 #endif // EXCEPTIONS_H

@@ -1,10 +1,13 @@
 #include "specialgroupmap.h"
+#include "containerelements.h"
 
 SpecialGroupMap::SpecialGroupMap() :
 	groups(),
 	customGroups(),
 	totalOrder()
 {}
+
+SpecialGroupMap::~SpecialGroupMap() {}
 
 int SpecialGroupMap::size() const
 {
@@ -21,6 +24,11 @@ QVariant SpecialGroupMap::id(int index) const
 {
 	Q_ASSERT(index < this->totalOrder.size());
 	return this->totalOrder[index];
+}
+
+int SpecialGroupMap::index(const QVariant &id) const
+{
+	return this->totalOrder.indexOf(id);
 }
 
 QList<SpecialGroupMap::Entry> SpecialGroupMap::entries() const
