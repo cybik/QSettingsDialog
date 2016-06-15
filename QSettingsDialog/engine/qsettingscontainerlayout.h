@@ -62,6 +62,8 @@ public:
 	void removeElement(int index);
 	void moveElement(int indexFrom, int indexTo);
 
+	void transferElement(int indexFrom, QSettingsContainerLayout targetLayout, int indexTo);
+
 private:
 	QSharedPointer<QSettingsContainerLayoutPrivate> d_ptr;
 

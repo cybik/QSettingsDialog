@@ -117,6 +117,15 @@ void QSettingsContainerLayout::moveElement(int indexFrom, int indexTo)
 	d->moveElement(indexFrom, indexTo);
 }
 
+void QSettingsContainerLayout::transferElement(int indexFrom, QSettingsContainerLayout targetLayout, int indexTo)
+{
+	if(targetLayout.isNull() || targetLayout.layoutType() != this->layoutType())
+		throw LayoutPropertyNotDefinedException();//TODO other exception
+	auto element = d->elementAt(indexFrom);
+	d->removeElement(indexFrom);
+	targetLayout.d_ptr->insertElement(indexTo, element);
+}
+
 QSettingsContainerLayout::QSettingsContainerLayout(QSettingsContainerLayoutPrivate *d_ptr) :
 	d_ptr(d_ptr)
 {}

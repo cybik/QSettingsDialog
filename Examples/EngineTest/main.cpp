@@ -169,6 +169,9 @@ int main(int argc, char *argv[])
 		qDebug() << e.what();
 	}
 
+	QSettingsContainerLayout transferToCategory = dialogLayout.elementAt(2);
+	categoryLayout.transferElement(0, transferToCategory, 1);
+
 	dialog.openSettings();
 	dialog.execSettings();
 	return a.exec();
