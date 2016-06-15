@@ -25,9 +25,14 @@ bool QSettingsContainerLayout::isNull() const
 	return d->testNull();
 }
 
+QString QSettingsContainerLayout::containerPath() const
+{
+	return d->createIdPath();
+}
+
 QSettingsContainerLayout QSettingsContainerLayout::parentContainer() const
 {
-	auto parent = QSettingsContainerLayout(nullptr);
+	auto parent = QSettingsContainerLayout(new SettingsRootLayout(QString(), QSharedPointer<SettingsRoot>()));//TODO ok so?...
 	parent.d_ptr = d->parentElement;
 	return parent;
 }
