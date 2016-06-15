@@ -144,6 +144,8 @@ int main(int argc, char *argv[])
 	} catch(LayoutPropertyNotDefinedException e) {
 		qDebug() << e.what();
 	}
+	Q_ASSERT(categoryLayout.defaultElement(false).isNull());
+	Q_ASSERT(!categoryLayout.defaultElement(true).isNull());
 
 	QSettingsContainerLayout sectionLayout = categoryLayout.elementAt(2);
 	sectionLayout.setName("Look here!");

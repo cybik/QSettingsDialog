@@ -65,9 +65,9 @@ void QSettingsContainerLayout::setOptional(bool optional)
 	d->createOptionalRef() = optional;
 }
 
-QSettingsContainerLayout QSettingsContainerLayout::defaultElement() const
+QSettingsContainerLayout QSettingsContainerLayout::defaultElement(bool allowCreateNew) const
 {
-	return d->creatDefaultElement();
+	return d->creatDefaultElement(allowCreateNew);
 }
 
 int QSettingsContainerLayout::elementCount() const

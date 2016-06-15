@@ -9,6 +9,7 @@
 #include "qsettingsentry.h"
 #include "exceptions.h"
 #include <QAtomicPointer>
+#include <qsettingsdialog.h>
 
 class QSettingsContainer;
 struct SettingsGroup
@@ -36,6 +37,10 @@ struct SettingsGroup
 		if(this->locker != nullptr && this->locker != locker)
 			throw ContainerLockedException();
 	}
+
+	static inline QSharedPointer<SettingsGroup> createDefaultGroup() {
+		return QSharedPointer<SettingsGroup>(new SettingsGroup(QSettingsDialog::tr("General")));
+	}
 };
 
 struct SettingsSection
@@ -54,6 +59,10 @@ struct SettingsSection
 		defaultGroup(),
 		groups()
 	{}
+
+	static inline QSharedPointer<SettingsSection> createDefaultSection() {
+		return QSharedPointer<SettingsSection>(new SettingsSection(QSettingsDialog::tr("General")));
+	}
 };
 
 struct SettingsCategory
@@ -72,6 +81,12 @@ struct SettingsCategory
 		defaultSection(),
 		sections()
 	{}
+
+	static inline QSharedPointer<SettingsCategory> createDefaultCategory() {
+		auto cat = new SettingsCategory(QSettingsDialog::tr("General Settings"));
+		cat->icon = QIcon(QStringLiteral(":/QSettingsDialog/icons/settings.ico"));
+		return QSharedPointer<SettingsCategory>(cat);
+	}
 };
 
 struct SettingsRoot

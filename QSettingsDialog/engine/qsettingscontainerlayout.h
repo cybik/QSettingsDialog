@@ -44,7 +44,7 @@ public:
 	bool isOptional() const;
 	void setOptional(bool optional);
 
-	QSettingsContainerLayout defaultElement() const;
+	QSettingsContainerLayout defaultElement(bool allowCreateNew = false) const;
 
 	int elementCount() const;
 	QSettingsContainerLayout elementAt(int index) const;

@@ -25,7 +25,7 @@ public:
 	virtual QString &createTooltipRef() = 0;
 	virtual bool &createOptionalRef() = 0;
 
-	virtual QSettingsContainerLayout creatDefaultElement() = 0;
+	virtual QSettingsContainerLayout creatDefaultElement(bool createNew) = 0;
 	virtual QSettingsContainerLayout createEmptySubElement(const QString &id) = 0;
 
 	virtual int elementCount() const = 0;
@@ -66,7 +66,7 @@ public:
 		return this->element->isOptional;
 	}
 
-	QSettingsContainerLayout creatDefaultElement() override {
+	QSettingsContainerLayout creatDefaultElement(bool) override {
 		throw LayoutPropertyNotDefinedException();
 	}
 
@@ -131,7 +131,9 @@ public:
 		throw LayoutPropertyNotDefinedException();
 	}
 
-	QSettingsContainerLayout creatDefaultElement() override {
+	QSettingsContainerLayout creatDefaultElement(bool createNew) override {
+		if(this->element->defaultGroup.isNull() && createNew)
+			this->element->defaultGroup = SettingsGroup::createDefaultGroup();
 		return QSettingsContainerLayout(new SettingsGroupLayout(".", this->element->defaultGroup));
 	}
 
@@ -208,7 +210,9 @@ public:
 		throw LayoutPropertyNotDefinedException();
 	}
 
-	QSettingsContainerLayout creatDefaultElement() override {
+	QSettingsContainerLayout creatDefaultElement(bool createNew) override {
+		if(this->element->defaultSection.isNull() && createNew)
+			this->element->defaultSection = SettingsSection::createDefaultSection();
 		return QSettingsContainerLayout(new SettingsSectionLayout(".", this->element->defaultSection));
 	}
 
@@ -274,7 +278,9 @@ public:
 		throw LayoutPropertyNotDefinedException();
 	}
 
-	QSettingsContainerLayout creatDefaultElement() override {
+	QSettingsContainerLayout creatDefaultElement(bool createNew) override {
+		if(this->element->defaultCategory.isNull() && createNew)
+			this->element->defaultCategory = SettingsCategory::createDefaultCategory();
 		return QSettingsContainerLayout(new SettingsCategoryLayout(".", this->element->defaultCategory));
 	}
 
