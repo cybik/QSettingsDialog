@@ -22,4 +22,10 @@ public:
 	LayoutPropertyNotDefinedException();
 };
 
+class QSETTINGSDIALOGSHARED_EXPORT InvalidTargetLayoutException : public QtException
+{
+public:
+	InvalidTargetLayoutException();
+};
+
 #endif // EXCEPTIONS_H

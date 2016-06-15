@@ -32,7 +32,9 @@ QString QSettingsContainerLayout::containerPath() const
 
 QSettingsContainerLayout QSettingsContainerLayout::parentContainer() const
 {
-	auto parent = QSettingsContainerLayout(new SettingsRootLayout(QString(), QSharedPointer<SettingsRoot>()));//TODO ok so?...
+	auto parent = QSettingsContainerLayout(nullptr);
+	if(d->parentElement.isNull())
+		throw InvalidTargetLayoutException();
 	parent.d_ptr = d->parentElement;
 	return parent;
 }
@@ -140,7 +142,7 @@ void QSettingsContainerLayout::moveElement(int indexFrom, int indexTo)
 void QSettingsContainerLayout::transferElement(int indexFrom, QSettingsContainerLayout targetLayout, int indexTo)
 {
 	if(targetLayout.isNull() || targetLayout.layoutType() != this->layoutType())
-		throw LayoutPropertyNotDefinedException();//TODO other exception
+		throw InvalidTargetLayoutException();
 	auto element = d->elementAt(indexFrom);
 	d->removeElement(indexFrom);
 	element.d_ptr->parentElement = targetLayout.d_ptr;
