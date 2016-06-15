@@ -49,11 +49,11 @@ public:
 	int elementCount() const;
 	QSettingsContainerLayout elementAt(int index) const;
 	int indexOfElement(const QSettingsContainerLayout &element) const;
-	QSettingsContainerLayout createElement(int index,
-										   const QString &id,
-										   const QString &name = QString(),
-										   bool optional = false,
-										   const QString &tooltip = QString());
+	QSettingsContainerLayout createOptionalElement(int index,
+												   const QString &id,
+												   const QString &name = QString(),
+												   bool optional = false,
+												   const QString &tooltip = QString());
 	QSettingsContainerLayout createElement(int index,
 										   const QString &id,
 										   const QString &name = QString(),

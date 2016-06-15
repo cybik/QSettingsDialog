@@ -1,7 +1,9 @@
 #include <QApplication>
 #include <QDebug>
+#include <QStyle>
 #include <qsettingsdialog.h>
 #include <qsettingscontainer.h>
+#include <qsettingscontainerlayout.h>
 #include "testentry.h"
 #include "delayedtestentry.h"
 
@@ -120,6 +122,48 @@ int main(int argc, char *argv[])
 		container3.appendEntry(new TestEntry(true, false));
 		Q_ASSERT(false);
 	} catch(ContainerLockedException e) {
+		qDebug() << e.what();
+	}
+
+	//layout tests
+	QSettingsContainerLayout dialogLayout = QSettingsContainerLayout::dialogLayout(&dialog);
+	dialogLayout.createElement(1, "layoutCategory");
+	dialogLayout.moveElement(0, 2);
+	dialogLayout.moveElement(1, 0);
+
+	QSettingsContainerLayout categoryLayout = dialogLayout.elementAt(1);
+	categoryLayout.createElement(0, "elem0");
+	categoryLayout.createElement(1, "elem1");
+	categoryLayout.createElement(2, "elem2");
+	categoryLayout.createElement(3, "elem3");
+	categoryLayout.removeElement(2);
+	categoryLayout.setName("Layout Test");
+	try {
+		categoryLayout.setOptional(true);
+		Q_ASSERT(false);
+	} catch(LayoutPropertyNotDefinedException e) {
+		qDebug() << e.what();
+	}
+
+	QSettingsContainerLayout sectionLayout = categoryLayout.elementAt(2);
+	sectionLayout.setName("Look here!");
+	sectionLayout.setIcon(QApplication::style()->standardIcon(QStyle::SP_ComputerIcon));
+	sectionLayout.createOptionalElement(0, "group2");
+	sectionLayout.createOptionalElement(0, "group1", QString(), true);
+	sectionLayout.createOptionalElement(0, "group0");
+	try {
+		sectionLayout.createElement(0, "42z");
+		Q_ASSERT(false);
+	} catch(LayoutPropertyNotDefinedException e) {
+		qDebug() << e.what();
+	}
+
+	QSettingsContainerLayout groupLayout = sectionLayout.elementAt(0);
+	groupLayout.setOptional(true);
+	try {
+		sectionLayout.createElement(0, "42z");
+		Q_ASSERT(false);
+	} catch(LayoutPropertyNotDefinedException e) {
 		qDebug() << e.what();
 	}
 

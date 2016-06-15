@@ -1,6 +1,7 @@
 #include "qsettingscontainerlayout.h"
 #include "qsettingsdialog_p.h"
 #include "qsettingscontainerlayout_p.h"
+#include "settingspathparser.h"
 
 #define d this->d_ptr
 
@@ -84,10 +85,11 @@ int QSettingsContainerLayout::indexOfElement(const QSettingsContainerLayout &ele
 	return d->indexOfElement(element);
 }
 
-QSettingsContainerLayout QSettingsContainerLayout::createElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
+QSettingsContainerLayout QSettingsContainerLayout::createOptionalElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
 {
+	SettingsPathParser::validateId(id, true);
 	auto element = d->createEmptySubElement(id);
-	element.setName(name);
+	element.setName(name.isNull() ? id : name);
 	element.setOptional(optional);
 	element.setTooltip(tooltip);
 	d->insertElement(index, element);
@@ -96,8 +98,9 @@ QSettingsContainerLayout QSettingsContainerLayout::createElement(int index, cons
 
 QSettingsContainerLayout QSettingsContainerLayout::createElement(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)
 {
+	SettingsPathParser::validateId(id, true);
 	auto element = d->createEmptySubElement(id);
-	element.setName(name);
+	element.setName(name.isNull() ? id : name);
 	element.setIcon(icon);
 	element.setTooltip(tooltip);
 	d->insertElement(index, element);
