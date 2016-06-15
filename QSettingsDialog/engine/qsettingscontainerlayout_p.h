@@ -9,16 +9,19 @@ class QSettingsContainerLayoutPrivate
 {
 public:
 	inline QSettingsContainerLayoutPrivate(const QString &id, QSettingsContainerLayout::LayoutType layoutType) :
+		parentElement(),
 		id(id),
 		layoutType(layoutType)
 	{}
 
 	inline virtual ~QSettingsContainerLayoutPrivate() {}
 
-	QSettingsContainerLayout::LayoutType layoutType;
+	QSharedPointer<QSettingsContainerLayoutPrivate> parentElement;
+	const QSettingsContainerLayout::LayoutType layoutType;
 	const QString id;
 
 	virtual bool testNull() const = 0;
+	QString createIdPath() const;
 
 	virtual QString &createNameRef() = 0;
 	virtual QIcon &createIconRef() = 0;

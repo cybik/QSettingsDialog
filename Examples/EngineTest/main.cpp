@@ -172,6 +172,11 @@ int main(int argc, char *argv[])
 	QSettingsContainerLayout transferToCategory = dialogLayout.elementAt(2);
 	categoryLayout.transferElement(0, transferToCategory, 1);
 
+	//test container from layout
+	QSettingsContainer layoutContainer(&dialog, groupLayout.containerPath());
+	layoutContainer.appendEntry(new TestEntry(false, false));
+	layoutContainer.appendEntry(new TestEntry(false, false));
+
 	dialog.openSettings();
 	dialog.execSettings();
 	return a.exec();

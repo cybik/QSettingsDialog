@@ -34,6 +34,9 @@ public:
 	QString id() const;
 	LayoutType layoutType() const;
 	bool isNull() const;
+	QString containerPath() const;
+
+	QSettingsContainerLayout parentContainer() const;
 
 	QString name() const;
 	void setName(const QString &name);
