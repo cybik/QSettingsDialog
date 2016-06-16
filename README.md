@@ -9,6 +9,9 @@ A library to easily create a settings dialog for user configurable settings
   + exec/show
   + search filter
   + Layout
+  - rename containerlayout
+  - add container transfer
+- dialogui -> extract/refactor from engine
 - variant
 - properties
 - settings
