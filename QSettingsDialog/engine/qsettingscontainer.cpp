@@ -89,6 +89,15 @@ void QSettingsContainer::moveEntry(int indexFrom, int indexTo)
 	return d->group()->entries.move(indexFrom, indexTo);
 }
 
+void QSettingsContainer::transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo)
+{
+	d->group()->testNotLocked();
+	targetContainer->d_ptr->group()->testNotLocked();
+
+	auto entry = d->group()->entries.takeEntry(indexFrom);
+	targetContainer->d_ptr->group()->entries.insert(indexTo, entry.first, entry.second);
+}
+
 
 
 QAsyncSettingsContainer::QAsyncSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent) :

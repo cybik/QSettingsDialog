@@ -30,6 +30,8 @@ public:
 	bool removeEntryFromIndex(int index);
 	void moveEntry(int indexFrom, int indexTo);
 
+	void transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo);
+
 protected:
 	QScopedPointer<QSettingsContainerPrivate> d_ptr;
 };

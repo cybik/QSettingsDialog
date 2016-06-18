@@ -101,6 +101,9 @@ int main(int argc, char *argv[])
 	container2.removeEntry(rem);
 	dialog.prependEntry(new TestEntry(false, true));
 
+	QSettingsContainer container3(&dialog, "containerTest/b/normal_trans");
+	container2.transferElement(0, &container3, 0);
+
 	//async container test
 	QAsyncSettingsContainer asyncContainer(&dialog, "containerTest/b/async");
 	asyncContainer.appendEntry(new TestEntry(false, false));
@@ -118,8 +121,8 @@ int main(int argc, char *argv[])
 		qDebug() << e.what();
 	}
 	try {
-		QSettingsContainer container3(&dialog, "containerTest/b/async");
-		container3.appendEntry(new TestEntry(true, false));
+		QSettingsContainer container4(&dialog, "containerTest/b/async");
+		container4.appendEntry(new TestEntry(true, false));
 		Q_ASSERT(false);
 	} catch(ContainerLockedException e) {
 		qDebug() << e.what();

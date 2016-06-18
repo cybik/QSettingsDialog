@@ -27,6 +27,7 @@ public:
 
 	Entry entry(int index) const;
 	QList<Entry> entries(int index) const;
+	Entry takeEntry(int index);
 
 	QList<TId> keys() const;
 	TId key(int index) const;
@@ -171,6 +172,17 @@ typename SortedMap<TId, TEntry>::Entry SortedMap<TId, TEntry>::entry(int index) 
 	return {
 		id,
 		this->entryMap.value(id)
+	};
+}
+
+template <typename TId, typename TEntry>
+typename SortedMap<TId, TEntry>::Entry SortedMap<TId, TEntry>::takeEntry(int index)
+{
+	Q_ASSERT(index < this->entryOrder.size());
+	auto id = this->entryOrder.takeAt(index);
+	return {
+		id,
+		this->entryMap.take(id)
 	};
 }
 
