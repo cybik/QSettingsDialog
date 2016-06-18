@@ -6,6 +6,7 @@
 #include <QAbstractButton>
 #include <QProgressDialog>
 #include <functional>
+#include "qsettingsdisplayengine.h"
 #include "containerelements.h"
 #include "checkinghelper.h"
 class SettingsEngine;
@@ -28,19 +29,26 @@ private:
 	std::function<void(int)> updateFunc;
 };
 
-class SettingsDisplayDialog : public QDialog
+class SettingsDisplayDialog : public QDialog, public QSettingsDisplayInstance
 {
 	Q_OBJECT
 
 public:
-	explicit SettingsDisplayDialog(QWidget *parent = 0);
+	explicit SettingsDisplayDialog(QWidget *parent = nullptr);
 	~SettingsDisplayDialog();
 
-	void createUi(const QSharedPointer<SettingsRoot> &elementRoot);
+	void setParentWindow(QWidget *parent) override;
+	void setParentWindow(QWindow *parent) override;
+	void createUi(const QSharedPointer<SettingsRoot> &elementRoot) override;
+
+public slots:
+	void open() override;
+	int exec() override;
 
 signals:
-	void saved(bool closed);
-	void resetted();
+	void saved(bool closed) final;
+	void resetted() final;
+	void canceled() final;
 
 protected:
 	void showEvent(QShowEvent *ev) override;

@@ -4,7 +4,7 @@
 #include "qsettingsdialog.h"
 #include "containerelements.h"
 #include "settingsengine.h"
-#include "settingsdisplaydialog.h"
+#include "qsettingsdisplayengine.h"
 #include <QAtomicInt>
 #include <QPointer>
 
@@ -26,7 +26,8 @@ public:
 	QString sectionId;
 	QString groupId;
 
-	QPointer<SettingsDisplayDialog> currentDialog;
+	QScopedPointer<QSettingsDisplayEngine> displayEngine;
+	QPointer<QObject> currentDialog;
 
 	int getNextId();
 

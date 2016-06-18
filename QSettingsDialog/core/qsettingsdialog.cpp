@@ -5,6 +5,8 @@
 #include <QGlobalStatic>
 #include <QDebug>
 
+#include "qsettingswidgetdialogengine.h"
+
 #define d this->d_ptr
 
 QSettingsDialog::QSettingsDialog(QObject *parent) :
@@ -13,6 +15,16 @@ QSettingsDialog::QSettingsDialog(QObject *parent) :
 {}
 
 QSettingsDialog::~QSettingsDialog() {}
+
+QSettingsDisplayEngine *QSettingsDialog::displayEngine() const
+{
+	return d->displayEngine.data();
+}
+
+void QSettingsDialog::setDisplayEngine(QSettingsDisplayEngine *engine)
+{
+	d->displayEngine.reset(engine);
+}
 
 QSettingsDialogLayout *QSettingsDialog::layout()
 {
@@ -296,6 +308,8 @@ QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
 	categoryId(QStringLiteral(".")),
 	sectionId(QStringLiteral(".")),
 	groupId(QStringLiteral(".")),
+	displayEngine(new QSettingsWidgetDialogEngine()),
+	currentDialog(nullptr),
 	currentIdMax(0)
 {}
 
@@ -416,25 +430,27 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::findEntryGroup(int id)
 int QSettingsDialogPrivate::showDialog(bool asExec, QWidget *parentWindow)
 {
 	if(!this->currentDialog.isNull()) {
-		qWarning() << "Only one settings dialog can be shown at a time";//TOD exception?
+		qWarning() << "Only one settings dialog can be shown at a time";//TODO exception?
 		return -1;
 	}
 
-	this->currentDialog = new SettingsDisplayDialog(parentWindow);
-	this->currentDialog->setAttribute(Qt::WA_DeleteOnClose);
-	this->currentDialog->createUi(this->rootElement);
+	auto instance = this->displayEngine->createInstance();
+	instance->setParentWindow(parentWindow);
+	instance->createUi(this->rootElement);
+	this->currentDialog = dynamic_cast<QObject*>(instance);
+	Q_ASSERT(this->currentDialog.data());
 
-	QObject::connect(this->currentDialog.data(), &SettingsDisplayDialog::saved,
-					 this->q_ptr, &QSettingsDialog::saved);
-	QObject::connect(this->currentDialog.data(), &SettingsDisplayDialog::resetted,
-					 this->q_ptr, &QSettingsDialog::resetted);
-	QObject::connect(this->currentDialog.data(), &SettingsDisplayDialog::rejected,
-					 this->q_ptr, &QSettingsDialog::canceled);
+	QObject::connect(this->currentDialog.data(), SIGNAL(saved(bool)),
+					 this->q_ptr, SIGNAL(saved(bool)));
+	QObject::connect(this->currentDialog.data(), SIGNAL(resetted()),
+					 this->q_ptr, SIGNAL(resetted()));
+	QObject::connect(this->currentDialog.data(), SIGNAL(canceled()),
+					 this->q_ptr, SIGNAL(canceled()));
 
 	if(asExec)
-		return this->currentDialog->exec();
+		return instance->exec();
 	else {
-		this->currentDialog->open();
+		instance->open();
 		return 0;
 	}
 }

@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QPushButton>
+#include <QWindow>
 #include "settingsengine.h"
 
 #define CUSTOM_WIDGET_PROPERTY "customWidgetContent"
@@ -26,6 +27,8 @@ SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
 
 	connect(this->ui->buttonBox, &QDialogButtonBox::clicked,
 			this, &SettingsDisplayDialog::buttonBoxClicked);
+	connect(this, &SettingsDisplayDialog::rejected,
+			this, &SettingsDisplayDialog::canceled);
 
 	int listSpacing = this->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
 	this->delegate = new CategoryItemDelegate(std::bind(&SettingsDisplayDialog::updateWidth, this, std::placeholders::_1),
@@ -54,6 +57,18 @@ SettingsDisplayDialog::~SettingsDisplayDialog()
 	delete ui;
 }
 
+void SettingsDisplayDialog::setParentWindow(QWidget *parent)
+{
+	this->setParent(parent);
+	DialogMaster::masterDialog(this);
+}
+
+void SettingsDisplayDialog::setParentWindow(QWindow *parent)
+{
+	this->windowHandle()->setParent(parent);
+	DialogMaster::masterDialog(this);
+}
+
 void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &elementRoot)
 {
 	if(elementRoot->defaultCategory)
@@ -64,6 +79,16 @@ void SettingsDisplayDialog::createUi(const QSharedPointer<SettingsRoot> &element
 
 	this->resetListSize();
 	this->ui->categoryListWidget->setCurrentRow(0);
+}
+
+void SettingsDisplayDialog::open()
+{
+	this->QDialog::open();
+}
+
+int SettingsDisplayDialog::exec()
+{
+	return this->QDialog::exec();
 }
 
 void SettingsDisplayDialog::showEvent(QShowEvent *ev)

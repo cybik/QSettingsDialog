@@ -21,7 +21,8 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDial
 else:unix: LIBS += -L$$OUT_PWD/../../QSettingsDialog/ -lQSettingsDialog
 
 INCLUDEPATH += $$PWD/../../QSettingsDialog
-INCLUDEPATH += $$PWD/../../QSettingsDialog/engine
+INCLUDEPATH += $$PWD/../../QSettingsDialog/core
+INCLUDEPATH += $$PWD/../../QSettingsDialog/dialogui
 DEPENDPATH += $$PWD/../../QSettingsDialog
 
 HEADERS += \

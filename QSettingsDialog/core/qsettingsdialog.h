@@ -9,6 +9,7 @@
 #include "exceptions.h"
 #include "qsettingsentry.h"
 class QSettingsDialogLayout;
+class QSettingsDisplayEngine;
 
 class QSettingsDialogPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
@@ -17,8 +18,11 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
 	friend class QSettingsDialogPrivate;
 
 public:
-	explicit QSettingsDialog(QObject *parent = 0);
+	explicit QSettingsDialog(QObject *parent = nullptr);
 	~QSettingsDialog();
+
+	QSettingsDisplayEngine *displayEngine() const;
+	void setDisplayEngine(QSettingsDisplayEngine *engine);
 
 	QSettingsDialogLayout *layout();
 
