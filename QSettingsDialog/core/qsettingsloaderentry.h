@@ -8,10 +8,14 @@
 class QSettingsLoaderEntry : public QSettingsEntry, public QSimpleSettingsLoader
 {
 public:
-	QSettingsLoader *getLoader() final {
+	inline QSettingsLoaderEntry(int metatype) :
+		QSettingsEntry(metatype, nullptr)
+	{}
+
+	inline QSettingsLoader *getLoader() final {
 		return this;
 	}
-	void freeLoader(QSettingsLoader *) final {}
+	inline void freeLoader(QSettingsLoader *) final {}
 };
 
 #endif // QSETTINGSLOADERENTRY_H

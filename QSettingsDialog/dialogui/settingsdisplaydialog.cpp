@@ -13,8 +13,9 @@
 #define CUSTOM_WIDGET_PROPERTY "customWidgetContent"
 #define TAB_CONTENT_NAME "tabContent_371342666"
 
-SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
-	QDialog(parent),
+SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialogEngine) :
+	QDialog(nullptr),
+	dialogEngine(dialogEngine),
 	engine(new SettingsEngine(this)),
 	ui(new Ui::SettingsDisplayDialog),
 	delegate(nullptr),
@@ -23,7 +24,6 @@ SettingsDisplayDialog::SettingsDisplayDialog(QWidget *parent) :
 	workingDialog(nullptr)
 {
 	ui->setupUi(this);
-	DialogMaster::masterDialog(this);
 
 	connect(this->ui->buttonBox, &QDialogButtonBox::clicked,
 			this, &SettingsDisplayDialog::buttonBoxClicked);
@@ -409,7 +409,7 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 	}
 
 	QWidget *content = nullptr;
-	auto settingsWidget = group->createWidget(rContainer);
+	auto settingsWidget = this->dialogEngine->createWidget(group->metatype(), rContainer);
 	if(settingsWidget)
 		content = settingsWidget->asWidget();
 	else
@@ -425,7 +425,7 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper)
 {
 	QWidget *content = nullptr;
-	auto settingsWidget = entry->createWidget(groupWidget);
+	auto settingsWidget = this->dialogEngine->createWidget(entry->metatype(), groupWidget);
 	if(settingsWidget)
 		content = settingsWidget->asWidget();
 	else

@@ -4,14 +4,23 @@
 #include <qsettingsdialog.h>
 #include <qsettingscontainer.h>
 #include <qsettingslayout.h>
+#include <qsettingswidgetdialogengine.h>
 #include "testentry.h"
 #include "delayedtestentry.h"
+#include "swidget.h"
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
+	QSettingsWidgetDialogEngine::registerGlobalFactory(0, new SFactory(false));
+	QSettingsWidgetDialogEngine::registerGlobalFactory(1, new SFactory(true));
+
 	QSettingsDialog dialog;
+//	auto engine = (QSettingsWidgetDialogEngine*) dialog.displayEngine();
+//	engine->addFactory(0, new SFactory(false));
+//	engine->addFactory(1, new SFactory(true));
+
 	QObject::connect(&dialog, &QSettingsDialog::resetted,
 					 qApp, &QApplication::quit,
 					 Qt::QueuedConnection);

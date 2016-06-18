@@ -6,7 +6,7 @@
 #include <QAbstractButton>
 #include <QProgressDialog>
 #include <functional>
-#include "qsettingsdisplayengine.h"
+#include "qsettingswidgetdialogengine.h"
 #include "containerelements.h"
 #include "checkinghelper.h"
 class SettingsEngine;
@@ -34,7 +34,7 @@ class SettingsDisplayDialog : public QDialog, public QSettingsDisplayInstance
 	Q_OBJECT
 
 public:
-	explicit SettingsDisplayDialog(QWidget *parent = nullptr);
+	explicit SettingsDisplayDialog(QSettingsWidgetDialogEngine *engine);
 	~SettingsDisplayDialog();
 
 	void setParentWindow(QWidget *parent) override;
@@ -75,6 +75,7 @@ private:
 		Reset
 	};
 
+	QSettingsWidgetDialogEngine *dialogEngine;
 	SettingsEngine *engine;
 
 	Ui::SettingsDisplayDialog *ui;	

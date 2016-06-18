@@ -1,7 +1,6 @@
 #include "qsettingsdialog.h"
 #include "qsettingsdialog_p.h"
 #include "settingspathparser.h"
-#include "settingsdisplaydialog.h"
 #include <QGlobalStatic>
 #include <QDebug>
 

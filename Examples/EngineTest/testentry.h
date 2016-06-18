@@ -12,16 +12,8 @@ public:
 	bool save(const QVariant &data) override;
 	bool reset() override;
 
-	QString entryName() const override;
-	bool isOptional() const override;
-	QString tooltip() const override;
-	QSettingsWidgetBase *createWidget(QWidget *parent) override;
-
 private:
-	bool optional;
-	bool working;
 	QVariant data;
-	bool hasName;
 };
 
 #endif // TESTENTRY_H

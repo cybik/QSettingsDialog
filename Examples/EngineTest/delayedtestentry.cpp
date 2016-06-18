@@ -5,28 +5,12 @@
 
 DelayedTestEntry::DelayedTestEntry(QVariant data, int delayMSecs, QObject *parent) :
 	QAsyncSettingsLoader(parent),
+	QSettingsEntry(1, nullptr),
 	data(data),
 	delayMSecs(delayMSecs)
-{}
-
-QString DelayedTestEntry::entryName() const
 {
-	return "delayed Entry";
-}
-
-bool DelayedTestEntry::isOptional() const
-{
-	return false;
-}
-
-QString DelayedTestEntry::tooltip() const
-{
-	return "Baum == 42";
-}
-
-QSettingsWidgetBase *DelayedTestEntry::createWidget(QWidget *parent)
-{
-	return new TestWidget(parent, true, "qu");
+	this->setEntryName("Delayed Entry");
+	this->setTooltip("Baum == 42");
 }
 
 QSettingsLoader *DelayedTestEntry::getLoader()

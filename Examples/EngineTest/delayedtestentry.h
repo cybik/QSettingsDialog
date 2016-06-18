@@ -14,12 +14,8 @@ public:
 
 	// QSettingsEntry interface
 public:
-	QString entryName() const override;
-	bool isOptional() const override;
-	QString tooltip() const override;
-	QSettingsWidgetBase *createWidget(QWidget *parent) override;
-	QSettingsLoader *getLoader() override;
-	void freeLoader(QSettingsLoader *loader) override;
+	QSettingsLoader *getLoader() final;
+	void freeLoader(QSettingsLoader *loader) final;
 
 	// QAsyncSettingsLoader interface
 public slots:

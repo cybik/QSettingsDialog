@@ -3,11 +3,14 @@
 #include "swidget.h"
 
 TestEntry::TestEntry(bool optional, bool working, QVariant data, bool hasName) :
-	optional(optional),
-	working(working),
-	data(data),
-	hasName(hasName)
-{}
+	QSettingsLoaderEntry(working ? 0 : -1),
+	data(data)
+{
+	if(hasName)
+		this->setEntryName("Test Entry");
+	this->setOptional(optional);
+	this->setTooltip("Baum == 42");
+}
 
 bool TestEntry::load(QVariant outParam data, bool outParam userEdited)
 {
@@ -26,24 +29,4 @@ bool TestEntry::reset()
 {
 	qDebug() << "RESETTING to" << this->data;
 	return true;
-}
-
-QString TestEntry::entryName() const
-{
-	return this->hasName ? "Test Entry" : QString();
-}
-
-bool TestEntry::isOptional() const
-{
-	return this->optional;
-}
-
-QString TestEntry::tooltip() const
-{
-	return "Baum == 42";
-}
-
-QSettingsWidgetBase *TestEntry::createWidget(QWidget *parent)
-{
-	return this->working ? new TestWidget(parent, this->optional) : nullptr;
 }

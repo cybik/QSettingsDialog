@@ -1,32 +1,28 @@
 #ifndef SWIDGET_H
 #define SWIDGET_H
 
-#include <qsettingswidget.h>
+#include <qsettingswidgetfactory.h>
 #include <QLineEdit>
 
-class TestWidget : public QSettingsWidget<QLineEdit>
+class SFactory : public QSettingsWidgetFactory
 {
 public:
-	TestWidget(QWidget *parent, bool ttip, QString pattern = QString()) :
-		QSettingsWidget(parent),
-		pattern(pattern)
-	{
-		if(ttip)
-			this->setToolTip("Mikeichalt");
-	}
+	SFactory(bool isDelayed);
+	QSettingsWidgetBase *createWidget(QWidget *parent) override;
 
-	void setValue(const QVariant &value) override {
-		this->setText(value.toString());
-	}
-	QVariant getValue() const override {
-		return this->text();
-	}
-	void resetValue() override {
-		this->clear();
-	}
-	bool searchExpression(const QRegularExpression &regex) override {
-		return regex.match(pattern).hasMatch();
-	}
+private:
+	bool isDelayed;
+};
+
+class SWidget : public QSettingsWidget<QLineEdit>
+{
+public:
+	SWidget(QWidget *parent, bool ttip, QString pattern = QString());
+
+	void setValue(const QVariant &value) override;
+	QVariant getValue() const override;
+	void resetValue() override;
+	bool searchExpression(const QRegularExpression &regex) override;
 
 private:
 	QString pattern;

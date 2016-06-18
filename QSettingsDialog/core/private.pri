@@ -13,4 +13,5 @@ SOURCES += \
 	$$PWD/qsettingscontainer.cpp \
 	$$PWD/exceptions.cpp \
     $$PWD/specialgroupmap.cpp \
-	$$PWD/qsettingslayout.cpp
+	$$PWD/qsettingslayout.cpp \
+    $$PWD/qsettingsentry.cpp

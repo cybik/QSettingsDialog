@@ -2,22 +2,29 @@
 #define QSETTINGSENTRY_H
 
 #include "qsettingsdialog_global.h"
-#include <QVariant>
+#include <QScopedPointer>
 #include "qsettingsloader.h"
-#include "qsettingswidget.h"
 
+class QSettingsEntryPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsEntry
 {
 public:
-	inline virtual ~QSettingsEntry() {}
+	QSettingsEntry(int metatype, QSettingsLoader *loader);
+	virtual ~QSettingsEntry();
 
-	virtual QString entryName() const = 0;
-	virtual bool isOptional() const = 0;
-	virtual QString tooltip() const = 0;
+	QString entryName() const;
+	void setEntryName(const QString &name);
+	bool isOptional() const;
+	void setOptional(bool optional);
+	QString tooltip() const;
+	void setTooltip(const QString &tooltip);
 
-	virtual QSettingsWidgetBase *createWidget(QWidget *parent) = 0;
-	virtual QSettingsLoader *getLoader() = 0;
-	virtual inline void freeLoader(QSettingsLoader *loader) {Q_UNUSED(loader);}
+	virtual int metatype() const;
+	virtual QSettingsLoader *getLoader();
+	virtual void freeLoader(QSettingsLoader *loader);
+
+private:
+	QScopedPointer<QSettingsEntryPrivate> d_ptr;
 };
 
 #endif // QSETTINGSENTRY_H
