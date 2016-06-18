@@ -14,12 +14,15 @@ DEFINES += QSETTINGSDIALOG_LIBRARY
 HEADERS += qsettingsdialog_global.h \
 	qtexception.h
 
-#parts
-include(./core/core.pri)
-include(./dialogui/dialogui.pri)
-
 SOURCES += \
 	qtexception.cpp
 
 RESOURCES += \
     qsettingsdialog_res.qrc
+
+DISTFILES += \
+	$$PWD/classmodel.qmodel
+
+#parts
+include(./core/core.pri)
+include(./dialogui/dialogui.pri)
