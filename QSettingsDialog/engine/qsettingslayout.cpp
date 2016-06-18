@@ -1,109 +1,109 @@
-#include "qsettingscontainerlayout.h"
+#include "qsettingslayout.h"
 #include "qsettingsdialog_p.h"
-#include "qsettingscontainerlayout_p.h"
+#include "qsettinglayout_p.h"
 #include "settingspathparser.h"
 
 #define d this->d_ptr
 
-QSettingsContainerLayout QSettingsContainerLayout::dialogLayout(QSettingsDialog *settingsDialog)
+QSettingsLayout QSettingsLayout::dialogLayout(QSettingsDialog *settingsDialog)
 {
-	return QSettingsContainerLayout(new SettingsRootLayout(QString(), QSettingsDialogPrivate::getPrivateInstance(settingsDialog)->rootElement));
+	return QSettingsLayout(new SettingsRootLayout(QString(), QSettingsDialogPrivate::getPrivateInstance(settingsDialog)->rootElement));
 }
 
-QString QSettingsContainerLayout::id() const
+QString QSettingsLayout::id() const
 {
 	return d->id;
 }
 
-QSettingsContainerLayout::LayoutType QSettingsContainerLayout::layoutType() const
+QSettingsLayout::LayoutType QSettingsLayout::layoutType() const
 {
 	return d->layoutType;
 }
 
-bool QSettingsContainerLayout::isNull() const
+bool QSettingsLayout::isNull() const
 {
 	return d->testNull();
 }
 
-QString QSettingsContainerLayout::containerPath() const
+QString QSettingsLayout::containerPath() const
 {
 	return d->createIdPath();
 }
 
-QSettingsContainerLayout QSettingsContainerLayout::parentContainer() const
+QSettingsLayout QSettingsLayout::parentContainer() const
 {
-	auto parent = QSettingsContainerLayout(nullptr);
+	auto parent = QSettingsLayout(nullptr);
 	if(d->parentElement.isNull())
 		throw InvalidTargetLayoutException();
 	parent.d_ptr = d->parentElement;
 	return parent;
 }
 
-QString QSettingsContainerLayout::name() const
+QString QSettingsLayout::name() const
 {
 	return d->createNameRef();
 }
 
-void QSettingsContainerLayout::setName(const QString &name)
+void QSettingsLayout::setName(const QString &name)
 {
 	d->createNameRef() = name;
 }
 
-QIcon QSettingsContainerLayout::icon() const
+QIcon QSettingsLayout::icon() const
 {
 	return d->createIconRef();
 }
 
-void QSettingsContainerLayout::setIcon(const QIcon &icon)
+void QSettingsLayout::setIcon(const QIcon &icon)
 {
 	d->createIconRef() = icon;
 }
 
-QString QSettingsContainerLayout::tooltip() const
+QString QSettingsLayout::tooltip() const
 {
 	return d->createTooltipRef();
 }
 
-void QSettingsContainerLayout::setTooltip(const QString &tooltip)
+void QSettingsLayout::setTooltip(const QString &tooltip)
 {
 	d->createTooltipRef() = tooltip;
 }
 
-bool QSettingsContainerLayout::isOptional() const
+bool QSettingsLayout::isOptional() const
 {
 	return d->createOptionalRef();
 }
 
-void QSettingsContainerLayout::setOptional(bool optional)
+void QSettingsLayout::setOptional(bool optional)
 {
 	d->createOptionalRef() = optional;
 }
 
-QSettingsContainerLayout QSettingsContainerLayout::defaultElement(bool allowCreateNew) const
+QSettingsLayout QSettingsLayout::defaultElement(bool allowCreateNew) const
 {
 	auto element = d->creatDefaultElement(allowCreateNew);
 	element.d_ptr->parentElement = this->d_ptr;
 	return element;
 }
 
-int QSettingsContainerLayout::elementCount() const
+int QSettingsLayout::elementCount() const
 {
 	return d->elementCount();
 }
 
-QSettingsContainerLayout QSettingsContainerLayout::elementAt(int index) const
+QSettingsLayout QSettingsLayout::elementAt(int index) const
 {
 	auto element = d->elementAt(index);
 	element.d_ptr->parentElement = this->d_ptr;
 	return element;
 }
 
-int QSettingsContainerLayout::indexOfElement(const QSettingsContainerLayout &element) const
+int QSettingsLayout::indexOfElement(const QSettingsLayout &element) const
 {
 	return d->indexOfElement(element);
 }
 
-QSettingsContainerLayout QSettingsContainerLayout::createOptionalElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
+QSettingsLayout QSettingsLayout::createOptionalElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
 {
 	SettingsPathParser::validateId(id, true);
 	auto element = d->createEmptySubElement(id);
@@ -115,7 +115,7 @@ QSettingsContainerLayout QSettingsContainerLayout::createOptionalElement(int ind
 	return element;
 }
 
-QSettingsContainerLayout QSettingsContainerLayout::createElement(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)
+QSettingsLayout QSettingsLayout::createElement(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)
 {
 	SettingsPathParser::validateId(id, true);
 	auto element = d->createEmptySubElement(id);
@@ -127,19 +127,19 @@ QSettingsContainerLayout QSettingsContainerLayout::createElement(int index, cons
 	return element;
 }
 
-void QSettingsContainerLayout::removeElement(int index)
+void QSettingsLayout::removeElement(int index)
 {
 	auto element = d->elementAt(index);
 	element.d_ptr->parentElement.clear();
 	d->removeElement(index);
 }
 
-void QSettingsContainerLayout::moveElement(int indexFrom, int indexTo)
+void QSettingsLayout::moveElement(int indexFrom, int indexTo)
 {
 	d->moveElement(indexFrom, indexTo);
 }
 
-void QSettingsContainerLayout::transferElement(int indexFrom, QSettingsContainerLayout targetLayout, int indexTo)
+void QSettingsLayout::transferElement(int indexFrom, QSettingsLayout targetLayout, int indexTo)
 {
 	if(targetLayout.isNull() || targetLayout.layoutType() != this->layoutType())
 		throw InvalidTargetLayoutException();
@@ -149,11 +149,11 @@ void QSettingsContainerLayout::transferElement(int indexFrom, QSettingsContainer
 	targetLayout.d_ptr->insertElement(indexTo, element);
 }
 
-QSettingsContainerLayout::QSettingsContainerLayout(QSettingsContainerLayoutPrivate *d_ptr) :
+QSettingsLayout::QSettingsLayout(QSettingsLayoutPrivate *d_ptr) :
 	d_ptr(d_ptr)
 {}
 
-QString QSettingsContainerLayoutPrivate::createIdPath() const
+QString QSettingsLayoutPrivate::createIdPath() const
 {
 	QString pathBase;
 	if(!this->parentElement.isNull()) {

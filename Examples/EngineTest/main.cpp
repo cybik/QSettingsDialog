@@ -3,7 +3,7 @@
 #include <QStyle>
 #include <qsettingsdialog.h>
 #include <qsettingscontainer.h>
-#include <qsettingscontainerlayout.h>
+#include <qsettingslayout.h>
 #include "testentry.h"
 #include "delayedtestentry.h"
 
@@ -126,12 +126,12 @@ int main(int argc, char *argv[])
 	}
 
 	//layout tests
-	QSettingsContainerLayout dialogLayout = QSettingsContainerLayout::dialogLayout(&dialog);
+	QSettingsLayout dialogLayout = QSettingsLayout::dialogLayout(&dialog);
 	dialogLayout.createElement(1, "layoutCategory");
 	dialogLayout.moveElement(0, 2);
 	dialogLayout.moveElement(1, 0);
 
-	QSettingsContainerLayout categoryLayout = dialogLayout.elementAt(1);
+	QSettingsLayout categoryLayout = dialogLayout.elementAt(1);
 	categoryLayout.createElement(0, "elem0");
 	categoryLayout.createElement(1, "elem1");
 	categoryLayout.createElement(2, "elem2");
@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
 	Q_ASSERT(categoryLayout.defaultElement(false).isNull());
 	Q_ASSERT(!categoryLayout.defaultElement(true).isNull());
 
-	QSettingsContainerLayout sectionLayout = categoryLayout.elementAt(2);
+	QSettingsLayout sectionLayout = categoryLayout.elementAt(2);
 	sectionLayout.setName("Look here!");
 	sectionLayout.setIcon(QApplication::style()->standardIcon(QStyle::SP_ComputerIcon));
 	sectionLayout.createOptionalElement(0, "group2");
@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
 		qDebug() << e.what();
 	}
 
-	QSettingsContainerLayout groupLayout = sectionLayout.elementAt(0);
+	QSettingsLayout groupLayout = sectionLayout.elementAt(0);
 	groupLayout.setOptional(true);
 	try {
 		sectionLayout.createElement(0, "42z");
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
 		qDebug() << e.what();
 	}
 
-	QSettingsContainerLayout transferToCategory = dialogLayout.elementAt(2);
+	QSettingsLayout transferToCategory = dialogLayout.elementAt(2);
 	categoryLayout.transferElement(0, transferToCategory, 1);
 
 	//test container from layout

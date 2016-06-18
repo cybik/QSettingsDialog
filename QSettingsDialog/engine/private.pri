@@ -7,7 +7,7 @@ HEADERS += \
     $$PWD/settingsengine.h \
     $$PWD/specialgroupmap.h \
     $$PWD/checkinghelper.h \
-    $$PWD/qsettingscontainerlayout_p.h
+    $$PWD/qsettinglayout_p.h
 
 SOURCES += \
 	$$PWD/qsettingsloader.cpp \
@@ -19,7 +19,7 @@ SOURCES += \
     $$PWD/settingsdisplaydialog.cpp \
     $$PWD/settingsengine.cpp \
     $$PWD/specialgroupmap.cpp \
-    $$PWD/qsettingscontainerlayout.cpp
+    $$PWD/qsettingslayout.cpp
 
 FORMS += \
     $$PWD/settingsdisplaydialog.ui
