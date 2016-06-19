@@ -1,4 +1,5 @@
 include(../QColorEdit/qcoloredit.pri)
+include(../QPathEdit/qpathedit.pri)
 
 HEADERS += \
     $$PWD/settingscheckbox.h \
@@ -8,7 +9,8 @@ HEADERS += \
     $$PWD/settingsdatetimeedit.h \
     $$PWD/settingscoloredit.h \
     $$PWD/settingslistedit.h \
-    $$PWD/settingsfontcombobox.h
+    $$PWD/settingsfontcombobox.h \
+    $$PWD/settingskeyedit.h
 
 SOURCES += \
     $$PWD/settingscheckbox.cpp \
@@ -18,7 +20,8 @@ SOURCES += \
     $$PWD/settingsdatetimeedit.cpp \
     $$PWD/settingscoloredit.cpp \
     $$PWD/settingslistedit.cpp \
-    $$PWD/settingsfontcombobox.cpp
+    $$PWD/settingsfontcombobox.cpp \
+    $$PWD/settingskeyedit.cpp
 
 INCLUDEPATH += $$PWD
 

@@ -9,6 +9,7 @@
 #include "settingscoloredit.h"
 #include "settingslistedit.h"
 #include "settingsfontcombobox.h"
+#include "settingskeyedit.h"
 
 void VariantWidgetsRegistrator::registerVariantWidgets()
 {
@@ -50,14 +51,12 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsTimeEdit>(QMetaType::QTime);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsColorEdit>(QMetaType::QColor);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsListEditWidget>(QMetaType::QStringList);
-	//TODO QIcon -> qpathedit
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUrlLineEdit>(QMetaType::QUrl);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsDateTimeEdit>(QMetaType::QDateTime);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsFontComboBox>(QMetaType::QFont);
-	//TODO QImage -> qpathedit
-	//TODO QKeySequence
-	//TODO QPixmap -> qpathedit
-	//TODO QLocale ???
-	//TODO QUuid
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsKeyEdit>(QMetaType::QKeySequence);
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUuidEdit>(QMetaType::QUuid);
 	//TODO ENUMS!!!
+
+	//TODO planned: QPathEdit, QIconEdit(?), QLocale, uuid generator, timeedit, date->now
 }

@@ -3,6 +3,7 @@
 
 #include "qsettingswidget.h"
 #include <QLineEdit>
+#include <QUuid>
 #include <QValidator>
 
 class SettingsLineEdit : public QSettingsWidget<QLineEdit>
@@ -34,8 +35,6 @@ public:
 	SettingsUrlLineEdit(QWidget *parent = nullptr);
 
 	// QSettingsWidgetBase interface
-	bool hasValueChanged() const override;
-	void resetValueChanged() override;
 	void setValue(const QVariant &value) override;
 	QVariant getValue() const override;
 	void resetValue() override;
@@ -49,6 +48,20 @@ public:
 	// QValidator interface
 	State validate(QString &text, int &) const override;
 	void fixup(QString &text) const override;
+};
+
+class SettingsUuidEdit : public QSettingsWidget<QLineEdit>
+{
+public:
+	SettingsUuidEdit(QWidget *parent = nullptr);
+
+	// QSettingsWidgetBase interface
+	void setValue(const QVariant &value) override;
+	QVariant getValue() const override;
+	void resetValue() override;
+
+private:
+	static QUuid toUuid(QString text);
 };
 
 #endif // SETTINGSLINEEDIT_H

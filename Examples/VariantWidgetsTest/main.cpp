@@ -60,6 +60,8 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY(QMetaType::QUrl));
 	dialog.appendEntry(ENTRY(QMetaType::QDateTime));
 	dialog.appendEntry(ENTRY(QMetaType::QFont));
+	dialog.appendEntry(ENTRY(QMetaType::QKeySequence));
+	dialog.appendEntry(ENTRY(QMetaType::QUuid));
 
 	dialog.openSettings();
 	return a.exec();
