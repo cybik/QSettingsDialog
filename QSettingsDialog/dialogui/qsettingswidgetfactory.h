@@ -21,4 +21,13 @@ public:
 	}
 };
 
+#define REGISTER_FLAG_CONVERTERS(FlagsType) do {\
+	QMetaType::registerConverter<FlagsType, int>([](FlagsType f) -> int {\
+		return (int)f;\
+	});\
+	QMetaType::registerConverter<int, FlagsType>([](int f) -> FlagsType {\
+		return (FlagsType)f;\
+	});\
+} while(false)
+
 #endif // QSETTINGSWIDGETFACTORY_H

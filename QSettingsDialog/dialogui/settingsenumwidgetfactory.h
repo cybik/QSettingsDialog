@@ -3,6 +3,7 @@
 
 #include "qsettingswidget.h"
 #include <QMetaEnum>
+#include <QFlags>
 
 class SettingsEnumWidgetFactory
 {

@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <qsettingsdialog.h>
 #include "metawrapper.h"
+#include "qsettingswidgetfactory.h"
 
 class StateLoader : public QSimpleSettingsLoader
 {
@@ -35,6 +36,8 @@ private:
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+
+	REGISTER_FLAG_CONVERTERS(MetaWrapper::TestFlags);
 
 	QSettingsDialog dialog;
 
