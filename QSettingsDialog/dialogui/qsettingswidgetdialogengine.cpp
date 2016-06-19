@@ -42,7 +42,7 @@ QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, con
 	auto factory = d->factoryMap.value(metatype);
 	if(factory)
 		widget = factory->createWidget(parent);
-	else if(QMetaType(metatype).flags().testFlag(QMetaType::IsEnumeration)) {
+	else {//if(QMetaType(metatype).flags().testFlag(QMetaType::IsEnumeration)) {
 		auto metaObject = QMetaType::metaObjectForType(metatype);
 		if(metaObject) {
 			QStringList metaNameList = QString::fromLocal8Bit(QMetaType::typeName(metatype)).split(QStringLiteral("::"));

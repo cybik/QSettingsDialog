@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += widgets
+CONFIG += c++14
 
 TARGET = QSettingsDialog
 TEMPLATE = lib

@@ -10,7 +10,9 @@ HEADERS += \
     $$PWD/settingscoloredit.h \
     $$PWD/settingslistedit.h \
     $$PWD/settingsfontcombobox.h \
-    $$PWD/settingskeyedit.h
+    $$PWD/settingskeyedit.h \
+    $$PWD/settingsenumcombobox.h \
+    $$PWD/settingsflagschecklist.h
 
 SOURCES += \
     $$PWD/settingscheckbox.cpp \
@@ -21,7 +23,9 @@ SOURCES += \
     $$PWD/settingscoloredit.cpp \
     $$PWD/settingslistedit.cpp \
     $$PWD/settingsfontcombobox.cpp \
-    $$PWD/settingskeyedit.cpp
+    $$PWD/settingskeyedit.cpp \
+    $$PWD/settingsenumcombobox.cpp \
+    $$PWD/settingsflagschecklist.cpp
 
 INCLUDEPATH += $$PWD
 
