@@ -8,6 +8,7 @@
 #include "settingsdatetimeedit.h"
 #include "settingscoloredit.h"
 #include "settingslistedit.h"
+#include "settingsfontcombobox.h"
 
 void VariantWidgetsRegistrator::registerVariantWidgets()
 {
@@ -49,10 +50,14 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsTimeEdit>(QMetaType::QTime);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsColorEdit>(QMetaType::QColor);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsListEditWidget>(QMetaType::QStringList);
-
-//	this->factoryMap.insert(QMetaType::QUrl, new GenericSettingsWidgetFactory<SettingsUrlLineEdit>());
-//	this->factoryMap.insert(QMetaType::QDateTime, new GenericSettingsWidgetFactory<SettingsDateTimeEdit>());
-//	this->factoryMap.insert(QMetaType::QFont, new GenericSettingsWidgetFactory<SettingsFontComboBox>());
-//	this->factoryMap.insert(QMetaType::QByteArrayList, new GenericSettingsWidgetFactory<SettingsListEditWidget>());
-//  ENUMS!!!
+	//TODO QIcon -> qpathedit
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUrlLineEdit>(QMetaType::QUrl);
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsDateTimeEdit>(QMetaType::QDateTime);
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsFontComboBox>(QMetaType::QFont);
+	//TODO QImage -> qpathedit
+	//TODO QKeySequence
+	//TODO QPixmap -> qpathedit
+	//TODO QLocale ???
+	//TODO QUuid
+	//TODO ENUMS!!!
 }

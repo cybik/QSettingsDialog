@@ -57,6 +57,9 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY(QMetaType::QTime));
 	dialog.appendEntry(ENTRY(QMetaType::QColor));
 	dialog.appendEntry(ENTRY(QMetaType::QStringList));
+	dialog.appendEntry(ENTRY(QMetaType::QUrl));
+	dialog.appendEntry(ENTRY(QMetaType::QDateTime));
+	dialog.appendEntry(ENTRY(QMetaType::QFont));
 
 	dialog.openSettings();
 	return a.exec();

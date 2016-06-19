@@ -7,7 +7,8 @@ HEADERS += \
     $$PWD/settingslineedit.h \
     $$PWD/settingsdatetimeedit.h \
     $$PWD/settingscoloredit.h \
-    $$PWD/settingslistedit.h
+    $$PWD/settingslistedit.h \
+    $$PWD/settingsfontcombobox.h
 
 SOURCES += \
     $$PWD/settingscheckbox.cpp \
@@ -16,7 +17,8 @@ SOURCES += \
     $$PWD/settingslineedit.cpp \
     $$PWD/settingsdatetimeedit.cpp \
     $$PWD/settingscoloredit.cpp \
-    $$PWD/settingslistedit.cpp
+    $$PWD/settingslistedit.cpp \
+    $$PWD/settingsfontcombobox.cpp
 
 INCLUDEPATH += $$PWD
 
