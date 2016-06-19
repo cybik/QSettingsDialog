@@ -53,6 +53,8 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY(QMetaType::SChar));
 	dialog.appendEntry(ENTRY(QMetaType::UChar));
 	dialog.appendEntry(ENTRY(QMetaType::Float));
+	dialog.appendEntry(ENTRY(QMetaType::QDate));
+	dialog.appendEntry(ENTRY(QMetaType::QTime));
 
 	dialog.openSettings();
 	return a.exec();

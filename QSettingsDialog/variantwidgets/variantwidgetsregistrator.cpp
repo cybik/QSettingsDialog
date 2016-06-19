@@ -5,6 +5,7 @@
 #include "settingscheckbox.h"
 #include "settingsspinbox.h"
 #include "settingslineedit.h"
+#include "settingsdatetimeedit.h"
 
 void VariantWidgetsRegistrator::registerVariantWidgets()
 {
@@ -42,9 +43,9 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalFactory(QMetaType::Float,
 													   new DoubleSpinBoxFactory(std::numeric_limits<float>::max(),
 																				std::numeric_limits<float>::min()));
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsDateEdit>(QMetaType::QDate);
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsTimeEdit>(QMetaType::QTime);
 
-//	this->factoryMap.insert(QMetaType::QDate, new GenericSettingsWidgetFactory<SettingsDateEdit>());
-//	this->factoryMap.insert(QMetaType::QTime, new GenericSettingsWidgetFactory<SettingsTimeEdit>());
 //	this->factoryMap.insert(QMetaType::QColor, new GenericSettingsWidgetFactory<SettingsColorEdit>());
 //	this->factoryMap.insert(QMetaType::QStringList, new GenericSettingsWidgetFactory<SettingsListEditWidget>());
 //	this->factoryMap.insert(QMetaType::QUrl, new GenericSettingsWidgetFactory<SettingsUrlLineEdit>());
