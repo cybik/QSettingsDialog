@@ -21,10 +21,6 @@ int main(int argc, char *argv[])
 //	engine->addFactory(0, new SFactory(false));
 //	engine->addFactory(1, new SFactory(true));
 
-	QObject::connect(&dialog, &QSettingsDialog::resetted,
-					 qApp, &QApplication::quit,
-					 Qt::QueuedConnection);
-
 	QObject::connect(&dialog, &QSettingsDialog::saved, [](bool close) {
 		qDebug() << "---- Save completed" << (close ? "with" : "without") << "closing ----";
 	});

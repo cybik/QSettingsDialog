@@ -12,4 +12,13 @@ public:
 	virtual QSettingsWidgetBase *createWidget(QWidget *parent) = 0;
 };
 
+template <class TSettingsWidget>
+class GenericSettingsWidgetFactory : public QSettingsWidgetFactory
+{
+public:
+	QSettingsWidgetBase *createWidget(QWidget *parent) final {
+		return new TSettingsWidget(parent);
+	}
+};
+
 #endif // QSETTINGSWIDGETFACTORY_H

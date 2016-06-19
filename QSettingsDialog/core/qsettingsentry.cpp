@@ -5,32 +5,44 @@
 class QSettingsEntryPrivate
 {
 public:
-	inline QSettingsEntryPrivate(int metatype, QSettingsLoader *loader) :
-		metatype(metatype),
+	inline QSettingsEntryPrivate(int displaytype, QSettingsLoader *loader) :
+		displaytype(displaytype),
 		loader(loader),
 		name(),
 		optional(),
-		tooltip()
+		tooltip(),
+		properties()
 #ifndef QT_NO_DEBUG
 		,refCounter(0)
 #endif
 	{}
 
-	const int metatype;
+	const int displaytype;
 	QScopedPointer<QSettingsLoader> loader;
 
 	QString name;
 	bool optional;
 	QString tooltip;
 
+	QSettingsEntry::UiPropertyMap properties;
+
 #ifndef QT_NO_DEBUG
 	int refCounter;
 #endif
 };
 
-QSettingsEntry::QSettingsEntry(int metatype, QSettingsLoader *loader) :
-	d_ptr(new QSettingsEntryPrivate(metatype, loader))
+QSettingsEntry::QSettingsEntry(int displaytype, QSettingsLoader *loader) :
+	d_ptr(new QSettingsEntryPrivate(displaytype, loader))
 {}
+
+QSettingsEntry::QSettingsEntry(int displaytype, QSettingsLoader *loader, const QString &name, bool optional, const QString &tooltip, const UiPropertyMap &properties) :
+	d_ptr(new QSettingsEntryPrivate(displaytype, loader))
+{
+	d->name = name;
+	d->optional = optional;
+	d->tooltip = tooltip;
+	d->properties = properties;
+}
 
 QSettingsEntry::~QSettingsEntry()
 {
@@ -69,9 +81,24 @@ void QSettingsEntry::setTooltip(const QString &tooltip)
 	d->tooltip = tooltip;
 }
 
-int QSettingsEntry::metatype() const
+QSettingsEntry::UiPropertyMap QSettingsEntry::uiProperties() const
 {
-	return d->metatype;
+	return d->properties;
+}
+
+void QSettingsEntry::setUiProperties(const QSettingsEntry::UiPropertyMap &properties)
+{
+	d->properties = properties;
+}
+
+void QSettingsEntry::setUiProperty(const QString &name, const QVariant &value)
+{
+	d->properties.insert(name, value);
+}
+
+int QSettingsEntry::displaytype() const
+{
+	return d->displaytype;
 }
 
 QSettingsLoader *QSettingsEntry::getLoader()

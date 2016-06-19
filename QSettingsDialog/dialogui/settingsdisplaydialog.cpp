@@ -409,7 +409,7 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 	}
 
 	QWidget *content = nullptr;
-	auto settingsWidget = this->dialogEngine->createWidget(group->metatype(), rContainer);
+	auto settingsWidget = this->dialogEngine->createWidget(group->displaytype(), group->uiProperties(), rContainer);
 	if(settingsWidget)
 		content = settingsWidget->asWidget();
 	else
@@ -425,7 +425,7 @@ void SettingsDisplayDialog::createCustomGroup(const QSharedPointer<QSettingsEntr
 void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper)
 {
 	QWidget *content = nullptr;
-	auto settingsWidget = this->dialogEngine->createWidget(entry->metatype(), groupWidget);
+	auto settingsWidget = this->dialogEngine->createWidget(entry->displaytype(), entry->uiProperties(), groupWidget);
 	if(settingsWidget)
 		content = settingsWidget->asWidget();
 	else

@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-06-05T16:00:06
+# Project created by QtCreator 2016-06-19T11:08:30
 #
 #-------------------------------------------------
 
@@ -8,19 +8,13 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = EngineTest
+TARGET = VariantWidgetsTest
 TEMPLATE = app
 
 
-SOURCES += main.cpp \
-    testentry.cpp \
-    delayedtestentry.cpp \
-	swidget.cpp
+SOURCES += main.cpp
 
-HEADERS += \
-    testentry.h \
-    delayedtestentry.h \
-    swidget.h
+HEADERS  +=
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/release/ -lQSettingsDialog
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/debug/ -lQSettingsDialog

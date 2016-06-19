@@ -4,6 +4,7 @@
 #include "qsettingsdialog_global.h"
 #include "qsettingsdisplayengine.h"
 #include "qsettingswidgetfactory.h"
+#include "qsettingsentry.h"
 #include <QScopedPointer>
 
 class QSettingsWidgetDialogEnginePrivate;
@@ -16,27 +17,29 @@ public:
 	QSettingsDisplayInstance *createInstance() override;
 
 	void addFactory(int metatype, QSettingsWidgetFactory *factory);
-	template<typename TFactory>
-	void addFactory(int metatype);
+	template<typename TSettingsWidget>
+	void addWidgetType(int metatype);
 
-	QSettingsWidgetBase *createWidget(int metatype, QWidget *parent) const;
+	QSettingsWidgetBase *createWidget(int metatype,
+									  const QSettingsEntry::UiPropertyMap &properties,
+									  QWidget *parent) const;
 
 	static void registerGlobalFactory(int metatype, QSettingsWidgetFactory *factory);
-	template<typename TFactory>
-	static void registerGlobalFactory(int metatype);
+	template<typename TSettingsWidget>
+	static void registerGlobalWidgetType(int metatype);
 
 private:
 	QScopedPointer<QSettingsWidgetDialogEnginePrivate> d_ptr;
 };
 
-template<typename TFactory>
-void QSettingsWidgetDialogEngine::addFactory(int metatype) {
-	this->addFactory(metatype, new TFactory());
+template<typename TSettingsWidget>
+void QSettingsWidgetDialogEngine::addWidgetType(int metatype) {
+	this->addFactory(metatype, new GenericSettingsWidgetFactory<TSettingsWidget>());
 }
 
-template<typename TFactory>
-void QSettingsWidgetDialogEngine::registerGlobalFactory(int metatype) {
-	registerGlobalFactory(metatype, new TFactory());
+template<typename TSettingsWidget>
+void QSettingsWidgetDialogEngine::registerGlobalWidgetType(int metatype) {
+	registerGlobalFactory(metatype, new GenericSettingsWidgetFactory<TSettingsWidget>());
 }
 
 #endif // QSETTINGSWIDGETDIALOGENGINE_H

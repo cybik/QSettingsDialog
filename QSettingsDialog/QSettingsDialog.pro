@@ -15,7 +15,8 @@ HEADERS += qsettingsdialog_global.h \
 	qtexception.h
 
 SOURCES += \
-	qtexception.cpp
+	qtexception.cpp \
+    qsettingsdialog_global.cpp
 
 RESOURCES += \
     qsettingsdialog_res.qrc
@@ -26,3 +27,4 @@ DISTFILES += \
 #parts
 include(./core/core.pri)
 include(./dialogui/dialogui.pri)
+include(./variantwidgets/variantwidgets.pri)

@@ -34,11 +34,19 @@ void QSettingsWidgetDialogEngine::addFactory(int metatype, QSettingsWidgetFactor
 	d->factoryMap.insert(metatype, QSharedPointer<QSettingsWidgetFactory>(factory));
 }
 
-QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, QWidget *parent) const
+QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, const QSettingsEntry::UiPropertyMap &properties, QWidget *parent) const
 {
 	auto factory = d->factoryMap.value(metatype);
-	if(factory)
-		return factory->createWidget(parent);
+	if(factory) {
+		auto widget = factory->createWidget(parent);
+		if(widget) {
+			auto oWidget = widget->asWidget();
+			Q_ASSERT(oWidget);
+			for(QSettingsEntry::UiPropertyMap::const_iterator it = properties.constBegin(), end = properties.constEnd(); it != end; ++it)
+				oWidget->setProperty(it.key().toLocal8Bit().constData(), it.value());
+		}
+		return widget;
+	}
 	else
 		return nullptr;
 }
