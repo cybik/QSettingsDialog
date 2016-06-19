@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/QSettingsDialog/icons">
+        <file alias="delete.ico">resources/delete.ico</file>
+        <file alias="add.ico">resources/add.ico</file>
+        <file alias="down.ico">resources/arrow_down.ico</file>
+        <file alias="up.ico">resources/arrow_up.ico</file>
+    </qresource>
+</RCC>
