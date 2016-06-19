@@ -12,9 +12,11 @@ TARGET = VariantWidgetsTest
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    metawrapper.cpp
 
-HEADERS  +=
+HEADERS  += \
+    metawrapper.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/release/ -lQSettingsDialog
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../QSettingsDialog/debug/ -lQSettingsDialog

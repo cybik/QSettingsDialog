@@ -1,24 +1,35 @@
 #include <QApplication>
 #include <QDebug>
 #include <qsettingsdialog.h>
+#include "metawrapper.h"
 
 class StateLoader : public QSimpleSettingsLoader
 {
 public:
-	bool load(QVariant &, bool &userEdited) override {
+	StateLoader(QVariant value = QVariant()) :
+		value(value)
+	{}
+
+	bool load(QVariant &data, bool &userEdited) override {
+		data = this->value;
 		userEdited = true;
 		return true;
 	}
 	bool save(const QVariant &data) override {
 		qDebug() << data;
+		this->value = data;
 		return true;
 	}
 	bool reset() override {
 		return true;
 	}
+
+private:
+	QVariant value;
 };
 
 #define ENTRY(metatype) new QSettingsEntry(metatype, new StateLoader(), QMetaType::typeName(metatype), false, #metatype)
+#define ENTRY_VALUE(metatype, value) new QSettingsEntry(metatype, new StateLoader(value), QMetaType::typeName(metatype), false, #metatype)
 #define ENTRY_PARAM(metatype, ...) new QSettingsEntry(metatype, new StateLoader(), QMetaType::typeName(metatype), false, #metatype, __VA_ARGS__)
 
 int main(int argc, char *argv[])
@@ -37,6 +48,7 @@ int main(int argc, char *argv[])
 		qDebug() << "---- Dialog was canceled ----";
 	});
 
+	dialog.setSection("standardMetaTypes");
 	dialog.appendEntry(ENTRY(QMetaType::Bool));
 	dialog.appendEntry(ENTRY(QMetaType::Int));
 	dialog.appendEntry(ENTRY(QMetaType::UInt));
@@ -62,6 +74,12 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY(QMetaType::QFont));
 	dialog.appendEntry(ENTRY(QMetaType::QKeySequence));
 	dialog.appendEntry(ENTRY(QMetaType::QUuid));
+
+	dialog.setSection("enumTypes");
+	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestEnum>(), MetaWrapper::Value3));
+	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestEnum>(), QVariant::fromValue(MetaWrapper::Value2)));
+	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestFlags>(), MetaWrapper::Flag3));
+	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestFlags>(), QVariant::fromValue<MetaWrapper::TestFlags>(MetaWrapper::Flag8)));
 
 	dialog.openSettings();
 	return a.exec();
