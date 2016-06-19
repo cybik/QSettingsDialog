@@ -1,3 +1,6 @@
 [submodule "QSettingsDialog/DialogMaster"]
 	path = QSettingsDialog/DialogMaster
 	url = https://github.com/Skycoder42/DialogMaster.git
+[submodule "QSettingsDialog/QColorEdit"]
+	path = QSettingsDialog/QColorEdit
+	url = https://github.com/Skycoder42/QColorEdit.git
