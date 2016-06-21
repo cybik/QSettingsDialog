@@ -3,7 +3,7 @@
 
 #include "qsettingsdialog_global.h"
 #include "qsettingsdisplayengine.h"
-#include "qsettingswidgetfactory.h"
+#include "qsettingswidgetfactoryregistry.h"
 #include "qsettingsentry.h"
 #include <QScopedPointer>
 
@@ -27,6 +27,9 @@ public:
 	static void registerGlobalFactory(int metatype, QSettingsWidgetFactory *factory);
 	template<typename TSettingsWidget>
 	static void registerGlobalWidgetType(int metatype);
+
+	void addRegistry(QSettingsWidgetFactoryRegistry *registry);
+	static void registerGlobalRegistry(QSettingsWidgetFactoryRegistry *registry);
 
 private:
 	QScopedPointer<QSettingsWidgetDialogEnginePrivate> d_ptr;

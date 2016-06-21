@@ -1,23 +1,33 @@
 #include "qsettingswidgetdialogengine.h"
 #include "settingsdisplaydialog.h"
 #include "settingsenumwidgetfactory.h"
-#include <QHash>
+#include "commonfactoryregistry.h"
+#include "settingsenumwidgetfactory.h"
+#include <QMap>
 
 #define d this->d_ptr
 
 class QSettingsWidgetDialogEnginePrivate
 {
 public:
-	static QHash<int, QSharedPointer<QSettingsWidgetFactory>> globalFactories;
+	static QList<QSharedPointer<QSettingsWidgetFactoryRegistry>> globalRegistries;
 
-	QHash<int, QSharedPointer<QSettingsWidgetFactory>> factoryMap;
+	QSharedPointer<CommonFactoryRegistry> commonFactory;
+	QMultiMap<int, QSharedPointer<QSettingsWidgetFactoryRegistry>> currentRegistries;
 
 	QSettingsWidgetDialogEnginePrivate() :
-		factoryMap(globalFactories)
-	{}
+		commonFactory(new CommonFactoryRegistry()),
+		currentRegistries()
+	{
+		this->currentRegistries.insert(this->commonFactory->priority(), this->commonFactory);
+		foreach(auto reg, globalRegistries)
+			this->currentRegistries.insert(reg->priority(), reg);
+	}
 };
 
-QHash<int, QSharedPointer<QSettingsWidgetFactory>> QSettingsWidgetDialogEnginePrivate::globalFactories;
+QList<QSharedPointer<QSettingsWidgetFactoryRegistry>> QSettingsWidgetDialogEnginePrivate::globalRegistries({
+																											   QSharedPointer<SettingsEnumWidgetRegistry>(new SettingsEnumWidgetRegistry())
+																										   });
 
 QSettingsWidgetDialogEngine::QSettingsWidgetDialogEngine() :
 	d_ptr(new QSettingsWidgetDialogEnginePrivate())
@@ -32,35 +42,19 @@ QSettingsDisplayInstance *QSettingsWidgetDialogEngine::createInstance()
 
 void QSettingsWidgetDialogEngine::addFactory(int metatype, QSettingsWidgetFactory *factory)
 {
-	d->factoryMap.insert(metatype, QSharedPointer<QSettingsWidgetFactory>(factory));
+	d->commonFactory->insertFactory(metatype, factory);
 }
 
 QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, const QSettingsEntry::UiPropertyMap &properties, QWidget *parent) const
 {
 	QSettingsWidgetBase *widget = nullptr;
 
-	auto factory = d->factoryMap.value(metatype);
-	if(factory)
-		widget = factory->createWidget(parent);
-	else {//if(QMetaType(metatype).flags().testFlag(QMetaType::IsEnumeration)) {
-		auto metaObject = QMetaType::metaObjectForType(metatype);
-		if(metaObject) {
-			QStringList metaNameList = QString::fromLocal8Bit(QMetaType::typeName(metatype)).split(QStringLiteral("::"));
-			int index = -1;
-			QString testName = metaNameList.takeLast();
-			forever {
-				index = metaObject->indexOfEnumerator(testName.toLocal8Bit().constData());
-				if(index >= 0)
-					break;
-				else if(metaNameList.isEmpty())
-					break;
-				else
-					testName = testName.prepend(metaNameList.takeLast() + QStringLiteral("::"));
-			}
-
-			auto metaEnum = metaObject->enumerator(index);
-			if(metaEnum.isValid())
-				widget = SettingsEnumWidgetFactory::createWidget(metaEnum, parent);
+	foreach(auto registry, d->currentRegistries.values()) {
+		auto factory = registry->tryResolve(metatype);
+		if(factory) {
+			widget = factory->createWidget(parent);
+			if(widget)
+				break;
 		}
 	}
 
@@ -75,5 +69,15 @@ QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, con
 
 void QSettingsWidgetDialogEngine::registerGlobalFactory(int metatype, QSettingsWidgetFactory *factory)
 {
-	QSettingsWidgetDialogEnginePrivate::globalFactories.insert(metatype, QSharedPointer<QSettingsWidgetFactory>(factory));
+	CommonFactoryRegistry::addGlobalFactory(metatype, factory);
+}
+
+void QSettingsWidgetDialogEngine::addRegistry(QSettingsWidgetFactoryRegistry *registry)
+{
+	d->currentRegistries.insert(registry->priority(), QSharedPointer<QSettingsWidgetFactoryRegistry>(registry));
+}
+
+void QSettingsWidgetDialogEngine::registerGlobalRegistry(QSettingsWidgetFactoryRegistry *registry)
+{
+	QSettingsWidgetDialogEnginePrivate::globalRegistries.append(QSharedPointer<QSettingsWidgetFactoryRegistry>(registry));
 }

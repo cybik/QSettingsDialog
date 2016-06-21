@@ -24,6 +24,11 @@ SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialog
 	workingDialog(nullptr)
 {
 	ui->setupUi(this);
+	this->ui->buttonBox->button(QDialogButtonBox::Ok)->setAutoDefault(false);
+	this->ui->buttonBox->button(QDialogButtonBox::Cancel)->setAutoDefault(false);
+	this->ui->buttonBox->button(QDialogButtonBox::Apply)->setAutoDefault(false);
+	this->ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setAutoDefault(false);
+	this->ui->buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
 	connect(this->ui->buttonBox, &QDialogButtonBox::clicked,
 			this, &SettingsDisplayDialog::buttonBoxClicked);
