@@ -7,6 +7,9 @@
 
 class SettingsEnumComboBox : public QSettingsWidget<QComboBox>
 {
+	Q_OBJECT
+	Q_PROPERTY(bool translated READ translated WRITE setTranslated NOTIFY translatedChanged)
+
 public:
 	SettingsEnumComboBox(const QMetaEnum &metaEnum, QWidget *parent = nullptr);
 
@@ -15,8 +18,17 @@ public:
 	QVariant getValue() const override;
 	void resetValue() override;
 
+	bool translated() const;
+
+public slots:
+	void setTranslated(bool translated);
+
+signals:
+	void translatedChanged(bool translated);
+
 private:
 	QMetaEnum metaEnum;
+	bool m_translated;
 };
 
 #endif // SETTINGSENUMCOMBOBOX_H

@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QTranslator>
 #include <QDebug>
 #include <qsettingsdialog.h>
 #include "metawrapper.h"
@@ -29,13 +30,28 @@ private:
 	QVariant value;
 };
 
+class TranslatorInjector : public QTranslator
+{
+public:
+	QString translate(const char *context, const char *sourceText, const char *disambiguation, int n) const override {
+		if(context == QStringLiteral("TestEnum") ||
+		   context == QStringLiteral("TestFlags"))
+			return QStringLiteral("tr.%1.%2").arg(context).arg(sourceText);
+		else
+			return QTranslator::translate(context, sourceText, disambiguation, n);
+	}
+};
+
 #define ENTRY(metatype) new QSettingsEntry(metatype, new StateLoader(), QMetaType::typeName(metatype), false, #metatype)
 #define ENTRY_VALUE(metatype, value) new QSettingsEntry(metatype, new StateLoader(value), QMetaType::typeName(metatype), false, #metatype)
 #define ENTRY_PARAM(metatype, ...) new QSettingsEntry(metatype, new StateLoader(), QMetaType::typeName(metatype), false, #metatype, __VA_ARGS__)
+#define ENTRY_VALUE_PARAM(metatype, value, ...) new QSettingsEntry(metatype, new StateLoader(value), QMetaType::typeName(metatype), false, #metatype, __VA_ARGS__)
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+	TranslatorInjector tj;
+	QApplication::installTranslator(&tj);
 
 	REGISTER_FLAG_CONVERTERS(MetaWrapper::TestFlags);
 
@@ -79,9 +95,9 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY(QMetaType::QUuid));
 
 	dialog.setSection("enumTypes");
-	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestEnum>(), MetaWrapper::Value3));
+	dialog.appendEntry(ENTRY_VALUE_PARAM(qMetaTypeId<MetaWrapper::TestEnum>(), MetaWrapper::Value3, "translated", false));
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestEnum>(), QVariant::fromValue(MetaWrapper::Value2)));
-	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestFlags>(), MetaWrapper::Flag3));
+	dialog.appendEntry(ENTRY_VALUE_PARAM(qMetaTypeId<MetaWrapper::TestFlags>(), MetaWrapper::Flag3, "translated", false));
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestFlags>(), QVariant::fromValue<MetaWrapper::TestFlags>(MetaWrapper::Flag8)));
 
 	dialog.openSettings();

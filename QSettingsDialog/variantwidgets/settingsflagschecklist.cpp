@@ -1,12 +1,14 @@
 #include "settingsflagschecklist.h"
 #include <QVBoxLayout>
 #include <QCheckBox>
+#include <QCoreApplication>
 
 SettingsFlagsCheckList::SettingsFlagsCheckList(const QMetaEnum &metaEnum, QWidget *parent) :
 	QSettingsWidget(parent),
 	metaEnum(metaEnum),
 	checkGroup(new QButtonGroup(this)),
-	currentFlags(0)
+	currentFlags(0),
+	m_translated(false)
 {
 	this->checkGroup->setExclusive(false);
 	connect(this->checkGroup, QOverload<int>::of(&QButtonGroup::buttonClicked),
@@ -21,6 +23,8 @@ SettingsFlagsCheckList::SettingsFlagsCheckList(const QMetaEnum &metaEnum, QWidge
 		layout->addWidget(box);
 		this->checkGroup->addButton(box, this->metaEnum.value(i));
 	}
+
+	this->setTranslated(true);
 }
 
 void SettingsFlagsCheckList::setValue(const QVariant &value)
@@ -39,6 +43,32 @@ void SettingsFlagsCheckList::resetValue()
 	this->currentFlags = 0;
 	this->reloadFlags();
 }
+
+bool SettingsFlagsCheckList::translated() const
+{
+	return m_translated;
+}
+
+void SettingsFlagsCheckList::setTranslated(bool translated)
+{
+	if (m_translated == translated)
+		return;
+	m_translated = translated;
+
+	for(int i = 0; i < this->metaEnum.keyCount(); i++) {
+		QString text;
+		if(translated)
+			text = QCoreApplication::translate(this->metaEnum.name(), this->metaEnum.key(i));
+		else
+			text = QString::fromLocal8Bit(this->metaEnum.key(i));
+
+		auto box = this->checkGroup->button(this->metaEnum.value(i));
+		box->setText(text);
+	}
+
+	emit translatedChanged(translated);
+}
+
 
 void SettingsFlagsCheckList::updateFlags(int value)
 {
