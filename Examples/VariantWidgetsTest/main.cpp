@@ -105,6 +105,8 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<FilePath>(), FilePath("C:/baum.txt")));
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<IntRange>(), IntRange(42)));
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<HtmlText>(), HtmlText("<u>Baum</u> <b>==</b> <i>42</i>")));
+	dialog.appendEntry(ENTRY_VALUE_PARAM(QMetaType::QIcon, ":/QSettingsDialog/icons/delete.ico", "asQIcon", false));
+	dialog.appendEntry(ENTRY_VALUE_PARAM(QMetaType::QIcon, QIcon(":/QSettingsDialog/icons/add.ico"), "asQIcon", true));
 
 	dialog.openSettings();
 	return a.exec();

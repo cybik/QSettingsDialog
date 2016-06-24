@@ -1,4 +1,6 @@
 #include "settingspathedit.h"
+#include <QImageReader>
+#include <QStandardPaths>
 
 SettingsPathEdit::SettingsPathEdit(QWidget *parent) :
 	QSettingsWidget(parent)
@@ -19,4 +21,63 @@ QVariant SettingsPathEdit::getValue() const
 void SettingsPathEdit::resetValue()
 {
 	this->clear();
+}
+
+
+
+SettingsIconEdit::SettingsIconEdit(QWidget *parent) :
+	QSettingsWidget(parent)
+{
+	this->setEditable(false);
+	this->setStyle(QPathEdit::JoinedButton, QLineEdit::LeadingPosition);
+	QStringList sList;
+	foreach(auto data, QImageReader::supportedMimeTypes())
+		sList.append(QString::fromUtf8(data));
+	this->setMimeTypeFilters(sList);
+	this->setDefaultDirectory(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+
+	connect(this, &SettingsIconEdit::pathChanged,
+			this, &SettingsIconEdit::updateIcon);
+}
+
+void SettingsIconEdit::setValue(const QVariant &value)
+{
+	if(this->m_asQIcon) {
+		this->clear();
+		this->setDialogButtonIcon(value.value<QIcon>());
+	} else
+		this->setPath(value.toString(), false);
+}
+
+QVariant SettingsIconEdit::getValue() const
+{
+	if(this->m_asQIcon)
+		return this->dialogButtonIcon();
+	else
+		return this->path();
+}
+
+void SettingsIconEdit::resetValue()
+{
+	this->clear();
+	this->resetDialogButtonIcon();
+}
+
+bool SettingsIconEdit::asQIcon() const
+{
+	return m_asQIcon;
+}
+
+void SettingsIconEdit::setAsQIcon(bool asQIcon)
+{
+	if (m_asQIcon == asQIcon)
+		return;
+
+	m_asQIcon = asQIcon;
+	emit asQIconChanged(asQIcon);
+}
+
+void SettingsIconEdit::updateIcon(const QString &path)
+{
+	this->setDialogButtonIcon(QIcon(path));
 }

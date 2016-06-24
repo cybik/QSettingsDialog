@@ -97,4 +97,6 @@ void VariantWidgetsRegistrator::registerExtendedVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsPathEdit>(pathId);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsSlider>(rangeId);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsRichTextEdit>(htmlId);
+
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsIconEdit>(QMetaType::QIcon);
 }
