@@ -1,5 +1,7 @@
 #include "variantwidgetsregistrator.h"
+#include "qsettingsextendedtypes.h"
 #include "qsettingswidgetdialogengine.h"
+#include "settingsenumwidgetfactory.h"
 #include <limits>
 
 #include "settingscheckbox.h"
@@ -10,6 +12,10 @@
 #include "settingslistedit.h"
 #include "settingsfontcombobox.h"
 #include "settingskeyedit.h"
+
+#include "settingspathedit.h"
+#include "settingsslider.h"
+#include "settingsrichtextedit.h"
 
 void VariantWidgetsRegistrator::registerVariantWidgets()
 {
@@ -57,11 +63,8 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUuidEdit>(QMetaType::QUuid);
 
 	/*TODO planned:
-	 * QPathEdit
-	 * QIconEdit(?)
-	 * QLocale(?)
-	 * range-slider
-	 * rich-text-edit
+	 * QIconEdit -> custom
+	 * QLocale -> custom
 	 *
 	 * generic dialog-widget (simple!) -> in widget core
 	 *
@@ -70,5 +73,28 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	 * timeedit widget
 	 * date->now
 	 * enum optional as radiogroup
+	 * advanced slider
+	 * advanced rich-text-edit
 	 */
+}
+
+void VariantWidgetsRegistrator::registerEnumFactories()
+{
+	QSettingsWidgetDialogEngine::registerGlobalRegistry(new SettingsEnumWidgetRegistry());
+}
+
+#define REGISTER_META(type) qRegisterMetaType<type>()
+void VariantWidgetsRegistrator::registerExtendedVariantWidgets()
+{
+	auto pathId = REGISTER_META(FilePath);
+	auto rangeId = REGISTER_META(IntRange);
+	auto htmlId = REGISTER_META(HtmlText);
+
+	REGISTER_TYPE_CONVERTERS(FilePath, QString);
+	REGISTER_TYPE_CONVERTERS(IntRange, int);
+	REGISTER_TYPE_CONVERTERS(HtmlText, QString);
+
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsPathEdit>(pathId);
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsSlider>(rangeId);
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsRichTextEdit>(htmlId);
 }

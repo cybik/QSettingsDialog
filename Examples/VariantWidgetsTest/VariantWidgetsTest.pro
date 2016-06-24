@@ -25,4 +25,5 @@ else:unix: LIBS += -L$$OUT_PWD/../../QSettingsDialog/ -lQSettingsDialog
 INCLUDEPATH += $$PWD/../../QSettingsDialog
 INCLUDEPATH += $$PWD/../../QSettingsDialog/core
 INCLUDEPATH += $$PWD/../../QSettingsDialog/dialogui
+INCLUDEPATH += $$PWD/../../QSettingsDialog/variantwidgets
 DEPENDPATH += $$PWD/../../QSettingsDialog

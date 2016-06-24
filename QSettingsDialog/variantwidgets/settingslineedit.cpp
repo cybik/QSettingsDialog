@@ -5,10 +5,9 @@
 SettingsLineEdit::SettingsLineEdit(QWidget *parent) :
 	QSettingsWidget(parent)
 {}
-//#include <QDebug>
+
 bool SettingsLineEdit::hasValueChanged() const
 {
-	//qDebug() << this->getValue() << this->isModified();
 	return this->isModified();
 }
 

@@ -3,6 +3,9 @@
 
 #include <QtCore/qglobal.h>
 #include <QSharedPointer>
+#ifndef QT_NO_DEBUG
+#include <QDebug>
+#endif
 
 #if defined(QSETTINGSDIALOG_LIBRARY)
 #  define QSETTINGSDIALOGSHARED_EXPORT Q_DECL_EXPORT

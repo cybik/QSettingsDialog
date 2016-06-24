@@ -2,7 +2,6 @@ HEADERS += \
 	$$PWD/settingsdisplaydialog.h \
 	$$PWD/settingsengine.h \
 	$$PWD/checkinghelper.h \
-	$$PWD/settingsenumwidgetfactory.h \
     $$PWD/commonfactoryregistry.h
 
 SOURCES += \
@@ -10,7 +9,6 @@ SOURCES += \
 	$$PWD/settingsdisplaydialog.cpp \
 	$$PWD/settingsengine.cpp \
 	$$PWD/qsettingswidgetdialogengine.cpp \
-	$$PWD/settingsenumwidgetfactory.cpp \
     $$PWD/commonfactoryregistry.cpp
 
 FORMS += \

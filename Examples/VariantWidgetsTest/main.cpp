@@ -4,6 +4,7 @@
 #include <qsettingsdialog.h>
 #include "metawrapper.h"
 #include "qsettingswidgetfactory.h"
+#include "qsettingsextendedtypes.h"
 
 class StateLoader : public QSimpleSettingsLoader
 {
@@ -99,6 +100,11 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestEnum>(), QVariant::fromValue(MetaWrapper::Value2)));
 	dialog.appendEntry(ENTRY_VALUE_PARAM(qMetaTypeId<MetaWrapper::TestFlags>(), MetaWrapper::Flag3, "translated", false));
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<MetaWrapper::TestFlags>(), QVariant::fromValue<MetaWrapper::TestFlags>(MetaWrapper::Flag8)));
+
+	dialog.setSection("extendedTypes");
+	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<FilePath>(), FilePath("C:/baum.txt")));
+	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<IntRange>(), IntRange(42)));
+	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<HtmlText>(), HtmlText("<u>Baum</u> <b>==</b> <i>42</i>")));
 
 	dialog.openSettings();
 	return a.exec();

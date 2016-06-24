@@ -2,7 +2,6 @@
 #include "settingsdisplaydialog.h"
 #include "settingsenumwidgetfactory.h"
 #include "commonfactoryregistry.h"
-#include "settingsenumwidgetfactory.h"
 #include <QMap>
 
 #define d this->d_ptr
@@ -25,9 +24,7 @@ public:
 	}
 };
 
-QList<QSharedPointer<QSettingsWidgetFactoryRegistry>> QSettingsWidgetDialogEnginePrivate::globalRegistries({
-																											   QSharedPointer<SettingsEnumWidgetRegistry>(new SettingsEnumWidgetRegistry())
-																										   });
+QList<QSharedPointer<QSettingsWidgetFactoryRegistry>> QSettingsWidgetDialogEnginePrivate::globalRegistries;
 
 QSettingsWidgetDialogEngine::QSettingsWidgetDialogEngine() :
 	d_ptr(new QSettingsWidgetDialogEnginePrivate())
