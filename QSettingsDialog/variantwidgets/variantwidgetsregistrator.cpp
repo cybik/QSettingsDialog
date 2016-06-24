@@ -56,5 +56,19 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsKeyEdit>(QMetaType::QKeySequence);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUuidEdit>(QMetaType::QUuid);
 
-	//TODO planned: QPathEdit, QIconEdit(?), QLocale(?), uuid generator, timeedit, date->now
+	/*TODO planned:
+	 * QPathEdit
+	 * QIconEdit(?)
+	 * QLocale(?)
+	 * range-slider
+	 * rich-text-edit
+	 *
+	 * generic dialog-widget (simple!) -> in widget core
+	 *
+	 *feature-widgets
+	 * uuid generator
+	 * timeedit widget
+	 * date->now
+	 * enum optional as radiogroup
+	 */
 }
