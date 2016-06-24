@@ -22,7 +22,6 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalFactory(QMetaType::Double,
 													   new DoubleSpinBoxFactory(std::numeric_limits<double>::max(),
 																				std::numeric_limits<double>::min()));
-	//TODO QChar
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsLineEdit>(QMetaType::QString);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsByteLineEdit>(QMetaType::QByteArray);
 	QSettingsWidgetDialogEngine::registerGlobalFactory(QMetaType::Long,
@@ -56,7 +55,6 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsFontComboBox>(QMetaType::QFont);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsKeyEdit>(QMetaType::QKeySequence);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUuidEdit>(QMetaType::QUuid);
-	//TODO ENUMS!!!
 
-	//TODO planned: QPathEdit, QIconEdit(?), QLocale, uuid generator, timeedit, date->now
+	//TODO planned: QPathEdit, QIconEdit(?), QLocale(?), uuid generator, timeedit, date->now
 }

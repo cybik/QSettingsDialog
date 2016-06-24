@@ -201,7 +201,7 @@ void SettingsEngine::updateEntry(EntryInfoBase &entry, const QVariant &data, boo
 {
 	if(data.isValid())
 		entry.currentWidget->setValue(data);
-	else//TODO ok so? or setValue?
+	else
 		entry.currentWidget->resetValue();
 	entry.currentWidget->resetValueChanged();
 

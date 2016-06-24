@@ -9,7 +9,7 @@ namespace Ui {
 	class SettingsListEdit;
 }
 
-class ListEditWidget : public QWidget//TODO move out of here -> new, global repo?
+class ListEditWidget : public QWidget//NOTE move out of here -> new, global repo?
 {
 	Q_OBJECT
 

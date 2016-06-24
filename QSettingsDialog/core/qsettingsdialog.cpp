@@ -429,7 +429,7 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::findEntryGroup(int id)
 int QSettingsDialogPrivate::showDialog(bool asExec, QWidget *parentWindow)
 {
 	if(!this->currentDialog.isNull()) {
-		qWarning() << "Only one settings dialog can be shown at a time";//TODO exception?
+		qWarning() << "Only one settings dialog can be shown at a time";//NOTE exception?
 		return -1;
 	}
 
