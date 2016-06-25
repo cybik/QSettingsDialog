@@ -65,7 +65,6 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	/*TODO planned:
 	 *feature-widgets
 	 * enum optional as radiogroup
-	 * advanced slider
 	 * advanced rich-text-edit
 	 */
 }
