@@ -1,7 +1,6 @@
 #include "settingsrichtextedit.h"
 #include <QMenu>
 #include <QContextMenuEvent>
-#include <QWidgetAction>
 #include <QColorDialog>
 #include <QFontDialog>
 

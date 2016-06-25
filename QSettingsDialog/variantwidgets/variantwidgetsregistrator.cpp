@@ -61,11 +61,6 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsFontComboBox>(QMetaType::QFont);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsKeyEdit>(QMetaType::QKeySequence);
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUuidEdit>(QMetaType::QUuid);
-
-	/*TODO planned:
-	 *feature-widgets
-	 * enum optional as radiogroup
-	 */
 }
 
 void VariantWidgetsRegistrator::registerEnumFactories()

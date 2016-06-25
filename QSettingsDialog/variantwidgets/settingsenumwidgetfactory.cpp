@@ -13,7 +13,7 @@ QSettingsWidgetBase *SettingsEnumWidgetFactory::createWidget(QWidget *parent)
 	if(this->metaEnum.isFlag())
 		return new SettingsFlagsCheckList(this->metaEnum, parent);
 	else
-		return new SettingsEnumComboBox(this->metaEnum, parent);
+		return new SettingsEnumEditWrapper(this->metaEnum, parent);
 }
 
 
