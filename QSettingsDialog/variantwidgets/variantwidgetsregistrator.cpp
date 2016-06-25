@@ -64,8 +64,6 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 
 	/*TODO planned:
 	 *feature-widgets
-	 * timeedit widget
-	 * date->now
 	 * enum optional as radiogroup
 	 * advanced slider
 	 * advanced rich-text-edit
