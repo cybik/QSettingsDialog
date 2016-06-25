@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QVariant>
 #include <QRegularExpression>
+#include "qsettingsentry.h"
 
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsWidgetBase
 {
@@ -13,6 +14,7 @@ public:
 	virtual ~QSettingsWidgetBase();
 
 	virtual QWidget *asWidget() = 0;
+	virtual void initialize(const QSettingsEntry::UiPropertyMap &uiPropertyMap) = 0;
 
 	virtual bool hasValueChanged() const;
 	virtual void resetValueChanged();
@@ -33,13 +35,17 @@ template <class Widget>
 class QSettingsWidget : public Widget, public QSettingsWidgetBase
 {
 public:
-	inline QSettingsWidget(QWidget *parent = Q_NULLPTR) :
+	inline QSettingsWidget(QWidget *parent = nullptr) :
 		Widget(parent),
 		QSettingsWidgetBase()
 	{}
 
-	inline QWidget *asWidget() Q_DECL_FINAL {
+	inline QWidget *asWidget() final {
 		return this;
+	}
+	void initialize(const QSettingsEntry::UiPropertyMap &uiPropertyMap) override {
+		for(QSettingsEntry::UiPropertyMap::const_iterator it = uiPropertyMap.constBegin(), end = uiPropertyMap.constEnd(); it != end; ++it)
+			this->setProperty(it.key().toLocal8Bit().constData(), it.value());
 	}
 };
 

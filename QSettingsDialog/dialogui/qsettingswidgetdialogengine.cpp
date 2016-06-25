@@ -55,12 +55,8 @@ QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, con
 		}
 	}
 
-	if(widget) {
-		auto oWidget = widget->asWidget();
-		Q_ASSERT(oWidget);
-		for(QSettingsEntry::UiPropertyMap::const_iterator it = properties.constBegin(), end = properties.constEnd(); it != end; ++it)
-			oWidget->setProperty(it.key().toLocal8Bit().constData(), it.value());
-	}
+	if(widget)
+		widget->initialize(properties);
 	return widget;
 }
 
