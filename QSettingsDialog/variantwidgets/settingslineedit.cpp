@@ -1,6 +1,7 @@
 #include "settingslineedit.h"
 #include <QUrl>
 #include <QRegularExpressionValidator>
+#include <QAction>
 
 SettingsLineEdit::SettingsLineEdit(QWidget *parent) :
 	QSettingsWidget(parent)
@@ -101,6 +102,10 @@ SettingsUuidEdit::SettingsUuidEdit(QWidget *parent) :
 		QString text = this->text();
 		this->setText(toUuid(text).toString().toUpper());
 	});
+
+	auto action = this->addAction(QIcon(QStringLiteral(":/QSettingsDialog/icons/calc.ico")), QLineEdit::TrailingPosition);
+	connect(action, &QAction::triggered,
+			this, &SettingsUuidEdit::generateId);
 }
 
 void SettingsUuidEdit::setValue(const QVariant &value)
@@ -116,6 +121,11 @@ QVariant SettingsUuidEdit::getValue() const
 void SettingsUuidEdit::resetValue()
 {
 	this->setText(QUuid().toString().toUpper());
+}
+
+void SettingsUuidEdit::generateId()
+{
+	this->setText(QUuid::createUuid().toString().toUpper());
 }
 
 QUuid SettingsUuidEdit::toUuid(QString text)

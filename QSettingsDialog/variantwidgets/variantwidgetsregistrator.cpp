@@ -64,7 +64,6 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 
 	/*TODO planned:
 	 *feature-widgets
-	 * uuid generator
 	 * timeedit widget
 	 * date->now
 	 * enum optional as radiogroup

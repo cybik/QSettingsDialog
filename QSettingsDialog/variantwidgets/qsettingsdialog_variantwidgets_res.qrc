@@ -4,5 +4,6 @@
         <file alias="add.ico">resources/add.ico</file>
         <file alias="down.ico">resources/arrow_down.ico</file>
         <file alias="up.ico">resources/arrow_up.ico</file>
+        <file alias="calc.ico">resources/calculator.ico</file>
     </qresource>
 </RCC>

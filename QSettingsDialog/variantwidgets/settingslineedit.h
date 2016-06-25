@@ -61,6 +61,8 @@ public:
 	void resetValue() override;
 
 private:
+	void generateId();
+
 	static QUuid toUuid(QString text);
 };
 
