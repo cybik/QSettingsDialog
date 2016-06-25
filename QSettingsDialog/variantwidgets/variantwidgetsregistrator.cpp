@@ -63,11 +63,6 @@ void VariantWidgetsRegistrator::registerVariantWidgets()
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsUuidEdit>(QMetaType::QUuid);
 
 	/*TODO planned:
-	 * QIconEdit -> custom
-	 * QLocale -> custom
-	 *
-	 * generic dialog-widget (simple!) -> in widget core
-	 *
 	 *feature-widgets
 	 * uuid generator
 	 * timeedit widget

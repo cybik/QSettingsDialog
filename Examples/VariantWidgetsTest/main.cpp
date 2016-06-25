@@ -2,9 +2,12 @@
 #include <QTranslator>
 #include <QDebug>
 #include <qsettingsdialog.h>
+#include <QMessageBox>
 #include "metawrapper.h"
 #include "qsettingswidgetfactory.h"
 #include "qsettingsextendedtypes.h"
+#include "qsettingswidgetdialogengine.h"
+#include "qsettingsdialogwidget.h"
 
 class StateLoader : public QSimpleSettingsLoader
 {
@@ -31,6 +34,24 @@ private:
 	QVariant value;
 };
 
+class MessageBoxWidget : public QSettingsWidget<QMessageBox>
+{
+public:
+	MessageBoxWidget(QWidget *parent = nullptr) :
+		QSettingsWidget(parent)
+	{
+		this->setWindowTitle("Message-Box");
+		this->setText("This is the simple message text");
+		this->setDefaultButton(QMessageBox::Ok);
+	}
+
+	void setValue(const QVariant &) override {}
+	QVariant getValue() const override {
+		return QVariant();
+	}
+	void resetValue() override {}
+};
+
 class TranslatorInjector : public QTranslator
 {
 public:
@@ -55,6 +76,7 @@ int main(int argc, char *argv[])
 	QApplication::installTranslator(&tj);
 
 	REGISTER_FLAG_CONVERTERS(MetaWrapper::TestFlags);
+	QSettingsWidgetDialogEngine::registerGlobalWidgetType<QSettingsDialogWidget<MessageBoxWidget>>(424242);
 
 	QSettingsDialog dialog;
 
@@ -107,6 +129,9 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(ENTRY_VALUE(qMetaTypeId<HtmlText>(), HtmlText("<u>Baum</u> <b>==</b> <i>42</i>")));
 	dialog.appendEntry(ENTRY_VALUE_PARAM(QMetaType::QIcon, ":/QSettingsDialog/icons/delete.ico", "asQIcon", false));
 	dialog.appendEntry(ENTRY_VALUE_PARAM(QMetaType::QIcon, QIcon(":/QSettingsDialog/icons/add.ico"), "asQIcon", true));
+
+	dialog.setSection("dialogTest");
+	dialog.appendEntry(new QSettingsEntry(424242, new StateLoader(), "Message-Test"));
 
 	dialog.openSettings();
 	return a.exec();
