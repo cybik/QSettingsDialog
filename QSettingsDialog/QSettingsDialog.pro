@@ -25,6 +25,7 @@ RESOURCES += \
 DISTFILES += \
 	$$PWD/classmodel.qmodel
 
+include(./submodules/submodules.pri)
 #parts
 include(./core/core.pri)
 include(./dialogui/dialogui.pri)

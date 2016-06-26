@@ -1,5 +1,3 @@
-include(../DialogMaster/dialogmaster.pri)
-
 HEADERS +=  \
 	$$PWD/qsettingswidget.h \
     $$PWD/qsettingswidgetdialogengine.h \
