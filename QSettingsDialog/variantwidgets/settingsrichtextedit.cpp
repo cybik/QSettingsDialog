@@ -83,7 +83,6 @@ void SettingsRichTextEdit::updateActionsStatus()
 
 void SettingsRichTextEdit::editFont()
 {
-	//TODO dialog master
 	auto ok = false;
 	auto resFont = DialogMaster::getFont(&ok,
 										 this->currentFont(),

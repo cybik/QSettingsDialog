@@ -33,6 +33,7 @@ SettingsIconEdit::SettingsIconEdit(QWidget *parent) :
 	QStringList sList;
 	foreach(auto data, QImageReader::supportedMimeTypes())
 		sList.append(QString::fromUtf8(data));
+	sList.append(QStringLiteral("application/octet-stream"));
 	this->setMimeTypeFilters(sList);
 	this->setDefaultDirectory(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
 
