@@ -1,10 +1,15 @@
 #include "qsettingsentry.h"
+#include <QThread>
 
 #define d this->d_ptr
 
 class QSettingsEntryPrivate
 {
 public:
+	struct LoaderDeleter {
+		static void cleanup(QSettingsLoader *loader);
+	};
+
 	inline QSettingsEntryPrivate(int displaytype, QSettingsLoader *loader) :
 		displaytype(displaytype),
 		loader(loader),
@@ -18,7 +23,7 @@ public:
 	{}
 
 	const int displaytype;
-	QScopedPointer<QSettingsLoader> loader;//TODO wont work for threads...
+	QScopedPointer<QSettingsLoader, LoaderDeleter> loader;//TODO wont work for threads...
 
 	QString name;
 	bool optional;
@@ -114,4 +119,16 @@ void QSettingsEntry::freeLoader(QSettingsLoader *)
 #ifndef QT_NO_DEBUG
 	d->refCounter--;
 #endif
+}
+
+void QSettingsEntryPrivate::LoaderDeleter::cleanup(QSettingsLoader *loader)
+{
+	if(loader && loader->isAsync()) {
+		auto async = loader->async();
+		if(async->thread() == QThread::currentThread())
+			async->deleteLater();
+		else
+			QMetaObject::invokeMethod(async, "deleteLater", Qt::QueuedConnection);
+	} else
+		delete loader;
 }

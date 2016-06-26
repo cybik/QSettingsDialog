@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QStyle>
+#include <QThread>
 #include <qsettingsdialog.h>
 #include <qsettingscontainer.h>
 #include <qsettingslayout.h>
@@ -92,6 +93,12 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new DelayedTestEntry("test500", 500));
 	dialog.appendEntry(new DelayedTestEntry("test1000", 1000));
 	dialog.appendEntry(new DelayedTestEntry("test1500", 1500));
+
+	auto threaded = new DelayedTestEntry("testThreaded", 42);
+	QThread thread;
+	thread.start();
+	threaded->moveToThread(&thread);
+	dialog.appendEntry(threaded);
 
 	//container test
 	dialog.setContainer("containerTest/b/normal");
@@ -187,5 +194,8 @@ int main(int argc, char *argv[])
 
 	dialog.openSettings();
 	dialog.execSettings();
-	return a.exec();
+	auto res = a.exec();
+	thread.quit();
+	thread.wait();
+	return res;
 }
