@@ -1,4 +1,3 @@
-
-
 SOURCES += \
-	$$PWD/qsettingspropertyloader.cpp
+	$$PWD/qsettingspropertyloader.cpp \
+	$$PWD/qsettingspropertyentry.cpp
