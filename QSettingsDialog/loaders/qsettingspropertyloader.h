@@ -19,6 +19,7 @@ public:
 	explicit QSettingsPropertyLoader(const QMetaProperty &metaProperty, void *gadget);
 	~QSettingsPropertyLoader();
 
+	QMetaProperty metaProperty() const;
 	bool isValid() const;
 
 public slots:	

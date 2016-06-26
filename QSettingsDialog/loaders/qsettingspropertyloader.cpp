@@ -56,6 +56,11 @@ QSettingsPropertyLoader::QSettingsPropertyLoader(const QMetaProperty &metaProper
 
 QSettingsPropertyLoader::~QSettingsPropertyLoader() {}
 
+QMetaProperty QSettingsPropertyLoader::metaProperty() const
+{
+	return d->property;
+}
+
 bool QSettingsPropertyLoader::isValid() const
 {
 	return (!d->object.isNull() || d->gadget) &&

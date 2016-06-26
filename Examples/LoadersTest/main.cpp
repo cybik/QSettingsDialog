@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <qsettingsdialog.h>
 #include <qsettingswidgetdialogengine.h>
-#include <qsettingspropertyloader.h>
+#include <qsettingspropertyentry.h>
 
 int main(int argc, char *argv[])
 {
@@ -24,9 +24,7 @@ int main(int argc, char *argv[])
 		qDebug() << "Name was changed!!! To" << QApplication::applicationName();
 	});
 
-	dialog.appendEntry(new QSettingsEntry(QMetaType::QString,
-										  new QSettingsPropertyLoader("applicationName", qApp),
-										  "qApp->applicationName"));
+	dialog.appendEntry(new QSettingsPropertyEntry("applicationName", qApp, "qApp->applicationName"));
 
 	dialog.openSettings();
 	return a.exec();

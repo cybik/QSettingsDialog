@@ -39,7 +39,7 @@ public:
 	void setUiProperties(const UiPropertyMap &properties);
 	void setUiProperty(const QString &name, const QVariant &value);
 
-	virtual int displaytype() const;
+	virtual int displaytype();
 	virtual QSettingsLoader *getLoader();
 	virtual void freeLoader(QSettingsLoader *loader);
 

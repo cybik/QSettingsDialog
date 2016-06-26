@@ -101,7 +101,7 @@ void QSettingsEntry::setUiProperty(const QString &name, const QVariant &value)
 	d->properties.insert(name, value);
 }
 
-int QSettingsEntry::displaytype() const
+int QSettingsEntry::displaytype()
 {
 	return d->displaytype;
 }
