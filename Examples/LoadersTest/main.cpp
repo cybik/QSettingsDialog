@@ -2,7 +2,6 @@
 #include <qsettingsdialog.h>
 #include <qsettingswidgetdialogengine.h>
 #include <qsettingspropertyloader.h>
-#include "swidget.h"
 
 int main(int argc, char *argv[])
 {

@@ -135,6 +135,7 @@ void SettingsDisplayDialog::startSaving(bool isApply)
 
 void SettingsDisplayDialog::startResetting()
 {
+	this->currentMode = Reset;
 	this->workingDialog = DialogMaster::createProgress(this, tr("Restoring default settings…"), 1);
 	this->workingDialog->setMaximum(0);
 	this->workingDialog->setAutoClose(false);
@@ -291,7 +292,6 @@ void SettingsDisplayDialog::buttonBoxClicked(QAbstractButton *button)
 								 QMessageBox::Yes,
 								 QMessageBox::No)
 		   == QMessageBox::Yes) {
-			this->currentMode = Reset;
 			this->startResetting();
 		}
 		break;
