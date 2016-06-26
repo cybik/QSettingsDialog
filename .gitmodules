@@ -4,3 +4,6 @@
 [submodule "QSettingsDialog/QColorEdit"]
 	path = QSettingsDialog/QColorEdit
 	url = https://github.com/Skycoder42/QColorEdit.git
+[submodule "QSettingsDialog/QPathEdit"]
+	path = QSettingsDialog/QPathEdit
+	url = https://github.com/Skycoder42/QPathEdit.git
