@@ -89,9 +89,9 @@ int main(int argc, char *argv[])
 	dialog.setSection("asyncTest", "asyncTest");
 	dialog.setGroup(".");
 
-	dialog.appendEntry(new DelayedTestEntry("test500", 500, qApp));
-	dialog.appendEntry(new DelayedTestEntry("test1000", 1000, qApp));
-	dialog.appendEntry(new DelayedTestEntry("test1500", 1500, qApp));
+	dialog.appendEntry(new DelayedTestEntry("test500", 500));
+	dialog.appendEntry(new DelayedTestEntry("test1000", 1000));
+	dialog.appendEntry(new DelayedTestEntry("test1500", 1500));
 
 	//container test
 	dialog.setContainer("containerTest/b/normal");

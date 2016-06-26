@@ -10,7 +10,7 @@ class DelayedTestEntry : public QAsyncSettingsLoader, public QSettingsEntry
 {
 	Q_OBJECT
 public:
-	explicit DelayedTestEntry(QVariant data, int delayMSecs, QObject *parent = nullptr);
+	explicit DelayedTestEntry(QVariant data, int delayMSecs);
 
 	// QSettingsEntry interface
 public:

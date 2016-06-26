@@ -10,8 +10,8 @@ bool QAsyncSettingsLoader::isAsync() const
 	return true;
 }
 
-QAsyncSettingsLoader::QAsyncSettingsLoader(QObject *parent) :
-	QObject(parent),
+QAsyncSettingsLoader::QAsyncSettingsLoader() :
+	QObject(nullptr),
 	QSettingsLoader()
 {}
 

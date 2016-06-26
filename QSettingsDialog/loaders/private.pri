@@ -1,0 +1,4 @@
+
+
+SOURCES += \
+	$$PWD/qsettingspropertyloader.cpp

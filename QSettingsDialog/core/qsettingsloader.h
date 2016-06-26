@@ -33,7 +33,7 @@ class QSETTINGSDIALOGSHARED_EXPORT QAsyncSettingsLoader : public QObject, public
 	Q_OBJECT
 
 public:
-	QAsyncSettingsLoader(QObject *parent = nullptr);
+	QAsyncSettingsLoader();
 
 	bool isAsync() const final;
 

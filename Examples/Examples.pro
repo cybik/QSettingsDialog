@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     EngineTest \
-    VariantWidgetsTest
+    VariantWidgetsTest \
+    LoadersTest

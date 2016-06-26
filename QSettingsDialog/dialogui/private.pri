@@ -9,7 +9,8 @@ SOURCES += \
 	$$PWD/settingsdisplaydialog.cpp \
 	$$PWD/settingsengine.cpp \
 	$$PWD/qsettingswidgetdialogengine.cpp \
-    $$PWD/commonfactoryregistry.cpp
+	$$PWD/commonfactoryregistry.cpp \
+	$$PWD/qsettingsdialogwidget.cpp
 
 FORMS += \
 	$$PWD/settingsdisplaydialog.ui

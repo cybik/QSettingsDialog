@@ -18,7 +18,7 @@ public:
 	{}
 
 	const int displaytype;
-	QScopedPointer<QSettingsLoader> loader;
+	QScopedPointer<QSettingsLoader> loader;//TODO wont work for threads...
 
 	QString name;
 	bool optional;

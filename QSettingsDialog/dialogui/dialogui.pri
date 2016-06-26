@@ -8,6 +8,3 @@ HEADERS +=  \
 INCLUDEPATH += $$PWD
 
 include(private.pri)
-
-SOURCES += \
-    $$PWD/qsettingsdialogwidget.cpp

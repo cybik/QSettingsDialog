@@ -3,8 +3,8 @@
 #include <QTimer>
 #include "swidget.h"
 
-DelayedTestEntry::DelayedTestEntry(QVariant data, int delayMSecs, QObject *parent) :
-	QAsyncSettingsLoader(parent),
+DelayedTestEntry::DelayedTestEntry(QVariant data, int delayMSecs) :
+	QAsyncSettingsLoader(),
 	QSettingsEntry(1, nullptr),
 	data(data),
 	delayMSecs(delayMSecs)

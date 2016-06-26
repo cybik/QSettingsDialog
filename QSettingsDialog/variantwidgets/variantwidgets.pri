@@ -1,6 +1,6 @@
 HEADERS += $$PWD/variantwidgetsregistrator.h \
-    $$PWD/qsettingsextendedtypes.h
-
-include(private.pri)
+	$$PWD/qsettingsextendedtypes.h
 
 INCLUDEPATH += $$PWD
+
+include(private.pri)
