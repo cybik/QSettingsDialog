@@ -1,8 +1,7 @@
 #include "settingsrichtextedit.h"
 #include <QMenu>
 #include <QContextMenuEvent>
-#include <QColorDialog>
-#include <QFontDialog>
+#include <dialogmaster.h>
 
 SettingsRichTextEdit::SettingsRichTextEdit(QWidget *parent) :
 	QSettingsWidget(parent),
@@ -86,18 +85,17 @@ void SettingsRichTextEdit::editFont()
 {
 	//TODO dialog master
 	auto ok = false;
-	auto resFont = QFontDialog::getFont(&ok,
-										this->currentFont(),
-										this,
-										tr("Edit Font"));
+	auto resFont = DialogMaster::getFont(&ok,
+										 this->currentFont(),
+										 this,
+										 tr("Edit Font"));
 	if(ok)
 		this->setCurrentFont(resFont);
 }
 
 void SettingsRichTextEdit::editColor()
 {
-	//TODO dialog master
-	auto resColor = QColorDialog::getColor(this->textColor(),
+	auto resColor = DialogMaster::getColor(this->textColor(),
 										   this,
 										   tr("Edit Color"));
 	if(resColor.isValid())
