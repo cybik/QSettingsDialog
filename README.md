@@ -5,7 +5,5 @@ A library to easily create a settings dialog for user configurable settings
 + core
 + dialogui
 + variant
-- loaders
-  - properties
-  - settings
++ loaders
 - custom groups

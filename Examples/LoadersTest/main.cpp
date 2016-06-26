@@ -2,6 +2,7 @@
 #include <qsettingsdialog.h>
 #include <qsettingswidgetdialogengine.h>
 #include <qsettingspropertyentry.h>
+#include <qsettingssettingsloader.h>
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +25,12 @@ int main(int argc, char *argv[])
 		qDebug() << "Name was changed!!! To" << QApplication::applicationName();
 	});
 
-	dialog.appendEntry(new QSettingsPropertyEntry("applicationName", qApp, "qApp->applicationName"));
+	dialog.appendEntry(new QSettingsPropertyEntry("applicationName", qApp, "property"));
+
+	QSettings settings(QApplication::applicationDirPath() + "/settings.ini", QSettings::IniFormat);
+	dialog.appendEntry(new QSettingsEntry(QMetaType::QDateTime,
+										  new QSettingsSettingsLoader(&settings, "datetime"),
+										  "settings.ini"));
 
 	dialog.openSettings();
 	return a.exec();

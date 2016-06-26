@@ -38,9 +38,7 @@ QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty
 int QSettingsPropertyEntry::displaytype()
 {
 	auto loader = safe_cast<QSettingsPropertyLoader*>(this->getLoader());
-	auto id = loader->metaProperty().userType();
-	if(id == QMetaType::UnknownType)
-		id = loader->metaProperty().type();
-	return id;
+	auto id = loader->metatypeId();
 	this->freeLoader(loader);
+	return id;
 }

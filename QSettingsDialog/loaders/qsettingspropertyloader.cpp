@@ -56,9 +56,12 @@ QSettingsPropertyLoader::QSettingsPropertyLoader(const QMetaProperty &metaProper
 
 QSettingsPropertyLoader::~QSettingsPropertyLoader() {}
 
-QMetaProperty QSettingsPropertyLoader::metaProperty() const
+int QSettingsPropertyLoader::metatypeId() const
 {
-	return d->property;
+	auto id = d->property.userType();
+	if(id == QMetaType::UnknownType)
+		id = d->property.type();
+	return id;
 }
 
 bool QSettingsPropertyLoader::isValid() const
