@@ -12,7 +12,7 @@ class QSettingsDialogPrivate
 {	
 private:
 	friend class QSettingsDialog;
-	QSettingsDialogPrivate(QSettingsDialog *q_ptr);
+	QSettingsDialogPrivate(QSettingsDialog *q_ptr, QSettingsDisplayEngine *engine);
 	QAtomicInt currentIdMax;
 
 public:

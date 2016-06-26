@@ -10,7 +10,12 @@
 
 QSettingsDialog::QSettingsDialog(QObject *parent) :
 	QObject(parent),
-	d_ptr(new QSettingsDialogPrivate(this))
+	d_ptr(new QSettingsDialogPrivate(this, new QSettingsWidgetDialogEngine()))
+{}
+
+QSettingsDialog::QSettingsDialog(QSettingsDisplayEngine *engine, QObject *parent) :
+	QObject(parent),
+	d_ptr(new QSettingsDialogPrivate(this, engine))
 {}
 
 QSettingsDialog::~QSettingsDialog() {}
@@ -301,13 +306,13 @@ int QSettingsDialogPrivate::getNextId()
 	return ++this->currentIdMax;
 }
 
-QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr) :
+QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr, QSettingsDisplayEngine *engine) :
 	q_ptr(q_ptr),
 	rootElement(new SettingsRoot()),
 	categoryId(QStringLiteral(".")),
 	sectionId(QStringLiteral(".")),
 	groupId(QStringLiteral(".")),
-	displayEngine(new QSettingsWidgetDialogEngine()),
+	displayEngine(engine),
 	currentDialog(nullptr),
 	currentIdMax(0)
 {}

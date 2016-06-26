@@ -19,6 +19,7 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
 
 public:
 	explicit QSettingsDialog(QObject *parent = nullptr);
+	explicit QSettingsDialog(QSettingsDisplayEngine *engine, QObject *parent = nullptr);
 	~QSettingsDialog();
 
 	QSettingsDisplayEngine *displayEngine() const;
