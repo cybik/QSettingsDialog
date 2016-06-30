@@ -8,7 +8,6 @@
 #include <QScopedPointer>
 #include "exceptions.h"
 #include "qsettingsentry.h"
-class QSettingsDialogLayout;
 class QSettingsDisplayEngine;
 
 class QSettingsDialogPrivate;
@@ -24,8 +23,6 @@ public:
 
 	QSettingsDisplayEngine *displayEngine() const;
 	void setDisplayEngine(QSettingsDisplayEngine *engine);
-
-	QSettingsDialogLayout *layout();
 
 	//container organisation - getters
 	QString containerPath() const;
@@ -46,6 +43,7 @@ public:
 				  const QString &name = QString(),
 				  bool optional = false,
 				  const QString &tooltip = QString());
+	void unsetGroup();
 
 	void setContainer(const QString &containerPath);
 	bool removeContainer(const QString &containerPath);
@@ -56,12 +54,7 @@ public:
 	int prependEntry(QSettingsEntry *entry);
 	int prependEntry(const QString &containerPath, QSettingsEntry *entry);
 
-	int appendEntryAsGroup(QSettingsEntry *entry);
-	int appendEntryAsGroup(const QString &containerPath, QSettingsEntry *entry);
-	int prependEntryAsGroup(QSettingsEntry *entry);
-	int prependEntryAsGroup(const QString &containerPath, QSettingsEntry *entry);
-
-	QSettingsEntry *getEntry(int id) const;
+	QSharedPointer<QSettingsEntry> getEntry(int id) const;
 	QString getEntryPath(int id) const;
 	bool removeEntry(int id);
 

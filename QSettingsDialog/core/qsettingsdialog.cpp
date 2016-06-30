@@ -30,12 +30,6 @@ void QSettingsDialog::setDisplayEngine(QSettingsDisplayEngine *engine)
 	d->displayEngine.reset(engine);
 }
 
-QSettingsDialogLayout *QSettingsDialog::layout()
-{
-	Q_UNIMPLEMENTED();
-	return nullptr;
-}
-
 QString QSettingsDialog::containerPath() const
 {
 	return SettingsPathParser::createPath(d->categoryId, d->sectionId, d->groupId);
@@ -60,7 +54,8 @@ void QSettingsDialog::setCategory(const QString &id, const QString &name, const 
 {
 	auto element = d->getCategory(id);
 	Q_ASSERT(!element.isNull());
-	d->categoryId = id;
+	if(!id.isEmpty())
+		d->categoryId = id;
 
 	if(!name.isNull())
 		element->name = name;
@@ -74,7 +69,8 @@ void QSettingsDialog::setSection(const QString &id, const QString &name, const Q
 {
 	auto element = d->getSection(id);
 	Q_ASSERT(!element.isNull());
-	d->sectionId = id;
+	if(!id.isEmpty())
+		d->sectionId = id;
 
 	if(!name.isNull())
 		element->name = name;
@@ -88,8 +84,8 @@ void QSettingsDialog::setGroup(const QString &id, const QString &name, bool opti
 {
 	auto element = d->getGroup(id);
 	Q_ASSERT(!element.isNull());
-	element->testNotLocked();
-	d->groupId = id;
+	if(!id.isEmpty())
+		d->groupId = id;
 
 	if(!name.isNull())
 		element->name = name;
@@ -98,13 +94,24 @@ void QSettingsDialog::setGroup(const QString &id, const QString &name, bool opti
 	element->isOptional = optional;
 }
 
+void QSettingsDialog::unsetGroup()
+{
+	d->groupId.clear();
+}
+
 void QSettingsDialog::setContainer(const QString &containerPath)
 {
 	auto elements = SettingsPathParser::parseFullPath(containerPath);
-	Q_ASSERT(elements.size() == 3);
-	d->categoryId = elements[0];
-	d->sectionId = elements[1];
-	d->groupId = elements[2];
+	Q_ASSERT(elements.size() >= 2);
+	if(!elements[0].isEmpty())
+		d->categoryId = elements[0];
+	if(!elements[1].isEmpty())
+		d->sectionId = elements[1];
+	if(elements.size() == 3) {
+		if(!elements[2].isEmpty())
+			d->groupId = elements[2];
+	} else
+		d->groupId.clear();
 }
 
 bool QSettingsDialog::removeContainer(const QString &containerPath)
@@ -129,10 +136,9 @@ bool QSettingsDialog::removeContainer(const QString &containerPath)
 	case 3:
 	{
 		auto section = d->getSection(elements[1], elements[0]);
-		if(elements[2] == QStringLiteral(".")) {
-			section->defaultGroup.reset();
-			return true;
-		} else
+		if(elements[2] == QStringLiteral("."))
+			throw new InvalidContainerPathException();
+		else
 			return section->groups.removeId(elements[2]);
 	}
 	default:
@@ -142,104 +148,101 @@ bool QSettingsDialog::removeContainer(const QString &containerPath)
 
 int QSettingsDialog::appendEntry(QSettingsEntry *entry)
 {
-	auto group = d->getGroup();
-	Q_ASSERT(!group.isNull());
-	group->testNotLocked();
+	if(d->groupId.isEmpty()) {
+		auto section = d->getSection();
+		Q_ASSERT(!section.isNull());
 
-	auto id = d->getNextId();
-	group->entries.append(id, entry);
-	return id;
+		auto id = d->getNextId();
+		section->groups.append(id, entry);
+		return id;
+	} else {
+		auto group = d->getGroup();
+		Q_ASSERT(!group.isNull());
+
+		auto id = d->getNextId();
+		group->entries.append(id, entry);
+		return id;
+	}
 }
 
 int QSettingsDialog::appendEntry(const QString &containerPath, QSettingsEntry *entry)
 {
 	auto elements = SettingsPathParser::parseFullPath(containerPath);
-	Q_ASSERT(elements.size() == 3);
-	auto group = d->getGroup(elements[2], elements[1], elements[0]);
-	Q_ASSERT(!group.isNull());
-	group->testNotLocked();
+	if(elements.size() == 2) {
+		auto section = d->getSection(elements[1], elements[0]);
+		Q_ASSERT(!section.isNull());
 
-	auto id = d->getNextId();
-	group->entries.append(id, entry);
-	return id;
+		auto id = d->getNextId();
+		section->groups.append(id, entry);
+		return id;
+	} else {
+		Q_ASSERT(elements.size() == 3);
+
+		auto group = d->getGroup(elements[2], elements[1], elements[0]);
+		Q_ASSERT(!group.isNull());
+
+		auto id = d->getNextId();
+		group->entries.append(id, entry);
+		return id;
+	}
 }
 
 int QSettingsDialog::prependEntry(QSettingsEntry *entry)
 {
-	auto group = d->getGroup();
-	Q_ASSERT(!group.isNull());
-	group->testNotLocked();
+	if(d->groupId.isEmpty()) {
+		auto section = d->getSection();
+		Q_ASSERT(!section.isNull());
 
-	auto id = d->getNextId();
-	group->entries.prepend(id, entry);
-	return id;
+		auto id = d->getNextId();
+		section->groups.prepend(id, entry);
+		return id;
+	} else {
+		auto group = d->getGroup();
+		Q_ASSERT(!group.isNull());
+
+		auto id = d->getNextId();
+		group->entries.prepend(id, entry);
+		return id;
+	}
 }
 
 int QSettingsDialog::prependEntry(const QString &containerPath, QSettingsEntry *entry)
 {
 	auto elements = SettingsPathParser::parseFullPath(containerPath);
-	Q_ASSERT(elements.size() == 3);
-	auto group = d->getGroup(elements[2], elements[1], elements[0]);
-	Q_ASSERT(!group.isNull());
-	group->testNotLocked();
+	if(elements.size() == 2) {
+		auto section = d->getSection(elements[1], elements[0]);
+		Q_ASSERT(!section.isNull());
 
-	auto id = d->getNextId();
-	group->entries.prepend(id, entry);
-	return id;
+		auto id = d->getNextId();
+		section->groups.prepend(id, entry);
+		return id;
+	} else {
+		Q_ASSERT(elements.size() == 3);
+
+		auto group = d->getGroup(elements[2], elements[1], elements[0]);
+		Q_ASSERT(!group.isNull());
+
+		auto id = d->getNextId();
+		group->entries.prepend(id, entry);
+		return id;
+	}
 }
 
-int QSettingsDialog::appendEntryAsGroup(QSettingsEntry *entry)
+QSharedPointer<QSettingsEntry> QSettingsDialog::getEntry(int id) const
 {
-	auto section = d->getSection();
-	Q_ASSERT(!section.isNull());
+	auto path = d->findEntryPath(id);
+	auto elements = SettingsPathParser::parseFullPath(path);
 
-	auto id = d->getNextId();
-	section->groups.append(id, entry);
-	return id;
-}
+	if(elements.size() == 2) {
+		auto section = d->getSection(elements[1], elements[0]);
+		Q_ASSERT(!section.isNull());
+		return section->groups.valueId(id);
+	} else {
+		Q_ASSERT(elements.size() == 3);
 
-int QSettingsDialog::appendEntryAsGroup(const QString &containerPath, QSettingsEntry *entry)
-{
-	auto elements = SettingsPathParser::parseSectionPath(containerPath);
-	Q_ASSERT(elements.size() == 2);
-	auto section = d->getSection(elements[1], elements[0]);
-	Q_ASSERT(!section.isNull());
-
-	auto id = d->getNextId();
-	section->groups.append(id, entry);
-	return id;
-}
-
-int QSettingsDialog::prependEntryAsGroup(QSettingsEntry *entry)
-{
-	auto section = d->getSection();
-	Q_ASSERT(!section.isNull());
-
-	auto id = d->getNextId();
-	section->groups.prepend(id, entry);
-	return id;
-}
-
-int QSettingsDialog::prependEntryAsGroup(const QString &containerPath, QSettingsEntry *entry)
-{
-	auto elements = SettingsPathParser::parseSectionPath(containerPath);
-	Q_ASSERT(elements.size() == 2);
-	auto section = d->getSection(elements[1], elements[0]);
-	Q_ASSERT(!section.isNull());
-
-	auto id = d->getNextId();
-	section->groups.prepend(id, entry);
-	return id;
-}
-
-QSettingsEntry *QSettingsDialog::getEntry(int id) const
-{
-	auto group = d->findEntryGroup(id);
-	if(group.isNull())
-		return nullptr;
-	else {
-		group->testNotLocked();
-		return group->entries.value(id).data();
+		auto group = d->getGroup(elements[2], elements[1], elements[0]);
+		Q_ASSERT(!group.isNull());
+		return group->entries.valueId(id);
 	}
 }
 
@@ -250,11 +253,18 @@ QString QSettingsDialog::getEntryPath(int id) const
 
 bool QSettingsDialog::removeEntry(int id)
 {
-	auto group = d->findEntryGroup(id);
-	if(group.isNull())
-		return false;
-	else {
-		group->testNotLocked();
+	auto path = d->findEntryPath(id);
+	auto elements = SettingsPathParser::parseFullPath(path);
+
+	if(elements.size() == 2) {
+		auto section = d->getSection(elements[1], elements[0]);
+		Q_ASSERT(!section.isNull());
+		return section->groups.removeId(id);
+	} else {
+		Q_ASSERT(elements.size() == 3);
+
+		auto group = d->getGroup(elements[2], elements[1], elements[0]);
+		Q_ASSERT(!group.isNull());
 		return group->entries.removeId(id);
 	}
 }
@@ -311,7 +321,7 @@ QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr, QSettings
 	rootElement(new SettingsRoot()),
 	categoryId(QStringLiteral(".")),
 	sectionId(QStringLiteral(".")),
-	groupId(QStringLiteral(".")),
+	groupId(),
 	displayEngine(engine),
 	currentDialog(nullptr),
 	currentIdMax(0)
@@ -365,11 +375,9 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::getGroup(QString groupId, 
 	if(groupId.isEmpty())
 		groupId = this->groupId;
 
-	if(groupId == QLatin1String(".")) {
-		if(section->defaultGroup.isNull())
-			section->defaultGroup = SettingsGroup::createDefaultGroup();
-		return section->defaultGroup;
-	} else {
+	if(groupId == QLatin1String("."))
+		throw InvalidContainerPathException();
+	else {
 		auto element = section->groups.valueId(groupId);
 		if(element.isNull())
 			element = section->groups.append(groupId, new SettingsGroup(groupId));
@@ -394,17 +402,14 @@ QString QSettingsDialogPrivate::findEntryPath(int id)
 			const QSharedPointer<SettingsSection> &section = sectionElement.second;
 
 			if(section->groups.contains(id)) {
-				return SettingsPathParser::createCustomPath(categoryElement.first,
-															sectionElement.first);
+				return SettingsPathParser::createPath(categoryElement.first,
+													  sectionElement.first,
+													  QString());
 			}
 
 			auto groups = section->groups.createGroupMap();
-			if(!section->defaultGroup.isNull())
-				groups.append(QStringLiteral("."), section->defaultGroup);
-
 			foreach(auto groupElement, groups) {
 				const QSharedPointer<SettingsGroup> &group = groupElement.second;
-				group->testNotLocked();
 
 				if(group->entries.contains(id)) {
 					return SettingsPathParser::createPath(categoryElement.first,
@@ -417,18 +422,6 @@ QString QSettingsDialogPrivate::findEntryPath(int id)
 	}
 
 	return QString();
-}
-
-QSharedPointer<SettingsGroup> QSettingsDialogPrivate::findEntryGroup(int id)
-{
-	auto path = this->findEntryPath(id);
-	if(path.isEmpty())
-		return QSharedPointer<SettingsGroup>();
-	else {
-		auto elements = SettingsPathParser::parseFullPath(path);
-		Q_ASSERT(elements.size() == 3);
-		return this->getGroup(elements[2], elements[1], elements[0]);
-	}
 }
 
 int QSettingsDialogPrivate::showDialog(bool asExec, QWidget *parentWindow)

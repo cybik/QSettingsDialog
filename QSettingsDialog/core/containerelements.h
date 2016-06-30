@@ -8,14 +8,11 @@
 #include "specialgroupmap.h"
 #include "qsettingsentry.h"
 #include "exceptions.h"
-#include <QAtomicPointer>
 #include <qsettingsdialog.h>
 
 class QSettingsContainer;
 struct SettingsGroup
 {
-	QAtomicPointer<QSettingsContainer> locker;
-
 	QString name;
 	QString tooltip;
 	bool isOptional;
@@ -28,19 +25,6 @@ struct SettingsGroup
 		isOptional(false),
 		entries()
 	{}
-
-	inline void testNotLocked() const {
-		if(this->locker != nullptr)
-			throw ContainerLockedException();
-	}
-	inline void testNotLocked(QSettingsContainer *locker) const {
-		if(this->locker != nullptr && this->locker != locker)
-			throw ContainerLockedException();
-	}
-
-	static inline QSharedPointer<SettingsGroup> createDefaultGroup() {
-		return QSharedPointer<SettingsGroup>(new SettingsGroup(QSettingsDialog::tr("General")));
-	}
 };
 
 struct SettingsSection
@@ -49,14 +33,12 @@ struct SettingsSection
 	QIcon icon;
 	QString tooltip;
 
-	QSharedPointer<SettingsGroup> defaultGroup;
 	SpecialGroupMap groups;
 
 	inline SettingsSection(const QString &name) :
 		name(name),
 		icon(),
 		tooltip(),
-		defaultGroup(),
 		groups()
 	{}
 
