@@ -347,8 +347,8 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 	auto index = tabWidget->addTab(scrollArea, section->icon, section->name);
 	tabWidget->tabBar()->setTabToolTip(index, section->tooltip.isNull() ? section->name : section->tooltip);
 
-	if(section->defaultGroup)
-		this->createDefaultGroup(section->defaultGroup, scrollContent);
+//	if(section->defaultGroup) //TODO drawing...
+//		this->createDefaultGroup(section->defaultGroup, scrollContent);
 	foreach(auto group, section->groups) {
 		if(group.first.type() == QMetaType::Int)
 			this->createCustomGroup(group.second.second, scrollContent);

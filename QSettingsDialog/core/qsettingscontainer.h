@@ -8,39 +8,81 @@
 #include "exceptions.h"
 class QSettingsDialog;
 
-class QSettingsContainerPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsContainer : public QObject
 {
 	Q_OBJECT
-	friend class QSettingsContainerPrivate;
+
 public:
-	explicit QSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
-	~QSettingsContainer();
+	virtual QSettingsDialog *dialog() const = 0;
+	virtual QString containerPath() const = 0;
 
-	int appendEntry(QSettingsEntry *entry);
-	int prependEntry(QSettingsEntry *entry);
-	int insertEntry(int index, QSettingsEntry *entry);
+	virtual int elementCount() const = 0;
+	virtual bool isEntry(int index) const = 0;
+	virtual int getEntryIndex(int id) const = 0;
+	virtual int getEntryId(int index) const = 0;
+	virtual QSharedPointer<QSettingsEntry> getEntry(int id) const = 0;
+	virtual QSharedPointer<QSettingsEntry> getEntryFromIndex(int index) const = 0;
 
-	int getEntryIndex(int id) const;
-	int getEntryId(int index) const;
-	QSettingsEntry *getEntry(int id) const;
-	QSettingsEntry *getEntryFromIndex(int index) const;
+	virtual bool transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo) = 0;
 
-	bool removeEntry(int id);
-	bool removeEntryFromIndex(int index);
-	void moveEntry(int indexFrom, int indexTo);
+public slots:
+	virtual int appendEntry(QSettingsEntry *entry) = 0;
+	virtual int prependEntry(QSettingsEntry *entry) = 0;
+	virtual int insertEntry(int index, QSettingsEntry *entry) = 0;
+	virtual int insertEntry(int index, QSharedPointer<QSettingsEntry> entry) = 0;
 
-	void transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo);
+	virtual bool removeEntry(int id) = 0;
+	virtual bool removeElementFromIndex(int index) = 0;
+	virtual void moveElement(int indexFrom, int indexTo) = 0;
 
 protected:
-	QScopedPointer<QSettingsContainerPrivate> d_ptr;
+	inline QSettingsContainer(QObject *parent = nullptr) :
+		QObject(parent)
+	{}
+
+	virtual bool acceptEntry(int index, int id, QSharedPointer<QSettingsEntry> entry) = 0;
+	inline bool doAccept(QSettingsContainer *target, int index, int id, QSharedPointer<QSettingsEntry> entry) {
+		return target->acceptEntry(index, id, entry);
+	}
 };
 
-class QSETTINGSDIALOGSHARED_EXPORT QAsyncSettingsContainer : public QSettingsContainer
+class QSectionSettingsContainerPrivate;
+class QSETTINGSDIALOGSHARED_EXPORT QSectionSettingsContainer : public QSettingsContainer
 {
+	Q_OBJECT
+
 public:
-	explicit QAsyncSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
-	~QAsyncSettingsContainer();
+	explicit QSectionSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
+	~QSectionSettingsContainer();
+
+	// QSettingsContainer interface
+	QSettingsDialog *dialog() const override;
+	QString containerPath() const override;
+
+	int elementCount() const override;
+	bool isEntry(int index) const override;
+	int getEntryIndex(int id) const override;
+	int getEntryId(int index) const override;
+	QSharedPointer<QSettingsEntry> getEntry(int id) const override;
+	QSharedPointer<QSettingsEntry> getEntryFromIndex(int index) const override;
+
+	bool transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo) override;
+
+public slots:
+	int appendEntry(QSettingsEntry *entry) override;
+	int prependEntry(QSettingsEntry *entry) override;
+	int insertEntry(int index, QSettingsEntry *entry) override;
+	int insertEntry(int index, QSharedPointer<QSettingsEntry> entry) override;
+
+	bool removeEntry(int id) override;
+	bool removeElementFromIndex(int index) override;
+	void moveElement(int indexFrom, int indexTo) override;
+
+protected:
+	bool acceptEntry(int index, int id, QSharedPointer<QSettingsEntry> entry) override;
+
+private:
+	QScopedPointer<QSectionSettingsContainerPrivate> d_ptr;
 };
 
 #endif // QSETTINGSCONTAINER_H

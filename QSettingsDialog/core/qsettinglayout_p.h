@@ -134,10 +134,8 @@ public:
 		throw LayoutPropertyNotDefinedException();
 	}
 
-	QSettingsLayout creatDefaultElement(bool createNew) override {
-		if(this->element->defaultGroup.isNull() && createNew)
-			this->element->defaultGroup = SettingsGroup::createDefaultGroup();
-		return QSettingsLayout(new SettingsGroupLayout(".", this->element->defaultGroup));
+	QSettingsLayout creatDefaultElement(bool) override {
+		throw LayoutPropertyNotDefinedException();
 	}
 
 	QSettingsLayout createEmptySubElement(const QString &id) override {

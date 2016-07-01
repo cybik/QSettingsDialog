@@ -6,121 +6,151 @@
 
 #define d this->d_ptr
 
-class QSettingsContainerPrivate
+class QSectionSettingsContainerPrivate
 {
 public:
-	QSettingsContainerPrivate(QSettingsContainer *q_ptr, QSettingsDialog *settingsDialog, const QString &containerPath);
+	QSectionSettingsContainerPrivate(QSectionSettingsContainer *q_ptr, QSettingsDialog *settingsDialog, const QString &containerPath);
 
-	QSettingsContainer *q_ptr;
+	QSectionSettingsContainer *q_ptr;
 	QSettingsDialogPrivate *dialog;
 	QString containerPath;
-	inline QSharedPointer<SettingsGroup> group() const {
-		this->groupRef->testNotLocked(this->q_ptr);
-		return this->groupRef;
-	}
 
-private:
-	QSharedPointer<SettingsGroup> groupRef;
+	QSharedPointer<SettingsSection> section;
 };
 
-QSettingsContainer::QSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent) :
-	QObject(parent),
-	d_ptr(new QSettingsContainerPrivate(this, settingsDialog,containerPath))
+
+QSectionSettingsContainer::QSectionSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent) :
+	QSettingsContainer(parent),
+	d_ptr(new QSectionSettingsContainerPrivate(this, settingsDialog, containerPath))
 {
-	connect(settingsDialog, &QSettingsDialog::destroyed,
-			this, &QSettingsContainer::deleteLater);
+	connect(settingsDialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
+		d->dialog = nullptr;
+	});
 }
 
-QSettingsContainer::~QSettingsContainer() {}
+QSectionSettingsContainer::~QSectionSettingsContainer() {}
 
-int QSettingsContainer::appendEntry(QSettingsEntry *entry)
+QSettingsDialog *QSectionSettingsContainer::dialog() const
+{
+	return d->dialog->q_ptr;
+}
+
+QString QSectionSettingsContainer::containerPath() const
+{
+	return d->containerPath;
+}
+
+int QSectionSettingsContainer::elementCount() const
+{
+	return d->section->groups.size();
+}
+
+bool QSectionSettingsContainer::isEntry(int index) const
+{
+	return d->section->groups.id(index).type() == QMetaType::Int;
+}
+
+int QSectionSettingsContainer::getEntryIndex(int id) const
+{
+	return d->section->groups.index(id);
+}
+
+int QSectionSettingsContainer::getEntryId(int index) const
+{
+	auto id = d->section->groups.id(index);
+	if(id.type() == QMetaType::Int)
+		return id.toInt();
+	else
+		return -1;
+}
+
+QSharedPointer<QSettingsEntry> QSectionSettingsContainer::getEntry(int id) const
+{
+	return d->section->groups.valueId(id);
+}
+
+QSharedPointer<QSettingsEntry> QSectionSettingsContainer::getEntryFromIndex(int index) const
+{
+	auto element = d->section->groups.entry(index);
+	if(element.first.type() == QMetaType::Int)
+		return element.second.second;
+	else
+		return QSharedPointer<QSettingsEntry>();
+}
+
+bool QSectionSettingsContainer::transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo)
+{
+	auto element = d->section->groups.entry(indexFrom);
+	if(element.first.type() == QMetaType::Int) {
+		auto ok = this->doAccept(targetContainer, indexTo, element.first.toInt(), element.second.second);
+		if(ok)
+			d->section->groups.remove(indexFrom);
+		return ok;
+	} else {
+		auto asSect = qobject_cast<QSectionSettingsContainer*>(targetContainer);
+		//HERE
+	}
+}
+
+int QSectionSettingsContainer::appendEntry(QSettingsEntry *entry)
 {
 	auto id = d->dialog->getNextId();
-	d->group()->entries.append(id, entry);
+	d->section->groups.append(id, QSharedPointer<QSettingsEntry>(entry));
 	return id;
 }
 
-int QSettingsContainer::prependEntry(QSettingsEntry *entry)
+int QSectionSettingsContainer::prependEntry(QSettingsEntry *entry)
 {
 	auto id = d->dialog->getNextId();
-	d->group()->entries.prepend(id, entry);
+	d->section->groups.prepend(id, QSharedPointer<QSettingsEntry>(entry));
 	return id;
 }
 
-int QSettingsContainer::insertEntry(int index, QSettingsEntry *entry)
+int QSectionSettingsContainer::insertEntry(int index, QSettingsEntry *entry)
 {
 	auto id = d->dialog->getNextId();
-	d->group()->entries.insert(index, id, entry);
+	d->section->groups.insert(index, id, QSharedPointer<QSettingsEntry>(entry));
 	return id;
 }
 
-int QSettingsContainer::getEntryIndex(int id) const
+int QSectionSettingsContainer::insertEntry(int index, QSharedPointer<QSettingsEntry> entry)
 {
-	return d->group()->entries.index(id);
+	auto id = d->dialog->getNextId();
+	d->section->groups.insert(index, id, entry);
+	return id;
 }
 
-int QSettingsContainer::getEntryId(int index) const
+bool QSectionSettingsContainer::removeEntry(int id)
 {
-	return d->group()->entries.id(index);
+	return d->section->groups.removeId(id);
 }
 
-QSettingsEntry *QSettingsContainer::getEntry(int id) const
+bool QSectionSettingsContainer::removeElementFromIndex(int index)
 {
-	return d->group()->entries.valueId(id).data();
+	return d->section->groups.remove(index);
 }
 
-QSettingsEntry *QSettingsContainer::getEntryFromIndex(int index) const
+void QSectionSettingsContainer::moveElement(int indexFrom, int indexTo)
 {
-	return d->group()->entries.value(index).data();
+	d->section->groups.move(indexFrom, indexTo);
 }
 
-bool QSettingsContainer::removeEntry(int id)
+bool QSectionSettingsContainer::acceptEntry(int index, int id, QSharedPointer<QSettingsEntry> entry)
 {
-	return d->group()->entries.removeId(id);
-}
-
-bool QSettingsContainer::removeEntryFromIndex(int index)
-{
-	return d->group()->entries.remove(index);
-}
-
-void QSettingsContainer::moveEntry(int indexFrom, int indexTo)
-{
-	return d->group()->entries.move(indexFrom, indexTo);
-}
-
-void QSettingsContainer::transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo)
-{
-	d->group()->testNotLocked();
-	targetContainer->d_ptr->group()->testNotLocked();
-
-	auto entry = d->group()->entries.takeEntry(indexFrom);
-	targetContainer->d_ptr->group()->entries.insert(indexTo, entry.first, entry.second);
+	d->section->groups.insert(index, id, entry);
+	return true;
 }
 
 
 
-QAsyncSettingsContainer::QAsyncSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent) :
-	QSettingsContainer(settingsDialog, containerPath, parent)
-{
-	Q_ASSERT_X(this->thread() == settingsDialog->thread(), Q_FUNC_INFO, "The container must be created on the same thread as the dialog");
-	if(!d->group()->locker.testAndSetOrdered(nullptr, this))
-		throw ContainerLockedException();
-}
-
-QAsyncSettingsContainer::~QAsyncSettingsContainer()
-{
-	d->group()->locker.testAndSetOrdered(this, nullptr);
-}
-
-
-
-QSettingsContainerPrivate::QSettingsContainerPrivate(QSettingsContainer *q_ptr, QSettingsDialog *settingsDialog, const QString &containerPath) :
+QSectionSettingsContainerPrivate::QSectionSettingsContainerPrivate(QSectionSettingsContainer *q_ptr, QSettingsDialog *settingsDialog, const QString &containerPath) :
 	q_ptr(q_ptr),
 	dialog(QSettingsDialogPrivate::getPrivateInstance(settingsDialog)),
 	containerPath(containerPath),
-	groupRef()
+	section()
 {
 	auto elements = SettingsPathParser::parseFullPath(containerPath);
-	this->groupRef = this->dialog->getGroup(elements[2], elements[1], elements[0]);
+	if(elements.size() != 2)
+		throw InvalidContainerPathException();
+	this->section = this->dialog->getSection(elements[2], elements[1]);
 }
