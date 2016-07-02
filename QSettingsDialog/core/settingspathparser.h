@@ -13,7 +13,8 @@ public:
 	static QVector<QString> parseFullPath(const QString &path);
 	static QStringList parsePartialPath(const QString &path);
 
-	static QString createPath(const QString &categoryId, const QString &sectionId, const QString &groupId);
+	static QString createPath(const QString &categoryId, const QString &sectionId, const QString &groupId = QString());
+	static QString joinPath(const QString &sectionPath, const QString &groupId);
 
 private:
 	static const QRegularExpression realIdRegex;

@@ -80,3 +80,14 @@ QString SettingsPathParser::createPath(const QString &categoryId, const QString 
 		return QStringList({categoryId, sectionId, groupId}).join(QLatin1Char('/'));
 	}
 }
+
+QString SettingsPathParser::joinPath(const QString &sectionPath, const QString &groupId)
+{
+	auto elements = parseFullPath(sectionPath);
+	if(elements.size() != 2)
+		throw InvalidContainerPathException();
+
+	validateId(groupId, false);
+	elements.append(groupId);
+	return elements.toList().join(QLatin1Char('/'));
+}

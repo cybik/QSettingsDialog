@@ -1,13 +1,13 @@
 #include "qsettingslayout.h"
 #include "qsettingsdialog_p.h"
-#include "qsettinglayout_p.h"
+#include "qsettingslayout_p.h"
 #include "settingspathparser.h"
 
 #define d this->d_ptr
 
 QSettingsLayout QSettingsLayout::dialogLayout(QSettingsDialog *settingsDialog)
 {
-	return QSettingsLayout(new SettingsRootLayout(QString(), QSettingsDialogPrivate::getPrivateInstance(settingsDialog)->rootElement));
+	return QSettingsLayout(new SettingsRootLayout(QString(), QSettingsDialogPrivate::getPrivateInstance(settingsDialog)->rootElement, settingsDialog));
 }
 
 QString QSettingsLayout::id() const
@@ -23,6 +23,11 @@ QSettingsLayout::LayoutType QSettingsLayout::layoutType() const
 bool QSettingsLayout::isNull() const
 {
 	return d->testNull();
+}
+
+QSettingsDialog *QSettingsLayout::dialog() const
+{
+	return d->dialog;
 }
 
 QString QSettingsLayout::containerPath() const
@@ -69,16 +74,6 @@ void QSettingsLayout::setTooltip(const QString &tooltip)
 	d->createTooltipRef() = tooltip;
 }
 
-bool QSettingsLayout::isOptional() const
-{
-	return d->createOptionalRef();
-}
-
-void QSettingsLayout::setOptional(bool optional)
-{
-	d->createOptionalRef() = optional;
-}
-
 QSettingsLayout QSettingsLayout::defaultElement(bool allowCreateNew) const
 {
 	auto element = d->creatDefaultElement(allowCreateNew);
@@ -101,18 +96,6 @@ QSettingsLayout QSettingsLayout::elementAt(int index) const
 int QSettingsLayout::indexOfElement(const QSettingsLayout &element) const
 {
 	return d->indexOfElement(element);
-}
-
-QSettingsLayout QSettingsLayout::createOptionalElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
-{
-	SettingsPathParser::validateId(id, true);
-	auto element = d->createEmptySubElement(id);
-	element.d_ptr->parentElement = this->d_ptr;
-	element.setName(name.isNull() ? id : name);
-	element.setOptional(optional);
-	element.setTooltip(tooltip);
-	d->insertElement(index, element);
-	return element;
 }
 
 QSettingsLayout QSettingsLayout::createElement(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)

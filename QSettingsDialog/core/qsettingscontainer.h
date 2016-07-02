@@ -7,6 +7,7 @@
 #include "qsettingsentry.h"
 #include "exceptions.h"
 class QSettingsDialog;
+class QSettingsLayout;
 
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsContainer : public QObject
 {
@@ -46,16 +47,16 @@ protected:
 	}
 };
 
-class QSectionSettingsContainerPrivate;
-class QSETTINGSDIALOGSHARED_EXPORT QSectionSettingsContainer : public QSettingsContainer
+class QSectionSettingsContainer;
+class QGroupSettingsContainerPrivate;
+class QSETTINGSDIALOGSHARED_EXPORT QGroupSettingsContainer : public QSettingsContainer
 {
 	Q_OBJECT
 
 public:
-	explicit QSectionSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
-	~QSectionSettingsContainer();
+	explicit QGroupSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
+	~QGroupSettingsContainer();
 
-	// QSettingsContainer interface
 	QSettingsDialog *dialog() const override;
 	QString containerPath() const override;
 
@@ -68,6 +69,9 @@ public:
 
 	bool transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo) override;
 
+	QSectionSettingsContainer *parentSection();
+	QSectionSettingsContainer *parentSection(QObject *parent) const;
+
 public slots:
 	int appendEntry(QSettingsEntry *entry) override;
 	int prependEntry(QSettingsEntry *entry) override;
@@ -75,6 +79,61 @@ public slots:
 	int insertEntry(int index, QSharedPointer<QSettingsEntry> entry) override;
 
 	bool removeEntry(int id) override;
+	bool removeElementFromIndex(int index) override;
+	void moveElement(int indexFrom, int indexTo) override;
+
+protected:
+	bool acceptEntry(int index, int id, QSharedPointer<QSettingsEntry> entry) override;
+
+private:
+	QScopedPointer<QGroupSettingsContainerPrivate> d_ptr;
+};
+
+class QSectionSettingsContainerPrivate;
+class QSETTINGSDIALOGSHARED_EXPORT QSectionSettingsContainer : public QSettingsContainer
+{
+	Q_OBJECT
+
+public:
+	explicit QSectionSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
+	explicit QSectionSettingsContainer(QSettingsLayout *layout, QObject *parent = nullptr);
+	~QSectionSettingsContainer();
+
+	QSettingsDialog *dialog() const override;
+	QString containerPath() const override;
+
+	int elementCount() const override;
+	bool isEntry(int index) const override;
+
+	int getEntryIndex(int id) const override;
+	int getGroupIndex(const QString &id) const;
+
+	QVariant getElementId(int index) const;
+	int getEntryId(int index) const override;
+	QString getGrouptId(int index) const;
+
+	QSharedPointer<QSettingsEntry> getEntry(int id) const override;
+	QSharedPointer<QSettingsEntry> getEntryFromIndex(int index) const override;
+
+	bool transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo) override;
+
+	QGroupSettingsContainer *createGroupContainer(const QString &id);
+	QGroupSettingsContainer *createGroupContainer(const QString &id, QObject *parent) const;
+	QGroupSettingsContainer *createGroupContainerFromIndex(int index);
+	QGroupSettingsContainer *createGroupContainerFromIndex(int index, QObject *parent) const;
+
+public slots:
+	int appendEntry(QSettingsEntry *entry) override;
+	int prependEntry(QSettingsEntry *entry) override;
+	int insertEntry(int index, QSettingsEntry *entry) override;
+	int insertEntry(int index, QSharedPointer<QSettingsEntry> entry) override;
+
+	void appendGroup(const QString &id, const QString &name = QString());
+	void prependGroup(const QString &id, const QString &name = QString());
+	void insertGroup(int index, const QString &id, const QString &name = QString());
+
+	bool removeEntry(int id) override;
+	bool removeGroup(const QString &id);
 	bool removeElementFromIndex(int index) override;
 	void moveElement(int indexFrom, int indexTo) override;
 

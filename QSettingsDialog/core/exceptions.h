@@ -10,12 +10,6 @@ public:
 	InvalidContainerPathException();
 };
 
-class QSETTINGSDIALOGSHARED_EXPORT ContainerLockedException : public QtException
-{
-public:
-	ContainerLockedException();
-};
-
 class QSETTINGSDIALOGSHARED_EXPORT LayoutPropertyNotDefinedException : public QtException
 {
 public:

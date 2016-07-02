@@ -4,7 +4,7 @@ HEADERS += \
     $$PWD/settingspathparser.h \
 	$$PWD/sortedmap.h \
 	$$PWD/specialgroupmap.h \
-	$$PWD/qsettinglayout_p.h
+    $$PWD/qsettingslayout_p.h
 
 SOURCES += \
 	$$PWD/qsettingsloader.cpp \
