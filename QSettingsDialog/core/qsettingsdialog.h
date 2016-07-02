@@ -9,6 +9,7 @@
 #include "exceptions.h"
 #include "qsettingsentry.h"
 class QSettingsDisplayEngine;
+class QSettingsContainer;
 
 class QSettingsDialogPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsDialog : public QObject
@@ -26,6 +27,7 @@ public:
 
 	//container organisation - getters
 	QString containerPath() const;
+	QString sectionContainerPath() const;
 	QString categoryId() const;
 	QString sectionId() const;
 	QString groupId() const;
@@ -47,6 +49,9 @@ public:
 
 	void setContainer(const QString &containerPath);
 	bool removeContainer(const QString &containerPath);
+
+	QSettingsContainer *currentContainer(QObject *parent = nullptr);
+	QSettingsContainer *currentSectionContainer(QObject *parent = nullptr);
 
 	//entry organisation
 	int appendEntry(QSettingsEntry *entry);

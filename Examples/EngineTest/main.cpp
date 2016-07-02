@@ -56,14 +56,14 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new TestEntry(true, false));
 	dialog.appendEntry(new TestEntry(true, true));
 
-	dialog.setGroup("normal", "normal");
+	dialog.setGroup("normal");
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(false, true, "withFixedData"));
 	dialog.appendEntry(new TestEntry(true, true));
 	dialog.appendEntry(new TestEntry(true, true, "withOptionalData"));
 
 	//checking test, does auto-checking work?
-	dialog.setSection("checkingTest", "checkingTest");
+	dialog.setSection("checkingTest");
 	dialog.setGroup("optional1", "optional - no data", true);
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true));
@@ -76,13 +76,13 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true, "optional group data"));
 
-	//custom group test
-	dialog.setSection("customGroupsTest", "customGroupsTest");
+	//section and group entries - mixed appeareance
+	dialog.setSection("mixedEntriesTest");
 	dialog.unsetGroup();
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(false, true));
 
-	dialog.setGroup("someGroup", "someGroup");
+	dialog.setGroup("someGroup");
 	dialog.appendEntry(new TestEntry(true, true, "LOOOOL"));
 	dialog.appendEntry(new TestEntry(false, false));
 	dialog.unsetGroup();
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(new TestEntry(true, false, QVariant()));
 
 	//async test
-	dialog.setSection("asyncTest", "asyncTest");
+	dialog.setSection("asyncTest");
 	dialog.unsetGroup();
 
 	dialog.appendEntry(new DelayedTestEntry("test500", 500));
@@ -105,20 +105,25 @@ int main(int argc, char *argv[])
 
 	//container test
 	//TODO test more
-	dialog.setContainer("containerTest/b/normal");
+	dialog.setContainer("containerTest/./normal");
 	dialog.appendEntry(new TestEntry(false, true));
 
-	QGroupSettingsContainer container(&dialog, "containerTest/b/normal");
+	QGroupSettingsContainer container(&dialog, "containerTest/./normal");
 	container.appendEntry(new TestEntry(true, true));
 	auto rem = dialog.appendEntry(new TestEntry(false, true));
 	container.insertEntry(1, new TestEntry(false, false));
 
-	QGroupSettingsContainer container2(&dialog, "containerTest/b/normal");
-	container2.removeEntry(rem);
+	QSettingsContainer *container2 = dialog.currentContainer(&dialog);
+	container2->removeEntry(rem);
 	dialog.prependEntry(new TestEntry(false, true));
 
-	QGroupSettingsContainer container3(&dialog, "containerTest/b/normal_trans");
-	container2.transferElement(0, &container3, 0);
+	QGroupSettingsContainer container3(&dialog, "containerTest/./normal_trans");
+	container2->transferElement(0, &container3, 0);
+
+	QSettingsContainer *sectionContainer1 = dialog.currentSectionContainer(&dialog);
+	sectionContainer1->appendEntry(new TestEntry(false, true));
+	QSectionSettingsContainer sectionContainer2(&dialog, dialog.sectionContainerPath());
+	sectionContainer2.moveElement(0, 2);
 
 //	//async container test
 //	QAsyncSettingsContainer asyncContainer(&dialog, "containerTest/b/async");

@@ -1,6 +1,7 @@
 #include "qsettingsdialog.h"
 #include "qsettingsdialog_p.h"
 #include "settingspathparser.h"
+#include "qsettingscontainer.h"
 #include <QGlobalStatic>
 #include <QDebug>
 
@@ -33,6 +34,11 @@ void QSettingsDialog::setDisplayEngine(QSettingsDisplayEngine *engine)
 QString QSettingsDialog::containerPath() const
 {
 	return SettingsPathParser::createPath(d->categoryId, d->sectionId, d->groupId);
+}
+
+QString QSettingsDialog::sectionContainerPath() const
+{
+	return SettingsPathParser::createPath(d->categoryId, d->sectionId);
 }
 
 QString QSettingsDialog::categoryId() const
@@ -144,6 +150,19 @@ bool QSettingsDialog::removeContainer(const QString &containerPath)
 	default:
 		Q_UNREACHABLE();
 	}
+}
+
+QSettingsContainer *QSettingsDialog::currentContainer(QObject *parent)
+{
+	if(d->groupId.isEmpty())
+		return new QSectionSettingsContainer(this, SettingsPathParser::createPath(d->categoryId, d->sectionId), parent);
+	else
+		return new QGroupSettingsContainer(this, SettingsPathParser::createPath(d->categoryId, d->sectionId, d->groupId), parent);
+}
+
+QSettingsContainer *QSettingsDialog::currentSectionContainer(QObject *parent)
+{
+	return new QSectionSettingsContainer(this, SettingsPathParser::createPath(d->categoryId, d->sectionId), parent);
 }
 
 int QSettingsDialog::appendEntry(QSettingsEntry *entry)
