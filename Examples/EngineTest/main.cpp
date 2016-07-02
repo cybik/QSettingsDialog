@@ -149,12 +149,13 @@ int main(int argc, char *argv[])
 //		qDebug() << e.what();
 //	}
 
-	//layout tests
+	//layout tests - dialog
 	QSettingsLayout dialogLayout = QSettingsLayout::dialogLayout(&dialog);
 	dialogLayout.createElement(1, "layoutCategory");
 	dialogLayout.moveElement(0, 2);
 	dialogLayout.moveElement(1, 0);
 
+	//layout tests - category
 	QSettingsLayout categoryLayout = dialogLayout.elementAt(1);
 	categoryLayout.createElement(0, "elem0");
 	categoryLayout.createElement(1, "elem1");
@@ -162,17 +163,65 @@ int main(int argc, char *argv[])
 	categoryLayout.createElement(3, "elem3");
 	categoryLayout.removeElement(2);
 	categoryLayout.setName("Layout Test");
+	try {
+		categoryLayout.setOptional(true);
+		Q_ASSERT(false);
+	} catch(LayoutPropertyNotDefinedException e) {
+		qDebug() << "Expected exception:" << e.what();
+	}
 	Q_ASSERT(categoryLayout.defaultElement(false).isNull());
 	Q_ASSERT(!categoryLayout.defaultElement(true).isNull());
 
+	//layout tests - section
 	QSettingsLayout sectionLayout = categoryLayout.elementAt(2);
 	sectionLayout.setName("Look here!");
 	sectionLayout.setIcon(QApplication::style()->standardIcon(QStyle::SP_ComputerIcon));
+	sectionLayout.createOptionalElement(0, "group2");
+	sectionLayout.createOptionalElement(0, "group1", QString(), true);
+	sectionLayout.createOptionalElement(0, "group0");
+	try {
+		sectionLayout.createElement(0, "42z");
+		Q_ASSERT(false);
+	} catch(LayoutPropertyNotDefinedException e) {
+		qDebug() << "Expected exception:" << e.what();
+	}
+
+	QSettingsLayout groupLayout = sectionLayout.elementAt(0);
+	groupLayout.setOptional(true);
+	try {
+		sectionLayout.createElement(0, "42z");
+		Q_ASSERT(false);
+	} catch(LayoutPropertyNotDefinedException e) {
+		qDebug() << "Expected exception:" << e.what();
+	}
+
+	//layout tests - group
+	QSettingsLayout transferToCategory = dialogLayout.elementAt(2);
+	categoryLayout.transferElement(0, transferToCategory, 1);
+
+	//test container from layout (group)
+	QGroupSettingsContainer layoutGroupContainer(&groupLayout);
+	layoutGroupContainer.appendEntry(new TestEntry(false, true));
+	layoutGroupContainer.appendEntry(new TestEntry(false, true));
+	layoutGroupContainer.appendEntry(new TestEntry(false, true));
+
+	//layout tests - entry
+	QSettingsLayout entryLayout = groupLayout.elementAt(1);
+	entryLayout.setName("The unique entry");
+	entryLayout.setOptional(true);
+	entryLayout.setTooltip("What is the answer to all question and the universe?");
+	try {
+		sectionLayout.createElement(0, "42z");
+		Q_ASSERT(false);
+	} catch(LayoutPropertyNotDefinedException e) {
+		qDebug() << "Expected exception:" << e.what();
+	}
 
 	//test container from layout
 	QSectionSettingsContainer layoutContainer(&sectionLayout);
 	layoutContainer.appendEntry(new TestEntry(false, false));
 	layoutContainer.appendEntry(new TestEntry(false, false));
+	sectionLayout.moveElement(4, 1);
 
 	dialog.openSettings();
 	dialog.execSettings();

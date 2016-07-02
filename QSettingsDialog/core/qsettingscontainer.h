@@ -55,6 +55,7 @@ class QSETTINGSDIALOGSHARED_EXPORT QGroupSettingsContainer : public QSettingsCon
 
 public:
 	explicit QGroupSettingsContainer(QSettingsDialog *settingsDialog, const QString &containerPath, QObject *parent = nullptr);
+	explicit QGroupSettingsContainer(QSettingsLayout *layout, QObject *parent = nullptr);
 	~QGroupSettingsContainer();
 
 	QSettingsDialog *dialog() const override;
