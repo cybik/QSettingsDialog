@@ -18,9 +18,12 @@ int main(int argc, char *argv[])
 	QSettingsWidgetDialogEngine::registerGlobalFactory(1, new SFactory(true));
 
 	QSettingsDialog dialog;
-//	auto engine = (QSettingsWidgetDialogEngine*) dialog.displayEngine();
-//	engine->addFactory(0, new SFactory(false));
-//	engine->addFactory(1, new SFactory(true));
+/*\
+|*| -> instead of global registering
+|*| auto engine = (QSettingsWidgetDialogEngine*) dialog.displayEngine();
+|*| engine->addFactory(0, new SFactory(false));
+|*| engine->addFactory(1, new SFactory(true));
+\*/
 
 	QObject::connect(&dialog, &QSettingsDialog::saved, [](bool close) {
 		qDebug() << "---- Save completed" << (close ? "with" : "without") << "closing ----";
@@ -37,7 +40,6 @@ int main(int argc, char *argv[])
 	dialog.setSection(".");
 	dialog.setSection("__", "Is it true?", QIcon(), "some tooltop");
 
-	dialog.setGroup(".");
 	dialog.appendEntry(new TestEntry(false, true, "moreText"));
 
 	dialog.setGroup("42", "Yes it is!", true, "Even here...");
@@ -76,19 +78,20 @@ int main(int argc, char *argv[])
 
 	//custom group test
 	dialog.setSection("customGroupsTest", "customGroupsTest");
-	dialog.setGroup(".");
+	dialog.unsetGroup();
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(false, true));
 
-	dialog.appendEntryAsGroup(new TestEntry(true, true, "LOOOOL"));
 	dialog.setGroup("someGroup", "someGroup");
-	dialog.appendEntryAsGroup(new TestEntry(false, false));
-	dialog.appendEntryAsGroup(new TestEntry(false, true, QVariant(), false));
-	dialog.appendEntryAsGroup(new TestEntry(false, false, QVariant(), false));
+	dialog.appendEntry(new TestEntry(true, true, "LOOOOL"));
+	dialog.appendEntry(new TestEntry(false, false));
+	dialog.unsetGroup();
+	dialog.appendEntry(new TestEntry(false, true, QVariant()));
+	dialog.appendEntry(new TestEntry(true, false, QVariant()));
 
 	//async test
 	dialog.setSection("asyncTest", "asyncTest");
-	dialog.setGroup(".");
+	dialog.unsetGroup();
 
 	dialog.appendEntry(new DelayedTestEntry("test500", 500));
 	dialog.appendEntry(new DelayedTestEntry("test1000", 1000));
@@ -101,44 +104,45 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(threaded);
 
 	//container test
+	//TODO test more
 	dialog.setContainer("containerTest/b/normal");
 	dialog.appendEntry(new TestEntry(false, true));
 
-	QSettingsContainer container(&dialog, "containerTest/b/normal");
+	QGroupSettingsContainer container(&dialog, "containerTest/b/normal");
 	container.appendEntry(new TestEntry(true, true));
 	auto rem = dialog.appendEntry(new TestEntry(false, true));
 	container.insertEntry(1, new TestEntry(false, false));
 
-	QSettingsContainer container2(&dialog, "containerTest/b/normal");
+	QGroupSettingsContainer container2(&dialog, "containerTest/b/normal");
 	container2.removeEntry(rem);
 	dialog.prependEntry(new TestEntry(false, true));
 
-	QSettingsContainer container3(&dialog, "containerTest/b/normal_trans");
+	QGroupSettingsContainer container3(&dialog, "containerTest/b/normal_trans");
 	container2.transferElement(0, &container3, 0);
 
-	//async container test
-	QAsyncSettingsContainer asyncContainer(&dialog, "containerTest/b/async");
-	asyncContainer.appendEntry(new TestEntry(false, false));
-	dialog.appendEntry(new TestEntry(true, true));
-	try {
-		dialog.appendEntry("containerTest/b/async", new TestEntry(true, true));
-		Q_ASSERT(false);
-	} catch(ContainerLockedException e) {
-		qDebug() << e.what();
-	}
-	try {
-		QAsyncSettingsContainer asyncContainer2(&dialog, "containerTest/b/async");
-		Q_ASSERT(false);
-	} catch(ContainerLockedException e) {
-		qDebug() << e.what();
-	}
-	try {
-		QSettingsContainer container4(&dialog, "containerTest/b/async");
-		container4.appendEntry(new TestEntry(true, false));
-		Q_ASSERT(false);
-	} catch(ContainerLockedException e) {
-		qDebug() << e.what();
-	}
+//	//async container test
+//	QAsyncSettingsContainer asyncContainer(&dialog, "containerTest/b/async");
+//	asyncContainer.appendEntry(new TestEntry(false, false));
+//	dialog.appendEntry(new TestEntry(true, true));
+//	try {
+//		dialog.appendEntry("containerTest/b/async", new TestEntry(true, true));
+//		Q_ASSERT(false);
+//	} catch(ContainerLockedException e) {
+//		qDebug() << e.what();
+//	}
+//	try {
+//		QAsyncSettingsContainer asyncContainer2(&dialog, "containerTest/b/async");
+//		Q_ASSERT(false);
+//	} catch(ContainerLockedException e) {
+//		qDebug() << e.what();
+//	}
+//	try {
+//		QSettingsContainer container4(&dialog, "containerTest/b/async");
+//		container4.appendEntry(new TestEntry(true, false));
+//		Q_ASSERT(false);
+//	} catch(ContainerLockedException e) {
+//		qDebug() << e.what();
+//	}
 
 	//layout tests
 	QSettingsLayout dialogLayout = QSettingsLayout::dialogLayout(&dialog);
@@ -153,42 +157,15 @@ int main(int argc, char *argv[])
 	categoryLayout.createElement(3, "elem3");
 	categoryLayout.removeElement(2);
 	categoryLayout.setName("Layout Test");
-	try {
-		categoryLayout.setOptional(true);
-		Q_ASSERT(false);
-	} catch(LayoutPropertyNotDefinedException e) {
-		qDebug() << e.what();
-	}
 	Q_ASSERT(categoryLayout.defaultElement(false).isNull());
 	Q_ASSERT(!categoryLayout.defaultElement(true).isNull());
 
 	QSettingsLayout sectionLayout = categoryLayout.elementAt(2);
 	sectionLayout.setName("Look here!");
 	sectionLayout.setIcon(QApplication::style()->standardIcon(QStyle::SP_ComputerIcon));
-	sectionLayout.createOptionalElement(0, "group2");
-	sectionLayout.createOptionalElement(0, "group1", QString(), true);
-	sectionLayout.createOptionalElement(0, "group0");
-	try {
-		sectionLayout.createElement(0, "42z");
-		Q_ASSERT(false);
-	} catch(LayoutPropertyNotDefinedException e) {
-		qDebug() << e.what();
-	}
-
-	QSettingsLayout groupLayout = sectionLayout.elementAt(0);
-	groupLayout.setOptional(true);
-	try {
-		sectionLayout.createElement(0, "42z");
-		Q_ASSERT(false);
-	} catch(LayoutPropertyNotDefinedException e) {
-		qDebug() << e.what();
-	}
-
-	QSettingsLayout transferToCategory = dialogLayout.elementAt(2);
-	categoryLayout.transferElement(0, transferToCategory, 1);
 
 	//test container from layout
-	QSettingsContainer layoutContainer(&dialog, groupLayout.containerPath());
+	QSectionSettingsContainer layoutContainer(&sectionLayout);
 	layoutContainer.appendEntry(new TestEntry(false, false));
 	layoutContainer.appendEntry(new TestEntry(false, false));
 

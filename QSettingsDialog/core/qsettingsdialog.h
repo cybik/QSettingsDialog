@@ -43,7 +43,7 @@ public:
 				  const QString &name = QString(),
 				  bool optional = false,
 				  const QString &tooltip = QString());
-	void unsetGroup();
+	void unsetGroup();//TODO set with "." instead?
 
 	void setContainer(const QString &containerPath);
 	bool removeContainer(const QString &containerPath);

@@ -2,12 +2,11 @@
 #include <QDebug>
 #include "swidget.h"
 
-TestEntry::TestEntry(bool optional, bool working, QVariant data, bool hasName) :
+TestEntry::TestEntry(bool optional, bool working, QVariant data) :
 	QSettingsLoaderEntry(working ? 0 : -1),
 	data(data)
 {
-	if(hasName)
-		this->setEntryName("Test Entry");
+	this->setEntryName("Test Entry");
 	this->setOptional(optional);
 	this->setTooltip("Baum == 42");
 }
