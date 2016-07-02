@@ -14,7 +14,7 @@ public:
 
 	QSectionSettingsContainer *q_ptr;
 	QSettingsDialogPrivate *dialog;
-	QString containerPath;
+	const QString containerPath;
 
 	QSharedPointer<SettingsSection> section;
 };
@@ -26,7 +26,7 @@ public:
 
 	QGroupSettingsContainer *q_ptr;
 	QSettingsDialogPrivate *dialog;
-	QString containerPath;
+	const QString containerPath;
 
 	QSharedPointer<SettingsGroup> group;
 };
