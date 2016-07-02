@@ -74,6 +74,16 @@ void QSettingsLayout::setTooltip(const QString &tooltip)
 	d->createTooltipRef() = tooltip;
 }
 
+bool QSettingsLayout::isOptional() const
+{
+	return d->createOptionalRef();
+}
+
+void QSettingsLayout::setOptional(bool optional)
+{
+	d->createOptionalRef() = optional;
+}
+
 QSettingsLayout QSettingsLayout::defaultElement(bool allowCreateNew) const
 {
 	auto element = d->creatDefaultElement(allowCreateNew);
@@ -105,6 +115,18 @@ QSettingsLayout QSettingsLayout::createElement(int index, const QString &id, con
 	element.d_ptr->parentElement = this->d_ptr;
 	element.setName(name.isNull() ? id : name);
 	element.setIcon(icon);
+	element.setTooltip(tooltip);
+	d->insertElement(index, element);
+	return element;
+}
+
+QSettingsLayout QSettingsLayout::createOptionalElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
+{
+	SettingsPathParser::validateId(id, true);
+	auto element = d->createEmptySubElement(id);
+	element.d_ptr->parentElement = this->d_ptr;
+	element.setName(name.isNull() ? id : name);
+	element.setOptional(optional);
 	element.setTooltip(tooltip);
 	d->insertElement(index, element);
 	return element;

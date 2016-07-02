@@ -4,6 +4,7 @@
 #include "qsettingsdialog_global.h"
 #include "qsettingslayout.h"
 #include "containerelements.h"
+#include "qsettingsentry_p.h"
 
 class QSettingsLayoutPrivate
 {
@@ -23,11 +24,12 @@ public:
 	QPointer<QSettingsDialog> dialog;
 
 	virtual bool testNull() const = 0;
-	QString createIdPath() const;
+	virtual QString createIdPath() const;
 
 	virtual QString &createNameRef() = 0;
 	virtual QIcon &createIconRef() = 0;
 	virtual QString &createTooltipRef() = 0;
+	virtual bool &createOptionalRef() = 0;
 
 	virtual QSettingsLayout creatDefaultElement(bool createNew) = 0;
 	virtual QSettingsLayout createEmptySubElement(const QString &id) = 0;
@@ -39,6 +41,150 @@ public:
 	virtual void removeElement(int index) = 0;
 	virtual void moveElement(int indexFrom, int indexTo) = 0;
 
+};
+
+class SettingsEntryLayout : public QSettingsLayoutPrivate
+{
+	friend class SettingsGroupLayout;
+public:
+	SettingsEntryLayout(int id, QSharedPointer<QSettingsEntry> element, QSettingsDialog *dialog) :
+		QSettingsLayoutPrivate(QStringLiteral("#%1").arg(id), QSettingsLayout::EntryLayout, dialog),
+		element(element)
+	{}
+
+	int getId() const {
+		return this->id.mid(1).toInt();
+	}
+	static int getId(QSettingsLayout element) {
+		auto elementPrivate = sharedSafeCast(SettingsEntryLayout, element.d_ptr);
+		return elementPrivate->getId();
+	}
+
+	bool testNull() const {
+		return this->element.isNull();
+	}
+
+	QString createIdPath() const override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	QString &createNameRef() override {
+		return this->element->d_ptr->name;
+	}
+
+	QIcon &createIconRef() override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	QString &createTooltipRef() override {
+		return this->element->d_ptr->tooltip;
+	}
+
+	bool &createOptionalRef() override {
+		return this->element->d_ptr->optional;
+	}
+
+	QSettingsLayout creatDefaultElement(bool) override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	QSettingsLayout createEmptySubElement(const QString &) override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	int elementCount() const override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	QSettingsLayout elementAt(int) const override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	int indexOfElement(const QSettingsLayout &) const override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	void insertElement(int, const QSettingsLayout &) override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	void removeElement(int) override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	void moveElement(int, int) override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+private:
+	QSharedPointer<QSettingsEntry> element;
+};
+
+class SettingsGroupLayout : public QSettingsLayoutPrivate
+{
+	friend class SettingsSectionLayout;
+public:
+	SettingsGroupLayout(const QString &id, QSharedPointer<SettingsGroup> element, QSettingsDialog *dialog) :
+		QSettingsLayoutPrivate(id, QSettingsLayout::GroupLayout, dialog),
+		element(element)
+	{}
+
+	bool testNull() const {
+		return this->element.isNull();
+	}
+
+	QString &createNameRef() override {
+		return this->element->name;
+	}
+
+	QIcon &createIconRef() override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	QString &createTooltipRef() override {
+		return this->element->tooltip;
+	}
+
+	bool &createOptionalRef() override {
+		return this->element->isOptional;
+	}
+
+	QSettingsLayout creatDefaultElement(bool) override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	QSettingsLayout createEmptySubElement(const QString &) override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	int elementCount() const override {
+		return this->element->entries.size();
+	}
+
+	QSettingsLayout elementAt(int index) const override {
+		auto entry = this->element->entries.entry(index);
+		return new SettingsEntryLayout(entry.first, entry.second, this->dialog);
+	}
+
+	int indexOfElement(const QSettingsLayout &element) const override {
+		return this->element->entries.index(SettingsEntryLayout::getId(element));
+	}
+
+	void insertElement(int index, const QSettingsLayout &element) override {
+		auto elementPrivate = sharedSafeCast(SettingsEntryLayout, element.d_ptr);
+		this->element->entries.insert(index, elementPrivate->getId(), elementPrivate->element);
+	}
+
+	void removeElement(int index) override {
+		this->element->entries.remove(index);
+	}
+
+	void moveElement(int indexFrom, int indexTo) override {
+		this->element->entries.move(indexFrom, indexTo);
+	}
+
+private:
+	QSharedPointer<SettingsGroup> element;
 };
 
 class SettingsSectionLayout : public QSettingsLayoutPrivate
@@ -66,36 +212,45 @@ public:
 		return this->element->tooltip;
 	}
 
+	bool &createOptionalRef() override {
+		throw LayoutPropertyNotDefinedException();
+	}
+
 	QSettingsLayout creatDefaultElement(bool) override {
 		throw LayoutPropertyNotDefinedException();
 	}
 
-	QSettingsLayout createEmptySubElement(const QString &) override {
-		throw LayoutPropertyNotDefinedException();
+	QSettingsLayout createEmptySubElement(const QString &id) override {
+		return QSettingsLayout(new SettingsGroupLayout(id, QSharedPointer<SettingsGroup>(new SettingsGroup(QString())), this->dialog));
 	}
 
 	int elementCount() const override {
-		throw LayoutPropertyNotDefinedException();
+		return this->element->groups.size();
 	}
 
-	QSettingsLayout elementAt(int ) const override {
-		throw LayoutPropertyNotDefinedException();
+	QSettingsLayout elementAt(int index) const override {
+		auto entry = this->element->groups.entry(index);
+		if(entry.first.type() == QMetaType::QString)
+			return QSettingsLayout(new SettingsGroupLayout(entry.first.toString(), entry.second.first, this->dialog));
+		else
+			return QSettingsLayout(new SettingsEntryLayout(entry.first.toInt(), entry.second.second, this->dialog));
 	}
 
-	int indexOfElement(const QSettingsLayout &) const override {
-		throw LayoutPropertyNotDefinedException();
+	int indexOfElement(const QSettingsLayout &element) const override {
+		return this->element->groups.index(resolveId(element.id()));
 	}
 
-	void insertElement(int, const QSettingsLayout &) override {
-		throw LayoutPropertyNotDefinedException();
+	void insertElement(int index, const QSettingsLayout &element) override {
+		auto elementPrivate = sharedSafeCast(SettingsGroupLayout, element.d_ptr);
+		this->element->groups.insert(index, elementPrivate->id, elementPrivate->element);
 	}
 
-	void removeElement(int) override 	{
-		throw LayoutPropertyNotDefinedException();
+	void removeElement(int index) override 	{
+		this->element->groups.remove(index);
 	}
 
-	void moveElement(int, int) override {
-		throw LayoutPropertyNotDefinedException();
+	void moveElement(int indexFrom, int indexTo) override {
+		this->element->groups.move(indexFrom, indexTo);
 	}
 
 private:
@@ -132,6 +287,10 @@ public:
 
 	QString &createTooltipRef() override {
 		return this->element->tooltip;
+	}
+
+	bool &createOptionalRef() override {
+		throw LayoutPropertyNotDefinedException();
 	}
 
 	QSettingsLayout creatDefaultElement(bool createNew) override {
@@ -195,6 +354,10 @@ public:
 	}
 
 	QString &createTooltipRef() override 	{
+		throw LayoutPropertyNotDefinedException();
+	}
+
+	bool &createOptionalRef() override {
 		throw LayoutPropertyNotDefinedException();
 	}
 

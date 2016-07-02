@@ -1,40 +1,8 @@
 #include "qsettingsentry.h"
+#include "qsettingsentry_p.h"
 #include <QThread>
 
 #define d this->d_ptr
-
-class QSettingsEntryPrivate
-{
-public:
-	struct LoaderDeleter {
-		static void cleanup(QSettingsLoader *loader);
-	};
-
-	inline QSettingsEntryPrivate(int displaytype, QSettingsLoader *loader) :
-		displaytype(displaytype),
-		loader(loader),
-		name(),
-		optional(),
-		tooltip(),
-		properties()
-#ifndef QT_NO_DEBUG
-		,refCounter(0)
-#endif
-	{}
-
-	const int displaytype;
-	QScopedPointer<QSettingsLoader, LoaderDeleter> loader;//TODO wont work for threads...
-
-	QString name;
-	bool optional;
-	QString tooltip;
-
-	QSettingsEntry::UiPropertyMap properties;
-
-#ifndef QT_NO_DEBUG
-	int refCounter;
-#endif
-};
 
 QSettingsEntry::QSettingsEntry(int displaytype, QSettingsLoader *loader) :
 	d_ptr(new QSettingsEntryPrivate(displaytype, loader))

@@ -14,6 +14,8 @@ class QSettingsLayoutPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsLayout
 {
 	friend class QSettingsDialogLayout;
+	friend class SettingsEntryLayout;
+	friend class SettingsGroupLayout;
 	friend class SettingsSectionLayout;
 	friend class SettingsCategoryLayout;
 	friend class SettingsRootLayout;
@@ -22,7 +24,9 @@ public:
 	enum LayoutType {
 		DialogLayout,
 		CategoryLayout,
-		SectionLayout
+		SectionLayout,
+		GroupLayout,
+		EntryLayout
 	};
 
 	static QSettingsLayout dialogLayout(QSettingsDialog *settingsDialog);
@@ -42,6 +46,8 @@ public:
 	void setIcon(const QIcon &icon);
 	QString tooltip() const;
 	void setTooltip(const QString &tooltip);
+	bool isOptional() const;
+	void setOptional(bool optional);
 
 	QSettingsLayout defaultElement(bool allowCreateNew = false) const;
 
@@ -52,7 +58,12 @@ public:
 								  const QString &id,
 								  const QString &name = QString(),
 								  const QIcon &icon = QIcon(),
-								  const QString &tooltip = QString());
+								  const QString &tooltip = QString());	
+	QSettingsLayout createOptionalElement(int index,
+										  const QString &id,
+										  const QString &name = QString(),
+										  bool optional = false,
+										  const QString &tooltip = QString());
 	void removeElement(int index);
 	void moveElement(int indexFrom, int indexTo);
 

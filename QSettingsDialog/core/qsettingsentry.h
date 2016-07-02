@@ -9,6 +9,8 @@
 class QSettingsEntryPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsEntry
 {
+	friend class SettingsEntryLayout;
+
 public:
 	typedef QHash<QString, QVariant> UiPropertyMap;
 
