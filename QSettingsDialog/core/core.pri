@@ -6,7 +6,8 @@ HEADERS += \
     $$PWD/qsettingscontainer.h \
     $$PWD/exceptions.h \
 	$$PWD/qsettingslayout.h \
-	$$PWD/qsettingsdisplayengine.h
+	$$PWD/qsettingsdisplayengine.h \
+    $$PWD/qasyncsettingscontainer.h
 
 DISTFILES += \
 	$$PWD/container_path_syntax.txt

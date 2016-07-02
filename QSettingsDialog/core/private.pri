@@ -5,7 +5,8 @@ HEADERS += \
 	$$PWD/sortedmap.h \
 	$$PWD/specialgroupmap.h \
     $$PWD/qsettingslayout_p.h \
-    $$PWD/qsettingsentry_p.h
+    $$PWD/qsettingsentry_p.h \
+    $$PWD/qasyncsettingscontainer_p.h
 
 SOURCES += \
 	$$PWD/qsettingsloader.cpp \
@@ -15,4 +16,5 @@ SOURCES += \
 	$$PWD/exceptions.cpp \
     $$PWD/specialgroupmap.cpp \
 	$$PWD/qsettingslayout.cpp \
-    $$PWD/qsettingsentry.cpp
+	$$PWD/qsettingsentry.cpp \
+    $$PWD/qasyncsettingscontainer.cpp

@@ -145,22 +145,4 @@ private:
 	QScopedPointer<QSectionSettingsContainerPrivate> d_ptr;
 };
 
-class QSETTINGSDIALOGSHARED_EXPORT QAsyncSettingsContainer
-{
-	Q_OBJECT
-
-public:
-	QAsyncSettingsContainer(QSettingsContainer *workingContainer, QObject *parent = nullptr);
-
-	virtual QSettingsContainer *workingContainer() const;
-
-	//HERE
-public slots:
-	void appendEntry(QSettingsEntry *entry);
-	void prependEntry(QSettingsEntry *entry);
-
-private:
-	QPointer<QSettingsContainer> container;
-};
-
 #endif // QSETTINGSCONTAINER_H
