@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QCheckBox>
-#include <QGroupBox>
+#include "qsettingsgroupwidget.h"
 
 class CheckingHelper
 {
@@ -22,7 +22,7 @@ public:
 		return this->initState != this->testChecked();
 	}
 	virtual bool testChecked() const = 0;
-	virtual void disable() = 0;
+	virtual void disableLabel() = 0;
 
 private:
 	bool initState;
@@ -31,98 +31,10 @@ private:
 class CheckingLabel : public QLabel, public CheckingHelper
 {
 public:
-	inline CheckingLabel(QWidget *parent = nullptr, CheckingHelper *checker = nullptr) :
+	inline CheckingLabel(QWidget *parent = nullptr) :
 		QLabel(parent),
-		CheckingHelper(),
-		checker(checker)
-	{}
-
-	inline void doCheck() override {
-		if(this->checker)
-			this->checker->doCheck();
-	}
-
-	inline bool testChecked() const override {
-		if(this->checker)
-			return this->checker->testChecked();
-		else
-			return true;
-	}
-
-	inline void disable() override {
-		this->setEnabled(false);
-	}
-
-private:
-	CheckingHelper *checker;
-};
-
-class CheckingCheckBox : public QCheckBox, public CheckingHelper
-{
-public:
-	inline CheckingCheckBox(QWidget *parent = nullptr, CheckingHelper *checker = nullptr) :
-		QCheckBox(parent),
-		CheckingHelper(),
-		checker(checker)
-	{}
-
-	inline void doCheck() override {
-		this->setChecked(true);
-		if(this->checker)
-			this->checker->doCheck();
-	}
-
-	inline bool testChecked() const override {
-		if(this->checker && !this->checker->testChecked())
-			return false;
-		else
-			return this->isChecked();
-	}
-
-	inline void disable() override {
-		this->setEnabled(false);
-	}
-
-private:
-	CheckingHelper *checker;
-};
-
-class CheckingGroupBox : public QGroupBox, public CheckingHelper
-{
-public:
-	inline CheckingGroupBox(QWidget *parent = nullptr) :
-		QGroupBox(parent),
 		CheckingHelper()
 	{}
-
-	inline void doCheck() override {
-		if(this->isCheckable())
-			this->setChecked(true);
-	}
-
-	inline bool testChecked() const override {
-		if(this->isCheckable())
-			return this->isChecked();
-		else
-			return true;
-	}
-
-	inline void disable() override {
-		this->setEnabled(false);
-	}
-};
-
-class CheckingWrapper : public CheckingHelper
-{
-public:
-	inline CheckingWrapper(QWidget *element) :
-		CheckingHelper(),
-		element(element)
-	{
-		QObject::connect(element, &QWidget::destroyed, [this](){
-			delete this;
-		});
-	}
 
 	inline void doCheck() override {}
 
@@ -130,12 +42,64 @@ public:
 		return true;
 	}
 
-	inline void disable() override {
-		this->element->setEnabled(false);
+	inline void disableLabel() override {
+		this->setEnabled(false);
+	}
+};
+
+class CheckingCheckBox : public QCheckBox, public CheckingHelper
+{
+public:
+	inline CheckingCheckBox(QWidget *parent = nullptr) :
+		QCheckBox(parent),
+		CheckingHelper()
+	{}
+
+	inline void doCheck() override {
+		this->setChecked(true);
+	}
+
+	inline bool testChecked() const override {
+		return this->isChecked();
+	}
+
+	inline void disableLabel() override {
+		this->setEnabled(false);
+	}
+};
+
+class GroupCheckingHelper : public CheckingHelper
+{
+public:
+	inline GroupCheckingHelper(QSettingsGroupWidgetBase *element, QSharedPointer<QSettingsEntry> entry) :
+		CheckingHelper(),
+		element(element),
+		entry(entry)
+	{
+		QObject::connect(element->asWidget(), &QWidget::destroyed, [this](){
+			delete this;
+		});
+	}
+
+	inline void doCheck() override {
+		this->element->setEntryChecked(this->entry, true);
+		this->element->setChecked(true);
+	}
+
+	inline bool testChecked() const override {
+		if(this->element->isChecked())
+			return this->element->isEntryChecked(this->entry);
+		else
+			return false;
+	}
+
+	inline void disableLabel() override {
+		this->element->setEntryLabelEnabled(this->entry, false);
 	}
 
 private:
-	QWidget *element;
+	QSettingsGroupWidgetBase *element;
+	QSharedPointer<QSettingsEntry> entry;
 };
 
 #endif // CHECKINGHELPER_H

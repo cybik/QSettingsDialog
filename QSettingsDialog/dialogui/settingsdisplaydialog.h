@@ -5,10 +5,11 @@
 #include <QStyledItemDelegate>
 #include <QAbstractButton>
 #include <QProgressDialog>
+#include <QFormLayout>
 #include <functional>
 #include "qsettingswidgetdialogengine.h"
 #include "containerelements.h"
-#include "checkinghelper.h"
+#include "qsettingsgroupwidget.h"
 class SettingsEngine;
 
 namespace Ui {
@@ -87,9 +88,9 @@ private:
 
 	void createCategory(const QSharedPointer<SettingsCategory> &category);
 	void createSection(const QSharedPointer<SettingsSection> &section, QTabWidget *tabWidget);
-	void createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget);
-//	void createCustomGroup(const QSharedPointer<QSettingsEntry> &group, QWidget *contentWidget);
-	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *groupWidget, CheckingHelper *helper);
+	void createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget, QFormLayout *layout);
+	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *sectionWidget, QFormLayout *layout);
+	void createEntry(const QSharedPointer<QSettingsEntry> &entry, QSettingsGroupWidgetBase *group);
 
 	QWidget *createErrorWidget(QWidget *parent);
 
