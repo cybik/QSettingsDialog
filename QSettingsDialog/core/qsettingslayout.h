@@ -41,6 +41,8 @@ public:
 
 	QSettingsLayout parentContainer() const;
 
+	int displayId() const;
+	void setDisplayId(int displayId);
 	QString name() const;
 	void setName(const QString &name);
 	QIcon icon() const;
@@ -60,11 +62,12 @@ public:
 								  const QString &name = QString(),
 								  const QIcon &icon = QIcon(),
 								  const QString &tooltip = QString());	
-	QSettingsLayout createOptionalElement(int index,
-										  const QString &id,
-										  const QString &name = QString(),
-										  bool optional = false,
-										  const QString &tooltip = QString());
+	QSettingsLayout createGroupElement(int index,
+									   const QString &id,
+									   int displayId = 0,
+									   const QString &name = QString(),
+									   bool optional = false,
+									   const QString &tooltip = QString());
 	void removeElement(int index);
 	void moveElement(int indexFrom, int indexTo);
 

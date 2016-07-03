@@ -13,13 +13,15 @@
 class QSettingsContainer;
 struct SettingsGroup
 {
+	int displayId;
 	QString name;
 	QString tooltip;
 	bool isOptional;
 
 	SortedMap<int, QSettingsEntry> entries;
 
-	inline SettingsGroup(const QString &name) :
+	inline SettingsGroup(int displayId, const QString &name) :
+		displayId(displayId),
 		name(name),
 		tooltip(),
 		isOptional(false),

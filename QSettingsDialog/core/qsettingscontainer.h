@@ -129,9 +129,22 @@ public slots:
 	int insertEntry(int index, QSettingsEntry *entry) override;
 	int insertEntry(int index, QSharedPointer<QSettingsEntry> entry) override;
 
-	void appendGroup(const QString &id, const QString &name = QString());
-	void prependGroup(const QString &id, const QString &name = QString());
-	void insertGroup(int index, const QString &id, const QString &name = QString());
+	void appendGroup(const QString &id,
+					 int displayId = 0,
+					 const QString &name = QString(),
+					 bool optional = false,
+					 const QString &tooltip = QString());
+	void prependGroup(const QString &id,
+					  int displayId = 0,
+					  const QString &name = QString(),
+					  bool optional = false,
+					  const QString &tooltip = QString());
+	void insertGroup(int index,
+					 const QString &id,
+					 int displayId = 0,
+					 const QString &name = QString(),
+					 bool optional = false,
+					 const QString &tooltip = QString());
 
 	bool removeEntry(int id) override;
 	bool removeGroup(const QString &id);

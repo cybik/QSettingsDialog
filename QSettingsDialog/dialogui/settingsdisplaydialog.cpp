@@ -355,20 +355,20 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 			this->createGroup(group.second.first, scrollContent, layout);
 	}
 }
-#include "settingsgroupbox.h"
+
 void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget, QFormLayout *layout)
 {
-	QSettingsGroupWidgetBase *box = new SettingsGroupBox(contentWidget);
-	box->setName(group->name);
-	box->setTooltip(group->tooltip.isNull() ? group->name : group->tooltip);
-	box->setOptional(group->isOptional);
-	layout->addRow(box->asWidget());
+	auto groupWidget = this->dialogEngine->createGroupWidget(group->displayId, nullptr, contentWidget);
+	groupWidget->setName(group->name);
+	groupWidget->setTooltip(group->tooltip.isNull() ? group->name : group->tooltip);
+	groupWidget->setOptional(group->isOptional);
+	layout->addRow(groupWidget->asWidget());
 
 	foreach(auto entry, group->entries)
-		this->createEntry(entry.second, box);
+		this->createEntry(entry.second, groupWidget);
 
 	if(group->isOptional)
-		box->setChecked(false);
+		groupWidget->setChecked(false);
 }
 
 void SettingsDisplayDialog::createEntry(const QSharedPointer<QSettingsEntry> &entry, QWidget *sectionWidget, QFormLayout *layout)

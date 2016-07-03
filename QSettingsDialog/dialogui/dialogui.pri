@@ -4,7 +4,8 @@ HEADERS +=  \
     $$PWD/qsettingswidgetfactory.h \
     $$PWD/qsettingswidgetfactoryregistry.h \
     $$PWD/qsettingsdialogwidget.h \
-    $$PWD/qsettingsgroupwidget.h
+    $$PWD/qsettingsgroupwidget.h \
+    $$PWD/qsettingsgroupwidgetfactory.h
 
 INCLUDEPATH += $$PWD
 

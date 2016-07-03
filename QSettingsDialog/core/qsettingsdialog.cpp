@@ -87,13 +87,15 @@ void QSettingsDialog::setSection(const QString &id, const QString &name, const Q
 		element->tooltip = tooltip;
 }
 
-void QSettingsDialog::setGroup(const QString &id, const QString &name, bool optional, const QString &tooltip)
+void QSettingsDialog::setGroup(const QString &id, int displayId, const QString &name, bool optional, const QString &tooltip)
 {
 	auto element = d->getGroup(id);
 	Q_ASSERT(!element.isNull());
 	if(!id.isEmpty())
 		d->groupId = id;
 
+	if(displayId != -1)
+		element->displayId = displayId;
 	if(!name.isNull())
 		element->name = name;
 	if(!tooltip.isNull())
@@ -418,7 +420,7 @@ QSharedPointer<SettingsGroup> QSettingsDialogPrivate::getGroup(QString groupId, 
 	else {
 		auto element = section->groups.valueId(groupId);
 		if(element.isNull())
-			element = section->groups.append(groupId, new SettingsGroup(groupId));
+			element = section->groups.append(groupId, new SettingsGroup(0, groupId));
 		return element;
 	}
 }

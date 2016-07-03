@@ -10,13 +10,16 @@ class QSettingsWidgetDialogEnginePrivate
 {
 public:
 	static QList<QSharedPointer<QSettingsWidgetFactoryRegistry>> globalRegistries;
+	static QHash<int, QSharedPointer<QSettingsGroupWidgetFactory>> globalGroupFactories;
 
 	QSharedPointer<CommonFactoryRegistry> commonFactory;
 	QMultiMap<int, QSharedPointer<QSettingsWidgetFactoryRegistry>> currentRegistries;
+	QHash<int, QSharedPointer<QSettingsGroupWidgetFactory>> groupFactories;
 
 	QSettingsWidgetDialogEnginePrivate() :
 		commonFactory(new CommonFactoryRegistry()),
-		currentRegistries()
+		currentRegistries(),
+		groupFactories(globalGroupFactories)
 	{
 		this->currentRegistries.insert(this->commonFactory->priority(), this->commonFactory);
 		foreach(auto reg, globalRegistries)
@@ -25,6 +28,7 @@ public:
 };
 
 QList<QSharedPointer<QSettingsWidgetFactoryRegistry>> QSettingsWidgetDialogEnginePrivate::globalRegistries;
+QHash<int, QSharedPointer<QSettingsGroupWidgetFactory>> QSettingsWidgetDialogEnginePrivate::globalGroupFactories;
 
 QSettingsWidgetDialogEngine::QSettingsWidgetDialogEngine() :
 	d_ptr(new QSettingsWidgetDialogEnginePrivate())
@@ -37,17 +41,22 @@ QSettingsDisplayInstance *QSettingsWidgetDialogEngine::createInstance()
 	return new SettingsDisplayDialog(this);
 }
 
-void QSettingsWidgetDialogEngine::addFactory(int metatype, QSettingsWidgetFactory *factory)
+void QSettingsWidgetDialogEngine::addFactory(int displayId, QSettingsWidgetFactory *factory)
 {
-	d->commonFactory->insertFactory(metatype, factory);
+	d->commonFactory->insertFactory(displayId, factory);
 }
 
-QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, const QSettingsEntry::UiPropertyMap &properties, QWidget *parent) const
+void QSettingsWidgetDialogEngine::addGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory)
+{
+	d->groupFactories.insert(displayId, QSharedPointer<QSettingsGroupWidgetFactory>(factory));
+}
+
+QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int displayId, const QSettingsEntry::UiPropertyMap &properties, QWidget *parent) const
 {
 	QSettingsWidgetBase *widget = nullptr;
 
 	foreach(auto registry, d->currentRegistries.values()) {
-		auto factory = registry->tryResolve(metatype);
+		auto factory = registry->tryResolve(displayId);
 		if(factory) {
 			widget = factory->createWidget(parent);
 			if(widget)
@@ -60,9 +69,26 @@ QSettingsWidgetBase *QSettingsWidgetDialogEngine::createWidget(int metatype, con
 	return widget;
 }
 
-void QSettingsWidgetDialogEngine::registerGlobalFactory(int metatype, QSettingsWidgetFactory *factory)
+QSettingsGroupWidgetBase *QSettingsWidgetDialogEngine::createGroupWidget(int displayId, const QSettingsEntry::UiPropertyMap &properties, QWidget *parent) const
 {
-	CommonFactoryRegistry::addGlobalFactory(metatype, factory);
+	auto factory = d->groupFactories.value(displayId);
+	if(factory) {
+		QSettingsGroupWidgetBase *widget = factory->createGroupWidget(parent);
+		if(widget)
+			widget->initialize(properties);
+		return widget;
+	} else
+		return nullptr;
+}
+
+void QSettingsWidgetDialogEngine::registerGlobalFactory(int displayId, QSettingsWidgetFactory *factory)
+{
+	CommonFactoryRegistry::addGlobalFactory(displayId, factory);
+}
+
+void QSettingsWidgetDialogEngine::registerGlobalGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory)
+{
+	QSettingsWidgetDialogEnginePrivate::globalGroupFactories.insert(displayId, QSharedPointer<QSettingsGroupWidgetFactory>(factory));
 }
 
 void QSettingsWidgetDialogEngine::addRegistry(QSettingsWidgetFactoryRegistry *registry)

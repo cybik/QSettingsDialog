@@ -4,6 +4,7 @@
 #include "qsettingsdialog_global.h"
 #include "qsettingsdisplayengine.h"
 #include "qsettingswidgetfactoryregistry.h"
+#include "qsettingsgroupwidgetfactory.h"
 #include "qsettingsentry.h"
 #include <QScopedPointer>
 
@@ -16,17 +17,28 @@ public:
 
 	QSettingsDisplayInstance *createInstance() override;
 
-	void addFactory(int metatype, QSettingsWidgetFactory *factory);
+	void addFactory(int displayId, QSettingsWidgetFactory *factory);
 	template<typename TSettingsWidget>
-	void addWidgetType(int metatype);
+	void addWidgetType(int displayId);
 
-	QSettingsWidgetBase *createWidget(int metatype,
+	void addGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory);
+	template<typename TSettingsGroupWidget>
+	void addGroupWidgetType(int displayId);
+
+	QSettingsWidgetBase *createWidget(int displayId,
 									  const QSettingsEntry::UiPropertyMap &properties,
 									  QWidget *parent) const;
+	QSettingsGroupWidgetBase *createGroupWidget(int displayId,
+												const QSettingsEntry::UiPropertyMap &properties,
+												QWidget *parent) const;
 
-	static void registerGlobalFactory(int metatype, QSettingsWidgetFactory *factory);
+	static void registerGlobalFactory(int displayId, QSettingsWidgetFactory *factory);
 	template<typename TSettingsWidget>
-	static void registerGlobalWidgetType(int metatype);
+	static void registerGlobalWidgetType(int displayId);
+
+	static void registerGlobalGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory);
+	template<typename TSettingsGroupWidget>
+	static void registerGlobalGroupWidgetType(int displayId);
 
 	void addRegistry(QSettingsWidgetFactoryRegistry *registry);
 	static void registerGlobalRegistry(QSettingsWidgetFactoryRegistry *registry);
@@ -36,13 +48,23 @@ private:
 };
 
 template<typename TSettingsWidget>
-void QSettingsWidgetDialogEngine::addWidgetType(int metatype) {
-	this->addFactory(metatype, new GenericSettingsWidgetFactory<TSettingsWidget>());
+void QSettingsWidgetDialogEngine::addWidgetType(int displayId) {
+	this->addFactory(displayId, new GenericSettingsWidgetFactory<TSettingsWidget>());
+}
+
+template<typename TSettingsGroupWidget>
+void QSettingsWidgetDialogEngine::addGroupWidgetType(int displayId) {
+	this->addGroupFactory(displayId, new GenericSettingsGroupWidgetFactory<TSettingsGroupWidget>());
 }
 
 template<typename TSettingsWidget>
-void QSettingsWidgetDialogEngine::registerGlobalWidgetType(int metatype) {
-	registerGlobalFactory(metatype, new GenericSettingsWidgetFactory<TSettingsWidget>());
+void QSettingsWidgetDialogEngine::registerGlobalWidgetType(int displayId) {
+	registerGlobalFactory(displayId, new GenericSettingsWidgetFactory<TSettingsWidget>());
+}
+
+template<typename TSettingsGroupWidget>
+void QSettingsWidgetDialogEngine::registerGlobalGroupWidgetType(int displayId) {
+	registerGlobalGroupFactory(displayId, new GenericSettingsGroupWidgetFactory<TSettingsGroupWidget>());
 }
 
 #endif // QSETTINGSWIDGETDIALOGENGINE_H

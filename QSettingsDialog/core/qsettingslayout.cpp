@@ -76,6 +76,16 @@ QSettingsLayout QSettingsLayout::parentContainer() const
 	return parent;
 }
 
+int QSettingsLayout::displayId() const
+{
+	return d->createDisplayIdRef();
+}
+
+void QSettingsLayout::setDisplayId(int displayId)
+{
+	d->createDisplayIdRef() = displayId;
+}
+
 QString QSettingsLayout::name() const
 {
 	return d->createNameRef();
@@ -152,11 +162,12 @@ QSettingsLayout QSettingsLayout::createElement(int index, const QString &id, con
 	return element;
 }
 
-QSettingsLayout QSettingsLayout::createOptionalElement(int index, const QString &id, const QString &name, bool optional, const QString &tooltip)
+QSettingsLayout QSettingsLayout::createGroupElement(int index, const QString &id, int displayId, const QString &name, bool optional, const QString &tooltip)
 {
 	SettingsPathParser::validateId(id, true);
 	auto element = d->createEmptySubElement(id);
 	element.d_ptr->parentElement = this->d_ptr;
+	element.setDisplayId(displayId);
 	element.setName(name.isNull() ? id : name);
 	element.setOptional(optional);
 	element.setTooltip(tooltip);

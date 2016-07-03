@@ -341,22 +341,31 @@ int QSectionSettingsContainer::insertEntry(int index, QSharedPointer<QSettingsEn
 	return id;
 }
 
-void QSectionSettingsContainer::appendGroup(const QString &id, const QString &name)
+void QSectionSettingsContainer::appendGroup(const QString &id, int displayId, const QString &name, bool optional, const QString &tooltip)
 {
 	SettingsPathParser::validateId(id, false);
-	d->section->groups.append(id, new SettingsGroup(name.isNull() ? id : name));
+	auto group = new SettingsGroup(displayId, name.isNull() ? id : name);
+	group->tooltip = tooltip;
+	group->isOptional = optional;
+	d->section->groups.append(id, group);
 }
 
-void QSectionSettingsContainer::prependGroup(const QString &id, const QString &name)
+void QSectionSettingsContainer::prependGroup(const QString &id, int displayId, const QString &name, bool optional, const QString &tooltip)
 {
 	SettingsPathParser::validateId(id, false);
-	d->section->groups.prepend(id, new SettingsGroup(name.isNull() ? id : name));
+	auto group = new SettingsGroup(displayId, name.isNull() ? id : name);
+	group->tooltip = tooltip;
+	group->isOptional = optional;
+	d->section->groups.prepend(id, group);
 }
 
-void QSectionSettingsContainer::insertGroup(int index, const QString &id, const QString &name)
+void QSectionSettingsContainer::insertGroup(int index, const QString &id, int displayId, const QString &name, bool optional, const QString &tooltip)
 {
 	SettingsPathParser::validateId(id, false);
-	d->section->groups.insert(index, id, new SettingsGroup(name.isNull() ? id : name));
+	auto group = new SettingsGroup(displayId, name.isNull() ? id : name);
+	group->tooltip = tooltip;
+	group->isOptional = optional;
+	d->section->groups.insert(index, id, group);
 }
 
 bool QSectionSettingsContainer::removeEntry(int id)

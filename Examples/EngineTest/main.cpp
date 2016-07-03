@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 	dialog.appendEntry(new TestEntry(false, true, "moreText"));
 
-	dialog.setGroup("42", "Yes it is!", true, "Even here...");
+	dialog.setGroup("42", 0, "Yes it is!", true, "Even here...");
 	dialog.appendEntry(new TestEntry(false, false));
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, false));
@@ -66,15 +66,15 @@ int main(int argc, char *argv[])
 
 	//checking test, does auto-checking work?
 	dialog.setSection("checkingTest");
-	dialog.setGroup("optional1", "optional - no data", true);
+	dialog.setGroup("optional1", 0, "optional - no data", true);
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true));
 
-	dialog.setGroup("optional2", "optional - fixed data", true);
+	dialog.setGroup("optional2", 0, "optional - fixed data", true);
 	dialog.appendEntry(new TestEntry(false, true, "fixed group data"));
 	dialog.appendEntry(new TestEntry(true, true));
 
-	dialog.setGroup("optional3", "optional - optional subdata", true);
+	dialog.setGroup("optional3", 0, "optional - optional subdata", true);
 	dialog.appendEntry(new TestEntry(false, true));
 	dialog.appendEntry(new TestEntry(true, true, "optional group data"));
 
@@ -167,9 +167,9 @@ int main(int argc, char *argv[])
 	QSettingsLayout sectionLayout = categoryLayout.elementAt(2);
 	sectionLayout.setName("Look here!");
 	sectionLayout.setIcon(QApplication::style()->standardIcon(QStyle::SP_ComputerIcon));
-	sectionLayout.createOptionalElement(0, "group2");
-	sectionLayout.createOptionalElement(0, "group1", QString(), true);
-	sectionLayout.createOptionalElement(0, "group0");
+	sectionLayout.createGroupElement(0, "group2");
+	sectionLayout.createGroupElement(0, "group1", 0, QString(), true);
+	sectionLayout.createGroupElement(0, "group0");
 	try {
 		sectionLayout.createElement(0, "42z");
 		Q_ASSERT(false);

@@ -26,20 +26,21 @@ public:
 	virtual bool testNull() const = 0;
 	virtual QString createIdPath() const;
 
-	virtual QString &createNameRef() = 0;
-	virtual QIcon &createIconRef() = 0;
-	virtual QString &createTooltipRef() = 0;
-	virtual bool &createOptionalRef() = 0;
+	virtual int &createDisplayIdRef() {throw LayoutPropertyNotDefinedException();}
+	virtual QString &createNameRef() {throw LayoutPropertyNotDefinedException();}
+	virtual QIcon &createIconRef() {throw LayoutPropertyNotDefinedException();}
+	virtual QString &createTooltipRef() {throw LayoutPropertyNotDefinedException();}
+	virtual bool &createOptionalRef() {throw LayoutPropertyNotDefinedException();}
 
-	virtual QSettingsLayout creatDefaultElement(bool createNew) = 0;
-	virtual QSettingsLayout createEmptySubElement(const QString &id) = 0;
+	virtual QSettingsLayout creatDefaultElement(bool createNew) { Q_UNUSED(createNew);throw LayoutPropertyNotDefinedException();}
+	virtual QSettingsLayout createEmptySubElement(const QString &id) {Q_UNUSED(id);throw LayoutPropertyNotDefinedException();}
 
-	virtual int elementCount() const = 0;
-	virtual QSettingsLayout elementAt(int index) const = 0;
-	virtual int indexOfElement(const QSettingsLayout &element) const = 0;
-	virtual void insertElement(int index, const QSettingsLayout &element) = 0;
-	virtual void removeElement(int index) = 0;
-	virtual void moveElement(int indexFrom, int indexTo) = 0;
+	virtual int elementCount() const {throw LayoutPropertyNotDefinedException();}
+	virtual QSettingsLayout elementAt(int index) const {Q_UNUSED(index);throw LayoutPropertyNotDefinedException();}
+	virtual int indexOfElement(const QSettingsLayout &element) const {Q_UNUSED(element);throw LayoutPropertyNotDefinedException();}
+	virtual void insertElement(int index, const QSettingsLayout &element) {Q_UNUSED(index);Q_UNUSED(element);throw LayoutPropertyNotDefinedException();}
+	virtual void removeElement(int index) {Q_UNUSED(index);throw LayoutPropertyNotDefinedException();}
+	virtual void moveElement(int indexFrom, int indexTo) {Q_UNUSED(indexFrom);Q_UNUSED(indexTo);throw LayoutPropertyNotDefinedException();}
 
 };
 
@@ -72,48 +73,12 @@ public:
 		return this->element->d_ptr->name;
 	}
 
-	QIcon &createIconRef() override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
 	QString &createTooltipRef() override {
 		return this->element->d_ptr->tooltip;
 	}
 
 	bool &createOptionalRef() override {
 		return this->element->d_ptr->optional;
-	}
-
-	QSettingsLayout creatDefaultElement(bool) override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	QSettingsLayout createEmptySubElement(const QString &) override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	int elementCount() const override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	QSettingsLayout elementAt(int) const override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	int indexOfElement(const QSettingsLayout &) const override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	void insertElement(int, const QSettingsLayout &) override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	void removeElement(int) override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	void moveElement(int, int) override {
-		throw LayoutPropertyNotDefinedException();
 	}
 
 private:
@@ -133,12 +98,12 @@ public:
 		return this->element.isNull();
 	}
 
-	QString &createNameRef() override {
-		return this->element->name;
+	int &createDisplayIdRef() override {
+		return this->element->displayId;
 	}
 
-	QIcon &createIconRef() override {
-		throw LayoutPropertyNotDefinedException();
+	QString &createNameRef() override {
+		return this->element->name;
 	}
 
 	QString &createTooltipRef() override {
@@ -147,14 +112,6 @@ public:
 
 	bool &createOptionalRef() override {
 		return this->element->isOptional;
-	}
-
-	QSettingsLayout creatDefaultElement(bool) override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	QSettingsLayout createEmptySubElement(const QString &) override {
-		throw LayoutPropertyNotDefinedException();
 	}
 
 	int elementCount() const override {
@@ -212,16 +169,8 @@ public:
 		return this->element->tooltip;
 	}
 
-	bool &createOptionalRef() override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	QSettingsLayout creatDefaultElement(bool) override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
 	QSettingsLayout createEmptySubElement(const QString &id) override {
-		return QSettingsLayout(new SettingsGroupLayout(id, QSharedPointer<SettingsGroup>(new SettingsGroup(QString())), this->dialog));
+		return QSettingsLayout(new SettingsGroupLayout(id, QSharedPointer<SettingsGroup>(new SettingsGroup(0, QString())), this->dialog));
 	}
 
 	int elementCount() const override {
@@ -289,10 +238,6 @@ public:
 		return this->element->tooltip;
 	}
 
-	bool &createOptionalRef() override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
 	QSettingsLayout creatDefaultElement(bool createNew) override {
 		if(this->element->defaultSection.isNull() && createNew)
 			this->element->defaultSection = SettingsSection::createDefaultSection();
@@ -343,22 +288,6 @@ public:
 
 	bool testNull() const {
 		return this->element.isNull();
-	}
-
-	QString &createNameRef() override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	QIcon &createIconRef() override {
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	QString &createTooltipRef() override 	{
-		throw LayoutPropertyNotDefinedException();
-	}
-
-	bool &createOptionalRef() override {
-		throw LayoutPropertyNotDefinedException();
 	}
 
 	QSettingsLayout creatDefaultElement(bool createNew) override {

@@ -42,6 +42,7 @@ public:
 					const QIcon &icon = QIcon(),
 					const QString &tooltip = QString());
 	void setGroup(const QString &id,
+				  int displayId = -1,
 				  const QString &name = QString(),
 				  bool optional = false,
 				  const QString &tooltip = QString());
