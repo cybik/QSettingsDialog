@@ -212,7 +212,7 @@ void SettingsEngine::updateEntry(EntryInfoBase &entry, const QVariant &data, boo
 void SettingsEngine::disableEntry(SettingsEngine::EntryInfoBase &entry)
 {
 	entry.currentWidget->asWidget()->setEnabled(false);
-	entry.checkingHelper->disable();
+	entry.checkingHelper->disableLabel();
 	this->errorCount++;
 }
 
