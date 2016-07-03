@@ -2,13 +2,45 @@
 #include "qsettingsdialog_p.h"
 #include "qsettingslayout_p.h"
 #include "settingspathparser.h"
+#include "qsettingscontainer.h"
 
 #define d this->d_ptr
 
-QSettingsLayout QSettingsLayout::dialogLayout(QSettingsDialog *settingsDialog)
+QSettingsLayout::QSettingsLayout(QSettingsDialog *settingsDialog, bool fromCurrentContainer) :
+	QSettingsLayout(settingsDialog, fromCurrentContainer ? settingsDialog->containerPath() : QString())
+{}
+
+QSettingsLayout::QSettingsLayout(QSettingsDialog *settingsDialog, const QString &containerPath, int entryId) :
+	d_ptr()
 {
-	return QSettingsLayout(new SettingsRootLayout(QString(), QSettingsDialogPrivate::getPrivateInstance(settingsDialog)->rootElement, settingsDialog));
+	auto privDiag = QSettingsDialogPrivate::getPrivateInstance(settingsDialog);
+	if(containerPath.isNull())
+		d.reset(new SettingsRootLayout(QString(), privDiag->rootElement, settingsDialog));
+	else {
+		auto elements = SettingsPathParser::parsePartialPath(containerPath);
+		switch(elements.size()) {
+		case 1:
+			d.reset(new SettingsCategoryLayout(elements[0], privDiag->getCategory(elements[0]), settingsDialog));
+			break;
+		case 2:
+			if(entryId == -1)
+				d.reset(new SettingsSectionLayout(elements[1], privDiag->getSection(elements[1], elements[0]), settingsDialog));
+			else
+				d.reset(new SettingsEntryLayout(entryId, privDiag->getSection(elements[1], elements[0])->groups.valueId(entryId), settingsDialog));
+			break;
+		case 3:
+			if(entryId == -1)
+				d.reset(new SettingsGroupLayout(elements[2], privDiag->getGroup(elements[2], elements[1], elements[0]), settingsDialog));
+			else
+				d.reset(new SettingsEntryLayout(entryId, privDiag->getGroup(elements[2], elements[1], elements[0])->entries.valueId(entryId), settingsDialog));
+			break;
+		}
+	}
 }
+
+QSettingsLayout::QSettingsLayout(QSettingsContainer *container) :
+	QSettingsLayout(container->dialog(), container->containerPath())
+{}
 
 QString QSettingsLayout::id() const
 {
@@ -37,7 +69,7 @@ QString QSettingsLayout::containerPath() const
 
 QSettingsLayout QSettingsLayout::parentContainer() const
 {
-	auto parent = QSettingsLayout(nullptr);
+	auto parent = QSettingsLayout((QSettingsLayoutPrivate*)nullptr);
 	if(d->parentElement.isNull())
 		throw InvalidTargetLayoutException();
 	parent.d_ptr = d->parentElement;

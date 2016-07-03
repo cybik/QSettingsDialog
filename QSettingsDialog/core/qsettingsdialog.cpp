@@ -2,6 +2,7 @@
 #include "qsettingsdialog_p.h"
 #include "settingspathparser.h"
 #include "qsettingscontainer.h"
+#include "qasyncsettingscontainer.h"
 #include <QGlobalStatic>
 #include <QDebug>
 
@@ -160,9 +161,19 @@ QSettingsContainer *QSettingsDialog::currentContainer(QObject *parent)
 		return new QGroupSettingsContainer(this, SettingsPathParser::createPath(d->categoryId, d->sectionId, d->groupId), parent);
 }
 
+QSettingsContainer *QSettingsDialog::currentContainerAsync(QObject *parent)
+{
+	return new QAsyncSettingsContainer(this, SettingsPathParser::createPath(d->categoryId, d->sectionId, d->groupId), parent);
+}
+
 QSettingsContainer *QSettingsDialog::currentSectionContainer(QObject *parent)
 {
 	return new QSectionSettingsContainer(this, SettingsPathParser::createPath(d->categoryId, d->sectionId), parent);
+}
+
+QSettingsContainer *QSettingsDialog::currentSectionContainerAsync(QObject *parent)
+{
+	return new QAsyncSettingsContainer(this, SettingsPathParser::createPath(d->categoryId, d->sectionId), parent);
 }
 
 int QSettingsDialog::appendEntry(QSettingsEntry *entry)

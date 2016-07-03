@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
 //	}
 
 	//layout tests - dialog
-	QSettingsLayout dialogLayout = QSettingsLayout::dialogLayout(&dialog);
+	QSettingsLayout dialogLayout = QSettingsLayout(&dialog);
 	dialogLayout.createElement(1, "layoutCategory");
 	dialogLayout.moveElement(0, 2);
 	dialogLayout.moveElement(1, 0);

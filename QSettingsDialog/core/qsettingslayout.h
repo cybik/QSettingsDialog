@@ -7,13 +7,12 @@
 #include <QList>
 #include <QIcon>
 #include <QSharedPointer>
-class QSettingsDialogPrivate;
 class QSettingsDialog;
+class QSettingsContainer;
 
 class QSettingsLayoutPrivate;
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsLayout
 {
-	friend class QSettingsDialogLayout;
 	friend class SettingsEntryLayout;
 	friend class SettingsGroupLayout;
 	friend class SettingsSectionLayout;
@@ -29,7 +28,9 @@ public:
 		EntryLayout
 	};
 
-	static QSettingsLayout dialogLayout(QSettingsDialog *settingsDialog);
+	explicit QSettingsLayout(QSettingsDialog *settingsDialog, bool fromCurrentContainer = false);
+	explicit QSettingsLayout(QSettingsDialog *settingsDialog, const QString &containerPath, int entryId = -1);
+	explicit QSettingsLayout(QSettingsContainer *container);
 
 	QString id() const;
 	LayoutType layoutType() const;

@@ -51,7 +51,9 @@ public:
 	bool removeContainer(const QString &containerPath);
 
 	QSettingsContainer *currentContainer(QObject *parent = nullptr);
+	QSettingsContainer *currentContainerAsync(QObject *parent = nullptr);
 	QSettingsContainer *currentSectionContainer(QObject *parent = nullptr);
+	QSettingsContainer *currentSectionContainerAsync(QObject *parent = nullptr);
 
 	//entry organisation
 	int appendEntry(QSettingsEntry *entry);
