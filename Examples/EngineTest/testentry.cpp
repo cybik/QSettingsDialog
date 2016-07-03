@@ -4,6 +4,7 @@
 
 TestEntry::TestEntry(bool optional, bool working, QVariant data) :
 	QSettingsLoaderEntry(working ? 0 : -1),
+	origData(data),
 	data(data)
 {
 	this->setEntryName("Test Entry");
@@ -21,11 +22,13 @@ bool TestEntry::load(QVariant outParam data, bool outParam userEdited)
 bool TestEntry::save(const QVariant &data)
 {
 	qDebug() << "SAVING from" << this->data << "to" << data;
+	this->data = data;
 	return true;
 }
 
 bool TestEntry::reset()
 {
-	qDebug() << "RESETTING to" << this->data;
+	qDebug() << "RESETTING to" << this->origData;
+	this->data = this->origData;
 	return true;
 }

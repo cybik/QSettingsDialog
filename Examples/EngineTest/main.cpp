@@ -2,8 +2,10 @@
 #include <QDebug>
 #include <QStyle>
 #include <QThread>
+#include <QtConcurrent>
 #include <qsettingsdialog.h>
 #include <qsettingscontainer.h>
+#include <qasyncsettingscontainer.h>
 #include <qsettingslayout.h>
 #include <qsettingswidgetdialogengine.h>
 #include "testentry.h"
@@ -104,7 +106,6 @@ int main(int argc, char *argv[])
 	dialog.appendEntry(threaded);
 
 	//container test
-	//TODO test more
 	dialog.setContainer("containerTest/./normal");
 	dialog.appendEntry(new TestEntry(false, true));
 
@@ -125,32 +126,22 @@ int main(int argc, char *argv[])
 	QSectionSettingsContainer sectionContainer2(&dialog, dialog.sectionContainerPath());
 	sectionContainer2.moveElement(0, 2);
 
-//	//async container test
-//	QAsyncSettingsContainer asyncContainer(&dialog, "containerTest/b/async");
-//	asyncContainer.appendEntry(new TestEntry(false, false));
-//	dialog.appendEntry(new TestEntry(true, true));
-//	try {
-//		dialog.appendEntry("containerTest/b/async", new TestEntry(true, true));
-//		Q_ASSERT(false);
-//	} catch(ContainerLockedException e) {
-//		qDebug() << e.what();
-//	}
-//	try {
-//		QAsyncSettingsContainer asyncContainer2(&dialog, "containerTest/b/async");
-//		Q_ASSERT(false);
-//	} catch(ContainerLockedException e) {
-//		qDebug() << e.what();
-//	}
-//	try {
-//		QSettingsContainer container4(&dialog, "containerTest/b/async");
-//		container4.appendEntry(new TestEntry(true, false));
-//		Q_ASSERT(false);
-//	} catch(ContainerLockedException e) {
-//		qDebug() << e.what();
-//	}
+	//async container test -> only shows on second run
+	QAsyncSettingsContainer asyncContainer(&dialog, "containerTest/./async");
+	QtConcurrent::run([&]() {
+		asyncContainer.appendEntryAsync(new TestEntry(true, false));
+
+		QAsyncSettingsContainer async2(&dialog, "containerTest/./async");
+		qDebug() << "async count:" << async2.elementCount();
+		async2.prependEntry(new TestEntry(true, false));
+		auto res = async2.appendEntry(new TestEntry(false, true));
+		async2.removeEntry(res);
+	});
+	asyncContainer.appendEntryAsync(new TestEntry(false, false));
+	dialog.appendEntry("containerTest/./async", new TestEntry(true, true));
 
 	//layout tests - dialog
-	QSettingsLayout dialogLayout = QSettingsLayout(&dialog);
+	QSettingsLayout dialogLayout(&dialog);
 	dialogLayout.createElement(1, "layoutCategory");
 	dialogLayout.moveElement(0, 2);
 	dialogLayout.moveElement(1, 0);
@@ -223,9 +214,28 @@ int main(int argc, char *argv[])
 	layoutContainer.appendEntry(new TestEntry(false, false));
 	sectionLayout.moveElement(4, 1);
 
+	//reshow 2nd dialog
+	auto reshowId = dialog.appendEntry("..", new TestEntry(true, true));
+	QSettingsLayout reshowLayout(&dialog, "..", reshowId);
+	Q_ASSERT(reshowLayout.layoutType() == QSettingsLayout::EntryLayout);
+	reshowLayout.setName("Reshow");
+	reshowLayout.setTooltip("Will show the dialog a second time");
+
 	dialog.openSettings();
-	dialog.execSettings();
+	dialog.execSettings();//will not work
 	auto res = a.exec();
+
+	forever {
+		QSharedPointer<TestEntry> rEntry = dialog.getEntry(reshowId).dynamicCast<TestEntry>();
+		bool d;
+		QVariant v;
+		rEntry->load(v, d);
+		if(v.isValid())
+			res = dialog.execSettings();
+		else
+			break;
+	}
+
 	thread.quit();
 	thread.wait();
 	return res;

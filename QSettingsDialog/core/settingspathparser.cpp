@@ -60,7 +60,7 @@ QStringList SettingsPathParser::parsePartialPath(const QString &path)
 	if(match.captured(1).isEmpty())
 		return QVector<QString>(3, QString()).toList();
 	else if(match.captured(1) == QStringLiteral(".."))
-		return {QStringLiteral("."), QStringLiteral("."), QStringLiteral(".")};
+		return {QStringLiteral("."), QStringLiteral(".")};
 	else {
 		auto all = match.capturedTexts();
 		all.removeFirst();

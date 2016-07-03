@@ -85,6 +85,9 @@ signals:
 	void resetted();
 	void canceled();
 
+private slots:
+	void completed(bool close = true);
+
 private:
 	QScopedPointer<QSettingsDialogPrivate> d_ptr;
 };

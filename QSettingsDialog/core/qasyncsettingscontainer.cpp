@@ -35,8 +35,8 @@ bool QAsyncSettingsContainer::isEntry(int index) const
 {
 	QAsyncSettingsContainerPrivate::EntryInfo info;
 	QMetaObject::invokeMethod(d.data(), "entryInfoFromIndex", Qt::BlockingQueuedConnection,
-							  Q_ARG(int, index),
-							  Q_RETURN_ARG(QAsyncSettingsContainerPrivate::EntryInfo, info));
+							  Q_RETURN_ARG(QAsyncSettingsContainerPrivate::EntryInfo, info),
+							  Q_ARG(int, index));
 	return info.isEntry;
 }
 
@@ -44,8 +44,8 @@ int QAsyncSettingsContainer::getEntryIndex(int id) const
 {
 	QAsyncSettingsContainerPrivate::EntryInfo info;
 	QMetaObject::invokeMethod(d.data(), "entryInfoFromId", Qt::BlockingQueuedConnection,
-							  Q_ARG(int, id),
-							  Q_RETURN_ARG(QAsyncSettingsContainerPrivate::EntryInfo, info));
+							  Q_RETURN_ARG(QAsyncSettingsContainerPrivate::EntryInfo, info),
+							  Q_ARG(int, id));
 	return info.index;
 }
 
@@ -53,8 +53,8 @@ int QAsyncSettingsContainer::getEntryId(int index) const
 {
 	QAsyncSettingsContainerPrivate::EntryInfo info;
 	QMetaObject::invokeMethod(d.data(), "entryInfoFromIndex", Qt::BlockingQueuedConnection,
-							  Q_ARG(int, index),
-							  Q_RETURN_ARG(QAsyncSettingsContainerPrivate::EntryInfo, info));
+							  Q_RETURN_ARG(QAsyncSettingsContainerPrivate::EntryInfo, info),
+							  Q_ARG(int, index));
 	return info.id;
 }
 
@@ -62,9 +62,9 @@ QSharedPointer<QSettingsEntry> QAsyncSettingsContainer::getEntry(int id) const
 {
 	QSharedPointer<QSettingsEntry> entry;
 	QMetaObject::invokeMethod(d.data(), "getEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(QSharedPointer<QSettingsEntry>, entry),
 							  Q_ARG(int, id),
-							  Q_ARG(bool, true),
-							  Q_RETURN_ARG(QSharedPointer<QSettingsEntry>, entry));
+							  Q_ARG(bool, true));
 	return entry;
 }
 
@@ -72,9 +72,9 @@ QSharedPointer<QSettingsEntry> QAsyncSettingsContainer::getEntryFromIndex(int in
 {
 	QSharedPointer<QSettingsEntry> entry;
 	QMetaObject::invokeMethod(d.data(), "getEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(QSharedPointer<QSettingsEntry>, entry),
 							  Q_ARG(int, index),
-							  Q_ARG(bool, false),
-							  Q_RETURN_ARG(QSharedPointer<QSettingsEntry>, entry));
+							  Q_ARG(bool, false));
 	return entry;
 }
 
@@ -87,9 +87,9 @@ int QAsyncSettingsContainer::appendEntry(QSettingsEntry *entry)
 {
 	int id;
 	QMetaObject::invokeMethod(d.data(), "insertEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(int, id),
 							  Q_ARG(int, 0),
-							  Q_ARG(QSharedPointer<QSettingsEntry>, QSharedPointer<QSettingsEntry>(entry)),
-							  Q_RETURN_ARG(int, id));
+							  Q_ARG(QSharedPointer<QSettingsEntry>, QSharedPointer<QSettingsEntry>(entry)));
 	return id;
 }
 
@@ -97,9 +97,9 @@ int QAsyncSettingsContainer::prependEntry(QSettingsEntry *entry)
 {
 	int id;
 	QMetaObject::invokeMethod(d.data(), "insertEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(int, id),
 							  Q_ARG(int, -1),
-							  Q_ARG(QSharedPointer<QSettingsEntry>, QSharedPointer<QSettingsEntry>(entry)),
-							  Q_RETURN_ARG(int, id));
+							  Q_ARG(QSharedPointer<QSettingsEntry>, QSharedPointer<QSettingsEntry>(entry)));
 	return id;
 }
 
@@ -107,9 +107,9 @@ int QAsyncSettingsContainer::insertEntry(int index, QSettingsEntry *entry)
 {
 	int id;
 	QMetaObject::invokeMethod(d.data(), "insertEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(int, id),
 							  Q_ARG(int, index),
-							  Q_ARG(QSharedPointer<QSettingsEntry>, QSharedPointer<QSettingsEntry>(entry)),
-							  Q_RETURN_ARG(int, id));
+							  Q_ARG(QSharedPointer<QSettingsEntry>, QSharedPointer<QSettingsEntry>(entry)));
 	return id;
 }
 
@@ -117,9 +117,9 @@ int QAsyncSettingsContainer::insertEntry(int index, QSharedPointer<QSettingsEntr
 {
 	int id;
 	QMetaObject::invokeMethod(d.data(), "insertEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(int, id),
 							  Q_ARG(int, index),
-							  Q_ARG(QSharedPointer<QSettingsEntry>, entry),
-							  Q_RETURN_ARG(int, id));
+							  Q_ARG(QSharedPointer<QSettingsEntry>, entry));
 	return id;
 }
 
@@ -127,9 +127,9 @@ bool QAsyncSettingsContainer::removeEntry(int id)
 {
 	bool removed;
 	QMetaObject::invokeMethod(d.data(), "removeEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(bool, removed),
 							  Q_ARG(int, id),
-							  Q_ARG(bool, true),
-							  Q_RETURN_ARG(bool, removed));
+							  Q_ARG(bool, true));
 	return removed;
 }
 
@@ -137,9 +137,9 @@ bool QAsyncSettingsContainer::removeElementFromIndex(int index)
 {
 	bool removed;
 	QMetaObject::invokeMethod(d.data(), "removeEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(bool, removed),
 							  Q_ARG(int, index),
-							  Q_ARG(bool, false),
-							  Q_RETURN_ARG(bool, removed));
+							  Q_ARG(bool, false));
 	return removed;
 }
 
@@ -154,9 +154,9 @@ bool QAsyncSettingsContainer::moveElementWaiting(int indexFrom, int indexTo)
 {
 	bool moved;
 	QMetaObject::invokeMethod(d.data(), "moveEntry", Qt::BlockingQueuedConnection,
+							  Q_RETURN_ARG(bool, moved),
 							  Q_ARG(int, indexFrom),
-							  Q_ARG(int, indexTo),
-							  Q_RETURN_ARG(bool, moved));
+							  Q_ARG(int, indexTo));
 	return moved;
 }
 

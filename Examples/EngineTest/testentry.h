@@ -13,6 +13,7 @@ public:
 	bool reset() override;
 
 private:
+	QVariant origData;
 	QVariant data;
 };
 
