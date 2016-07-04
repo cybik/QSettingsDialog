@@ -17,6 +17,8 @@ public:
 
 	QSettingsDisplayInstance *createInstance() override;
 
+	QString searchStyleSheet() const;
+
 	void addFactory(int displayId, QSettingsWidgetFactory *factory);
 	template<typename TSettingsWidget>
 	void addWidgetType(int displayId);

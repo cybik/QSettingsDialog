@@ -11,7 +11,6 @@
 #include "settingsengine.h"
 #include "qsettingsgroupwidget.h"
 
-#define CUSTOM_WIDGET_PROPERTY "customWidgetContent"
 #define TAB_CONTENT_NAME "tabContent_371342666"
 
 SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialogEngine) :
@@ -497,64 +496,33 @@ bool SettingsDisplayDialog::searchInSection(const QRegularExpression &regex, QWi
 {
 	auto someFound = false;
 
-	auto children = contentWidget->findChildren<QWidget*>(QString(), Qt::FindDirectChildrenOnly);
-	foreach(auto child, children) {
-		bool hasMatch = false;
-
-		//test if custom group
-		if(child->dynamicPropertyNames().contains(CUSTOM_WIDGET_PROPERTY)) {
-			auto settingsWidget = child->property(CUSTOM_WIDGET_PROPERTY).value<QSettingsWidgetBase*>();
-			if(settingsWidget)
-				hasMatch = settingsWidget->searchExpression(regex);
-		} else
-			hasMatch = this->searchInGroup(regex, child);
-
-		if(!hasMatch) {
-			auto asGroup = qobject_cast<QGroupBox*>(child);
-			if(asGroup)
-				hasMatch = regex.match(asGroup->title()).hasMatch();
-			else
-				hasMatch = regex.pattern().isEmpty();
+	auto layout = safe_cast<QFormLayout*>(contentWidget->layout());
+	for(int i = 0, max = layout->rowCount(); i < max; ++i) {
+		auto spanItem = layout->itemAt(i, QFormLayout::SpanningRole);
+		if(spanItem) {
+			auto subGroup = dynamic_cast<QSettingsGroupWidgetBase*>(spanItem->widget());
+			someFound |= subGroup->searchExpression(regex, this->dialogEngine->searchStyleSheet());
+		} else {
+			auto label = layout->itemAt(i, QFormLayout::LabelRole)->widget();
+			auto content = dynamic_cast<QSettingsWidgetBase*>(layout->itemAt(i, QFormLayout::FieldRole)->widget());
+			someFound |= this->searchInEntry(regex, label, content);
 		}
-
-		child->setVisible(hasMatch);
-		if(hasMatch)
-			someFound = true;
 	}
 
 	return someFound;
 }
 
-bool SettingsDisplayDialog::searchInGroup(const QRegularExpression &regex, QWidget *groupWidget)
+bool SettingsDisplayDialog::searchInEntry(const QRegularExpression &regex, QWidget *label, QSettingsWidgetBase *content)
 {
-	const static QString styleSheet = QStringLiteral("QLabel {"
-													 "    background-color: rgba(19,232,51,0.4);"
-													 "    border: 1px solid rgba(19,196,45,0.8);"
-													 "    border-radius: 4px;"
-													 "}"
-													 "QCheckBox {"
-													 "    background-color: rgba(19,232,51,0.4);"
-													 "    padding: 1px;"
-													 "    border: 1px solid rgba(19,196,45,0.8);"
-													 "    border-radius: 4px;"
-													 "}");
-	auto someFound = false;
-
-	auto layout = safe_cast<QFormLayout*>(groupWidget->layout());
-	for(int i = 0, max = layout->rowCount(); i < max; ++i) {
-		auto label = layout->itemAt(i, QFormLayout::LabelRole)->widget();
-		auto content = dynamic_cast<QSettingsWidgetBase*>(layout->itemAt(i, QFormLayout::FieldRole)->widget());
-
-		if(!regex.pattern().isEmpty() &&
-		   (regex.match(label->property("text").toString()).hasMatch() ||
-			(content && content->searchExpression(regex)))) {
-			label->setStyleSheet(styleSheet);
-			someFound = true;
-		} else
-			label->setStyleSheet(QString());
+	if(!regex.pattern().isEmpty() &&
+	   (regex.match(label->property("text").toString()).hasMatch() ||
+		(content && content->searchExpression(regex)))) {
+		label->setStyleSheet(this->dialogEngine->searchStyleSheet());
+		return true;
+	} else {
+		label->setStyleSheet(QString());
+		return false;
 	}
-
-	return someFound;
 }
 
 

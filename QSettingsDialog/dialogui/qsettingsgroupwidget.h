@@ -27,11 +27,14 @@ public:
 	virtual void setEntryLabelEnabled(QSharedPointer<QSettingsEntry> entry, bool enabled);
 	virtual bool isEntryChecked(QSharedPointer<QSettingsEntry> entry) const;
 
+	virtual inline bool searchExpression(const QRegularExpression &regex, const QString &searchStyleSheet);
+
 protected:
 	virtual void addWidgetWithLabel(QWidget *label, QWidget *content) = 0;
 
 private:
-	QHash<QSettingsEntry*, QWidget*> checkLabelMap;
+	typedef QPair<QWidget*, QSettingsWidgetBase*> GroupElement;
+	QHash<QSharedPointer<QSettingsEntry>, GroupElement> entryMap;
 };
 
 template <class Widget>

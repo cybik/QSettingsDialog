@@ -19,7 +19,7 @@ void QSettingsGroupWidgetBase::addWidgetRaw(QSharedPointer<QSettingsEntry> entry
 		cLabel->setText(entry->entryName() + SettingsDisplayDialog::tr(":"));
 		label = cLabel;
 	}
-	this->checkLabelMap.insert(entry.data(), label);
+	this->entryMap.insert(entry, {label, dynamic_cast<QSettingsWidgetBase*>(content)});
 
 	label->setToolTip(entry->tooltip());
 	if(content->toolTip().isNull())
@@ -34,23 +34,44 @@ void QSettingsGroupWidgetBase::addWidgetRaw(QSharedPointer<QSettingsEntry> entry
 
 void QSettingsGroupWidgetBase::setEntryChecked(QSharedPointer<QSettingsEntry> entry, bool checked)
 {
-	auto box = dynamic_cast<QCheckBox*>(this->checkLabelMap.value(entry.data()));
+	auto box = dynamic_cast<QCheckBox*>(this->entryMap.value(entry).first);
 	if(box)
 		return box->setChecked(checked);
 }
 
 void QSettingsGroupWidgetBase::setEntryLabelEnabled(QSharedPointer<QSettingsEntry> entry, bool enabled)
 {
-	auto widget = this->checkLabelMap.value(entry.data());
+	auto widget = this->entryMap.value(entry).first;
 	if(widget)
 		widget->setEnabled(enabled);
 }
 
 bool QSettingsGroupWidgetBase::isEntryChecked(QSharedPointer<QSettingsEntry> entry) const
 {
-	auto box = dynamic_cast<QCheckBox*>(this->checkLabelMap.value(entry.data()));
+	auto box = dynamic_cast<QCheckBox*>(this->entryMap.value(entry).first);
 	if(box)
 		return box->isChecked();
 	else
 		return true;
+}
+
+bool QSettingsGroupWidgetBase::searchExpression(const QRegularExpression &regex, const QString &searchStyleSheet)
+{
+	typedef QHash<QSharedPointer<QSettingsEntry>, GroupElement>::iterator HIt;
+	bool someFound = false;
+
+	foreach(auto element, this->entryMap) {
+		auto &label = element.first;
+		auto &content = element.second;
+
+		if(!regex.pattern().isEmpty() &&
+		   (regex.match(label->property("text").toString()).hasMatch() ||
+			(content && content->searchExpression(regex)))) {
+			label->setStyleSheet(searchStyleSheet);
+			someFound = true;
+		} else
+			label->setStyleSheet(QString());
+	}
+
+	return someFound;
 }
