@@ -358,7 +358,7 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 
 void SettingsDisplayDialog::createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget, QFormLayout *layout)
 {
-	auto groupWidget = this->dialogEngine->createGroupWidget(group->displayId, nullptr, contentWidget);
+	auto groupWidget = this->dialogEngine->createGroupWidget(group->displayId, contentWidget);
 	groupWidget->setName(group->name);
 	groupWidget->setTooltip(group->tooltip.isNull() ? group->name : group->tooltip);
 	groupWidget->setOptional(group->isOptional);

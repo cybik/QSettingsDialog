@@ -2,8 +2,7 @@ HEADERS += \
 	$$PWD/settingsdisplaydialog.h \
 	$$PWD/settingsengine.h \
 	$$PWD/checkinghelper.h \
-    $$PWD/commonfactoryregistry.h \
-    $$PWD/settingsgroupbox.h
+	$$PWD/commonfactoryregistry.h
 
 SOURCES += \
 	$$PWD/qsettingswidget.cpp \
@@ -12,7 +11,6 @@ SOURCES += \
 	$$PWD/qsettingswidgetdialogengine.cpp \
 	$$PWD/commonfactoryregistry.cpp \
 	$$PWD/qsettingsdialogwidget.cpp \
-    $$PWD/settingsgroupbox.cpp \
     $$PWD/qsettingsgroupwidget.cpp
 
 FORMS += \

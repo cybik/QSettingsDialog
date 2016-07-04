@@ -17,6 +17,13 @@
 #include "settingsslider.h"
 #include "settingsrichtextedit.h"
 
+#include "settingsgroupbox.h"
+
+void VariantWidgetsRegistrator::registerGroupWidgets()
+{
+	QSettingsWidgetDialogEngine::registerGlobalGroupWidgetType<SettingsGroupBox>(0);
+}
+
 void VariantWidgetsRegistrator::registerVariantWidgets()
 {
 	QSettingsWidgetDialogEngine::registerGlobalWidgetType<SettingsCheckBox>(QMetaType::Bool);

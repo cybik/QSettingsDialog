@@ -6,6 +6,7 @@
 class QSETTINGSDIALOGSHARED_EXPORT VariantWidgetsRegistrator
 {
 public:
+	static void registerGroupWidgets();
 	static void registerVariantWidgets();
 	static void registerEnumFactories();
 	static void registerExtendedVariantWidgets();

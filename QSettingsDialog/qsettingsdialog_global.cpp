@@ -10,6 +10,7 @@ void qSettingsDialogSetup()
 	qRegisterMetaType<QSharedPointer<QSettingsEntry>>();
 	qRegisterMetaType<QSettingsDialog*>();
 
+	VariantWidgetsRegistrator::registerGroupWidgets();
 	VariantWidgetsRegistrator::registerVariantWidgets();
 	VariantWidgetsRegistrator::registerEnumFactories();
 	VariantWidgetsRegistrator::registerExtendedVariantWidgets();

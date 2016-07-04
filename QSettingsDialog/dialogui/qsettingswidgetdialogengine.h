@@ -24,12 +24,12 @@ public:
 	void addGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory);
 	template<typename TSettingsGroupWidget>
 	void addGroupWidgetType(int displayId);
+	void cloneGroupFactoryWithProperties(int originalId, int cloneId, const QSettingsEntry::UiPropertyMap &properties);
 
 	QSettingsWidgetBase *createWidget(int displayId,
 									  const QSettingsEntry::UiPropertyMap &properties,
 									  QWidget *parent) const;
 	QSettingsGroupWidgetBase *createGroupWidget(int displayId,
-												const QSettingsEntry::UiPropertyMap &properties,
 												QWidget *parent) const;
 
 	static void registerGlobalFactory(int displayId, QSettingsWidgetFactory *factory);
@@ -39,6 +39,7 @@ public:
 	static void registerGlobalGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory);
 	template<typename TSettingsGroupWidget>
 	static void registerGlobalGroupWidgetType(int displayId);
+	static void cloneGlobalGroupFactoryWithProperties(int originalId, int cloneId, const QSettingsEntry::UiPropertyMap &properties);
 
 	void addRegistry(QSettingsWidgetFactoryRegistry *registry);
 	static void registerGlobalRegistry(QSettingsWidgetFactoryRegistry *registry);

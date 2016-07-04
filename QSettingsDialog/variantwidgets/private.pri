@@ -12,7 +12,8 @@ HEADERS += \
     $$PWD/settingsenumwidgetfactory.h \
     $$PWD/settingspathedit.h \
     $$PWD/settingsslider.h \
-    $$PWD/settingsrichtextedit.h
+    $$PWD/settingsrichtextedit.h \
+    $$PWD/settingsgroupbox.h
 
 SOURCES += $$PWD/variantwidgetsregistrator.cpp \
 	$$PWD/settingscheckbox.cpp \
@@ -28,7 +29,8 @@ SOURCES += $$PWD/variantwidgetsregistrator.cpp \
     $$PWD/settingsenumwidgetfactory.cpp \
     $$PWD/settingspathedit.cpp \
     $$PWD/settingsslider.cpp \
-    $$PWD/settingsrichtextedit.cpp
+    $$PWD/settingsrichtextedit.cpp \
+    $$PWD/settingsgroupbox.cpp
 
 FORMS += \
 	$$PWD/settingslistedit.ui
