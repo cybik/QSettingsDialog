@@ -12,6 +12,9 @@ TEMPLATE = lib
 
 DEFINES += QSETTINGSDIALOG_LIBRARY
 
+#use this to set the defaults for the variant widgets. See qsettingsdialog_global.cpp
+DEFINES += "VARIANT_WIDGETS_AUTOLOAD=0x1111"
+
 HEADERS += qsettingsdialog_global.h \
 	qtexception.h
 

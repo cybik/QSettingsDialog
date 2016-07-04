@@ -6,6 +6,3 @@ HEADERS += \
 INCLUDEPATH += $$PWD
 
 include(private.pri)
-
-SOURCES += \
-    $$PWD/qsettingssettingsloader.cpp
