@@ -7,9 +7,6 @@ win32 {
 			CONFIG(release, debug|release): LIBS += -L$$PWD/msvc/release/ -lQSettingsDialog
 			else:CONFIG(debug, debug|release): LIBS += -L$$PWD/msvc/debug/ -lQSettingsDialog
 		}
-	} else:win32-g++ {
-		CONFIG(release, debug|release): LIBS += -L$$PWD/mingw/release/ -lQSettingsDialog
-		else:CONFIG(debug, debug|release): LIBS += -L$$PWD/mingw/debug/ -lQSettingsDialog
 	}
 }
 

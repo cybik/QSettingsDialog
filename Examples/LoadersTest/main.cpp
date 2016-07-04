@@ -3,6 +3,7 @@
 #include <qsettingswidgetdialogengine.h>
 #include <qsettingspropertyentry.h>
 #include <qsettingssettingsloader.h>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {

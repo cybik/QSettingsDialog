@@ -1,6 +1,7 @@
 #include "settingsslider.h"
 #include <QToolTip>
 #include <QStyle>
+#include <QLocale>
 
 SettingsSlider::SettingsSlider(QWidget *parent) :
 	QSettingsWidget(parent)
