@@ -26,7 +26,9 @@ RESOURCES += \
     qsettingsdialog_res.qrc
 
 DISTFILES += \
-	$$PWD/classmodel.qmodel
+	$$PWD/classmodel.qmodel \
+    qsettingsdialog.pri \
+    includes.txt
 
 include(./submodules/submodules.pri)
 #parts
