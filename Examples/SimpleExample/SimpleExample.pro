@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-06-26T14:28:48
+# Project created by QtCreator 2016-07-04T21:07:49
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = LoadersTest
+TARGET = SimpleExample
 TEMPLATE = app
 
 SOURCES += main.cpp

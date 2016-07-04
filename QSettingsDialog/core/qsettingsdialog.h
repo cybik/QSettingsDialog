@@ -33,7 +33,7 @@ public:
 	QString groupId() const;
 
 	//container organisation - setters
-	void setCategory(const QString &id,
+	void setCategory(const QString &id,//TODO reset lowers
 					 const QString &name = QString(),
 					 const QIcon &icon = QIcon(),
 					 const QString &tooltip = QString());
