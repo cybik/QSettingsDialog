@@ -158,7 +158,7 @@ QList<TId> SortedMap<TId, TEntry>::keys() const
 }
 
 template <typename TId, typename TEntry>
-typename TId SortedMap<TId, TEntry>::key(int index) const
+TId SortedMap<TId, TEntry>::key(int index) const
 {
 	Q_ASSERT(index < this->entryOrder.size());
 	return this->entryOrder[index];

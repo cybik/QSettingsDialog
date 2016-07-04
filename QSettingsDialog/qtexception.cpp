@@ -16,7 +16,7 @@ int QtException::code() const
 	return this->eCode;
 }
 
-const char *QtException::what() const
+const char *QtException::what() const noexcept
 {
 	return this->error.constData();
 }

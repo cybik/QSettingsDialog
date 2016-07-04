@@ -12,7 +12,7 @@ public:
 
 	QString qWhat() const;
 	int code() const;
-	const char *what() const final;
+    const char *what() const noexcept final;
 
 private:
 	const QByteArray error;

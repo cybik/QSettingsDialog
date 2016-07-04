@@ -75,22 +75,22 @@ public:
 
 template<typename... Args>
 QSettingsPropertyEntry::QSettingsPropertyEntry(const char *propertyName, QObject *object, const QString &name, bool optional, const QString &tooltip, Args... properties) :
-	QSettingsPropertyEntry(metatype, loader, name, optional, tooltip, mapWrapper(properties...))
+    QSettingsPropertyEntry(propertyName, object, name, optional, tooltip, mapWrapper(properties...))
 {}
 
 template<typename... Args>
 QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty, QObject *object, const QString &name, bool optional, const QString &tooltip, Args... properties) :
-	QSettingsPropertyEntry(metatype, loader, name, optional, tooltip, mapWrapper(properties...))
+    QSettingsPropertyEntry(metaProperty, object, name, optional, tooltip, mapWrapper(properties...))
 {}
 
 template<typename... Args>
 QSettingsPropertyEntry::QSettingsPropertyEntry(const char *propertyName, QMetaObject *metaObject, void *gadget, const QString &name, bool optional, const QString &tooltip, Args... properties) :
-	QSettingsPropertyEntry(metatype, loader, name, optional, tooltip, mapWrapper(properties...))
+    QSettingsPropertyEntry(propertyName, metaObject, name, optional, tooltip, mapWrapper(properties...))
 {}
 
 template<typename... Args>
 QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty, void *gadget, const QString &name, bool optional, const QString &tooltip, Args... properties) :
-	QSettingsPropertyEntry(metatype, loader, name, optional, tooltip, mapWrapper(properties...))
+    QSettingsPropertyEntry(metaProperty, gadget, name, optional, tooltip, mapWrapper(properties...))
 {}
 
 #endif // QSETTINGSPROPERTYENTRY_H

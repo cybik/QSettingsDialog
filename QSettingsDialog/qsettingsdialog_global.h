@@ -31,8 +31,8 @@ inline TTo safeCast(TFrom from) {
 #else
 template <typename TTo, typename TFrom>
 inline QSharedPointer<TTo> safeCast_sharedPointer(QSharedPointer<TFrom> from) {
-	Q_ASSERT_X(from.dynamicCast<TTo>(), "", "static cast not possible! Dynamic cast assertion failed!");
-	return from.staticCast<TTo>();
+    Q_ASSERT_X(from.template dynamicCast<TTo>(), "", "static cast not possible! Dynamic cast assertion failed!");
+    return from.template staticCast<TTo>();
 }
 #define sharedSafeCast(type, sharedPointer) safeCast_sharedPointer<type>(sharedPointer)
 #endif
