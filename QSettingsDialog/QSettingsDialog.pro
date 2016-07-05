@@ -28,7 +28,7 @@ RESOURCES += \
 DISTFILES += \
 	$$PWD/classmodel.qmodel \
     qsettingsdialog.pri \
-    includes.txt
+    generateIncludes.bat
 
 include(./submodules/submodules.pri)
 #parts
