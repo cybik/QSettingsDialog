@@ -61,7 +61,7 @@ public:
 		return elementPrivate->getId();
 	}
 
-	bool testNull() const {
+	bool testNull() const override {
 		return this->element.isNull();
 	}
 
@@ -94,7 +94,7 @@ public:
 		element(element)
 	{}
 
-	bool testNull() const {
+	bool testNull() const override {
 		return this->element.isNull();
 	}
 
@@ -153,7 +153,7 @@ public:
 		element(element)
 	{}
 
-	bool testNull() const {
+	bool testNull() const override {
 		return this->element.isNull();
 	}
 
@@ -222,7 +222,7 @@ public:
 		element(element)
 	{}
 
-	bool testNull() const {
+	bool testNull() const override {
 		return this->element.isNull();
 	}
 
@@ -286,7 +286,7 @@ public:
 		element(element)
 	{}
 
-	bool testNull() const {
+	bool testNull() const override {
 		return this->element.isNull();
 	}
 

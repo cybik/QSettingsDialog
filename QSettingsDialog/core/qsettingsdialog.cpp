@@ -8,6 +8,8 @@
 
 #include "qsettingswidgetdialogengine.h"
 
+Q_GLOBAL_STATIC(QSettingsDialog, defaultDialogInstance)
+#undef d
 #define d this->d_ptr
 
 QSettingsDialog::QSettingsDialog(QObject *parent) :
@@ -320,7 +322,6 @@ QString QSettingsDialog::createContainerPath(QString category, QString section, 
 	return SettingsPathParser::createPath(category, section, group);
 }
 
-Q_GLOBAL_STATIC(QSettingsDialog, defaultDialogInstance)
 QSettingsDialog *QSettingsDialog::defaultInstance()
 {
 	return defaultDialogInstance;

@@ -85,7 +85,7 @@ QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty
 
 template<typename... Args>
 QSettingsPropertyEntry::QSettingsPropertyEntry(const char *propertyName, QMetaObject *metaObject, void *gadget, const QString &name, bool optional, const QString &tooltip, Args... properties) :
-    QSettingsPropertyEntry(propertyName, metaObject, name, optional, tooltip, mapWrapper(properties...))
+	QSettingsPropertyEntry(propertyName, metaObject, gadget, name, optional, tooltip, mapWrapper(properties...))
 {}
 
 template<typename... Args>

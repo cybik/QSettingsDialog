@@ -13,6 +13,12 @@
 
 #define TAB_CONTENT_NAME "tabContent_371342666"
 
+#ifdef Q_OS_OSX//TODO use layoutSpacing function
+#define FALLBACK_SPACING 10
+#else
+#define FALLBACK_SPACING 6
+#endif
+
 SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialogEngine) :
 	QDialog(nullptr),
 	dialogEngine(dialogEngine),
@@ -30,12 +36,19 @@ SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialog
 	this->ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setAutoDefault(false);
 	this->ui->buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
+#ifdef Q_OS_OSX
+	auto font = this->ui->titleLabel->font();
+	font.setPointSize(14);
+	this->ui->titleLabel->setFont(font);
+#endif
+
 	connect(this->ui->buttonBox, &QDialogButtonBox::clicked,
 			this, &SettingsDisplayDialog::buttonBoxClicked);
 	connect(this, &SettingsDisplayDialog::rejected,
 			this, &SettingsDisplayDialog::canceled);
 
 	int listSpacing = this->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
+	listSpacing = listSpacing < 0 ? FALLBACK_SPACING : listSpacing;
 	this->delegate = new CategoryItemDelegate(std::bind(&SettingsDisplayDialog::updateWidth, this, std::placeholders::_1),
 											  this->ui->categoryListWidget->iconSize(),
 											  qMax(qRound(listSpacing * (2./3.)), 1),
@@ -44,6 +57,7 @@ SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialog
 	this->ui->categoryListWidget->setSpacing(qMax(qRound(listSpacing / 3.), 1) - 1);
 
 	int spacing = this->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing);
+	spacing = spacing < 0 ? FALLBACK_SPACING : spacing;
 	this->ui->contentLayout->setSpacing(spacing);
 	this->ui->categoryLineSpacer->changeSize(spacing,
 											 0,
@@ -325,7 +339,7 @@ void SettingsDisplayDialog::createCategory(const QSharedPointer<SettingsCategory
 	foreach(auto section, category->sections)
 		this->createSection(section.second, tab);
 }
-
+#include <QtGlobal>
 void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> &section, QTabWidget *tabWidget)
 {
 	auto scrollArea = new QScrollArea();
@@ -334,7 +348,11 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 	scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setAutoFillBackground(true);
     auto pal = scrollArea->palette();
-    pal.setColor(QPalette::Window, tabWidget->palette().color(QPalette::Base));//TODO test on windows
+#ifdef Q_OS_LINUX
+	pal.setColor(QPalette::Window, tabWidget->palette().color(QPalette::Base));
+#else
+	pal.setColor(QPalette::Window, Qt::transparent);
+#endif
     scrollArea->setPalette(pal);
     scrollArea->setFrameShape(QFrame::NoFrame);
 
