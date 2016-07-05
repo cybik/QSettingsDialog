@@ -57,7 +57,6 @@ bool QSettingsGroupWidgetBase::isEntryChecked(QSharedPointer<QSettingsEntry> ent
 
 bool QSettingsGroupWidgetBase::searchExpression(const QRegularExpression &regex, const QString &searchStyleSheet)
 {
-	typedef QHash<QSharedPointer<QSettingsEntry>, GroupElement>::iterator HIt;
 	bool someFound = false;
 
 	foreach(auto element, this->entryMap) {

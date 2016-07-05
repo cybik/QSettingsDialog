@@ -357,14 +357,14 @@ int QSettingsDialogPrivate::getNextId()
 }
 
 QSettingsDialogPrivate::QSettingsDialogPrivate(QSettingsDialog *q_ptr, QSettingsDisplayEngine *engine) :
-	q_ptr(q_ptr),
+    currentIdMax(0),
+    q_ptr(q_ptr),
 	rootElement(new SettingsRoot()),
 	categoryId(QStringLiteral(".")),
 	sectionId(QStringLiteral(".")),
-	groupId(),
-	displayEngine(engine),
-	currentDialog(nullptr),
-	currentIdMax(0)
+    groupId(),
+    displayEngine(engine),
+    currentDialog(nullptr)
 {}
 
 QSharedPointer<SettingsCategory> QSettingsDialogPrivate::getCategory(QString categoryId)

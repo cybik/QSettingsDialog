@@ -43,8 +43,8 @@ public:
 	QSettingsWidgetBase *createWidget(QWidget *parent) final;
 
 private:
-	int min;
-	int max;
+    int max;
+    int min;
 };
 
 class DoubleSpinBoxFactory : public QSettingsWidgetFactory
@@ -56,8 +56,8 @@ public:
 	QSettingsWidgetBase *createWidget(QWidget *parent) final;
 
 private:
-	double min;
-	double max;
+    double max;
+    double min;
 };
 
 #endif // SETTINGSSPINBOX_H

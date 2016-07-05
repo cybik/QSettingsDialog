@@ -19,8 +19,8 @@ public:
 	inline virtual ~QSettingsLayoutPrivate() {}
 
 	QSharedPointer<QSettingsLayoutPrivate> parentElement;
-	const QSettingsLayout::LayoutType layoutType;
-	const QString id;
+    const QString id;
+    const QSettingsLayout::LayoutType layoutType;
 	QPointer<QSettingsDialog> dialog;
 
 	virtual bool testNull() const = 0;
@@ -179,7 +179,7 @@ public:
 
 	QSettingsLayout elementAt(int index) const override {
 		auto entry = this->element->groups.entry(index);
-		if(entry.first.type() == QMetaType::QString)
+        if(entry.first.type() == QVariant::String)
 			return QSettingsLayout(new SettingsGroupLayout(entry.first.toString(), entry.second.first, this->dialog));
 		else
 			return QSettingsLayout(new SettingsEntryLayout(entry.first.toInt(), entry.second.second, this->dialog));

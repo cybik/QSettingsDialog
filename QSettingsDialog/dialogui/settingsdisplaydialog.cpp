@@ -332,11 +332,11 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 	scrollArea->setWidgetResizable(true);
 	scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
 	scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	scrollArea->setAutoFillBackground(true);
-	auto pal = scrollArea->palette();
-	pal.setColor(QPalette::Window, Qt::transparent);
-	scrollArea->setPalette(pal);
-	scrollArea->setFrameShape(QFrame::NoFrame);
+    scrollArea->setAutoFillBackground(true);
+    auto pal = scrollArea->palette();
+    pal.setColor(QPalette::Window, tabWidget->palette().color(QPalette::Base));//TODO test on windows
+    scrollArea->setPalette(pal);
+    scrollArea->setFrameShape(QFrame::NoFrame);
 
 	auto scrollContent = new QWidget(scrollArea);
 	scrollContent->setObjectName(TAB_CONTENT_NAME);
@@ -348,7 +348,7 @@ void SettingsDisplayDialog::createSection(const QSharedPointer<SettingsSection> 
 	tabWidget->tabBar()->setTabToolTip(index, section->tooltip.isNull() ? section->name : section->tooltip);
 
 	foreach(auto group, section->groups) {
-		if(group.first.type() == QMetaType::Int)
+        if(group.first.type() == QVariant::Int)
 			this->createEntry(group.second.second, scrollContent, layout);
 		else
 			this->createGroup(group.second.first, scrollContent, layout);

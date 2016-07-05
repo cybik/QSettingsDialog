@@ -45,7 +45,7 @@ SpecialGroupMap::Entry SpecialGroupMap::entry(int index) const
 	auto key = this->totalOrder[index];
 	Entry entry;
 	entry.first = key;
-	if(key.type() == QMetaType::Int)
+    if(key.type() == QVariant::Int)
 		entry.second.second = this->customGroups.value(key.toInt());
 	else
 		entry.second.first = this->groups.value(key.toString());
@@ -56,7 +56,7 @@ bool SpecialGroupMap::remove(int index)
 {
 	Q_ASSERT(index < this->totalOrder.size());
 	auto key = this->totalOrder.takeAt(index);
-	if(key.type() == QMetaType::Int)
+    if(key.type() == QVariant::Int)
 		return this->customGroups.remove(key.toInt()) > 0;
 	else
 		return this->groups.remove(key.toString()) > 0;
@@ -68,7 +68,7 @@ SpecialGroupMap::Entry SpecialGroupMap::take(int index)
 	auto key = this->totalOrder.takeAt(index);
 	Entry entry;
 	entry.first = key;
-	if(key.type() == QMetaType::Int)
+    if(key.type() == QVariant::Int)
 		entry.second.second = this->customGroups.take(key.toInt());
 	else
 		entry.second.first = this->groups.take(key.toString());
@@ -132,7 +132,7 @@ int SpecialGroupMap::index(const QString &id) const
 		rIndex = this->totalOrder.indexOf(id, rIndex + 1);
 		if(rIndex == -1)
 			return -1;
-		if(this->totalOrder[rIndex].type() != QMetaType::QString)
+        if(this->totalOrder[rIndex].type() != QVariant::String)
 			continue;
 	} while (false);
 	return rIndex;
@@ -157,7 +157,7 @@ SortedMap<QString, SettingsGroup> SpecialGroupMap::createGroupMap() const
 {
 	SortedMap<QString, SettingsGroup> map;
 	foreach(auto key, this->totalOrder) {
-		if(key.type() == QMetaType::QString) {
+        if(key.type() == QVariant::String) {
 			auto str = key.toString();
 			map.append(str, this->groups.value(str));
 		}
@@ -242,7 +242,7 @@ int SpecialGroupMap::index(const int &id) const
 		rIndex = this->totalOrder.indexOf(id, rIndex + 1);
 		if(rIndex == -1)
 			return -1;
-		if(this->totalOrder[rIndex].type() != QMetaType::Int)
+        if(this->totalOrder[rIndex].type() != QVariant::Int)
 			continue;
 	} while (false);
 	return rIndex;
@@ -267,7 +267,7 @@ SortedMap<int, QSettingsEntry> SpecialGroupMap::createCustomMap() const
 {
 	SortedMap<int, QSettingsEntry> map;
 	foreach(auto key, this->totalOrder) {
-		if(key.type() == QMetaType::Int) {
+        if(key.type() == QVariant::Int) {
 			auto id = key.toInt();
 			map.append(id, this->customGroups.value(id));
 		}

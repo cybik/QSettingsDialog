@@ -212,7 +212,7 @@ int QSectionSettingsContainer::elementCount() const
 
 bool QSectionSettingsContainer::isEntry(int index) const
 {
-	return d->section->groups.id(index).type() == QMetaType::Int;
+    return d->section->groups.id(index).type() == QVariant::Int;
 }
 
 int QSectionSettingsContainer::getEntryIndex(int id) const
@@ -233,7 +233,7 @@ QVariant QSectionSettingsContainer::getElementId(int index) const
 int QSectionSettingsContainer::getEntryId(int index) const
 {
 	auto id = d->section->groups.id(index);
-	if(id.type() == QMetaType::Int)
+    if(id.type() == QVariant::Int)
 		return id.toInt();
 	else
 		return -1;
@@ -242,7 +242,7 @@ int QSectionSettingsContainer::getEntryId(int index) const
 QString QSectionSettingsContainer::getGrouptId(int index) const
 {
 	auto id = d->section->groups.id(index);
-	if(id.type() == QMetaType::QString)
+    if(id.type() == QVariant::String)
 		return id.toString();
 	else
 		return QString();
@@ -256,7 +256,7 @@ QSharedPointer<QSettingsEntry> QSectionSettingsContainer::getEntry(int id) const
 QSharedPointer<QSettingsEntry> QSectionSettingsContainer::getEntryFromIndex(int index) const
 {
 	auto element = d->section->groups.entry(index);
-	if(element.first.type() == QMetaType::Int)
+    if(element.first.type() == QVariant::Int)
 		return element.second.second;
 	else
 		return QSharedPointer<QSettingsEntry>();
@@ -265,7 +265,7 @@ QSharedPointer<QSettingsEntry> QSectionSettingsContainer::getEntryFromIndex(int 
 bool QSectionSettingsContainer::transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo)
 {
 	auto element = d->section->groups.entry(indexFrom);
-	if(element.first.type() == QMetaType::Int) {
+    if(element.first.type() == QVariant::Int) {
 		auto ok = this->doAccept(targetContainer, indexTo, element.first.toInt(), element.second.second);
 		if(ok)
 			d->section->groups.remove(indexFrom);
@@ -298,7 +298,7 @@ QGroupSettingsContainer *QSectionSettingsContainer::createGroupContainer(const Q
 QGroupSettingsContainer *QSectionSettingsContainer::createGroupContainerFromIndex(int index)
 {
 	auto entry = d->section->groups.entry(index);
-	if(entry.first.type() == QMetaType::QString)
+    if(entry.first.type() == QVariant::String)
 		return new QGroupSettingsContainer(d->dialog->q_ptr, SettingsPathParser::joinPath(d->containerPath, entry.first.toString()), this);
 	else
 		return nullptr;
@@ -307,7 +307,7 @@ QGroupSettingsContainer *QSectionSettingsContainer::createGroupContainerFromInde
 QGroupSettingsContainer *QSectionSettingsContainer::createGroupContainerFromIndex(int index, QObject *parent) const
 {
 	auto entryId = d->section->groups.id(index);
-	if(entryId.type() == QMetaType::QString)
+    if(entryId.type() == QVariant::String)
 		return new QGroupSettingsContainer(d->dialog->q_ptr, SettingsPathParser::joinPath(d->containerPath, entryId.toString()), parent);
 	else
 		return nullptr;
