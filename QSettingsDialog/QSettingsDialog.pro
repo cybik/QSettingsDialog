@@ -19,8 +19,12 @@ win32 {
 	CONFIG += skip_target_version_ext
 } else:mac {
 	QMAKE_TARGET_BUNDLE_PREFIX = "com.Skycoder42."
+	QMAKE_FRAMEWORK_BUNDLE_NAME = "QSettingsDialog"
+
+	CONFIG += lib_bundle
+	QMAKE_LFLAGS += '-Wl,-rpath,\'@executable_path/../Frameworks\''
 } else:unix {
-	QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN\''
+	QMAKE_LFLAGS += '-Wl,-rpath,\'.\''
 	QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/../lib\''
 	QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/lib\''
 }

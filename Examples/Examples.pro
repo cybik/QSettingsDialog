@@ -5,3 +5,5 @@ SUBDIRS += \
     VariantWidgetsTest \
     LoadersTest \
     SimpleExample
+
+OTHER_FILES += loadLib.pri
