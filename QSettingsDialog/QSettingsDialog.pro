@@ -10,7 +10,20 @@ CONFIG += c++14
 
 TARGET = QSettingsDialog
 VERSION = 0.1.2
-win32:CONFIG += skip_target_version_ext
+
+win32 {
+	QMAKE_TARGET_COMPANY = "Skycoder42"
+	QMAKE_TARGET_PRODUCT = "QSettingsDialog"
+	QMAKE_TARGET_DESCRIPTION = $$QMAKE_TARGET_PRODUCT
+
+	CONFIG += skip_target_version_ext
+} else:mac {
+	QMAKE_TARGET_BUNDLE_PREFIX = "com.Skycoder42."
+} else:unix {
+	QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN\''
+	QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/../lib\''
+	QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/lib\''
+}
 
 DEFINES += QSETTINGSDIALOG_LIBRARY
 
