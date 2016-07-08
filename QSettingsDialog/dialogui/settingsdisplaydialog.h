@@ -86,6 +86,8 @@ private:
 	OperationMode currentMode;
 	QProgressDialog *workingDialog;
 
+	int calcSpacing(Qt::Orientation orientation);
+
 	void createCategory(const QSharedPointer<SettingsCategory> &category);
 	void createSection(const QSharedPointer<SettingsSection> &section, QTabWidget *tabWidget);
 	void createGroup(const QSharedPointer<SettingsGroup> &group, QWidget *contentWidget, QFormLayout *layout);

@@ -13,12 +13,6 @@
 
 #define TAB_CONTENT_NAME "tabContent_371342666"
 
-#ifdef Q_OS_OSX//TODO use layoutSpacing function
-#define FALLBACK_SPACING 10
-#else
-#define FALLBACK_SPACING 6
-#endif
-
 SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialogEngine) :
 	QDialog(nullptr),
 	dialogEngine(dialogEngine),
@@ -38,7 +32,7 @@ SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialog
 
 #ifdef Q_OS_OSX
 	auto font = this->ui->titleLabel->font();
-	font.setPointSize(14);
+	font.setPointSize(16);
 	this->ui->titleLabel->setFont(font);
 #endif
 
@@ -47,8 +41,7 @@ SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialog
 	connect(this, &SettingsDisplayDialog::rejected,
 			this, &SettingsDisplayDialog::canceled);
 
-	int listSpacing = this->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
-	listSpacing = listSpacing < 0 ? FALLBACK_SPACING : listSpacing;
+	int listSpacing = this->calcSpacing(Qt::Vertical);
 	this->delegate = new CategoryItemDelegate(std::bind(&SettingsDisplayDialog::updateWidth, this, std::placeholders::_1),
 											  this->ui->categoryListWidget->iconSize(),
 											  qMax(qRound(listSpacing * (2./3.)), 1),
@@ -56,8 +49,7 @@ SettingsDisplayDialog::SettingsDisplayDialog(QSettingsWidgetDialogEngine *dialog
 	this->ui->categoryListWidget->setItemDelegate(this->delegate);
 	this->ui->categoryListWidget->setSpacing(qMax(qRound(listSpacing / 3.), 1) - 1);
 
-	int spacing = this->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing);
-	spacing = spacing < 0 ? FALLBACK_SPACING : spacing;
+	int spacing = this->calcSpacing(Qt::Horizontal);
 	this->ui->contentLayout->setSpacing(spacing);
 	this->ui->categoryLineSpacer->changeSize(spacing,
 											 0,
@@ -320,6 +312,27 @@ void SettingsDisplayDialog::on_filterLineEdit_textChanged(const QString &searchT
 	regex.replace(QStringLiteral("\\*"), QStringLiteral(".*"));
 	regex.replace(QStringLiteral("\\?"), QStringLiteral("."));
 	this->searchInDialog(QRegularExpression(regex, QRegularExpression::CaseInsensitiveOption));
+}
+
+int SettingsDisplayDialog::calcSpacing(Qt::Orientation orientation)
+{
+	auto baseSize = this->style()->pixelMetric(orientation == Qt::Horizontal ?
+												   QStyle::PM_LayoutHorizontalSpacing :
+												   QStyle::PM_LayoutVerticalSpacing);
+	if(baseSize < 0)
+		baseSize = this->style()->layoutSpacing(QSizePolicy::DefaultType, QSizePolicy::DefaultType, orientation);
+	if(baseSize < 0)
+		baseSize = this->style()->layoutSpacing(QSizePolicy::LineEdit, QSizePolicy::LineEdit, orientation);
+	if(baseSize < 0) {
+#ifdef Q_OS_OSX
+		baseSize = 10;
+#else
+		baseSize = 6;
+#endif
+	}
+
+	qDebug() << baseSize;
+	return baseSize;
 }
 
 void SettingsDisplayDialog::createCategory(const QSharedPointer<SettingsCategory> &category)
