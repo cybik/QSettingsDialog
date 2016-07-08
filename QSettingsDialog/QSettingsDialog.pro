@@ -4,11 +4,13 @@
 #
 #-------------------------------------------------
 
+TEMPLATE = lib
 QT       += widgets
 CONFIG += c++14
 
 TARGET = QSettingsDialog
-TEMPLATE = lib
+VERSION = 0.1.2
+win32:CONFIG += skip_target_version_ext
 
 DEFINES += QSETTINGSDIALOG_LIBRARY
 

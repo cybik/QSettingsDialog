@@ -331,7 +331,6 @@ int SettingsDisplayDialog::calcSpacing(Qt::Orientation orientation)
 #endif
 	}
 
-	qDebug() << baseSize;
 	return baseSize;
 }
 
