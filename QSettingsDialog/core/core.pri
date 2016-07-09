@@ -10,7 +10,9 @@ HEADERS += \
     $$PWD/qasyncsettingscontainer.h
 
 DISTFILES += \
-	$$PWD/container_path_syntax.txt
+	$$PWD/container_path_syntax.txt \
+    $$PWD/grp_core.dox \
+    $$PWD/qsettingsloader.dox
 
 INCLUDEPATH += $$PWD
 

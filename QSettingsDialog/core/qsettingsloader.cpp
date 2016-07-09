@@ -1,5 +1,17 @@
 #include "qsettingsloader.h"
 
+QSettingsLoader::QSettingsLoader() {}
+
+QSimpleSettingsLoader *QSettingsLoader::simple()
+{
+	return safe_cast<QSimpleSettingsLoader*>(this);
+}
+
+QAsyncSettingsLoader *QSettingsLoader::async()
+{
+	return safe_cast<QAsyncSettingsLoader*>(this);
+}
+
 bool QSimpleSettingsLoader::isAsync() const
 {
 	return false;
@@ -14,13 +26,3 @@ QAsyncSettingsLoader::QAsyncSettingsLoader() :
 	QObject(nullptr),
 	QSettingsLoader()
 {}
-
-QSimpleSettingsLoader *QSettingsLoader::simple()
-{
-	return safe_cast<QSimpleSettingsLoader*>(this);
-}
-
-QAsyncSettingsLoader *QSettingsLoader::async()
-{
-	return safe_cast<QAsyncSettingsLoader*>(this);
-}

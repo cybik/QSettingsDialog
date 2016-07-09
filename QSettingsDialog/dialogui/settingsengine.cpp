@@ -150,13 +150,13 @@ void SettingsEngine::abortOperation()
 	}
 }
 
-void SettingsEngine::entryLoaded(bool successfull, const QVariant &data, bool isUserEdited)
+void SettingsEngine::entryLoaded(bool successful, const QVariant &data, bool isUserEdited)
 {
 	if(this->activeAsyncs.contains(QObject::sender())) {
 		auto index = this->activeAsyncs.take(QObject::sender());
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[index];
 
-		if(successfull)
+		if(successful)
 			this->updateEntry(entry, data, isUserEdited);
 		else
 			this->disableEntry(entry);
@@ -166,13 +166,13 @@ void SettingsEngine::entryLoaded(bool successfull, const QVariant &data, bool is
 	}
 }
 
-void SettingsEngine::entrySaved(bool successfull)
+void SettingsEngine::entrySaved(bool successful)
 {
 	if(this->activeAsyncs.contains(QObject::sender())) {
 		auto index = this->activeAsyncs.take(QObject::sender());
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[index];
 
-		if(successfull) {
+		if(successful) {
 			entry.currentWidget->resetValueChanged();
 			entry.checkingHelper->resetInitState();
 		} else
@@ -182,13 +182,13 @@ void SettingsEngine::entrySaved(bool successfull)
 	}
 }
 
-void SettingsEngine::entryResetted(bool successfull)
+void SettingsEngine::entryResetted(bool successful)
 {
 	if(this->activeAsyncs.contains(QObject::sender())) {
 		auto index = this->activeAsyncs.take(QObject::sender());
 		EntryInfo<QAsyncSettingsLoader> &entry = this->asyncEntries[index];
 
-		if(successfull)
+		if(successful)
 			entry.checkingHelper->resetInitState();
 		else
 			this->errorCount++;

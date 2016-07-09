@@ -34,9 +34,9 @@ signals:
 	void operationAborted();
 
 private slots:
-	void entryLoaded(bool successfull, const QVariant &data, bool isUserEdited);
-	void entrySaved(bool successfull);
-	void entryResetted(bool successfull);
+	void entryLoaded(bool successful, const QVariant &data, bool isUserEdited);
+	void entrySaved(bool successful);
+	void entryResetted(bool successful);
 
 private:
 	struct EntryInfoBase {

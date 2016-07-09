@@ -4,6 +4,10 @@
 @echo off
 mkdir %1
 
+:: --- global ---
+xcopy .\qsettingsdialog_global.h %1\* /y
+xcopy .\qtexception.h %1\* /y
+
 :: --- core ---
 xcopy .\core\exceptions.h %1\* /y
 xcopy .\core\qsettingsdialog.h %1\* /y

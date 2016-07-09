@@ -48,7 +48,8 @@ RESOURCES += \
 DISTFILES += \
 	$$PWD/classmodel.qmodel \
     qsettingsdialog.pri \
-    generateIncludes.bat
+    generateIncludes.bat \
+    doc/QSettingsDialog.doxy
 
 include(./submodules/submodules.pri)
 #parts
