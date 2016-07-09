@@ -804,6 +804,7 @@ INPUT                  = ../../README.md \
 						 ../core/grp_core.dox \
 						 ../core/exceptions.h \
 						 ../core/qsettingsdialog.h \
+						 ../core/qsettingsdialog.dox \
 						 ../core/qsettingsentry.h \
 						 ../core/qsettingsloader.h \
 						 ../core/qsettingsloader.dox \

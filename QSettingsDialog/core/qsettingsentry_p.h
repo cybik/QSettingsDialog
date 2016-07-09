@@ -29,7 +29,7 @@ public:
 	bool optional;
 	QString tooltip;
 
-	QSettingsEntry::UiPropertyMap properties;
+	UiPropertyMap properties;
 
 #ifndef QT_NO_DEBUG
 	int refCounter;

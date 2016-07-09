@@ -19,19 +19,19 @@ QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty
 	QSettingsEntry(0, new QSettingsPropertyLoader(metaProperty, gadget))
 {}
 
-QSettingsPropertyEntry::QSettingsPropertyEntry(const char *propertyName, QObject *object, const QString &name, bool optional, const QString &tooltip, const QSettingsEntry::UiPropertyMap &properties) :
+QSettingsPropertyEntry::QSettingsPropertyEntry(const char *propertyName, QObject *object, const QString &name, bool optional, const QString &tooltip, const UiPropertyMap &properties) :
 	QSettingsEntry(0, new QSettingsPropertyLoader(propertyName, object), name, optional, tooltip, properties)
 {}
 
-QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty, QObject *object, const QString &name, bool optional, const QString &tooltip, const QSettingsEntry::UiPropertyMap &properties) :
+QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty, QObject *object, const QString &name, bool optional, const QString &tooltip, const UiPropertyMap &properties) :
 	QSettingsEntry(0, new QSettingsPropertyLoader(metaProperty, object), name, optional, tooltip, properties)
 {}
 
-QSettingsPropertyEntry::QSettingsPropertyEntry(const char *propertyName, QMetaObject *metaObject, void *gadget, const QString &name, bool optional, const QString &tooltip, const QSettingsEntry::UiPropertyMap &properties) :
+QSettingsPropertyEntry::QSettingsPropertyEntry(const char *propertyName, QMetaObject *metaObject, void *gadget, const QString &name, bool optional, const QString &tooltip, const UiPropertyMap &properties) :
 	QSettingsEntry(0, new QSettingsPropertyLoader(propertyName, metaObject, gadget), name, optional, tooltip, properties)
 {}
 
-QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty, void *gadget, const QString &name, bool optional, const QString &tooltip, const QSettingsEntry::UiPropertyMap &properties) :
+QSettingsPropertyEntry::QSettingsPropertyEntry(const QMetaProperty &metaProperty, void *gadget, const QString &name, bool optional, const QString &tooltip, const UiPropertyMap &properties) :
 	QSettingsEntry(0, new QSettingsPropertyLoader(metaProperty, gadget), name, optional, tooltip, properties)
 {}
 

@@ -37,5 +37,6 @@ inline QSharedPointer<TTo> safeCast_sharedPointer(QSharedPointer<TFrom> from) {
 #define sharedSafeCast(type, sharedPointer) safeCast_sharedPointer<type>(sharedPointer)
 #endif
 
+typedef QHash<QString, QVariant> UiPropertyMap;
 
 #endif // QSETTINGSDIALOGENGINE_GLOBAL_H

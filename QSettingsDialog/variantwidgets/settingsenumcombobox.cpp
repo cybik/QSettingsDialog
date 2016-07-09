@@ -137,7 +137,7 @@ SettingsEnumEditWrapper::SettingsEnumEditWrapper(const QMetaEnum &metaEnum, QWid
 	layout->addWidget(this->current->asWidget());
 }
 
-void SettingsEnumEditWrapper::initialize(const QSettingsEntry::UiPropertyMap &uiPropertyMap)
+void SettingsEnumEditWrapper::initialize(const UiPropertyMap &uiPropertyMap)
 {
 	if(uiPropertyMap.contains(QStringLiteral("showAsRadio"))) {
 		auto asRadio = uiPropertyMap.value(QStringLiteral("showAsRadio")).toBool();

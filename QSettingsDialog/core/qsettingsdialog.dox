@@ -1,0 +1,153 @@
+/*!
+@class QSettingsDialog
+
+The settings dialog is the core class of the QSettingsDialog library. It manages the virtual representation of the settings entries.
+
+### Dialog structure
+A settings dialog provides the following structure:
+```
+QSettingsDialog
+ |
+ |--Category
+ |   |
+ |   |--Section
+ |   |   |
+ |   |   |--QSettingsEntry
+ |   |   |
+ |   |   |--Group
+ |   |   |   |
+ |   |   |   |--QSettingsEntry
+ |   |   |   ⋮
+ |   |   ⋮
+ |   ⋮
+ ⋮
+```
+
+The dialog itself contains categories. Each category is made up of sections. Each section can contain entries and groups. Groups
+can contain entries. While the dialog itself an the entries are classes, the 3 others are internally used and can be indirectly created and
+modified through the QSettingsDialog.
+
+The dialog proivdes general and simple members to access and modify all of the listed elements, but only in a limited way, that should suffice
+for most applications. However, if you need more control of the organization of these elements and their appereance, the QSettingsLayout will
+be useful. For more option on the entries and some encapsulation, the QSettingsContainer will be at your aid.
+
+### Settings Path
+The dialog uses a path based mechanism to identify containers and entries. Each container (categories, sections and groups) has a string id that
+can be any combination of latin letters (both cases), numbers, the underscore and hyphen. Path elements are seperated by a slash. Default containers
+(categories and sections only) can be set using a dot. In some functions, an empty string means to use the current container. Function that accept empty ids
+are marked as such. Using simply two dots as a full path is a shortcut for "default category, default section, no group". A completly emty path means the same
+as two slashes
+
+The following shows a few example paths.
+```
+ - category/section/group		-> category, section, group
+ - category/another_section		-> category, another_section, [no group]
+ - category/./grp3				-> category, [default section], grp3
+ - .//more-group				-> [default category], [current section], more-group
+ - //							-> [current category], [current section], [current group]
+ - ..							-> [default category], [default section], [no group]
+ - /.							-> [current category], [default section], [no group]
+ -								-> [current category], [current section], [current group]
+```
+*/
+
+/*!
+@fn QSettingsDialog::containerPath
+
+@returns a valid settings path
+
+Depending on whehter the group is currently set, this path can contain either only category and section, or all three:
+`category/section/group` or `category/section`
+*/
+
+/*!
+@fn QSettingsDialog::groupId
+
+@returns the id of the current group, or a null string if no group is currently set
+*/
+
+/*!
+@fn QSettingsDialog::setCategory
+
+@param id The id of the category to be set
+@param name The display name of the category
+@param icon The display icon of the category
+@param tooltip The tooltip for the category element
+@throws InvalidContainerPathException Will be thrown if id is not a valid container id
+
+This function will set the dialogs current category to `id`, if it is valid. If there is no category existing
+with that id a new one will be created with the `id` as default name. If you leave id empty, the current category will be used.
+Regardles of whether the category was created or not, if `name` is not null, this will be set as new name. Same goes for `icon` and `tooltip`.
+*/
+
+/*!
+@fn QSettingsDialog::setSection
+
+@param id The id of the section to be set
+@param name The display name of the section
+@param icon The display icon of the section
+@param tooltip The tooltip for the section element
+@throws InvalidContainerPathException Will be thrown if id is not a valid container id
+
+This function will set the dialogs current section to `id`, if it is valid. If there is no section existing
+with that id a new one will be created with the `id` as default name. If you leave id empty, the current section will be used.
+Regardles of whether the section was created or not, if `name` is not null, this will be set as new name. Same goes for `icon` and `tooltip`.
+*/
+
+/*!
+@fn QSettingsDialog::setGroup
+
+@param id The id of the group to be set
+@param displayId The display id of the section.
+@param name The display name of the group
+@param optional Sets the group to be optional or not
+@param tooltip The tooltip for the group element
+@throws InvalidContainerPathException Will be thrown if id is not a valid container id
+
+This function will set the dialogs current group to `id`, if it is valid. If there is no group existing
+with that id a new one will be created with the `id` as default name and 0 as display id. If you leave id empty, the current section will be used.
+Regardles of whether the group was created or not, if `name` is not null, this will be set as new name. Same goes for the `tooltip`,
+and `displayId` and `optional` if they are not negative. `optional` will be converted to `bool`. If you want to set it, simply use `true` and `false` as values.
+
+The `displayId` can be used to create a group with a custom appeareance. The default group (0) will always be defined. Check the
+QSettingsWidgetDialogEngine for more details about custom groups.
+
+Groups are optional. If not group is set, new entries will be placed in the section. Use QSettingsDialog::unsetGroup to unset groups.
+*/
+
+/*!
+@fn QSettingsDialog::unsetGroup
+
+After this call, entries will be placed in the current section again, instead of a group. Unsettings a group does not delete it, only change
+the current group to nothing. To set a group again, use QSettingsDialog::setGroup.
+*/
+
+/*!
+@fn QSettingsDialog::setContainer
+
+@param containerPath The container path this dialog should be set to
+@throws InvalidContainerPathException Will be thrown if the path is not a valid container path
+
+Use this function to set containers based on a path. If any of the ids in the path does not yet exist, new containers
+will be created with the id as name. You can use all kinds of valid paths for this function, including empty elements to keep the current
+container for that path part. if you use 1 slash (just category and section), the group will be unset. use 2 slashes and an empty group id to keep the current group.
+
+@warning This function will **NOT** create the new containers. It will just set the id. The containers will be automatically created as soon as they are accessed.
+(For example by adding a child element to it). To explicitly create the containers, use the setter functions.
+*/
+
+/*!
+@fn QSettingsDialog::removeContainer
+
+@param containerPath The container path that should be removed
+@throws InvalidContainerPathException Will be thrown if the path is not a valid container path
+
+Use this function to remove any container based on a path. You can pass in a single id, a path of two or a path of three elements.
+If you have only an id, the category with that id will be removed. Using a two element path will remove the section within the given category.
+The same happens for paths with 3 elements with groups. You can use empty ids for all elements.
+
+@attention If you remove a currently active container, this will delete the container and all it's contents, but not unset the container as current. You can
+manually change the current container in that case. If you don't do it, the container will be recreated as soon as it is accessed. (For example by adding
+a child element to it)
+*/
+

@@ -12,7 +12,8 @@ HEADERS += \
 DISTFILES += \
 	$$PWD/container_path_syntax.txt \
     $$PWD/grp_core.dox \
-    $$PWD/qsettingsloader.dox
+    $$PWD/qsettingsloader.dox \
+    $$PWD/qsettingsdialog.dox
 
 INCLUDEPATH += $$PWD
 

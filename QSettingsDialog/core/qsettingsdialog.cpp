@@ -3,12 +3,10 @@
 #include "settingspathparser.h"
 #include "qsettingscontainer.h"
 #include "qasyncsettingscontainer.h"
-#include <QGlobalStatic>
 #include <QDebug>
 
 #include "qsettingswidgetdialogengine.h"
 
-Q_GLOBAL_STATIC(QSettingsDialog, defaultDialogInstance)
 #undef d
 #define d this->d_ptr
 
@@ -63,8 +61,11 @@ void QSettingsDialog::setCategory(const QString &id, const QString &name, const 
 {
 	auto element = d->getCategory(id);
 	Q_ASSERT(!element.isNull());
-	if(!id.isEmpty())
+	if(!id.isEmpty()) {
 		d->categoryId = id;
+		d->sectionId = QLatin1Char('.');
+		d->groupId.clear();
+	}
 
 	if(!name.isNull())
 		element->name = name;
@@ -78,8 +79,10 @@ void QSettingsDialog::setSection(const QString &id, const QString &name, const Q
 {
 	auto element = d->getSection(id);
 	Q_ASSERT(!element.isNull());
-	if(!id.isEmpty())
+	if(!id.isEmpty()) {
 		d->sectionId = id;
+		d->groupId.clear();
+	}
 
 	if(!name.isNull())
 		element->name = name;
@@ -89,7 +92,7 @@ void QSettingsDialog::setSection(const QString &id, const QString &name, const Q
 		element->tooltip = tooltip;
 }
 
-void QSettingsDialog::setGroup(const QString &id, int displayId, const QString &name, bool optional, const QString &tooltip)
+void QSettingsDialog::setGroup(const QString &id, int displayId, const QString &name, int optional, const QString &tooltip)
 {
 	auto element = d->getGroup(id);
 	Q_ASSERT(!element.isNull());
@@ -102,7 +105,8 @@ void QSettingsDialog::setGroup(const QString &id, int displayId, const QString &
 		element->name = name;
 	if(!tooltip.isNull())
 		element->tooltip = tooltip;
-	element->isOptional = optional;
+	if(optional >= 0)
+		element->isOptional = (bool)optional;
 }
 
 void QSettingsDialog::unsetGroup()
@@ -133,24 +137,33 @@ bool QSettingsDialog::removeContainer(const QString &containerPath)
 		if(elements[0] == QStringLiteral(".")) {
 			d->rootElement->defaultCategory.reset();
 			return true;
-		} else
+		} else {
+			if(elements[0].isEmpty())
+				elements[0] = d->categoryId;
 			return d->rootElement->categories.removeId(elements[0]);
+		}
 	case 2:
 	{
 		auto category = d->getCategory(elements[0]);
 		if(elements[1] == QStringLiteral(".")) {
 			category->defaultSection.reset();
 			return true;
-		} else
+		} else {
+			if(elements[1].isEmpty())
+				elements[1] = d->sectionId;
 			return category->sections.removeId(elements[1]);
+		}
 	}
 	case 3:
 	{
 		auto section = d->getSection(elements[1], elements[0]);
 		if(elements[2] == QStringLiteral("."))
 			throw new InvalidContainerPathException();
-		else
+		else {
+			if(elements[2].isEmpty())
+				elements[2] = d->groupId;
 			return section->groups.removeId(elements[2]);
+		}
 	}
 	default:
 		Q_UNREACHABLE();
@@ -320,11 +333,6 @@ QString QSettingsDialog::createContainerPath(QString category, QString section, 
 	}
 
 	return SettingsPathParser::createPath(category, section, group);
-}
-
-QSettingsDialog *QSettingsDialog::defaultInstance()
-{
-	return defaultDialogInstance;
 }
 
 void QSettingsDialog::openSettings(QWidget *parentWindow)

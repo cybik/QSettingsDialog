@@ -54,12 +54,12 @@ void QSettingsEntry::setTooltip(const QString &tooltip)
 	d->tooltip = tooltip;
 }
 
-QSettingsEntry::UiPropertyMap QSettingsEntry::uiProperties() const
+UiPropertyMap QSettingsEntry::uiProperties() const
 {
 	return d->properties;
 }
 
-void QSettingsEntry::setUiProperties(const QSettingsEntry::UiPropertyMap &properties)
+void QSettingsEntry::setUiProperties(const UiPropertyMap &properties)
 {
 	d->properties = properties;
 }

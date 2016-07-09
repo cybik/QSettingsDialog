@@ -67,7 +67,7 @@ public:
 	SettingsEnumEditWrapper(const QMetaEnum &metaEnum, QWidget *parent = nullptr);
 
 	// QSettingsWidgetBase interface
-	void initialize(const QSettingsEntry::UiPropertyMap &uiPropertyMap) override;
+	void initialize(const UiPropertyMap &uiPropertyMap) override;
 	bool hasValueChanged() const override;
 	void resetValueChanged() override;
 	void setValue(const QVariant &value) override;
