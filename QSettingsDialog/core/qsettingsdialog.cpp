@@ -321,20 +321,6 @@ QString QSettingsDialog::createContainerPath(QString category, QString section, 
 	return SettingsPathParser::createPath(category, section, group);
 }
 
-QString QSettingsDialog::createContainerPath(QString category, QString section, QString group, bool escapeAll)
-{
-	if(escapeAll) {
-		if(category.isEmpty())
-			category = d->categoryId;
-		if(section.isEmpty())
-			section = d->sectionId;
-		if(group.isEmpty())
-			group = d->groupId;
-	}
-
-	return SettingsPathParser::createPath(category, section, group);
-}
-
 void QSettingsDialog::openSettings(QWidget *parentWindow)
 {
 	d->showDialog(false, parentWindow);

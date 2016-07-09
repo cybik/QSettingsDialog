@@ -99,11 +99,6 @@ public:
 	static QString createContainerPath(QString category = QString(),
 									   QString section = QString(),
 									   QString group = QString());
-	//! Creates a container path string from category, section and group, can resolve spaces
-	QString createContainerPath(QString category = QString(),
-								QString section = QString(),
-								QString group = QString(),
-								bool escapeAll = false);
 
 public slots:
 	//! Creates a new display dialog and shows it without blocking
@@ -112,7 +107,7 @@ public slots:
 	int execSettings(QWidget *parentWindow = nullptr);
 
 signals:
-	//! Will be emitted everytime the user saves his settings
+	//! Will be emitted everytime the user saves his settings.
 	void saved(bool closed);
 	//! Will be emitted if the user resets the settings
 	void resetted();

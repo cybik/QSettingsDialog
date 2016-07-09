@@ -73,7 +73,7 @@ QString SettingsPathParser::createPath(const QString &categoryId, const QString 
 {
 	validateId(categoryId, false);
 	validateId(sectionId, false);
-	if(groupId.isEmpty())
+	if(groupId.isNull())
 		return QStringList({categoryId, sectionId}).join(QLatin1Char('/'));
 	else {
 		validateId(groupId, false);

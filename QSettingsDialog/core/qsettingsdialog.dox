@@ -151,3 +151,136 @@ manually change the current container in that case. If you don't do it, the cont
 a child element to it)
 */
 
+/*!
+@fn QSettingsDialog::appendEntry(QSettingsEntry *)
+
+@param entry The entry to be appended
+@returns The new id of the entry. Can be used to get the entry
+
+Appends to the entry to the current container. This can either be a group or a section, depeding on whether it is set or not.
+*/
+
+/*!
+@fn QSettingsDialog::appendEntry(const QString &, QSettingsEntry *)
+
+@param containerPath The container to insert the entry into
+@param entry The entry to be appended
+@returns The new id of the entry. Can be used to get the entry
+@throws InvalidContainerPathException Will be thrown if the path is not a valid container path
+
+Appends to the entry to the given container. This can either be a group or a section. You can use empty ids to use current elements.
+If containers within the path do not exist, they will be created with the id as name. This function will not change the current container.
+*/
+
+/*!
+@fn QSettingsDialog::prependEntry(QSettingsEntry *)
+
+@param entry The entry to be prepended
+@returns The new id of the entry. Can be used to get the entry
+
+Prepends to the entry to the current container. This can either be a group or a section, depeding on whether it is set or not.
+*/
+
+/*!
+@fn QSettingsDialog::prependEntry(const QString &, QSettingsEntry *)
+
+@param containerPath The container to insert the entry into
+@param entry The entry to be prepended
+@returns The new id of the entry. Can be used to get the entry
+@throws InvalidContainerPathException Will be thrown if the path is not a valid container path
+
+Prepends to the entry to the given container. This can either be a group or a section. You can use empty ids to use current elements.
+If containers within the path do not exist, they will be created with the id as name. This function will not change the current container.
+*/
+
+/*!
+@fn QSettingsDialog::getEntry
+
+@param id The id of the entry searched for
+@returns The entry as shared pointer, if existing.
+
+If the settings dialog has an entry somewhere with that id, it will be returned. If not, a null pointer.
+
+@note This function performs a recursive search through all containers until the id was found. The more containers and elements
+the dialog has, the longer this will take.
+*/
+
+/*!
+@fn QSettingsDialog::getEntryPath
+
+@param id The id of the entry searched for
+@returns The path of the container that holds this entry, or a null string
+
+If the settings dialog has an entry somewhere with that id, the path to the container it is placed in will be returned. If not, a null string.
+
+@note This function performs a recursive search through all containers until the id was found. The more containers and elements
+the dialog has, the longer this will take.
+*/
+
+/*!
+@fn QSettingsDialog::removeEntry
+
+@param id The id of the entry to be removed
+@returns `true`, if an entry with that id was found and removed, `false` if not
+
+If the settings dialog has an entry somewhere with that id, it will be deleted and `true` returned. If not, `false`.
+
+@note This function performs a recursive search through all containers until the id was found. The more containers and elements
+the dialog has, the longer this will take.
+*/
+
+/*!
+@fn QSettingsDialog::createContainerPath(QString, QString, QString)
+
+@param category The category id for the path
+@param section The section id for the path
+@param group The group id for the path, or a null string to exclude the group
+@returns The resulting path, if all ids are valid
+@throws InvalidContainerPathException Will be thrown if one of the ids is not a valid container id
+
+The path will be generated as is, i.e. empty strings will stay empty. If group is a null string, the path will
+be a section path (2 elements). If not, the path will contain all 3 elements.
+
+@attention For the group id, null and empty strings make a difference. If the group is only empty, not null, a group path
+will be created. To create a null string, simply use `QString()`. For an empty string that is not null, use `QString("")` instead.
+*/
+
+/*!
+@fn QSettingsDialog::openSettings
+
+@param parentWindow The parent window the dialog should be created for. `nullptr` to create a root window.
+
+@note Only one settings dialog can be shown at a time. Calling this function while the dialog is running will generate a warning
+and do nothing.
+*/
+
+/*!
+@fn QSettingsDialog::execSettings
+
+@param parentWindow The parent window the dialog should be created for. `nullptr` to create a root window.
+@returns The exec result of the dialog (See QDialog::DialogCode)
+
+@note Only one settings dialog can be shown at a time. Calling this function while the dialog is running will generate a warning
+and return -1.
+*/
+
+/*!
+@fn QSettingsDialog::saved
+
+@param closed Indicates, whether the dialog was closed with that saving action.
+
+Since most dialogs support both, apply and ok, this signal can be emitted multiple times with `false`. Once it was
+emitted with `true`, the dialog is considered closed and, if using a Qt::QueuedConnection, it is possible to show a new dialog directly from the slot.
+*/
+
+/*!
+@fn QSettingsDialog::resetted
+
+Resettings a dialog will automatically close it. If using a Qt::QueuedConnection, it is possible to show a new dialog directly from the slot.
+*/
+
+/*!
+@fn QSettingsDialog::resetted
+
+Canceling a dialog will automatically close it. If using a Qt::QueuedConnection, it is possible to show a new dialog directly from the slot.
+*/
