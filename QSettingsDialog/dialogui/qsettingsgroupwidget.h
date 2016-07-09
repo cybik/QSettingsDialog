@@ -36,12 +36,12 @@ protected:
 	QHash<QSharedPointer<QSettingsEntry>, GroupElement> entryMap;
 };
 
-template <class Widget>
-class QSettingsGroupWidget : public Widget, public QSettingsGroupWidgetBase
+template <class TWidget>
+class QSettingsGroupWidget : public TWidget, public QSettingsGroupWidgetBase
 {
 public:
 	inline QSettingsGroupWidget(QWidget *parent = nullptr) :
-		Widget(parent),
+		TWidget(parent),
 		QSettingsGroupWidgetBase()
 	{}
 

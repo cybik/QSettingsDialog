@@ -31,12 +31,12 @@ private:
 	QVariant changedCache;
 };
 
-template <class Widget>
-class QSettingsWidget : public Widget, public QSettingsWidgetBase
+template <class TWidget>
+class QSettingsWidget : public TWidget, public QSettingsWidgetBase
 {
 public:
 	inline QSettingsWidget(QWidget *parent = nullptr) :
-		Widget(parent),
+		TWidget(parent),
 		QSettingsWidgetBase()
 	{}
 

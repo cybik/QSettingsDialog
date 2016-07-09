@@ -12,7 +12,7 @@
          <uid>{cea956b6-f113-4207-a8df-b5a84a962b8d}</uid>
         </MElement>
        </base-MElement>
-       <name>EngineModel</name>
+       <name>QSettingsDialog</name>
        <children>
         <handles>
          <handles>
@@ -32,7 +32,7 @@
                       <uid>{cc41c0d7-13d7-4f07-86f5-9589f8beded9}</uid>
                      </MElement>
                     </base-MElement>
-                    <name>EngineModel</name>
+                    <name>Public classmodel</name>
                    </MObject>
                   </base-MObject>
                   <elements>
@@ -49,7 +49,7 @@
                          </base-DElement>
                          <object>{10674a32-cf2a-42f5-a139-45c2114a1d5c}</object>
                          <name>core</name>
-                         <pos>x:490;y:515</pos>
+                         <pos>x:485;y:515</pos>
                          <rect>x:-570;y:-335;w:1140;h:670</rect>
                          <auto-sized>false</auto-sized>
                          <visual-role>0</visual-role>
@@ -71,7 +71,7 @@
                          <object>{2a75b947-15bf-4efd-9e35-f270253fca4e}</object>
                          <context>core</context>
                          <name>Exceptions</name>
-                         <pos>x:20;y:265</pos>
+                         <pos>x:15;y:265</pos>
                          <rect>x:-60;y:-30;w:120;h:60</rect>
                          <visual-role>0</visual-role>
                         </DObject>
@@ -92,7 +92,7 @@
                          <object>{09616b60-1837-47a6-8fac-135d225d3d43}</object>
                          <context>core</context>
                          <name>QAsyncSettingsContainer</name>
-                         <pos>x:20;y:605</pos>
+                         <pos>x:175;y:705</pos>
                          <rect>x:-70;y:-30;w:140;h:60</rect>
                          <visual-role>5</visual-role>
                         </DObject>
@@ -111,11 +111,17 @@
                           </DElement>
                          </base-DElement>
                          <object>{6ae6937a-53f8-4312-8c22-d6420f23c67f}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
                          <context>core</context>
                          <name>QSettingsContainer</name>
-                         <pos>x:20;y:485</pos>
+                         <pos>x:185;y:395</pos>
                          <rect>x:-55;y:-30;w:110;h:60</rect>
-                         <visual-role>5</visual-role>
+                         <visual-role>0</visual-role>
+                         <stereotype-display>1</stereotype-display>
                         </DObject>
                        </base-DObject>
                       </DClass>
@@ -134,7 +140,7 @@
                          <object>{80069c49-0c6d-451f-9081-eb4864315a9a}</object>
                          <context>core</context>
                          <name>QSettingsContainerLayout</name>
-                         <pos>x:210;y:710</pos>
+                         <pos>x:415;y:680</pos>
                          <rect>x:-75;y:-30;w:150;h:60</rect>
                          <visual-role>6</visual-role>
                         </DObject>
@@ -155,7 +161,7 @@
                          <object>{e7e952c1-207f-4706-9c4b-00232d9a37eb}</object>
                          <context>core</context>
                          <name>QSettingsDialog</name>
-                         <pos>x:310;y:310</pos>
+                         <pos>x:465;y:305</pos>
                          <rect>x:-55;y:-30;w:110;h:60</rect>
                          <visual-role>5</visual-role>
                          <visual-emphasized>true</visual-emphasized>
@@ -177,7 +183,7 @@
                          <object>{52f7d7c9-5321-4bb6-b72c-1b47ee17f62f}</object>
                          <context>core</context>
                          <name>QSettingsEntry</name>
-                         <pos>x:750;y:470</pos>
+                         <pos>x:900;y:450</pos>
                          <rect>x:-55;y:-30;w:110;h:60</rect>
                          <visual-role>6</visual-role>
                          <visual-emphasized>true</visual-emphasized>
@@ -205,7 +211,7 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QSettingsLoader</name>
-                         <pos>x:515;y:490</pos>
+                         <pos>x:665;y:470</pos>
                          <rect>x:-55;y:-30;w:110;h:60</rect>
                          <visual-role>0</visual-role>
                          <visual-emphasized>true</visual-emphasized>
@@ -233,7 +239,7 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QSimpleSettingsLoader</name>
-                         <pos>x:615;y:625</pos>
+                         <pos>x:765;y:605</pos>
                          <rect>x:-65;y:-30;w:130;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -260,7 +266,7 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QAsyncSettingsLoader</name>
-                         <pos>x:420;y:625</pos>
+                         <pos>x:570;y:605</pos>
                          <rect>x:-65;y:-30;w:130;h:60</rect>
                          <visual-role>7</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -288,7 +294,7 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QSettingsLoaderEntry</name>
-                         <pos>x:725;y:785</pos>
+                         <pos>x:875;y:765</pos>
                          <rect>x:-65;y:-30;w:130;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -486,7 +492,7 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QSettingsDisplayInstance</name>
-                         <pos>x:910;y:315</pos>
+                         <pos>x:935;y:310</pos>
                          <rect>x:-70;y:-30;w:140;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -513,7 +519,7 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QSettingsDisplayEngine</name>
-                         <pos>x:615;y:290</pos>
+                         <pos>x:715;y:285</pos>
                          <rect>x:-65;y:-30;w:130;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -610,8 +616,8 @@
                          </base-DElement>
                          <object>{d3bca723-2f50-4e7a-b6fa-9ad015e0a94d}</object>
                          <name>dialogui</name>
-                         <pos>x:490;y:60</pos>
-                         <rect>x:-570;y:-95;w:1140;h:190</rect>
+                         <pos>x:485;y:-45</pos>
+                         <rect>x:-570;y:-215;w:1140;h:430</rect>
                          <auto-sized>false</auto-sized>
                          <visual-role>0</visual-role>
                         </DObject>
@@ -637,7 +643,7 @@
                          </stereotypes>
                          <context>dialogui</context>
                          <name>QSettingsWidgetBase</name>
-                         <pos>x:325;y:95</pos>
+                         <pos>x:210;y:110</pos>
                          <rect>x:-60;y:-30;w:120;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -664,12 +670,18 @@
                          </stereotypes>
                          <context>dialogui</context>
                          <name>QSettingsWidget</name>
-                         <pos>x:60;y:50</pos>
-                         <rect>x:-50;y:-30;w:100;h:60</rect>
+                         <pos>x:210;y:5</pos>
+                         <rect>x:-60;y:-30;w:120;h:60</rect>
                          <visual-role>0</visual-role>
+                         <visual-emphasized>true</visual-emphasized>
                          <stereotype-display>1</stereotype-display>
                         </DObject>
                        </base-DObject>
+                       <template>
+                        <qlist>
+                         <item>TWidget</item>
+                        </qlist>
+                       </template>
                       </DClass>
                      </instance>
                     </item>
@@ -686,9 +698,10 @@
                          <object>{deeaf498-27ad-4012-ad84-fcbbb6de5635}</object>
                          <context>dialogui</context>
                          <name>QSettingsWidgetDialogEngine</name>
-                         <pos>x:915;y:85</pos>
-                         <rect>x:-80;y:-30;w:160;h:60</rect>
+                         <pos>x:925;y:60</pos>
+                         <rect>x:-95;y:-30;w:190;h:60</rect>
                          <visual-role>6</visual-role>
+                         <visual-emphasized>true</visual-emphasized>
                         </DObject>
                        </base-DObject>
                       </DClass>
@@ -712,7 +725,7 @@
                          </stereotypes>
                          <context>dialogui</context>
                          <name>QSettingsWidgetFactory</name>
-                         <pos>x:630;y:60</pos>
+                         <pos>x:430;y:110</pos>
                          <rect>x:-70;y:-30;w:140;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -751,7 +764,7 @@
                          </base-DElement>
                          <object>{6329a515-4917-4e82-9693-6db970b9c9e1}</object>
                          <a>{49d4d1ed-b029-43b6-a464-be5bc6a715ec}</a>
-                         <b>{2bc03a44-b28b-4cef-9de7-0812f74ce943}</b>
+                         <b>{7df73909-a8b9-4906-98fc-daa7f546e5e9}</b>
                         </DRelation>
                        </base-DRelation>
                        <a>
@@ -803,9 +816,764 @@
                       </DInheritance>
                      </instance>
                     </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{138e3e69-bd16-4026-8c80-800b0fefc8fa}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{bdd52010-9fbf-4c12-b11d-4fa6f3037fd3}</object>
+                         <context>core</context>
+                         <name>QGroupSettingsContainer</name>
+                         <pos>x:30;y:550</pos>
+                         <rect>x:-70;y:-30;w:140;h:60</rect>
+                         <visual-role>5</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{2e46d27b-7240-40f2-ba88-0ba8ea7ca1ed}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{7c1c16a3-998a-40b4-af20-a605e9979146}</object>
+                         <context>core</context>
+                         <name>QSectionSettingsContainer</name>
+                         <pos>x:310;y:555</pos>
+                         <rect>x:-75;y:-30;w:150;h:60</rect>
+                         <visual-role>5</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{40e8b68b-ab21-4b5f-b888-eb05fbd32251}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{408c0a18-1f01-412e-ab99-f667d46dfd0c}</object>
+                         <a>{138e3e69-bd16-4026-8c80-800b0fefc8fa}</a>
+                         <b>{77065800-0f18-4cae-a8cd-f6d03031732a}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{cb4b9b59-dbd3-4865-9e62-c95e5ccc60de}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{00c0251b-5a39-4cef-9e6a-46385832d0ad}</object>
+                         <a>{2e46d27b-7240-40f2-ba88-0ba8ea7ca1ed}</a>
+                         <b>{77065800-0f18-4cae-a8cd-f6d03031732a}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{9de49a30-4a4e-4d52-812b-40c2219033c1}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{26a92b9f-f6fb-4853-913b-f6481361078e}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>QSettingsDialogWidgetBase</name>
+                         <pos>x:15;y:5</pos>
+                         <rect>x:-75;y:-30;w:150;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{1d1ed4b0-95e9-4db3-a7c9-82fc195b43dc}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{2fcd1364-247d-48f4-8ab9-964f598ee66e}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>QSettingsDialogWidget</name>
+                         <pos>x:15;y:105</pos>
+                         <rect>x:-75;y:-30;w:150;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <visual-emphasized>true</visual-emphasized>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                       <template>
+                        <qlist>
+                         <item>TDialog</item>
+                        </qlist>
+                       </template>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{efc48b50-6a02-4d83-bff8-016ebef68d72}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{c30cf0ec-02bb-4b0d-bd25-1e137ce6ec90}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>QSettingsGroupWidgetBase</name>
+                         <pos>x:430;y:-85</pos>
+                         <rect>x:-75;y:-30;w:150;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{57cf17fa-8b82-4258-908a-652d022319d2}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{c73b3daf-7fa6-44bb-8004-a7f0b1a6b8a6}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>QSettingsGroupWidget</name>
+                         <pos>x:430;y:-180</pos>
+                         <rect>x:-75;y:-30;w:150;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <visual-emphasized>true</visual-emphasized>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                       <template>
+                        <qlist>
+                         <item>TWidget</item>
+                        </qlist>
+                       </template>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{3dfec697-9b94-48b6-b944-19499e59c941}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{2ee1b271-9076-4a48-9967-56a3088b9776}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>QSettingsGroupWidgetFactory</name>
+                         <pos>x:655;y:-85</pos>
+                         <rect>x:-85;y:-30;w:170;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{8a7ee654-0849-47a8-8158-b31f896906b0}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{ca03edb0-cdf0-4473-94f2-9c891e0865f4}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>GenericSettingsGroupWidgetFactory</name>
+                         <pos>x:655;y:-180</pos>
+                         <rect>x:-100;y:-30;w:200;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                       <template>
+                        <qlist>
+                         <item>TSettingsGroupWidget</item>
+                        </qlist>
+                       </template>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{bdb3526c-2545-4d3c-b0a8-ef7506d431b5}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{48c8e1c5-7dcf-4e42-80ab-8e8e2ad494a0}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>GenericSettingsWidgetFactory</name>
+                         <pos>x:430;y:5</pos>
+                         <rect>x:-85;y:-30;w:170;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                       <template>
+                        <qlist>
+                         <item>TSettingsWidget</item>
+                        </qlist>
+                       </template>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{7df73909-a8b9-4906-98fc-daa7f546e5e9}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{2bf2f575-00df-46a7-b43a-e02d7619d5eb}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>interface</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>dialogui</context>
+                         <name>QSettingsWidgetFactoryRegistry</name>
+                         <pos>x:670;y:110</pos>
+                         <rect>x:-90;y:-30;w:180;h:60</rect>
+                         <visual-role>0</visual-role>
+                         <stereotype-display>1</stereotype-display>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DAssociation">
+                      <DAssociation>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{46261cbc-c08c-45be-89cc-7fcfaaf9e18f}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{906a2a17-bf17-49c5-9697-d0481e1e7775}</object>
+                         <a>{7df73909-a8b9-4906-98fc-daa7f546e5e9}</a>
+                         <b>{2bc03a44-b28b-4cef-9de7-0812f74ce943}</b>
+                        </DRelation>
+                       </base-DRelation>
+                       <a>
+                        <DAssociationEnd>
+                         <navigable>true</navigable>
+                        </DAssociationEnd>
+                       </a>
+                      </DAssociation>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{49a25ab8-6847-4220-b32b-3fcc640ea569}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{bcf83866-8cd0-4616-9dca-0dbeaf3efcc6}</object>
+                         <a>{bdb3526c-2545-4d3c-b0a8-ef7506d431b5}</a>
+                         <b>{2bc03a44-b28b-4cef-9de7-0812f74ce943}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DAssociation">
+                      <DAssociation>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{2619fd44-40e8-459a-a5ea-21e50ab28f8d}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{5387308e-b5be-4e33-ad4a-795a001272c0}</object>
+                         <a>{bdb3526c-2545-4d3c-b0a8-ef7506d431b5}</a>
+                         <b>{45741c2e-f6de-4c32-b533-ca97b9031aa3}</b>
+                        </DRelation>
+                       </base-DRelation>
+                       <a>
+                        <DAssociationEnd>
+                         <navigable>true</navigable>
+                        </DAssociationEnd>
+                       </a>
+                      </DAssociation>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{c0e11b62-1786-45c9-a9b5-cc82733edc89}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{dc448b7c-7993-4028-97b0-4cc53a78a2f2}</object>
+                         <a>{9de49a30-4a4e-4d52-812b-40c2219033c1}</a>
+                         <b>{45741c2e-f6de-4c32-b533-ca97b9031aa3}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{52453f24-56cb-4f3e-8bb4-d6483aba4976}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{ae4fc160-9711-4f3b-87fe-9b4db73b1545}</object>
+                         <a>{1d1ed4b0-95e9-4db3-a7c9-82fc195b43dc}</a>
+                         <b>{9de49a30-4a4e-4d52-812b-40c2219033c1}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DAssociation">
+                      <DAssociation>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{7e5d2811-3d72-44ea-a3e8-52e72ebf2666}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{3dd64cf3-b962-4f97-bbb7-b0f1ba37c4b1}</object>
+                         <a>{49d4d1ed-b029-43b6-a464-be5bc6a715ec}</a>
+                         <b>{3dfec697-9b94-48b6-b944-19499e59c941}</b>
+                        </DRelation>
+                       </base-DRelation>
+                       <a>
+                        <DAssociationEnd>
+                         <navigable>true</navigable>
+                        </DAssociationEnd>
+                       </a>
+                      </DAssociation>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DAssociation">
+                      <DAssociation>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{29c77e6a-0ce8-4457-a3e2-0631bb35ad56}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{edff5b4c-3ec2-4731-85d2-b2f2af078c09}</object>
+                         <a>{3dfec697-9b94-48b6-b944-19499e59c941}</a>
+                         <b>{efc48b50-6a02-4d83-bff8-016ebef68d72}</b>
+                        </DRelation>
+                       </base-DRelation>
+                       <a>
+                        <DAssociationEnd>
+                         <navigable>true</navigable>
+                        </DAssociationEnd>
+                       </a>
+                      </DAssociation>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{4e9968ed-b187-46b2-835d-496d412e02cf}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{89f52b1e-9e82-4ab5-989b-c05ac9ce79d0}</object>
+                         <a>{8a7ee654-0849-47a8-8158-b31f896906b0}</a>
+                         <b>{3dfec697-9b94-48b6-b944-19499e59c941}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{0f103634-0237-477d-8e45-03e885eef9e6}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{99edf00d-37b6-4911-a654-b516bb635d67}</object>
+                         <a>{57cf17fa-8b82-4258-908a-652d022319d2}</a>
+                         <b>{efc48b50-6a02-4d83-bff8-016ebef68d72}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DPackage">
+                      <DPackage>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{9d23c612-833c-4f12-82d0-6a215a18e8a6}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{413cce81-05c9-4e15-9f7b-d7b4e5d06a79}</object>
+                         <name>variantwidgets</name>
+                         <pos>x:850;y:-355</pos>
+                         <rect>x:-200;y:-85;w:400;h:170</rect>
+                         <auto-sized>false</auto-sized>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DPackage>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DComponent">
+                      <DComponent>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{df7edb26-4244-4061-8864-f238c7b84f60}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{aca90193-4369-4e04-a321-b0df144832b4}</object>
+                         <context>variantwidgets</context>
+                         <name>Extended Types</name>
+                         <pos>x:755;y:-340</pos>
+                         <rect>x:-70;y:-30;w:140;h:60</rect>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DComponent>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{f0085a70-d1e7-42c3-b26d-c3b305bfb51f}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{25eb2976-996f-46cd-b4a6-53bc484730f2}</object>
+                         <stereotypes>
+                          <qlist>
+                           <item>static</item>
+                          </qlist>
+                         </stereotypes>
+                         <context>variantwidgets</context>
+                         <name>VariantWidgetsRegistrator</name>
+                         <pos>x:925;y:-340</pos>
+                         <rect>x:-75;y:-30;w:150;h:60</rect>
+                         <visual-role>9</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DAssociation">
+                      <DAssociation>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{9b5168a8-e4e4-479c-8641-06e5b83d1ccc}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{8b050631-25bc-448a-bd74-f6ecc3f99189}</object>
+                         <a>{f0085a70-d1e7-42c3-b26d-c3b305bfb51f}</a>
+                         <b>{49d4d1ed-b029-43b6-a464-be5bc6a715ec}</b>
+                        </DRelation>
+                       </base-DRelation>
+                       <a>
+                        <DAssociationEnd>
+                         <navigable>true</navigable>
+                        </DAssociationEnd>
+                       </a>
+                      </DAssociation>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DPackage">
+                      <DPackage>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{23ca51d0-67df-465e-a6e3-69c2006d6d66}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{4488dba8-b491-40f5-b8bc-ba0536b6125d}</object>
+                         <name>loaders</name>
+                         <pos>x:600;y:990</pos>
+                         <rect>x:-365;y:-115;w:730;h:230</rect>
+                         <auto-sized>false</auto-sized>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DPackage>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{80f6306c-1f74-422b-bed4-3fbf6251c82e}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{2b3c757d-b4ac-4c61-ae5f-d3222370edf2}</object>
+                         <context>loaders</context>
+                         <name>QSettingsPropertyLoader</name>
+                         <pos>x:365;y:1030</pos>
+                         <rect>x:-80;y:-30;w:160;h:60</rect>
+                         <visual-role>5</visual-role>
+                         <visual-emphasized>true</visual-emphasized>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{98c5aa52-db54-4546-83ab-4c7329bbecb3}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{ad739965-f648-4f7e-ba93-818596c9776e}</object>
+                         <context>loaders</context>
+                         <name>QSettingsPropertyEntry</name>
+                         <pos>x:705;y:1035</pos>
+                         <rect>x:-80;y:-30;w:160;h:60</rect>
+                         <visual-role>6</visual-role>
+                         <visual-emphasized>true</visual-emphasized>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DClass">
+                      <DClass>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{3f1091c6-6501-4c94-9609-606e91601aa5}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{a14e4404-1bf6-40c5-a14c-5616c7ad2930}</object>
+                         <context>loaders</context>
+                         <name>QSettingsSettingsLoader</name>
+                         <pos>x:555;y:950</pos>
+                         <rect>x:-80;y:-30;w:160;h:60</rect>
+                         <visual-role>6</visual-role>
+                         <visual-emphasized>true</visual-emphasized>
+                        </DObject>
+                       </base-DObject>
+                      </DClass>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{2118ab8f-7648-4da8-bba6-80500d858952}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{35830195-5cb6-4b7e-b766-85baa5c3bc3d}</object>
+                         <a>{80f6306c-1f74-422b-bed4-3fbf6251c82e}</a>
+                         <b>{f3a3e6df-eea9-48b8-ad22-83d30332c241}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{69eabd7f-6f00-405e-8dc8-147136414cd9}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{c58469ec-d1f9-430f-9045-38ae93234298}</object>
+                         <a>{3f1091c6-6501-4c94-9609-606e91601aa5}</a>
+                         <b>{b52ea772-bdb3-439f-9756-65d62dfde135}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DInheritance">
+                      <DInheritance>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{34e409fa-b67f-4415-b33b-5e34320b1030}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{826a325a-bd8f-404c-82af-1ca0327abb14}</object>
+                         <a>{98c5aa52-db54-4546-83ab-4c7329bbecb3}</a>
+                         <b>{329ca786-a61b-4b24-97ef-b5241d367c94}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DInheritance>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DAssociation">
+                      <DAssociation>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{1ff95119-03d2-4475-92af-83104c999090}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{0f8035a7-9398-4aa4-ad7f-5dc0a242c5e6}</object>
+                         <a>{98c5aa52-db54-4546-83ab-4c7329bbecb3}</a>
+                         <b>{80f6306c-1f74-422b-bed4-3fbf6251c82e}</b>
+                        </DRelation>
+                       </base-DRelation>
+                       <a>
+                        <DAssociationEnd>
+                         <cradinality>1</cradinality>
+                         <navigable>true</navigable>
+                         <kind>1</kind>
+                        </DAssociationEnd>
+                       </a>
+                      </DAssociation>
+                     </instance>
+                    </item>
                    </qlist>
                   </elements>
-                  <last-modified>1466278208624</last-modified>
+                  <last-modified>1468055950100</last-modified>
                   <toolbarid>General</toolbarid>
                  </MDiagram>
                 </base-MDiagram>
@@ -975,6 +1743,11 @@
                               <MElement>
                                <uid>{6ae6937a-53f8-4312-8c22-d6420f23c67f}</uid>
                                <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
                               </MElement>
                              </base-MElement>
                              <name>QSettingsContainer</name>
@@ -1489,6 +2262,110 @@
                         </target>
                        </handle>
                       </item>
+                      <item>
+                       <handle>
+                        <uid>{bdd52010-9fbf-4c12-b11d-4fa6f3037fd3}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{bdd52010-9fbf-4c12-b11d-4fa6f3037fd3}</uid>
+                               <flags>1</flags>
+                              </MElement>
+                             </base-MElement>
+                             <name>QGroupSettingsContainer</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{408c0a18-1f01-412e-ab99-f667d46dfd0c}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{408c0a18-1f01-412e-ab99-f667d46dfd0c}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{bdd52010-9fbf-4c12-b11d-4fa6f3037fd3}</a>
+                                        <b>{6ae6937a-53f8-4312-8c22-d6420f23c67f}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{7c1c16a3-998a-40b4-af20-a605e9979146}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{7c1c16a3-998a-40b4-af20-a605e9979146}</uid>
+                               <flags>1</flags>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSectionSettingsContainer</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{00c0251b-5a39-4cef-9e6a-46385832d0ad}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{00c0251b-5a39-4cef-9e6a-46385832d0ad}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{7c1c16a3-998a-40b4-af20-a605e9979146}</a>
+                                        <b>{6ae6937a-53f8-4312-8c22-d6420f23c67f}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
                      </qlist>
                     </handles>
                    </handles>
@@ -1597,6 +2474,11 @@
                              </relations>
                             </MObject>
                            </base-MObject>
+                           <template>
+                            <qlist>
+                             <item>TWidget</item>
+                            </qlist>
+                           </template>
                           </MClass>
                          </instance>
                         </target>
@@ -1635,7 +2517,7 @@
                                          </MElement>
                                         </base-MElement>
                                         <a>{deeaf498-27ad-4012-ad84-fcbbb6de5635}</a>
-                                        <b>{4c758a0d-8363-4c7d-960d-5aa608d996b0}</b>
+                                        <b>{2bf2f575-00df-46a7-b43a-e02d7619d5eb}</b>
                                        </MRelation>
                                       </base-MRelation>
                                       <a>
@@ -1666,6 +2548,33 @@
                                        </MRelation>
                                       </base-MRelation>
                                      </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                 <item>
+                                  <handle>
+                                   <uid>{3dd64cf3-b962-4f97-bbb7-b0f1ba37c4b1}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{3dd64cf3-b962-4f97-bbb7-b0f1ba37c4b1}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{deeaf498-27ad-4012-ad84-fcbbb6de5635}</a>
+                                        <b>{2ee1b271-9076-4a48-9967-56a3088b9776}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <navigable>true</navigable>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
                                     </instance>
                                    </target>
                                   </handle>
@@ -1728,6 +2637,815 @@
                                        </MAssociationEnd>
                                       </a>
                                      </MAssociation>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{ca03edb0-cdf0-4473-94f2-9c891e0865f4}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{ca03edb0-cdf0-4473-94f2-9c891e0865f4}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>GenericSettingsGroupWidgetFactory</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{89f52b1e-9e82-4ab5-989b-c05ac9ce79d0}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{89f52b1e-9e82-4ab5-989b-c05ac9ce79d0}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{ca03edb0-cdf0-4473-94f2-9c891e0865f4}</a>
+                                        <b>{2ee1b271-9076-4a48-9967-56a3088b9776}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                           <template>
+                            <qlist>
+                             <item>TSettingsGroupWidget</item>
+                            </qlist>
+                           </template>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{48c8e1c5-7dcf-4e42-80ab-8e8e2ad494a0}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{48c8e1c5-7dcf-4e42-80ab-8e8e2ad494a0}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>GenericSettingsWidgetFactory</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{bcf83866-8cd0-4616-9dca-0dbeaf3efcc6}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{bcf83866-8cd0-4616-9dca-0dbeaf3efcc6}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{48c8e1c5-7dcf-4e42-80ab-8e8e2ad494a0}</a>
+                                        <b>{4c758a0d-8363-4c7d-960d-5aa608d996b0}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                 <item>
+                                  <handle>
+                                   <uid>{5387308e-b5be-4e33-ad4a-795a001272c0}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{5387308e-b5be-4e33-ad4a-795a001272c0}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{48c8e1c5-7dcf-4e42-80ab-8e8e2ad494a0}</a>
+                                        <b>{17e35208-215b-4bfa-9e52-bb27c5203bc9}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <navigable>true</navigable>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                           <template>
+                            <qlist>
+                             <item>TSettingsWidget</item>
+                            </qlist>
+                           </template>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{2fcd1364-247d-48f4-8ab9-964f598ee66e}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{2fcd1364-247d-48f4-8ab9-964f598ee66e}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsDialogWidget</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{ae4fc160-9711-4f3b-87fe-9b4db73b1545}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{ae4fc160-9711-4f3b-87fe-9b4db73b1545}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{2fcd1364-247d-48f4-8ab9-964f598ee66e}</a>
+                                        <b>{26a92b9f-f6fb-4853-913b-f6481361078e}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                           <template>
+                            <qlist>
+                             <item>TDialog</item>
+                            </qlist>
+                           </template>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{26a92b9f-f6fb-4853-913b-f6481361078e}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{26a92b9f-f6fb-4853-913b-f6481361078e}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsDialogWidgetBase</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{dc448b7c-7993-4028-97b0-4cc53a78a2f2}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{dc448b7c-7993-4028-97b0-4cc53a78a2f2}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{26a92b9f-f6fb-4853-913b-f6481361078e}</a>
+                                        <b>{17e35208-215b-4bfa-9e52-bb27c5203bc9}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{c73b3daf-7fa6-44bb-8004-a7f0b1a6b8a6}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{c73b3daf-7fa6-44bb-8004-a7f0b1a6b8a6}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsGroupWidget</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{99edf00d-37b6-4911-a654-b516bb635d67}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{99edf00d-37b6-4911-a654-b516bb635d67}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{c73b3daf-7fa6-44bb-8004-a7f0b1a6b8a6}</a>
+                                        <b>{c30cf0ec-02bb-4b0d-bd25-1e137ce6ec90}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                           <template>
+                            <qlist>
+                             <item>TWidget</item>
+                            </qlist>
+                           </template>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{c30cf0ec-02bb-4b0d-bd25-1e137ce6ec90}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{c30cf0ec-02bb-4b0d-bd25-1e137ce6ec90}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsGroupWidgetBase</name>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{2ee1b271-9076-4a48-9967-56a3088b9776}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{2ee1b271-9076-4a48-9967-56a3088b9776}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsGroupWidgetFactory</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{edff5b4c-3ec2-4731-85d2-b2f2af078c09}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{edff5b4c-3ec2-4731-85d2-b2f2af078c09}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{2ee1b271-9076-4a48-9967-56a3088b9776}</a>
+                                        <b>{c30cf0ec-02bb-4b0d-bd25-1e137ce6ec90}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <navigable>true</navigable>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{2bf2f575-00df-46a7-b43a-e02d7619d5eb}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{2bf2f575-00df-46a7-b43a-e02d7619d5eb}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>interface</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsWidgetFactoryRegistry</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{906a2a17-bf17-49c5-9697-d0481e1e7775}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{906a2a17-bf17-49c5-9697-d0481e1e7775}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{2bf2f575-00df-46a7-b43a-e02d7619d5eb}</a>
+                                        <b>{4c758a0d-8363-4c7d-960d-5aa608d996b0}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <navigable>true</navigable>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                     </qlist>
+                    </handles>
+                   </handles>
+                  </children>
+                 </MObject>
+                </base-MObject>
+               </MPackage>
+              </instance>
+             </target>
+            </handle>
+           </item>
+           <item>
+            <handle>
+             <uid>{413cce81-05c9-4e15-9f7b-d7b4e5d06a79}</uid>
+             <target>
+              <instance type="MPackage">
+               <MPackage>
+                <base-MObject>
+                 <MObject>
+                  <base-MElement>
+                   <MElement>
+                    <uid>{413cce81-05c9-4e15-9f7b-d7b4e5d06a79}</uid>
+                   </MElement>
+                  </base-MElement>
+                  <name>variantwidgets</name>
+                  <children>
+                   <handles>
+                    <handles>
+                     <qlist>
+                      <item>
+                       <handle>
+                        <uid>{aca90193-4369-4e04-a321-b0df144832b4}</uid>
+                        <target>
+                         <instance type="MComponent">
+                          <MComponent>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{aca90193-4369-4e04-a321-b0df144832b4}</uid>
+                              </MElement>
+                             </base-MElement>
+                             <name>Extended Types</name>
+                            </MObject>
+                           </base-MObject>
+                          </MComponent>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{25eb2976-996f-46cd-b4a6-53bc484730f2}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{25eb2976-996f-46cd-b4a6-53bc484730f2}</uid>
+                               <flags>1</flags>
+                               <stereotypes>
+                                <qlist>
+                                 <item>static</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>VariantWidgetsRegistrator</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{8b050631-25bc-448a-bd74-f6ecc3f99189}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{8b050631-25bc-448a-bd74-f6ecc3f99189}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{25eb2976-996f-46cd-b4a6-53bc484730f2}</a>
+                                        <b>{deeaf498-27ad-4012-ad84-fcbbb6de5635}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <navigable>true</navigable>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                     </qlist>
+                    </handles>
+                   </handles>
+                  </children>
+                 </MObject>
+                </base-MObject>
+               </MPackage>
+              </instance>
+             </target>
+            </handle>
+           </item>
+           <item>
+            <handle>
+             <uid>{4488dba8-b491-40f5-b8bc-ba0536b6125d}</uid>
+             <target>
+              <instance type="MPackage">
+               <MPackage>
+                <base-MObject>
+                 <MObject>
+                  <base-MElement>
+                   <MElement>
+                    <uid>{4488dba8-b491-40f5-b8bc-ba0536b6125d}</uid>
+                   </MElement>
+                  </base-MElement>
+                  <name>loaders</name>
+                  <children>
+                   <handles>
+                    <handles>
+                     <qlist>
+                      <item>
+                       <handle>
+                        <uid>{ad739965-f648-4f7e-ba93-818596c9776e}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{ad739965-f648-4f7e-ba93-818596c9776e}</uid>
+                               <flags>1</flags>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsPropertyEntry</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{826a325a-bd8f-404c-82af-1ca0327abb14}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{826a325a-bd8f-404c-82af-1ca0327abb14}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{ad739965-f648-4f7e-ba93-818596c9776e}</a>
+                                        <b>{52f7d7c9-5321-4bb6-b72c-1b47ee17f62f}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                 <item>
+                                  <handle>
+                                   <uid>{0f8035a7-9398-4aa4-ad7f-5dc0a242c5e6}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{0f8035a7-9398-4aa4-ad7f-5dc0a242c5e6}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{ad739965-f648-4f7e-ba93-818596c9776e}</a>
+                                        <b>{2b3c757d-b4ac-4c61-ae5f-d3222370edf2}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <cardinality>1</cardinality>
+                                        <navigable>true</navigable>
+                                        <kind>1</kind>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{2b3c757d-b4ac-4c61-ae5f-d3222370edf2}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{2b3c757d-b4ac-4c61-ae5f-d3222370edf2}</uid>
+                               <flags>1</flags>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsPropertyLoader</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{35830195-5cb6-4b7e-b766-85baa5c3bc3d}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{35830195-5cb6-4b7e-b766-85baa5c3bc3d}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{2b3c757d-b4ac-4c61-ae5f-d3222370edf2}</a>
+                                        <b>{1261d18e-9c3e-46b4-8cd1-98c6291f2b9b}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{a14e4404-1bf6-40c5-a14c-5616c7ad2930}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{a14e4404-1bf6-40c5-a14c-5616c7ad2930}</uid>
+                               <flags>1</flags>
+                              </MElement>
+                             </base-MElement>
+                             <name>QSettingsSettingsLoader</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{c58469ec-d1f9-430f-9045-38ae93234298}</uid>
+                                   <target>
+                                    <instance type="MInheritance">
+                                     <MInheritance>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{c58469ec-d1f9-430f-9045-38ae93234298}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{a14e4404-1bf6-40c5-a14c-5616c7ad2930}</a>
+                                        <b>{0b5fa7e7-a0c2-430a-aaf7-32e4e92499d2}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                     </MInheritance>
                                     </instance>
                                    </target>
                                   </handle>
