@@ -26,9 +26,9 @@ public:
 	//! Destructor
 	~QSettingsDialog();
 
-	//! Returns the current display engine of dialog
+	//! `[INTERNAL USE]` Returns the current display engine of dialog
 	QSettingsDisplayEngine *displayEngine() const;
-	//! Sets the display engine to a new one
+	//! `[INTERNAL USE]` Sets the display engine to a new one
 	void setDisplayEngine(QSettingsDisplayEngine *engine);
 
 	//container organisation - getters

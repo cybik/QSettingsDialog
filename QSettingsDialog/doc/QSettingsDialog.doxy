@@ -806,12 +806,14 @@ INPUT                  = ../../README.md \
 						 ../core/qsettingsdialog.h \
 						 ../core/qsettingsdialog.dox \
 						 ../core/qsettingsentry.h \
+						 ../core/qsettingsentry.dox \
 						 ../core/qsettingsloader.h \
 						 ../core/qsettingsloader.dox \
 						 ../core/qsettingsloaderentry.h \
 						 ../core/qsettingscontainer.h \
 						 ../core/qasyncsettingscontainer.h \
 						 ../core/qsettingslayout.h \
+						 ../core/qsettingslayout.dox \
 						 ../core/qsettingsdisplayengine.h \
 						 ../dialogui/qsettingswidgetdialogengine.h \
 						 ../dialogui/qsettingswidget.h \

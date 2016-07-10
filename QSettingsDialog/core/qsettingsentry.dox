@@ -1,0 +1,10 @@
+/*!
+@class QSettingsEntry
+
+Each entry contains data about how to be displayed, as well as a QSettingsLoader, that will be used tu load/save the actual settings data.
+
+Most of the entries functions are focus around it's appeareance - the display name, a tooltip, ... - two of those are special. The first one is
+the QSettingsEntry::displayType. By default, it can be set via the constructor and read with that function. The display id will be used to determine the edit
+widget of entry. Together with this come the QSettingsEntry::uiProperties (as well as QSettingsEntry::setUiProperties and QSettingsEntry::setUiProperty). These
+can be used to set properties for that edit widget.
+*/
