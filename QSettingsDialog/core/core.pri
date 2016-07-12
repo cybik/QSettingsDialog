@@ -15,7 +15,9 @@ DISTFILES += \
     $$PWD/qsettingsloader.dox \
     $$PWD/qsettingsdialog.dox \
     $$PWD/qsettingsentry.dox \
-    $$PWD/qsettingslayout.dox
+    $$PWD/qsettingslayout.dox \
+    $$PWD/qsettingscontainer.dox \
+    $$PWD/qasyncsettingscontainer.dox
 
 INCLUDEPATH += $$PWD
 

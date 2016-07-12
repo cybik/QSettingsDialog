@@ -42,15 +42,15 @@ QGroupSettingsContainer::QGroupSettingsContainer(QSettingsDialog *settingsDialog
 	}, Qt::DirectConnection);
 }
 
-QGroupSettingsContainer::QGroupSettingsContainer(QSettingsLayout *layout, QObject *parent) :
+QGroupSettingsContainer::QGroupSettingsContainer(const QSettingsLayout &layout, QObject *parent) :
 	QSettingsContainer(parent),
 	d_ptr()
 {
-	if(layout->layoutType() != QSettingsLayout::GroupLayout)
+	if(layout.layoutType() != QSettingsLayout::GroupLayout)
 		throw InvalidTargetLayoutException();
 
-	auto dialog = layout->dialog();
-	d.reset(new QGroupSettingsContainerPrivate(this, dialog, layout->containerPath()));
+	auto dialog = layout.dialog();
+	d.reset(new QGroupSettingsContainerPrivate(this, dialog, layout.containerPath()));
 	connect(dialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
 		d->dialog = nullptr;
 	}, Qt::DirectConnection);
@@ -179,15 +179,15 @@ QSectionSettingsContainer::QSectionSettingsContainer(QSettingsDialog *settingsDi
 	}, Qt::DirectConnection);
 }
 
-QSectionSettingsContainer::QSectionSettingsContainer(QSettingsLayout *layout, QObject *parent) :
+QSectionSettingsContainer::QSectionSettingsContainer(const QSettingsLayout &layout, QObject *parent) :
 	QSettingsContainer(parent),
 	d_ptr()
 {
-	if(layout->layoutType() != QSettingsLayout::SectionLayout)
+	if(layout.layoutType() != QSettingsLayout::SectionLayout)
 		throw InvalidTargetLayoutException();
 
-	auto dialog = layout->dialog();
-	d.reset(new QSectionSettingsContainerPrivate(this, dialog, layout->containerPath()));
+	auto dialog = layout.dialog();
+	d.reset(new QSectionSettingsContainerPrivate(this, dialog, layout.containerPath()));
 	connect(dialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
 		d->dialog = nullptr;
 	}, Qt::DirectConnection);

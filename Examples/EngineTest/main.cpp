@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
 	categoryLayout.transferElement(0, transferToCategory, 1);
 
 	//test container from layout (group)
-	QGroupSettingsContainer layoutGroupContainer(&groupLayout);
+	QGroupSettingsContainer layoutGroupContainer(groupLayout);
 	layoutGroupContainer.appendEntry(new TestEntry(false, true));
 	layoutGroupContainer.appendEntry(new TestEntry(false, true));
 	layoutGroupContainer.appendEntry(new TestEntry(false, true));
@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
 	}
 
 	//test container from layout
-	QSectionSettingsContainer layoutContainer(&sectionLayout);
+	QSectionSettingsContainer layoutContainer(sectionLayout);
 	layoutContainer.appendEntry(new TestEntry(false, false));
 	layoutContainer.appendEntry(new TestEntry(false, false));
 	sectionLayout.moveElement(4, 1);

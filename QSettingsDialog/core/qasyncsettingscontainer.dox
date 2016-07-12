@@ -1,0 +1,50 @@
+/*!
+@class QAsyncSettingsContainer
+
+This special container allows synchronized and asynchronous access to a specific group of the settings dialog from
+a different thread than the mainthread. It internally uses Qts metasystem to make queued method invokations, making it completly
+threadsafe on a functional level.
+
+@warning Even though it's save to call all of the functions, there is no locking mechanism. This means that the state of the dialog can change
+between two function calls, making calls like `container->insertEntry(container->elementCount(), entry);` unsafe, if other components of the
+application are accessing the containers target group/section at the same time!
+
+### Synchronous Access:
+All functions that are define by the QSettingsDialog interface are synchronous. This means they will block until the mainthread handled the request.
+Internally, a Qt::BlockingQueuedConnection is used to archiev this.
+
+@warning The blocking calls will block the calling thread until the mainthread was able to process the call. This means it is forbidden
+to call any of those from the mainthread itself.
+
+### Asynchronous Access:
+The two functions QAsyncSettingsContainer::appendEntryAsync, QAsyncSettingsContainer::prependEntryAsync and QAsyncSettingsContainer::moveElementAsync can be used for asynchronous calls. They will
+return immediatly and post the event to the mainthread without waiting for it. It's safe to call those from everywhere.
+*/
+
+/*!
+@fn QAsyncSettingsContainer::appendEntryAsync
+
+@param entry The entry to be appended
+
+This call will post the appending to the main thread. As soon as it is handled, the the element will be appended.
+The call will return immideatly and will not wait for the execution.
+*/
+
+/*!
+@fn QAsyncSettingsContainer::prependEntryAsync
+
+@param entry The entry to be prepend
+
+This call will post the prepending to the main thread. As soon as it is handled, the the element will be prepended.
+The call will return immideatly and will not wait for the execution.
+*/
+
+/*!
+@fn QAsyncSettingsContainer::moveElementAsync
+
+@param indexFrom The index to move from
+@param indexTo The index to move to
+
+This call will post the moving to the main thread. As soon as it is handled, the the element will be moved.
+The call will return immideatly and will not wait for the execution.
+*/

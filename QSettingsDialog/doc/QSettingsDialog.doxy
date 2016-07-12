@@ -811,7 +811,9 @@ INPUT                  = ../../README.md \
 						 ../core/qsettingsloader.dox \
 						 ../core/qsettingsloaderentry.h \
 						 ../core/qsettingscontainer.h \
+						 ../core/qsettingscontainer.dox \
 						 ../core/qasyncsettingscontainer.h \
+						 ../core/qasyncsettingscontainer.dox \
 						 ../core/qsettingslayout.h \
 						 ../core/qsettingslayout.dox \
 						 ../core/qsettingsdisplayengine.h \

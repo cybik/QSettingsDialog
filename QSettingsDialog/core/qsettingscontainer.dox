@@ -1,0 +1,194 @@
+/*!
+@fn QSettingsContainer::getEntryIndex
+
+@param id The id of the entry to be found
+@returns The index within this container, or -1, if the entry is not in there
+*/
+
+/*!
+@fn QSettingsContainer::getEntryId
+
+@param index The index of the entry
+@returns The id of the entry at that index, if it is an entry. If not, -1
+*/
+
+/*!
+@fn QSettingsContainer::getEntry
+
+@param id The id of the entry to be found
+@returns The entry, or `nullptr`, if the entry is not in there
+*/
+
+/*!
+@fn QSettingsContainer::getEntryFromIndex
+
+@param index The index of the entry
+@returns The entry at that index, if it is an entry. If not, `nullptr`
+*/
+
+/*!
+@fn QSettingsContainer::transferElement
+
+@param indexFrom The index of the element to be transfered
+@param targetContainer The container to transfer the element to
+@param indexTo The index to insert the element at in the target container
+@returns `true`, if the transfer was successful, `false` if not
+
+The function will first check if the target container accepts the element at `indexFrom`. If it does,
+it will be transfered. If not, nothign happens and `false` is returned.
+*/
+
+/*!
+@fn QSettingsContainer::removeEntry
+
+@param id The id of an entry with that id was removed, `false` if not
+*/
+
+/*!
+@fn QSettingsContainer::removeElementFromIndex
+
+@param index The index of the element to be removed
+@returns `true`, if the entry was removed, `false` if not
+*/
+
+/*!
+@fn QSettingsContainer::acceptEntry
+
+@param index The target index to insert the entry at
+@param id The id of the entry to be inserted
+@param entry The entry itself to insert
+@returns `true`, if the entry was accepted and taken, `false` if not
+
+This function will be called internally to insert an entry from a QSettingsContainer::transferElement. It will be called on
+the target container with the given parameters. If `true` is returned, the original container assumes the element was taken and will
+remove it from itself. If `false` is returned, it's expected that the target container did not accept the element and the original
+one will keep the entry.
+*/
+
+
+/*!
+@fn QGroupSettingsContainer::QGroupSettingsContainer(QSettingsDialog *, const QString &, QObject *)
+
+@param settingsDialog The settings dialog to create the container for
+@param containerPath The path to the group to be used
+@param parent The parent QObject
+
+@attention The path must be a path to a group! Otherwise the construction will fail!
+*/
+
+/*!
+@fn QGroupSettingsContainer::QGroupSettingsContainer(const QSettingsLayout &, QObject *)
+
+@param layout The QSettingsLayout to create the container for
+@param parent The parent QObject
+
+@attention The layout must be a layout with QSettingsLayout::GroupLayout as type! Otherwise the construction will fail!
+*/
+
+/*!
+@fn QGroupSettingsContainer::parentSection()
+
+@returns A newly created settings container to the parent container
+
+This element will serve as parent QObject for the new container
+*/
+
+/*!
+@fn QGroupSettingsContainer::parentSection(QObject *)
+
+@param parent The parent for the new container
+@returns A newly created settings container to the parent container
+*/
+
+
+/*!
+@fn QSectionSettingsContainer::QSectionSettingsContainer(QSettingsDialog *, const QString &, QObject *)
+
+@param settingsDialog The settings dialog to create the container for
+@param containerPath The path to the section to be used
+@param parent The parent QObject
+
+@attention The path must be a path to a section! Otherwise the construction will fail!
+*/
+
+/*!
+@fn QSectionSettingsContainer::QSectionSettingsContainer(const QSettingsLayout &, QObject *)
+
+@param layout The QSettingsLayout to create the container for
+@param parent The parent QObject
+
+@attention The layout must be a layout with QSettingsLayout::SectionLayout as type! Otherwise the construction will fail!
+*/
+
+/*!
+@fn QSectionSettingsContainer::getGroupIndex
+
+@param id The id of the group to be found
+@returns The index within this container, or -1, if the entry is not in there
+*/
+
+/*!
+@fn QSectionSettingsContainer::getElementId
+
+@param index The index of the element
+@returns The id of the entry at that index
+
+If the element is an entry, the QVariant will contain an integer, the entries id (see QSettingsContainer::getEntryId). If the
+element is a group, the QVariant will contain a string, the groups id (see QSettingsContainer::getGrouptId)
+*/
+
+/*!
+@fn QSectionSettingsContainer::getGrouptId
+
+@param index The index of the group
+@returns The id of the group at that index, if it is a group. If not, a null string
+*/
+
+/*!
+@fn QSectionSettingsContainer::createGroupContainer(const QString &)
+
+@param id The id of the group to create a container for
+@returns A newly created settings container to the child container, or `nullptr`
+
+If there is a group with the given id, a container with this element as parent QObject will be created. If the id was
+not found, a `nullptr` will be returned.
+*/
+
+/*!
+@fn QSectionSettingsContainer::parentSection(const QString &, QObject *)
+
+@param id The id of the group to create a container for
+@param parent The parent for the new container
+@returns A newly created settings container to the child container, or `nullptr`
+
+If there is a group with the given id, a container with the given `parent` as parent QObject will be created. If the id was
+not found, a `nullptr` will be returned.
+*/
+
+/*!
+@fn QSectionSettingsContainer::createGroupContainer(int)
+
+@param index The index of the group to create a container for
+@returns A newly created settings container to the child container, or `nullptr`
+
+If there is a group at the given index, a container with this element as parent QObject will be created. If the element
+at the index is not a group, a `nullptr` will be returned.
+*/
+
+/*!
+@fn QSectionSettingsContainer::parentSection(int, QObject *)
+
+@param index The index of the group to create a container for
+@param parent The parent for the new container
+@returns A newly created settings container to the child container, or `nullptr`
+
+If there is a group with the given id, a container with the given `parent` as parent QObject will be created. If the element
+at the index is not a group, a `nullptr` will be returned.
+*/
+
+/*!
+@fn QSectionSettingsContainer::removeGroup
+
+@param id The id of the group to be removed
+@returns `true`, if a group with that id was removed, `false` if not
+*/

@@ -145,19 +145,16 @@ bool QAsyncSettingsContainer::removeElementFromIndex(int index)
 
 void QAsyncSettingsContainer::moveElement(int indexFrom, int indexTo)
 {
-	QMetaObject::invokeMethod(d.data(), "moveEntry", Qt::QueuedConnection,
+	QMetaObject::invokeMethod(d.data(), "moveEntry", Qt::BlockingQueuedConnection,
 							  Q_ARG(int, indexFrom),
 							  Q_ARG(int, indexTo));
 }
 
-bool QAsyncSettingsContainer::moveElementWaiting(int indexFrom, int indexTo)
+void QAsyncSettingsContainer::moveElementAsync(int indexFrom, int indexTo)
 {
-	bool moved;
-	QMetaObject::invokeMethod(d.data(), "moveEntry", Qt::BlockingQueuedConnection,
-							  Q_RETURN_ARG(bool, moved),
+	QMetaObject::invokeMethod(d.data(), "moveEntry", Qt::QueuedConnection,
 							  Q_ARG(int, indexFrom),
 							  Q_ARG(int, indexTo));
-	return moved;
 }
 
 void QAsyncSettingsContainer::appendEntryAsync(QSettingsEntry *entry)
