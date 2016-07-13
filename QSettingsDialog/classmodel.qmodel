@@ -32,7 +32,7 @@
                       <uid>{cc41c0d7-13d7-4f07-86f5-9589f8beded9}</uid>
                      </MElement>
                     </base-MElement>
-                    <name>Public classmodel</name>
+                    <name>classmodel</name>
                    </MObject>
                   </base-MObject>
                   <elements>
@@ -49,176 +49,13 @@
                          </base-DElement>
                          <object>{10674a32-cf2a-42f5-a139-45c2114a1d5c}</object>
                          <name>core</name>
-                         <pos>x:485;y:515</pos>
-                         <rect>x:-570;y:-335;w:1140;h:670</rect>
+                         <pos>x:445;y:240</pos>
+                         <rect>x:-195;y:-120;w:390;h:240</rect>
                          <auto-sized>false</auto-sized>
                          <visual-role>0</visual-role>
                         </DObject>
                        </base-DObject>
                       </DPackage>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DComponent">
-                      <DComponent>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{2d470b4a-edc4-4be8-97d5-15720bbd30b5}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{2a75b947-15bf-4efd-9e35-f270253fca4e}</object>
-                         <context>core</context>
-                         <name>Exceptions</name>
-                         <pos>x:15;y:265</pos>
-                         <rect>x:-60;y:-30;w:120;h:60</rect>
-                         <visual-role>0</visual-role>
-                        </DObject>
-                       </base-DObject>
-                      </DComponent>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{91c70772-0114-4e84-a74e-71d33eb4dff2}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{09616b60-1837-47a6-8fac-135d225d3d43}</object>
-                         <context>core</context>
-                         <name>QAsyncSettingsContainer</name>
-                         <pos>x:175;y:705</pos>
-                         <rect>x:-70;y:-30;w:140;h:60</rect>
-                         <visual-role>5</visual-role>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{77065800-0f18-4cae-a8cd-f6d03031732a}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{6ae6937a-53f8-4312-8c22-d6420f23c67f}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>core</context>
-                         <name>QSettingsContainer</name>
-                         <pos>x:185;y:395</pos>
-                         <rect>x:-55;y:-30;w:110;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{5ae2cecc-f994-428e-b497-7aa1afad774c}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{80069c49-0c6d-451f-9081-eb4864315a9a}</object>
-                         <context>core</context>
-                         <name>QSettingsContainerLayout</name>
-                         <pos>x:415;y:680</pos>
-                         <rect>x:-75;y:-30;w:150;h:60</rect>
-                         <visual-role>6</visual-role>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{129e06d9-9bbd-47b3-8fa1-7ecf94177296}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{e7e952c1-207f-4706-9c4b-00232d9a37eb}</object>
-                         <context>core</context>
-                         <name>QSettingsDialog</name>
-                         <pos>x:465;y:305</pos>
-                         <rect>x:-55;y:-30;w:110;h:60</rect>
-                         <visual-role>5</visual-role>
-                         <visual-emphasized>true</visual-emphasized>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{329ca786-a61b-4b24-97ef-b5241d367c94}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{52f7d7c9-5321-4bb6-b72c-1b47ee17f62f}</object>
-                         <context>core</context>
-                         <name>QSettingsEntry</name>
-                         <pos>x:900;y:450</pos>
-                         <rect>x:-55;y:-30;w:110;h:60</rect>
-                         <visual-role>6</visual-role>
-                         <visual-emphasized>true</visual-emphasized>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{b0269e43-cab7-4a31-a8e4-3053165eba58}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{e4b9501d-6adb-4b9f-9d76-5c188ea27371}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>core</context>
-                         <name>QSettingsLoader</name>
-                         <pos>x:665;y:470</pos>
-                         <rect>x:-55;y:-30;w:110;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <visual-emphasized>true</visual-emphasized>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
                      </instance>
                     </item>
                     <item>
@@ -239,7 +76,7 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QSimpleSettingsLoader</name>
-                         <pos>x:765;y:605</pos>
+                         <pos>x:350;y:310</pos>
                          <rect>x:-65;y:-30;w:130;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
@@ -266,238 +103,13 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QAsyncSettingsLoader</name>
-                         <pos>x:570;y:605</pos>
+                         <pos>x:525;y:310</pos>
                          <rect>x:-65;y:-30;w:130;h:60</rect>
                          <visual-role>7</visual-role>
                          <stereotype-display>1</stereotype-display>
                         </DObject>
                        </base-DObject>
                        <show-all-members>true</show-all-members>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{55dcc7dd-678b-403d-8d62-ea13a6412850}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{64f93d0a-0cce-44d3-ad84-30ef2c997086}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>core</context>
-                         <name>QSettingsLoaderEntry</name>
-                         <pos>x:875;y:765</pos>
-                         <rect>x:-65;y:-30;w:130;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{191910af-9010-4fba-b8bd-834dc6544b99}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{3c75c842-219b-4aa0-bfa1-6738481d5fb9}</object>
-                         <a>{f3a3e6df-eea9-48b8-ad22-83d30332c241}</a>
-                         <b>{b0269e43-cab7-4a31-a8e4-3053165eba58}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{b1bcc321-095e-4e02-b8b1-6ecfeed53748}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{dbccfb0b-add2-4785-bcd1-d37414fbb3c1}</object>
-                         <a>{55dcc7dd-678b-403d-8d62-ea13a6412850}</a>
-                         <b>{b52ea772-bdb3-439f-9756-65d62dfde135}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{6acc00dd-21df-44f5-927f-b6804cd4fcf5}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{142108f3-3dc6-4241-9f6c-343abcc641d4}</object>
-                         <a>{55dcc7dd-678b-403d-8d62-ea13a6412850}</a>
-                         <b>{329ca786-a61b-4b24-97ef-b5241d367c94}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{e317d931-a679-472d-8735-fc3d4ded3b98}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{88062d99-d328-4179-8f56-1327b4e10bbc}</object>
-                         <a>{329ca786-a61b-4b24-97ef-b5241d367c94}</a>
-                         <b>{b0269e43-cab7-4a31-a8e4-3053165eba58}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{1e5ea8d2-be59-453b-aa2f-4b7901fc974f}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{5fead274-f046-450f-a3cd-5ef8ea5faf22}</object>
-                         <a>{129e06d9-9bbd-47b3-8fa1-7ecf94177296}</a>
-                         <b>{329ca786-a61b-4b24-97ef-b5241d367c94}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <cradinality>n</cradinality>
-                         <navigable>true</navigable>
-                         <kind>1</kind>
-                        </DAssociationEnd>
-                       </a>
-                       <b>
-                        <DAssociationEnd>
-                         <cradinality>1</cradinality>
-                        </DAssociationEnd>
-                       </b>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{54b40965-18c8-45e3-84fb-9fa621336b7d}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{a3efb5ae-cdfc-469d-80df-4c668057e6e2}</object>
-                         <a>{91c70772-0114-4e84-a74e-71d33eb4dff2}</a>
-                         <b>{77065800-0f18-4cae-a8cd-f6d03031732a}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{5bfea437-2719-47dc-92fe-11ccd4cdd151}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{447953fd-6d56-4593-bf88-9e4f5ab59c46}</object>
-                         <a>{77065800-0f18-4cae-a8cd-f6d03031732a}</a>
-                         <b>{129e06d9-9bbd-47b3-8fa1-7ecf94177296}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{d92bf86f-4fa5-4ad3-b812-907df17648bb}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{aebea92b-da93-4d90-84c6-8f217ec262e1}</object>
-                         <a>{5ae2cecc-f994-428e-b497-7aa1afad774c}</a>
-                         <b>{129e06d9-9bbd-47b3-8fa1-7ecf94177296}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{3e06dadc-3f4b-42d6-a139-6995d33c1a66}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{13911922-b080-4d06-b3bc-f5aef65099f9}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>core</context>
-                         <name>QSettingsDisplayInstance</name>
-                         <pos>x:935;y:310</pos>
-                         <rect>x:-70;y:-30;w:140;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
                       </DClass>
                      </instance>
                     </item>
@@ -519,89 +131,13 @@
                          </stereotypes>
                          <context>core</context>
                          <name>QSettingsDisplayEngine</name>
-                         <pos>x:715;y:285</pos>
+                         <pos>x:540;y:210</pos>
                          <rect>x:-65;y:-30;w:130;h:60</rect>
                          <visual-role>0</visual-role>
                          <stereotype-display>1</stereotype-display>
                         </DObject>
                        </base-DObject>
                       </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{54e7caef-de90-4fd0-be35-b813a46008d0}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{d53eb02f-1c31-4fe1-8e99-213d94bbbdc0}</object>
-                         <a>{129e06d9-9bbd-47b3-8fa1-7ecf94177296}</a>
-                         <b>{bfdae43e-e62b-4dd3-a589-d45ea317026e}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <cradinality>1</cradinality>
-                         <navigable>true</navigable>
-                         <kind>1</kind>
-                        </DAssociationEnd>
-                       </a>
-                       <b>
-                        <DAssociationEnd>
-                         <cradinality>1</cradinality>
-                        </DAssociationEnd>
-                       </b>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{17194feb-bded-4d96-87e3-25a2fe6d0a56}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{1e823490-7101-4b21-bd22-d928a8c31d43}</object>
-                         <a>{bfdae43e-e62b-4dd3-a589-d45ea317026e}</a>
-                         <b>{3e06dadc-3f4b-42d6-a139-6995d33c1a66}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                       <b>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </b>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{f503cb07-b77b-4ecc-9fbd-dad21c16a9e4}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{03bda362-f2b6-424a-99f2-84d95152531c}</object>
-                         <a>{b52ea772-bdb3-439f-9756-65d62dfde135}</a>
-                         <b>{b0269e43-cab7-4a31-a8e4-3053165eba58}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
                      </instance>
                     </item>
                     <item>
@@ -616,73 +152,13 @@
                          </base-DElement>
                          <object>{d3bca723-2f50-4e7a-b6fa-9ad015e0a94d}</object>
                          <name>dialogui</name>
-                         <pos>x:485;y:-45</pos>
-                         <rect>x:-570;y:-215;w:1140;h:430</rect>
+                         <pos>x:885;y:205</pos>
+                         <rect>x:-145;y:-75;w:290;h:150</rect>
                          <auto-sized>false</auto-sized>
                          <visual-role>0</visual-role>
                         </DObject>
                        </base-DObject>
                       </DPackage>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{59ac7413-1c59-48da-9c41-2f02fda881c7}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{4901a726-b974-4674-8e5c-f1a84306173b}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsWidgetBase</name>
-                         <pos>x:210;y:110</pos>
-                         <rect>x:-60;y:-30;w:120;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{45741c2e-f6de-4c32-b533-ca97b9031aa3}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{17e35208-215b-4bfa-9e52-bb27c5203bc9}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsWidget</name>
-                         <pos>x:210;y:5</pos>
-                         <rect>x:-60;y:-30;w:120;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <visual-emphasized>true</visual-emphasized>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                       <template>
-                        <qlist>
-                         <item>TWidget</item>
-                        </qlist>
-                       </template>
-                      </DClass>
                      </instance>
                     </item>
                     <item>
@@ -698,104 +174,13 @@
                          <object>{deeaf498-27ad-4012-ad84-fcbbb6de5635}</object>
                          <context>dialogui</context>
                          <name>QSettingsWidgetDialogEngine</name>
-                         <pos>x:925;y:60</pos>
+                         <pos>x:875;y:215</pos>
                          <rect>x:-95;y:-30;w:190;h:60</rect>
                          <visual-role>6</visual-role>
                          <visual-emphasized>true</visual-emphasized>
                         </DObject>
                        </base-DObject>
                       </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{2bc03a44-b28b-4cef-9de7-0812f74ce943}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{4c758a0d-8363-4c7d-960d-5aa608d996b0}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsWidgetFactory</name>
-                         <pos>x:430;y:110</pos>
-                         <rect>x:-70;y:-30;w:140;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{56482b34-8355-4179-95ce-0a1e268b5ac8}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{140e4cc3-180d-4302-8b75-fd14837a81c5}</object>
-                         <a>{45741c2e-f6de-4c32-b533-ca97b9031aa3}</a>
-                         <b>{59ac7413-1c59-48da-9c41-2f02fda881c7}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{351f0848-3cac-4262-b9f8-0fd8c200334a}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{6329a515-4917-4e82-9693-6db970b9c9e1}</object>
-                         <a>{49d4d1ed-b029-43b6-a464-be5bc6a715ec}</a>
-                         <b>{7df73909-a8b9-4906-98fc-daa7f546e5e9}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{811d0e00-3381-4b84-90f4-e29f4d0d1b4f}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{a16e6288-2e16-4c5f-b086-7c729fcd2790}</object>
-                         <a>{2bc03a44-b28b-4cef-9de7-0812f74ce943}</a>
-                         <b>{59ac7413-1c59-48da-9c41-2f02fda881c7}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
                      </instance>
                     </item>
                     <item>
@@ -817,504 +202,6 @@
                      </instance>
                     </item>
                     <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{138e3e69-bd16-4026-8c80-800b0fefc8fa}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{bdd52010-9fbf-4c12-b11d-4fa6f3037fd3}</object>
-                         <context>core</context>
-                         <name>QGroupSettingsContainer</name>
-                         <pos>x:30;y:550</pos>
-                         <rect>x:-70;y:-30;w:140;h:60</rect>
-                         <visual-role>5</visual-role>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{2e46d27b-7240-40f2-ba88-0ba8ea7ca1ed}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{7c1c16a3-998a-40b4-af20-a605e9979146}</object>
-                         <context>core</context>
-                         <name>QSectionSettingsContainer</name>
-                         <pos>x:310;y:555</pos>
-                         <rect>x:-75;y:-30;w:150;h:60</rect>
-                         <visual-role>5</visual-role>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{40e8b68b-ab21-4b5f-b888-eb05fbd32251}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{408c0a18-1f01-412e-ab99-f667d46dfd0c}</object>
-                         <a>{138e3e69-bd16-4026-8c80-800b0fefc8fa}</a>
-                         <b>{77065800-0f18-4cae-a8cd-f6d03031732a}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{cb4b9b59-dbd3-4865-9e62-c95e5ccc60de}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{00c0251b-5a39-4cef-9e6a-46385832d0ad}</object>
-                         <a>{2e46d27b-7240-40f2-ba88-0ba8ea7ca1ed}</a>
-                         <b>{77065800-0f18-4cae-a8cd-f6d03031732a}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{9de49a30-4a4e-4d52-812b-40c2219033c1}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{26a92b9f-f6fb-4853-913b-f6481361078e}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsDialogWidgetBase</name>
-                         <pos>x:15;y:5</pos>
-                         <rect>x:-75;y:-30;w:150;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{1d1ed4b0-95e9-4db3-a7c9-82fc195b43dc}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{2fcd1364-247d-48f4-8ab9-964f598ee66e}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsDialogWidget</name>
-                         <pos>x:15;y:105</pos>
-                         <rect>x:-75;y:-30;w:150;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <visual-emphasized>true</visual-emphasized>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                       <template>
-                        <qlist>
-                         <item>TDialog</item>
-                        </qlist>
-                       </template>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{efc48b50-6a02-4d83-bff8-016ebef68d72}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{c30cf0ec-02bb-4b0d-bd25-1e137ce6ec90}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsGroupWidgetBase</name>
-                         <pos>x:430;y:-85</pos>
-                         <rect>x:-75;y:-30;w:150;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{57cf17fa-8b82-4258-908a-652d022319d2}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{c73b3daf-7fa6-44bb-8004-a7f0b1a6b8a6}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsGroupWidget</name>
-                         <pos>x:430;y:-180</pos>
-                         <rect>x:-75;y:-30;w:150;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <visual-emphasized>true</visual-emphasized>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                       <template>
-                        <qlist>
-                         <item>TWidget</item>
-                        </qlist>
-                       </template>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{3dfec697-9b94-48b6-b944-19499e59c941}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{2ee1b271-9076-4a48-9967-56a3088b9776}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsGroupWidgetFactory</name>
-                         <pos>x:655;y:-85</pos>
-                         <rect>x:-85;y:-30;w:170;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{8a7ee654-0849-47a8-8158-b31f896906b0}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{ca03edb0-cdf0-4473-94f2-9c891e0865f4}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>GenericSettingsGroupWidgetFactory</name>
-                         <pos>x:655;y:-180</pos>
-                         <rect>x:-100;y:-30;w:200;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                       <template>
-                        <qlist>
-                         <item>TSettingsGroupWidget</item>
-                        </qlist>
-                       </template>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{bdb3526c-2545-4d3c-b0a8-ef7506d431b5}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{48c8e1c5-7dcf-4e42-80ab-8e8e2ad494a0}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>GenericSettingsWidgetFactory</name>
-                         <pos>x:430;y:5</pos>
-                         <rect>x:-85;y:-30;w:170;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                       <template>
-                        <qlist>
-                         <item>TSettingsWidget</item>
-                        </qlist>
-                       </template>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{7df73909-a8b9-4906-98fc-daa7f546e5e9}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{2bf2f575-00df-46a7-b43a-e02d7619d5eb}</object>
-                         <stereotypes>
-                          <qlist>
-                           <item>interface</item>
-                          </qlist>
-                         </stereotypes>
-                         <context>dialogui</context>
-                         <name>QSettingsWidgetFactoryRegistry</name>
-                         <pos>x:670;y:110</pos>
-                         <rect>x:-90;y:-30;w:180;h:60</rect>
-                         <visual-role>0</visual-role>
-                         <stereotype-display>1</stereotype-display>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{46261cbc-c08c-45be-89cc-7fcfaaf9e18f}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{906a2a17-bf17-49c5-9697-d0481e1e7775}</object>
-                         <a>{7df73909-a8b9-4906-98fc-daa7f546e5e9}</a>
-                         <b>{2bc03a44-b28b-4cef-9de7-0812f74ce943}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{49a25ab8-6847-4220-b32b-3fcc640ea569}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{bcf83866-8cd0-4616-9dca-0dbeaf3efcc6}</object>
-                         <a>{bdb3526c-2545-4d3c-b0a8-ef7506d431b5}</a>
-                         <b>{2bc03a44-b28b-4cef-9de7-0812f74ce943}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{2619fd44-40e8-459a-a5ea-21e50ab28f8d}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{5387308e-b5be-4e33-ad4a-795a001272c0}</object>
-                         <a>{bdb3526c-2545-4d3c-b0a8-ef7506d431b5}</a>
-                         <b>{45741c2e-f6de-4c32-b533-ca97b9031aa3}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{c0e11b62-1786-45c9-a9b5-cc82733edc89}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{dc448b7c-7993-4028-97b0-4cc53a78a2f2}</object>
-                         <a>{9de49a30-4a4e-4d52-812b-40c2219033c1}</a>
-                         <b>{45741c2e-f6de-4c32-b533-ca97b9031aa3}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{52453f24-56cb-4f3e-8bb4-d6483aba4976}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{ae4fc160-9711-4f3b-87fe-9b4db73b1545}</object>
-                         <a>{1d1ed4b0-95e9-4db3-a7c9-82fc195b43dc}</a>
-                         <b>{9de49a30-4a4e-4d52-812b-40c2219033c1}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{7e5d2811-3d72-44ea-a3e8-52e72ebf2666}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{3dd64cf3-b962-4f97-bbb7-b0f1ba37c4b1}</object>
-                         <a>{49d4d1ed-b029-43b6-a464-be5bc6a715ec}</a>
-                         <b>{3dfec697-9b94-48b6-b944-19499e59c941}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{29c77e6a-0ce8-4457-a3e2-0631bb35ad56}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{edff5b4c-3ec2-4731-85d2-b2f2af078c09}</object>
-                         <a>{3dfec697-9b94-48b6-b944-19499e59c941}</a>
-                         <b>{efc48b50-6a02-4d83-bff8-016ebef68d72}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <navigable>true</navigable>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{4e9968ed-b187-46b2-835d-496d412e02cf}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{89f52b1e-9e82-4ab5-989b-c05ac9ce79d0}</object>
-                         <a>{8a7ee654-0849-47a8-8158-b31f896906b0}</a>
-                         <b>{3dfec697-9b94-48b6-b944-19499e59c941}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{0f103634-0237-477d-8e45-03e885eef9e6}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{99edf00d-37b6-4911-a654-b516bb635d67}</object>
-                         <a>{57cf17fa-8b82-4258-908a-652d022319d2}</a>
-                         <b>{efc48b50-6a02-4d83-bff8-016ebef68d72}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
                      <instance type="DPackage">
                       <DPackage>
                        <base-DObject>
@@ -1326,34 +213,13 @@
                          </base-DElement>
                          <object>{413cce81-05c9-4e15-9f7b-d7b4e5d06a79}</object>
                          <name>variantwidgets</name>
-                         <pos>x:850;y:-355</pos>
-                         <rect>x:-200;y:-85;w:400;h:170</rect>
+                         <pos>x:875;y:-55</pos>
+                         <rect>x:-125;y:-85;w:250;h:170</rect>
                          <auto-sized>false</auto-sized>
                          <visual-role>0</visual-role>
                         </DObject>
                        </base-DObject>
                       </DPackage>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DComponent">
-                      <DComponent>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{df7edb26-4244-4061-8864-f238c7b84f60}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{aca90193-4369-4e04-a321-b0df144832b4}</object>
-                         <context>variantwidgets</context>
-                         <name>Extended Types</name>
-                         <pos>x:755;y:-340</pos>
-                         <rect>x:-70;y:-30;w:140;h:60</rect>
-                         <visual-role>0</visual-role>
-                        </DObject>
-                       </base-DObject>
-                      </DComponent>
                      </instance>
                     </item>
                     <item>
@@ -1374,7 +240,7 @@
                          </stereotypes>
                          <context>variantwidgets</context>
                          <name>VariantWidgetsRegistrator</name>
-                         <pos>x:925;y:-340</pos>
+                         <pos>x:875;y:-40</pos>
                          <rect>x:-75;y:-30;w:150;h:60</rect>
                          <visual-role>9</visual-role>
                         </DObject>
@@ -1417,8 +283,8 @@
                          </base-DElement>
                          <object>{4488dba8-b491-40f5-b8bc-ba0536b6125d}</object>
                          <name>loaders</name>
-                         <pos>x:600;y:990</pos>
-                         <rect>x:-365;y:-115;w:730;h:230</rect>
+                         <pos>x:440;y:460</pos>
+                         <rect>x:-330;y:-75;w:660;h:150</rect>
                          <auto-sized>false</auto-sized>
                          <visual-role>0</visual-role>
                         </DObject>
@@ -1439,31 +305,9 @@
                          <object>{2b3c757d-b4ac-4c61-ae5f-d3222370edf2}</object>
                          <context>loaders</context>
                          <name>QSettingsPropertyLoader</name>
-                         <pos>x:365;y:1030</pos>
+                         <pos>x:590;y:485</pos>
                          <rect>x:-80;y:-30;w:160;h:60</rect>
                          <visual-role>5</visual-role>
-                         <visual-emphasized>true</visual-emphasized>
-                        </DObject>
-                       </base-DObject>
-                      </DClass>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DClass">
-                      <DClass>
-                       <base-DObject>
-                        <DObject>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{98c5aa52-db54-4546-83ab-4c7329bbecb3}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{ad739965-f648-4f7e-ba93-818596c9776e}</object>
-                         <context>loaders</context>
-                         <name>QSettingsPropertyEntry</name>
-                         <pos>x:705;y:1035</pos>
-                         <rect>x:-80;y:-30;w:160;h:60</rect>
-                         <visual-role>6</visual-role>
                          <visual-emphasized>true</visual-emphasized>
                         </DObject>
                        </base-DObject>
@@ -1483,7 +327,7 @@
                          <object>{a14e4404-1bf6-40c5-a14c-5616c7ad2930}</object>
                          <context>loaders</context>
                          <name>QSettingsSettingsLoader</name>
-                         <pos>x:555;y:950</pos>
+                         <pos>x:290;y:485</pos>
                          <rect>x:-80;y:-30;w:160;h:60</rect>
                          <visual-role>6</visual-role>
                          <visual-emphasized>true</visual-emphasized>
@@ -1529,51 +373,29 @@
                      </instance>
                     </item>
                     <item>
-                     <instance type="DInheritance">
-                      <DInheritance>
-                       <base-DRelation>
-                        <DRelation>
+                     <instance type="DComponent">
+                      <DComponent>
+                       <base-DObject>
+                        <DObject>
                          <base-DElement>
                           <DElement>
-                           <uid>{34e409fa-b67f-4415-b33b-5e34320b1030}</uid>
+                           <uid>{b8025c14-8e6a-4fee-b3fe-750daf4c8d78}</uid>
                           </DElement>
                          </base-DElement>
-                         <object>{826a325a-bd8f-404c-82af-1ca0327abb14}</object>
-                         <a>{98c5aa52-db54-4546-83ab-4c7329bbecb3}</a>
-                         <b>{329ca786-a61b-4b24-97ef-b5241d367c94}</b>
-                        </DRelation>
-                       </base-DRelation>
-                      </DInheritance>
-                     </instance>
-                    </item>
-                    <item>
-                     <instance type="DAssociation">
-                      <DAssociation>
-                       <base-DRelation>
-                        <DRelation>
-                         <base-DElement>
-                          <DElement>
-                           <uid>{1ff95119-03d2-4475-92af-83104c999090}</uid>
-                          </DElement>
-                         </base-DElement>
-                         <object>{0f8035a7-9398-4aa4-ad7f-5dc0a242c5e6}</object>
-                         <a>{98c5aa52-db54-4546-83ab-4c7329bbecb3}</a>
-                         <b>{80f6306c-1f74-422b-bed4-3fbf6251c82e}</b>
-                        </DRelation>
-                       </base-DRelation>
-                       <a>
-                        <DAssociationEnd>
-                         <cradinality>1</cradinality>
-                         <navigable>true</navigable>
-                         <kind>1</kind>
-                        </DAssociationEnd>
-                       </a>
-                      </DAssociation>
+                         <object>{2a75b947-15bf-4efd-9e35-f270253fca4e}</object>
+                         <context>core</context>
+                         <name>Exceptions</name>
+                         <pos>x:360;y:210</pos>
+                         <rect>x:-60;y:-30;w:120;h:60</rect>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                      </DComponent>
                      </instance>
                     </item>
                    </qlist>
                   </elements>
-                  <last-modified>1468055950100</last-modified>
+                  <last-modified>1468441808563</last-modified>
                   <toolbarid>General</toolbarid>
                  </MDiagram>
                 </base-MDiagram>
@@ -1611,7 +433,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{2a75b947-15bf-4efd-9e35-f270253fca4e}</uid>
-                               <flags>1</flags>
                               </MElement>
                              </base-MElement>
                              <name>Exceptions</name>
@@ -1633,7 +454,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{09616b60-1837-47a6-8fac-135d225d3d43}</uid>
-                               <flags>1</flags>
                               </MElement>
                              </base-MElement>
                              <name>QAsyncSettingsContainer</name>
@@ -1685,7 +505,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{1261d18e-9c3e-46b4-8cd1-98c6291f2b9b}</uid>
-                               <flags>1</flags>
                                <stereotypes>
                                 <qlist>
                                  <item>interface</item>
@@ -1742,7 +561,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{6ae6937a-53f8-4312-8c22-d6420f23c67f}</uid>
-                               <flags>1</flags>
                                <stereotypes>
                                 <qlist>
                                  <item>interface</item>
@@ -1804,7 +622,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{80069c49-0c6d-451f-9081-eb4864315a9a}</uid>
-                               <flags>1</flags>
                               </MElement>
                              </base-MElement>
                              <name>QSettingsContainerLayout</name>
@@ -1861,7 +678,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{e7e952c1-207f-4706-9c4b-00232d9a37eb}</uid>
-                               <flags>1</flags>
                               </MElement>
                              </base-MElement>
                              <name>QSettingsDialog</name>
@@ -1959,7 +775,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{52f7d7c9-5321-4bb6-b72c-1b47ee17f62f}</uid>
-                               <flags>1</flags>
                               </MElement>
                              </base-MElement>
                              <name>QSettingsEntry</name>
@@ -2016,7 +831,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{e4b9501d-6adb-4b9f-9d76-5c188ea27371}</uid>
-                               <flags>1</flags>
                                <stereotypes>
                                 <qlist>
                                  <item>interface</item>
@@ -2043,7 +857,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{64f93d0a-0cce-44d3-ad84-30ef2c997086}</uid>
-                               <flags>1</flags>
                                <stereotypes>
                                 <qlist>
                                  <item>interface</item>
@@ -2122,7 +935,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{0b5fa7e7-a0c2-430a-aaf7-32e4e92499d2}</uid>
-                               <flags>1</flags>
                                <stereotypes>
                                 <qlist>
                                  <item>interface</item>
@@ -2179,7 +991,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{73390361-49d3-42d5-9066-8f1c75dec5e8}</uid>
-                               <flags>1</flags>
                                <stereotypes>
                                 <qlist>
                                  <item>interface</item>
@@ -2246,7 +1057,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{13911922-b080-4d06-b3bc-f5aef65099f9}</uid>
-                               <flags>1</flags>
                                <stereotypes>
                                 <qlist>
                                  <item>interface</item>
@@ -2273,7 +1083,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{bdd52010-9fbf-4c12-b11d-4fa6f3037fd3}</uid>
-                               <flags>1</flags>
                               </MElement>
                              </base-MElement>
                              <name>QGroupSettingsContainer</name>
@@ -2325,7 +1134,6 @@
                              <base-MElement>
                               <MElement>
                                <uid>{7c1c16a3-998a-40b4-af20-a605e9979146}</uid>
-                               <flags>1</flags>
                               </MElement>
                              </base-MElement>
                              <name>QSectionSettingsContainer</name>
@@ -2362,6 +1170,647 @@
                             </MObject>
                            </base-MObject>
                           </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{4afc68da-8665-4514-b91d-ccb56d245389}</uid>
+                        <target>
+                         <instance type="MCanvasDiagram">
+                          <MCanvasDiagram>
+                           <base-MDiagram>
+                            <MDiagram>
+                             <base-MObject>
+                              <MObject>
+                               <base-MElement>
+                                <MElement>
+                                 <uid>{4afc68da-8665-4514-b91d-ccb56d245389}</uid>
+                                </MElement>
+                               </base-MElement>
+                               <name>core</name>
+                              </MObject>
+                             </base-MObject>
+                             <elements>
+                              <qlist>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{590f9519-4dd1-4fcf-8439-2853f68bb34c}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{13911922-b080-4d06-b3bc-f5aef65099f9}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsDisplayInstance</name>
+                                    <pos>x:995;y:200</pos>
+                                    <rect>x:-70;y:-30;w:140;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{52fbbd04-c972-4b76-927f-c302f0f4dcde}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{0b5fa7e7-a0c2-430a-aaf7-32e4e92499d2}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSimpleSettingsLoader</name>
+                                    <pos>x:825;y:495</pos>
+                                    <rect>x:-65;y:-30;w:130;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{260fd648-0e82-4da7-a55f-22c82275b329}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{64f93d0a-0cce-44d3-ad84-30ef2c997086}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsLoaderEntry</name>
+                                    <pos>x:935;y:655</pos>
+                                    <rect>x:-65;y:-30;w:130;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{49680b29-2f71-4810-ac5f-df1b64a17df4}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{73390361-49d3-42d5-9066-8f1c75dec5e8}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsDisplayEngine</name>
+                                    <pos>x:775;y:175</pos>
+                                    <rect>x:-65;y:-30;w:130;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{ecb0d311-35cd-44dd-9866-5c4db32093ee}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{bdd52010-9fbf-4c12-b11d-4fa6f3037fd3}</object>
+                                    <name>QGroupSettingsContainer</name>
+                                    <pos>x:90;y:440</pos>
+                                    <rect>x:-70;y:-30;w:140;h:60</rect>
+                                    <visual-role>5</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{fff8c5d3-8374-46a0-b3db-6806ab902408}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{52f7d7c9-5321-4bb6-b72c-1b47ee17f62f}</object>
+                                    <name>QSettingsEntry</name>
+                                    <pos>x:960;y:340</pos>
+                                    <rect>x:-55;y:-30;w:110;h:60</rect>
+                                    <visual-role>6</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{6dc2f267-23db-4153-9de2-8aca0b01d5f6}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{7c1c16a3-998a-40b4-af20-a605e9979146}</object>
+                                    <name>QSectionSettingsContainer</name>
+                                    <pos>x:370;y:445</pos>
+                                    <rect>x:-75;y:-30;w:150;h:60</rect>
+                                    <visual-role>5</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{8d80f6cf-4c4e-4af8-9560-b9d3cc970211}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{09616b60-1837-47a6-8fac-135d225d3d43}</object>
+                                    <name>QAsyncSettingsContainer</name>
+                                    <pos>x:235;y:595</pos>
+                                    <rect>x:-70;y:-30;w:140;h:60</rect>
+                                    <visual-role>5</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{26c4d85e-99d9-4211-b5d3-514c9306ecb9}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{e4b9501d-6adb-4b9f-9d76-5c188ea27371}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsLoader</name>
+                                    <pos>x:725;y:360</pos>
+                                    <rect>x:-55;y:-30;w:110;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{150312ce-2381-4fba-850c-a59e1b6445e0}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{6ae6937a-53f8-4312-8c22-d6420f23c67f}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsContainer</name>
+                                    <pos>x:245;y:285</pos>
+                                    <rect>x:-55;y:-30;w:110;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{1cc53429-aecb-4cbe-99c8-6754f26cfee6}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{80069c49-0c6d-451f-9081-eb4864315a9a}</object>
+                                    <name>QSettingsContainerLayout</name>
+                                    <pos>x:475;y:570</pos>
+                                    <rect>x:-75;y:-30;w:150;h:60</rect>
+                                    <visual-role>6</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{dfbc6318-0e6d-442d-a87a-e04c70c7cfa4}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{1261d18e-9c3e-46b4-8cd1-98c6291f2b9b}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QAsyncSettingsLoader</name>
+                                    <pos>x:630;y:495</pos>
+                                    <rect>x:-65;y:-30;w:130;h:60</rect>
+                                    <visual-role>7</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                  <show-all-members>true</show-all-members>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{1305f7ef-3151-499d-aae4-012c01fa0522}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{e7e952c1-207f-4706-9c4b-00232d9a37eb}</object>
+                                    <name>QSettingsDialog</name>
+                                    <pos>x:525;y:195</pos>
+                                    <rect>x:-55;y:-30;w:110;h:60</rect>
+                                    <visual-role>5</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DComponent">
+                                 <DComponent>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{143791af-0f4d-4f0e-99de-539be674ccb8}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{2a75b947-15bf-4efd-9e35-f270253fca4e}</object>
+                                    <name>Exceptions</name>
+                                    <pos>x:140;y:165</pos>
+                                    <rect>x:-60;y:-30;w:120;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DComponent>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{88f6fb8b-5836-4d61-9a56-38b190e39500}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{dbccfb0b-add2-4785-bcd1-d37414fbb3c1}</object>
+                                    <a>{260fd648-0e82-4da7-a55f-22c82275b329}</a>
+                                    <b>{52fbbd04-c972-4b76-927f-c302f0f4dcde}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{b4ed5e34-2866-49fe-8a9b-95adf9132490}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{00c0251b-5a39-4cef-9e6a-46385832d0ad}</object>
+                                    <a>{6dc2f267-23db-4153-9de2-8aca0b01d5f6}</a>
+                                    <b>{150312ce-2381-4fba-850c-a59e1b6445e0}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{da1484fd-19a8-4f3e-bb83-3f545b51bf58}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{a3efb5ae-cdfc-469d-80df-4c668057e6e2}</object>
+                                    <a>{8d80f6cf-4c4e-4af8-9560-b9d3cc970211}</a>
+                                    <b>{150312ce-2381-4fba-850c-a59e1b6445e0}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{65044eb1-4143-4479-8ca4-90d5f30adc70}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{3c75c842-219b-4aa0-bfa1-6738481d5fb9}</object>
+                                    <a>{dfbc6318-0e6d-442d-a87a-e04c70c7cfa4}</a>
+                                    <b>{26c4d85e-99d9-4211-b5d3-514c9306ecb9}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{7d8d4522-1465-41d7-b9ab-38d19afa6ef8}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{1e823490-7101-4b21-bd22-d928a8c31d43}</object>
+                                    <a>{49680b29-2f71-4810-ac5f-df1b64a17df4}</a>
+                                    <b>{590f9519-4dd1-4fcf-8439-2853f68bb34c}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                  <b>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </b>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{e8311f94-c731-4f22-a175-d932ff6eb2df}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{408c0a18-1f01-412e-ab99-f667d46dfd0c}</object>
+                                    <a>{ecb0d311-35cd-44dd-9866-5c4db32093ee}</a>
+                                    <b>{150312ce-2381-4fba-850c-a59e1b6445e0}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{f0b954e4-42f5-4d56-8be4-ac46bedd0a35}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{aebea92b-da93-4d90-84c6-8f217ec262e1}</object>
+                                    <a>{1cc53429-aecb-4cbe-99c8-6754f26cfee6}</a>
+                                    <b>{1305f7ef-3151-499d-aae4-012c01fa0522}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{2106e4fd-ecb0-4b3c-854e-d40a55720e7a}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{5fead274-f046-450f-a3cd-5ef8ea5faf22}</object>
+                                    <a>{1305f7ef-3151-499d-aae4-012c01fa0522}</a>
+                                    <b>{fff8c5d3-8374-46a0-b3db-6806ab902408}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <cradinality>n</cradinality>
+                                    <navigable>true</navigable>
+                                    <kind>1</kind>
+                                   </DAssociationEnd>
+                                  </a>
+                                  <b>
+                                   <DAssociationEnd>
+                                    <cradinality>1</cradinality>
+                                   </DAssociationEnd>
+                                  </b>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{703c1384-7f10-4abb-ab97-22d988328637}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{d53eb02f-1c31-4fe1-8e99-213d94bbbdc0}</object>
+                                    <a>{1305f7ef-3151-499d-aae4-012c01fa0522}</a>
+                                    <b>{49680b29-2f71-4810-ac5f-df1b64a17df4}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <cradinality>1</cradinality>
+                                    <navigable>true</navigable>
+                                    <kind>1</kind>
+                                   </DAssociationEnd>
+                                  </a>
+                                  <b>
+                                   <DAssociationEnd>
+                                    <cradinality>1</cradinality>
+                                   </DAssociationEnd>
+                                  </b>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{74e829ae-08d1-42a7-8b8f-85191b8d030c}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{88062d99-d328-4179-8f56-1327b4e10bbc}</object>
+                                    <a>{fff8c5d3-8374-46a0-b3db-6806ab902408}</a>
+                                    <b>{26c4d85e-99d9-4211-b5d3-514c9306ecb9}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{ddf0187f-d780-42bc-8696-e147bde57784}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{142108f3-3dc6-4241-9f6c-343abcc641d4}</object>
+                                    <a>{260fd648-0e82-4da7-a55f-22c82275b329}</a>
+                                    <b>{fff8c5d3-8374-46a0-b3db-6806ab902408}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{bae6cf64-c93e-4fa9-b3be-fc9d55f836da}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{03bda362-f2b6-424a-99f2-84d95152531c}</object>
+                                    <a>{52fbbd04-c972-4b76-927f-c302f0f4dcde}</a>
+                                    <b>{26c4d85e-99d9-4211-b5d3-514c9306ecb9}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{aa912919-7eb4-435e-b9c8-de1f49248e28}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{447953fd-6d56-4593-bf88-9e4f5ab59c46}</object>
+                                    <a>{150312ce-2381-4fba-850c-a59e1b6445e0}</a>
+                                    <b>{1305f7ef-3151-499d-aae4-012c01fa0522}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                              </qlist>
+                             </elements>
+                             <last-modified>1468441779876</last-modified>
+                             <toolbarid>General</toolbarid>
+                            </MDiagram>
+                           </base-MDiagram>
+                          </MCanvasDiagram>
                          </instance>
                         </target>
                        </handle>
@@ -2694,6 +2143,33 @@
                                        </MRelation>
                                       </base-MRelation>
                                      </MInheritance>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                 <item>
+                                  <handle>
+                                   <uid>{961c1560-7c80-4853-b38d-61167b4c71a5}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{961c1560-7c80-4853-b38d-61167b4c71a5}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{ca03edb0-cdf0-4473-94f2-9c891e0865f4}</a>
+                                        <b>{c73b3daf-7fa6-44bb-8004-a7f0b1a6b8a6}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <navigable>true</navigable>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
                                     </instance>
                                    </target>
                                   </handle>
@@ -3135,6 +2611,708 @@
                         </target>
                        </handle>
                       </item>
+                      <item>
+                       <handle>
+                        <uid>{c5064551-c232-42a0-88a1-bc33963408e7}</uid>
+                        <target>
+                         <instance type="MCanvasDiagram">
+                          <MCanvasDiagram>
+                           <base-MDiagram>
+                            <MDiagram>
+                             <base-MObject>
+                              <MObject>
+                               <base-MElement>
+                                <MElement>
+                                 <uid>{c5064551-c232-42a0-88a1-bc33963408e7}</uid>
+                                </MElement>
+                               </base-MElement>
+                               <name>dialogui</name>
+                              </MObject>
+                             </base-MObject>
+                             <elements>
+                              <qlist>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{81e3ecde-2c5c-46d9-9283-b18da7a0d14a}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{2fcd1364-247d-48f4-8ab9-964f598ee66e}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsDialogWidget</name>
+                                    <pos>x:1245;y:110</pos>
+                                    <rect>x:-75;y:-30;w:150;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                  <template>
+                                   <qlist>
+                                    <item>TDialog</item>
+                                   </qlist>
+                                  </template>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{b6009342-f68d-4ff1-8fba-3ad9f80ab332}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{deeaf498-27ad-4012-ad84-fcbbb6de5635}</object>
+                                    <name>QSettingsWidgetDialogEngine</name>
+                                    <pos>x:375;y:445</pos>
+                                    <rect>x:-95;y:-30;w:190;h:60</rect>
+                                    <visual-role>6</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{30c5c926-7c54-4147-a86c-add25d3673e6}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{ca03edb0-cdf0-4473-94f2-9c891e0865f4}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>GenericSettingsGroupWidgetFactory</name>
+                                    <pos>x:635;y:685</pos>
+                                    <rect>x:-100;y:-30;w:200;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                  <template>
+                                   <qlist>
+                                    <item>TSettingsGroupWidget</item>
+                                   </qlist>
+                                  </template>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{d1bb7da9-8573-4b37-9904-32c5c09d5a25}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{c73b3daf-7fa6-44bb-8004-a7f0b1a6b8a6}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsGroupWidget</name>
+                                    <pos>x:930;y:685</pos>
+                                    <rect>x:-75;y:-30;w:150;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                  <template>
+                                   <qlist>
+                                    <item>TWidget</item>
+                                   </qlist>
+                                  </template>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{ecbb36cf-1044-4e4b-aa85-750f16bbb9f8}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{4901a726-b974-4674-8e5c-f1a84306173b}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsWidgetBase</name>
+                                    <pos>x:1045;y:355</pos>
+                                    <rect>x:-60;y:-30;w:120;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{41944684-7598-4be5-850d-f27e28e2a04c}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{2bf2f575-00df-46a7-b43a-e02d7619d5eb}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsWidgetFactoryRegistry</name>
+                                    <pos>x:630;y:360</pos>
+                                    <rect>x:-90;y:-30;w:180;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{c2d0a783-4255-4056-afa4-d876ee2961ef}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{2ee1b271-9076-4a48-9967-56a3088b9776}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsGroupWidgetFactory</name>
+                                    <pos>x:635;y:540</pos>
+                                    <rect>x:-85;y:-30;w:170;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{f526e5b7-21cf-42e8-81f2-99028ea8fb87}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{48c8e1c5-7dcf-4e42-80ab-8e8e2ad494a0}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>GenericSettingsWidgetFactory</name>
+                                    <pos>x:850;y:225</pos>
+                                    <rect>x:-85;y:-30;w:170;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                  <template>
+                                   <qlist>
+                                    <item>TSettingsWidget</item>
+                                   </qlist>
+                                  </template>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{ff7d596a-85d7-4e67-a98e-f0fdf6ec7b2b}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{4c758a0d-8363-4c7d-960d-5aa608d996b0}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsWidgetFactory</name>
+                                    <pos>x:850;y:355</pos>
+                                    <rect>x:-70;y:-30;w:140;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{77707d72-ad31-46f5-b0ff-fe3abb8f853f}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{c30cf0ec-02bb-4b0d-bd25-1e137ce6ec90}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsGroupWidgetBase</name>
+                                    <pos>x:930;y:550</pos>
+                                    <rect>x:-75;y:-30;w:150;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{1bc90a3c-8e96-48f3-8d17-71576a6d5c6f}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{17e35208-215b-4bfa-9e52-bb27c5203bc9}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsWidget</name>
+                                    <pos>x:1045;y:225</pos>
+                                    <rect>x:-60;y:-30;w:120;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                  <template>
+                                   <qlist>
+                                    <item>TWidget</item>
+                                   </qlist>
+                                  </template>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{b8bd61e4-908a-416b-a794-5e793cb05f2a}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{26a92b9f-f6fb-4853-913b-f6481361078e}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>QSettingsDialogWidgetBase</name>
+                                    <pos>x:1245;y:225</pos>
+                                    <rect>x:-75;y:-30;w:150;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{02f33494-e02f-4264-be65-dc536be3160c}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{ae4fc160-9711-4f3b-87fe-9b4db73b1545}</object>
+                                    <a>{81e3ecde-2c5c-46d9-9283-b18da7a0d14a}</a>
+                                    <b>{b8bd61e4-908a-416b-a794-5e793cb05f2a}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{84552665-b550-43f7-97d1-084bdb77487f}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{edff5b4c-3ec2-4731-85d2-b2f2af078c09}</object>
+                                    <a>{c2d0a783-4255-4056-afa4-d876ee2961ef}</a>
+                                    <b>{77707d72-ad31-46f5-b0ff-fe3abb8f853f}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{6b32aaac-2b94-47fd-9110-929be644e4d3}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{5387308e-b5be-4e33-ad4a-795a001272c0}</object>
+                                    <a>{f526e5b7-21cf-42e8-81f2-99028ea8fb87}</a>
+                                    <b>{1bc90a3c-8e96-48f3-8d17-71576a6d5c6f}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{d749ba44-a997-45bb-865f-f6f4c2d02b80}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{dc448b7c-7993-4028-97b0-4cc53a78a2f2}</object>
+                                    <a>{b8bd61e4-908a-416b-a794-5e793cb05f2a}</a>
+                                    <b>{1bc90a3c-8e96-48f3-8d17-71576a6d5c6f}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{89a3daad-1aeb-4a39-acc0-4518447cc296}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{6329a515-4917-4e82-9693-6db970b9c9e1}</object>
+                                    <a>{b6009342-f68d-4ff1-8fba-3ad9f80ab332}</a>
+                                    <b>{41944684-7598-4be5-850d-f27e28e2a04c}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{47bcfbac-ead0-48ee-bd75-34665fe9c9b2}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{89f52b1e-9e82-4ab5-989b-c05ac9ce79d0}</object>
+                                    <a>{30c5c926-7c54-4147-a86c-add25d3673e6}</a>
+                                    <b>{c2d0a783-4255-4056-afa4-d876ee2961ef}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{26d83644-e0ec-46bf-a17f-b6a51d528cbd}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{99edf00d-37b6-4911-a654-b516bb635d67}</object>
+                                    <a>{d1bb7da9-8573-4b37-9904-32c5c09d5a25}</a>
+                                    <b>{77707d72-ad31-46f5-b0ff-fe3abb8f853f}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{1ce6369e-c532-43b9-a207-c430e0fc3afc}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{bcf83866-8cd0-4616-9dca-0dbeaf3efcc6}</object>
+                                    <a>{f526e5b7-21cf-42e8-81f2-99028ea8fb87}</a>
+                                    <b>{ff7d596a-85d7-4e67-a98e-f0fdf6ec7b2b}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{08a49573-892f-48cb-89c4-83b6a3518b83}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{906a2a17-bf17-49c5-9697-d0481e1e7775}</object>
+                                    <a>{41944684-7598-4be5-850d-f27e28e2a04c}</a>
+                                    <b>{ff7d596a-85d7-4e67-a98e-f0fdf6ec7b2b}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{32025b26-7b4c-4a1d-a9c9-c545e684cda5}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{140e4cc3-180d-4302-8b75-fd14837a81c5}</object>
+                                    <a>{1bc90a3c-8e96-48f3-8d17-71576a6d5c6f}</a>
+                                    <b>{ecbb36cf-1044-4e4b-aa85-750f16bbb9f8}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{ffdf78a2-f41b-434d-b23e-54334a43e01e}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{3dd64cf3-b962-4f97-bbb7-b0f1ba37c4b1}</object>
+                                    <a>{b6009342-f68d-4ff1-8fba-3ad9f80ab332}</a>
+                                    <b>{c2d0a783-4255-4056-afa4-d876ee2961ef}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{4a92b2b1-7366-4abb-8913-5cdffbad3937}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{a16e6288-2e16-4c5f-b086-7c729fcd2790}</object>
+                                    <a>{ff7d596a-85d7-4e67-a98e-f0fdf6ec7b2b}</a>
+                                    <b>{ecbb36cf-1044-4e4b-aa85-750f16bbb9f8}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{15ee8071-4d39-4ef7-8286-321c02dcc699}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{73390361-49d3-42d5-9066-8f1c75dec5e8}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <context>core</context>
+                                    <name>QSettingsDisplayEngine</name>
+                                    <pos>x:115;y:445</pos>
+                                    <rect>x:-65;y:-30;w:130;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DPackage">
+                                 <DPackage>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{6b6eac9c-547c-4e11-9416-d7b903bae39b}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{10674a32-cf2a-42f5-a139-45c2114a1d5c}</object>
+                                    <context>QSettingsDialog</context>
+                                    <name>core</name>
+                                    <pos>x:115;y:430</pos>
+                                    <rect>x:-100;y:-75;w:200;h:150</rect>
+                                    <auto-sized>false</auto-sized>
+                                    <visual-role>0</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DPackage>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{febd1cf8-f44c-41cf-a70f-4c7f44360108}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{02eb6977-0423-4118-96f4-7f458f0f49ed}</object>
+                                    <a>{b6009342-f68d-4ff1-8fba-3ad9f80ab332}</a>
+                                    <b>{15ee8071-4d39-4ef7-8286-321c02dcc699}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{24f71c5b-9d97-48a9-8694-9e6fea91827f}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{961c1560-7c80-4853-b38d-61167b4c71a5}</object>
+                                    <a>{30c5c926-7c54-4147-a86c-add25d3673e6}</a>
+                                    <b>{d1bb7da9-8573-4b37-9904-32c5c09d5a25}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                              </qlist>
+                             </elements>
+                             <last-modified>1468441680291</last-modified>
+                             <toolbarid>General</toolbarid>
+                            </MDiagram>
+                           </base-MDiagram>
+                          </MCanvasDiagram>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
                      </qlist>
                     </handles>
                    </handles>
@@ -3243,6 +3421,149 @@
                             </MObject>
                            </base-MObject>
                           </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{7c58857d-c04e-443d-895a-91deddacf7f2}</uid>
+                        <target>
+                         <instance type="MCanvasDiagram">
+                          <MCanvasDiagram>
+                           <base-MDiagram>
+                            <MDiagram>
+                             <base-MObject>
+                              <MObject>
+                               <base-MElement>
+                                <MElement>
+                                 <uid>{7c58857d-c04e-443d-895a-91deddacf7f2}</uid>
+                                </MElement>
+                               </base-MElement>
+                               <name>variantwidgets</name>
+                              </MObject>
+                             </base-MObject>
+                             <elements>
+                              <qlist>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{1cd42806-0fb1-4340-995e-319add65ca86}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{25eb2976-996f-46cd-b4a6-53bc484730f2}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>static</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>VariantWidgetsRegistrator</name>
+                                    <pos>x:580;y:320</pos>
+                                    <rect>x:-75;y:-30;w:150;h:60</rect>
+                                    <visual-role>9</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DComponent">
+                                 <DComponent>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{08b82fc9-53d8-4810-9f1d-d8bd689df0e8}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{aca90193-4369-4e04-a321-b0df144832b4}</object>
+                                    <name>Extended Types</name>
+                                    <pos>x:585;y:190</pos>
+                                    <rect>x:-70;y:-30;w:140;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DComponent>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{6278c0f8-d148-4553-8cca-be3cedc11ef8}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{deeaf498-27ad-4012-ad84-fcbbb6de5635}</object>
+                                    <context>dialogui</context>
+                                    <name>QSettingsWidgetDialogEngine</name>
+                                    <pos>x:230;y:320</pos>
+                                    <rect>x:-95;y:-30;w:190;h:60</rect>
+                                    <visual-role>6</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DPackage">
+                                 <DPackage>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{4af6364b-ef99-465e-a993-4eed1c309406}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{d3bca723-2f50-4e7a-b6fa-9ad015e0a94d}</object>
+                                    <context>QSettingsDialog</context>
+                                    <name>dialogui</name>
+                                    <pos>x:240;y:310</pos>
+                                    <rect>x:-145;y:-75;w:290;h:150</rect>
+                                    <auto-sized>false</auto-sized>
+                                    <visual-role>0</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DPackage>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{8684b5bb-6d76-4456-9344-32d783a3c95d}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{8b050631-25bc-448a-bd74-f6ecc3f99189}</object>
+                                    <a>{1cd42806-0fb1-4340-995e-319add65ca86}</a>
+                                    <b>{6278c0f8-d148-4553-8cca-be3cedc11ef8}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                              </qlist>
+                             </elements>
+                             <last-modified>1468441772696</last-modified>
+                             <toolbarid>General</toolbarid>
+                            </MDiagram>
+                           </base-MDiagram>
+                          </MCanvasDiagram>
                          </instance>
                         </target>
                        </handle>
@@ -3457,6 +3778,238 @@
                             </MObject>
                            </base-MObject>
                           </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{8ec1b6b9-a39b-4108-89a0-e39c06540f28}</uid>
+                        <target>
+                         <instance type="MCanvasDiagram">
+                          <MCanvasDiagram>
+                           <base-MDiagram>
+                            <MDiagram>
+                             <base-MObject>
+                              <MObject>
+                               <base-MElement>
+                                <MElement>
+                                 <uid>{8ec1b6b9-a39b-4108-89a0-e39c06540f28}</uid>
+                                </MElement>
+                               </base-MElement>
+                               <name>loaders</name>
+                              </MObject>
+                             </base-MObject>
+                             <elements>
+                              <qlist>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{5b35c864-6f60-487a-9660-430632177ea0}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{2b3c757d-b4ac-4c61-ae5f-d3222370edf2}</object>
+                                    <name>QSettingsPropertyLoader</name>
+                                    <pos>x:675;y:445</pos>
+                                    <rect>x:-80;y:-30;w:160;h:60</rect>
+                                    <visual-role>5</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{7bb5c9f4-c39b-4a7d-b1ce-2861520869dc}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{ad739965-f648-4f7e-ba93-818596c9776e}</object>
+                                    <name>QSettingsPropertyEntry</name>
+                                    <pos>x:835;y:585</pos>
+                                    <rect>x:-80;y:-30;w:160;h:60</rect>
+                                    <visual-role>6</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{0c56c630-1e44-4aa6-9487-516d34f4b58a}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{a14e4404-1bf6-40c5-a14c-5616c7ad2930}</object>
+                                    <name>QSettingsSettingsLoader</name>
+                                    <pos>x:700;y:270</pos>
+                                    <rect>x:-80;y:-30;w:160;h:60</rect>
+                                    <visual-role>6</visual-role>
+                                    <visual-emphasized>true</visual-emphasized>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{6dc0ce03-917f-4579-b22e-3037f8382eeb}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{0f8035a7-9398-4aa4-ad7f-5dc0a242c5e6}</object>
+                                    <a>{7bb5c9f4-c39b-4a7d-b1ce-2861520869dc}</a>
+                                    <b>{5b35c864-6f60-487a-9660-430632177ea0}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <cradinality>1</cradinality>
+                                    <navigable>true</navigable>
+                                    <kind>1</kind>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DPackage">
+                                 <DPackage>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{b94478df-b44f-4cc5-af65-a866ddf027e1}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{10674a32-cf2a-42f5-a139-45c2114a1d5c}</object>
+                                    <context>QSettingsDialog</context>
+                                    <name>core</name>
+                                    <pos>x:430;y:360</pos>
+                                    <rect>x:-105;y:-135;w:210;h:270</rect>
+                                    <auto-sized>false</auto-sized>
+                                    <visual-role>0</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DPackage>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{d9e4aead-2585-445f-a6bf-f1bc9782e6ae}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{0b5fa7e7-a0c2-430a-aaf7-32e4e92499d2}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <context>core</context>
+                                    <name>QSimpleSettingsLoader</name>
+                                    <pos>x:425;y:325</pos>
+                                    <rect>x:-65;y:-30;w:130;h:60</rect>
+                                    <visual-role>0</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{1fd45581-1367-4d18-8450-920424d93e6c}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{1261d18e-9c3e-46b4-8cd1-98c6291f2b9b}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>interface</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <context>core</context>
+                                    <name>QAsyncSettingsLoader</name>
+                                    <pos>x:430;y:420</pos>
+                                    <rect>x:-65;y:-30;w:130;h:60</rect>
+                                    <visual-role>7</visual-role>
+                                    <stereotype-display>1</stereotype-display>
+                                   </DObject>
+                                  </base-DObject>
+                                  <show-all-members>true</show-all-members>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{fd778c37-5e95-450b-9f42-e31ef874eeb0}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{35830195-5cb6-4b7e-b766-85baa5c3bc3d}</object>
+                                    <a>{5b35c864-6f60-487a-9660-430632177ea0}</a>
+                                    <b>{1fd45581-1367-4d18-8450-920424d93e6c}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DInheritance">
+                                 <DInheritance>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{3991becb-c3f5-40ad-836b-38b9856870f2}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{c58469ec-d1f9-430f-9045-38ae93234298}</object>
+                                    <a>{0c56c630-1e44-4aa6-9487-516d34f4b58a}</a>
+                                    <b>{d9e4aead-2585-445f-a6bf-f1bc9782e6ae}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                 </DInheritance>
+                                </instance>
+                               </item>
+                              </qlist>
+                             </elements>
+                             <last-modified>1468441744915</last-modified>
+                             <toolbarid>General</toolbarid>
+                            </MDiagram>
+                           </base-MDiagram>
+                          </MCanvasDiagram>
                          </instance>
                         </target>
                        </handle>
