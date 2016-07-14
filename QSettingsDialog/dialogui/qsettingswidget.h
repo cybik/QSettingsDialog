@@ -42,7 +42,7 @@ private:
 	QVariant changedCache;
 };
 
-//! Generic base class for settings widgets
+//! Generic base class for settings widgets @ingroup grp_dialogui
 template <class TWidget>
 class QSettingsWidget : public TWidget, public QSettingsWidgetBase
 {
