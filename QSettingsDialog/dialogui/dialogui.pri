@@ -10,3 +10,7 @@ HEADERS +=  \
 INCLUDEPATH += $$PWD
 
 include(private.pri)
+
+DISTFILES += \
+    $$PWD/grp_dialogui.dox \
+    $$PWD/qsettingswidget.dox

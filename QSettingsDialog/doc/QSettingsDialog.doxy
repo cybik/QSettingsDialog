@@ -817,8 +817,10 @@ INPUT                  = ../../README.md \
 						 ../core/qsettingslayout.h \
 						 ../core/qsettingslayout.dox \
 						 ../core/qsettingsdisplayengine.h \
+						 ../dialogui/grp_dialogui.dox \
 						 ../dialogui/qsettingswidgetdialogengine.h \
 						 ../dialogui/qsettingswidget.h \
+						 ../dialogui/qsettingswidget.dox \
 						 ../dialogui/qsettingswidgetfactory.h \
 						 ../dialogui/qsettingswidgetfactoryregistry.h \
 						 ../dialogui/qsettingsdialogwidget.h \

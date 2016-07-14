@@ -1,0 +1,64 @@
+/*!
+@class QSettingsWidgetBase
+
+Implementations must inherit from `QWidget`!
+
+@note You should not use this class directly. It simply serves as base for the generic interface. You should
+only implement the QSettingsWidget interface!
+*/
+
+/*!
+@fn QSettingsWidgetBase::asWidget
+
+@warning This function **MUST** return itself. It's basically a shortcut for `(QWidget*)element`, and is there
+to ensure all widgets that implement this interface do inherit `QWidget`.
+*/
+
+/*!
+@fn QSettingsWidgetBase::hasValueChanged
+
+@returns `true`, if the value has changed since the last reset, `false` if not
+
+This function will determine whether the data within this edit will be saved or not. Only if it returs true,
+data will actually be saved. The "changed" is relative to the status from the last `QSettingsWidgetBase::resetValueChanged`.
+This means, immediatly after a call to that function, this one should always return `false`. And only if the current state of the
+edit is different from the one it had when that funcion was called, `true` shall be returned
+
+@note For most edit widgets, the default implementation is sufficient.
+*/
+
+/*!
+@fn QSettingsWidgetBase::resetValueChanged
+
+See QSettingsWidgetBase::hasValueChanged.
+
+@note For most edit widgets, the default implementation is sufficient.
+*/
+
+/*!
+@fn QSettingsWidgetBase::searchExpression
+
+@param regex The regular expression to match against
+@returns `true`, if this edit matches the expression, `false` if not
+
+Reimplement this function if your edit should be used to help find search entries. The default implementation
+matches on nothing
+
+@note If the `regex` is empty, this function must always return `true`.
+*/
+
+/*!
+@class QSettingsWidget
+
+@tparam TWidget A class the is or inherits QWidget. It will be the primary base class of this widget
+
+Use this generic interface to create your own edit widget implementations:
+
+```cpp
+class MyEditWidget : QSettingsWidget<QLineEdit>
+{
+public:
+	//...
+}
+```
+*/

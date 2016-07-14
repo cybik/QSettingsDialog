@@ -1,0 +1,5 @@
+/*!
+@defgroup grp_dialogui QSettingsDialog Dialog-UI
+
+@brief The display module of the dialog library
+*/
