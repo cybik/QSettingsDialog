@@ -15,4 +15,7 @@ DISTFILES += \
     $$PWD/grp_dialogui.dox \
     $$PWD/qsettingswidget.dox \
     $$PWD/qsettingswidgetfactory.dox \
-    $$PWD/qsettingswidgetfactoryregistry.dox
+    $$PWD/qsettingswidgetfactoryregistry.dox \
+    $$PWD/qsettingsdialogwidget.dox \
+    $$PWD/qsettingsgroupwidget.dox \
+    $$PWD/qsettingsgroupwidgetfactory.dox

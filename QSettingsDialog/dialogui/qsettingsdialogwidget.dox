@@ -1,0 +1,37 @@
+/*!
+@class QSettingsDialogWidgetBase
+
+This base class can be used to create edit widgets that should show a dialog instead of showing the
+edit inline. Within the settings dialog itself, this widget will be repesented by a simple button.
+Once it gets clicked, the real dialog will be shown.
+
+@image html dialogwidget_button.png "The button within the settings dialog"
+*/
+
+/*!
+@class QSettingsDialogWidget
+
+@tparam TDialog The class to create this dialog for. Must be a QSettingsWidget with a @a TWidget that inherits from QDialog
+
+You can use this class to simply create a dialog widget by simply implementing a normal QSettingsWidget and using this
+type for the registration. The only requirement is, that your QSettingsWidget inherits QDialog instead of just QWidget.
+
+Simple example. Your custom widget looks like this:
+```cpp
+class MyDialog : QSettingsQWidget<QDialog>
+{
+public:
+	MyDialog(QWidget *parent = nullptr);
+	//...
+}
+```
+
+To register it as a dialog, simply use the QSettingsDialogWidget for the registration:
+```cpp
+QSettingsWidgetDialogEngine *engine = (QSettingsWidgetDialogEngine*)settingsDialog->displayEngine();
+engine->addWidgetType<QSettingsDialogWidget<MyDialog>>(424242);
+```
+
+@note The default implementation of this class uses the dialogs QWidget::windowTitle and QWidget::windowIcon
+for the button.
+*/

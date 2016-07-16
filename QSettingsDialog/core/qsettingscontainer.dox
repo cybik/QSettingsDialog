@@ -94,7 +94,7 @@ This element will serve as parent QObject for the new container
 */
 
 /*!
-@fn QGroupSettingsContainer::parentSection(QObject *)
+@fn QGroupSettingsContainer::parentSection(QObject *) const
 
 @param parent The parent for the new container
 @returns A newly created settings container to the parent container
@@ -155,7 +155,7 @@ not found, a `nullptr` will be returned.
 */
 
 /*!
-@fn QSectionSettingsContainer::parentSection(const QString &, QObject *)
+@fn QSectionSettingsContainer::createGroupContainer(const QString &, QObject *) const
 
 @param id The id of the group to create a container for
 @param parent The parent for the new container
@@ -166,7 +166,7 @@ not found, a `nullptr` will be returned.
 */
 
 /*!
-@fn QSectionSettingsContainer::createGroupContainer(int)
+@fn QSectionSettingsContainer::createGroupContainerFromIndex(int)
 
 @param index The index of the group to create a container for
 @returns A newly created settings container to the child container, or `nullptr`
@@ -176,7 +176,7 @@ at the index is not a group, a `nullptr` will be returned.
 */
 
 /*!
-@fn QSectionSettingsContainer::parentSection(int, QObject *)
+@fn QSectionSettingsContainer::createGroupContainerFromIndex(int, QObject *) const
 
 @param index The index of the group to create a container for
 @param parent The parent for the new container

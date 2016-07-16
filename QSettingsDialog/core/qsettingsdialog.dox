@@ -140,6 +140,7 @@ container for that path part. if you use 1 slash (just category and section), th
 @fn QSettingsDialog::removeContainer
 
 @param containerPath The container path that should be removed
+@returns `true`, if a container with that path was removed, `false` if it does not exist
 @throws InvalidContainerPathException Will be thrown if the path is not a valid container path
 
 Use this function to remove any container based on a path. You can pass in a single id, a path of two or a path of three elements.

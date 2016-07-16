@@ -4,14 +4,18 @@
 #include "qsettingsdialog_global.h"
 #include "qsettingsgroupwidget.h"
 
+//! The base class for a factory to create QSettingsGroupWidgets @ingroup grp_dialogui
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsGroupWidgetFactory
 {
 public:
+	//! Virtual destructor
 	inline virtual ~QSettingsGroupWidgetFactory() {}
 
+	//! Creates a new instance of the group widget
 	virtual QSettingsGroupWidgetBase *createGroupWidget(QWidget *parent) = 0;
 };
 
+//! `[INTERNAL USE]`Generic base class for a factory to create QSettingsWidgets @ingroup grp_dialogui
 template <class TSettingsGroupWidget>
 class GenericSettingsGroupWidgetFactory : public QSettingsGroupWidgetFactory
 {

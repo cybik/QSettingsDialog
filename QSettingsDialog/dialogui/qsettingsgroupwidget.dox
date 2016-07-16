@@ -1,0 +1,75 @@
+/*!
+@class QSettingsGroupWidgetBase
+
+Implementations must inherit from `QWidget`!
+
+Custom groups can be used to provide a customized way to organize entries in a group. Because of the way the dialog is build up,
+the raw mechanics and organization within the dialog can get very complicated. To make it possible to create custom groups in a simple
+way, there are two approaches on creating a custom group
+
+### Simple implementation
+All you have to do is to provide a widget that can somehow contain children. All you have to do is implement the QSettingsGroupWidgetBase::addWidgetWithLabel
+method. (And the other **pure** virtual functions). This way the group will handle all the complex stuff on it's own. However, this requires you to
+provide a group that can handle a label and a widget. For groups that are more complex, the second method must be used.
+
+### Raw implementation
+Instead of using the simple implementation, override all the management functions:
+- QSettingsGroupWidgetBase::addWidgetRaw
+- QSettingsGroupWidgetBase::setEntryChecked
+- QSettingsGroupWidgetBase::setEntryLabelEnabled
+- QSettingsGroupWidgetBase::isEntryChecked
+- QSettingsGroupWidgetBase::searchExpression
+
+This requies you to do all the complex checking and searching logic on your own, but you can create fully customized groups.
+
+@note You should not use this class directly. It simply serves as base for the generic interface. You should
+only implement the QSettingsGroupWidget interface!
+*/
+
+/*!
+@fn QSettingsGroupWidgetBase::asWidget
+
+@returns `(QWidget*)this;`
+
+@warning This function **MUST** return itself. It's basically a shortcut for `(QWidget*)element`, and is there
+to ensure all widgets that implement this interface do inherit `QWidget`.
+*/
+
+/*!
+@fn QSettingsGroupWidgetBase::setOptional
+
+@param optional If `true`, the group should be optional, if `false` required.
+
+Optional groups are a way to make it possible for the user to batch-enable settings. If a group is optional and checked, or required, it should let
+the user use the contents normally. If it optional and unchecked, the contents should be disabled, preventing the user from accessing them.
+If the settings get saved, all children within an unchecked group will be resetted. Otherwise the normal operation for them will be used.
+*/
+
+/*!
+@fn QSettingsGroupWidgetBase::addWidgetWithLabel
+
+@param label The widget that operates as a label. Will be a QLabel or a QCheckBox
+@param content The edit widget, a QSettingsWidgetBase implementation (here simply as QWidget)
+
+This function should simply add the two given widget into the groups display layout. All the logic connecting
+them and other managemant stuff is done by the group itself. In most cases the implementations of this
+function will simply add those two widget into a QLayout.
+*/
+
+/*!
+@class QSettingsGroupWidget
+
+@tparam TWidget A class that is or inherits QWidget. It will be the primary base class of this widget
+
+Use this generic interface to create your own group widget implementations:
+
+@code{.cpp}
+class MyGroupWidget : QSettingsGroupWidget<QGroupBox>
+{
+public:
+	//...
+}
+@endcode
+
+@attention Please check the base class documentation if you want to create a custom group!
+*/

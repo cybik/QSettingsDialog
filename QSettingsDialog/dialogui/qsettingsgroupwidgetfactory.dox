@@ -1,0 +1,9 @@
+/*!
+@class QSettingsGroupWidgetFactory
+
+For each kind of group widget you want, create a factory and register this factory for a display id using
+QSettingsWidgetDialogEngine::addGroupFactory.
+
+@note Use this class only if you need a special way to create the widgets. If all you need is a `new MyCustomGroup(parent);`,
+simply use QSettingsWidgetDialogEngine::addGroupWidgetType instead of creating a new factory implementation.
+*/

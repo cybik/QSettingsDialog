@@ -20,28 +20,28 @@ use them with edit widgets.
 Simple example: You defined your own class `SuperInt`. To edit it, you use a spinbox. Now since the spinbox uses `int` as a type, you need
 to convert these types. First step is to create conversion functionality in `SuperInt`. You will need a constructor from `int` and a conversion
 operator to `int`:
-```cpp
+@code{.cpp}
 class SuperInt {
 public:
 	SuperInt(int value);
 
 	operator int();
 }
-```
+@endcode
 
 Next step is to register the converter using this macro. You do this in your `main` after you have create the `QApplication`:
-```cpp
+@code{.cpp}
 REGISTER_TYPE_CONVERTERS(SuperInt, int);
-```
+@endcode
 
 Thats it. Now `QVariant` is able to internally convert these two types into each other, which makes it possible to do for example this:
-```cpp
+@code{.cpp}
 SuperInt sup(42);
 QVariant var = QVariant::fromValue(sup);
 int test = var.toInt();//this will work now
 QVariant var2 = test;
 SuperInt back = var2.value<SuperInt>();//will work too
-```
+@endcode
 */
 
 /*!

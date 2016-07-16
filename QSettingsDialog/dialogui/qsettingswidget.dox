@@ -10,6 +10,8 @@ only implement the QSettingsWidget interface!
 /*!
 @fn QSettingsWidgetBase::asWidget
 
+@returns `(QWidget*)this;`
+
 @warning This function **MUST** return itself. It's basically a shortcut for `(QWidget*)element`, and is there
 to ensure all widgets that implement this interface do inherit `QWidget`.
 */
@@ -50,15 +52,17 @@ matches on nothing
 /*!
 @class QSettingsWidget
 
-@tparam TWidget A class the is or inherits QWidget. It will be the primary base class of this widget
+@tparam TWidget A class that is or inherits QWidget. It will be the primary base class of this widget
 
 Use this generic interface to create your own edit widget implementations:
 
-```cpp
+@code{.cpp}
 class MyEditWidget : QSettingsWidget<QLineEdit>
 {
 public:
 	//...
 }
-```
+@endcode
+
+Some more text
 */

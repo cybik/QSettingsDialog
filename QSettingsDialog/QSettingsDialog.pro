@@ -49,7 +49,9 @@ DISTFILES += \
 	$$PWD/classmodel.qmodel \
     qsettingsdialog.pri \
     generateIncludes.bat \
-    doc/QSettingsDialog.doxy
+    doc/QSettingsDialog.doxy \
+    doc/images/dialogwidget_button.png \
+    doc/images/structure_core.svg
 
 include(./submodules/submodules.pri)
 #parts
