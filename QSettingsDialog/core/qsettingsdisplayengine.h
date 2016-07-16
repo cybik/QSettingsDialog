@@ -5,7 +5,7 @@
 class QWindow;
 struct SettingsRoot;
 
-//! `[INTERNAL USE]` An interface for a display instance that can be controlled by the dialog @ingroup grp_core
+//! @intuse An interface for a display instance that can be controlled by the dialog @ingroup grp_core
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsDisplayInstance
 {
 public:
@@ -34,7 +34,7 @@ signals:
 	virtual void canceled() = 0;
 };
 
-//! `[INTERNAL USE]` An interface for an engine to create display dialogs @ingroup grp_core
+//! @intuse An interface for an engine to create display dialogs @ingroup grp_core
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsDisplayEngine
 {
 public:

@@ -4,7 +4,7 @@
 @brief The core module of the dialog library
 
 The core module contains the part of the API that is used to manage the dialog, it's logic and organization. It's this part that you will
-use in most cases. The central class is the QSettingsDialog - It is used to create a settings dialog.
+use in most cases. The central class is the QSettingsDialog - It is used to create a settings dialog. Have a look at it's documentation.
 While the core api handles most of the organization, the actual creation and execution of the dialog does not happen here. This part is handled
 by the (exchangeable) @ref grp_dialogui "Dialog-UI". For more options on loaders, check the @ref grp_loaders "Loaders".
 
@@ -12,4 +12,8 @@ by the (exchangeable) @ref grp_dialogui "Dialog-UI". For more options on loaders
 The following diagramm describes the core structure. **Bold** classes are the most important ones for you as an api user:
 
 @image html structure_core.svg "The Core-Structure in a class diagram"
+
+### Examples
+The core can be found in any of the default examples, but all of it's features are tested out in the EngineTest. Use this to
+example if you interested in all the feature of the core.
 */

@@ -65,9 +65,11 @@ void QSettingsWidgetDialogEngine::addFactory(int displayId, QSettingsWidgetFacto
 	d->commonFactory->insertFactory(displayId, factory);
 }
 
-void QSettingsWidgetDialogEngine::addGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory)
+void QSettingsWidgetDialogEngine::addGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory, const UiPropertyMap &properties)
 {
 	d->groupFactories.insert(displayId, QSharedPointer<QSettingsGroupWidgetFactory>(factory));
+	if(!properties.isEmpty())
+		d->groupProperties.insert(displayId, properties);
 }
 
 void QSettingsWidgetDialogEngine::cloneGroupFactoryWithProperties(int originalId, int cloneId, const UiPropertyMap &properties)

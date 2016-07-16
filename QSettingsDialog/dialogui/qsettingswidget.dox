@@ -64,5 +64,5 @@ public:
 }
 @endcode
 
-Some more text
+The class can then be registered to the dialog using QSettingsWidgetDialogEngine::addWidgetType.
 */

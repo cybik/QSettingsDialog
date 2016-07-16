@@ -15,7 +15,7 @@ public:
 	virtual QSettingsGroupWidgetBase *createGroupWidget(QWidget *parent) = 0;
 };
 
-//! `[INTERNAL USE]`Generic base class for a factory to create QSettingsWidgets @ingroup grp_dialogui
+//! @intuseGeneric base class for a factory to create QSettingsWidgets @ingroup grp_dialogui
 template <class TSettingsGroupWidget>
 class GenericSettingsGroupWidgetFactory : public QSettingsGroupWidgetFactory
 {

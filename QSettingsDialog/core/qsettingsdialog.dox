@@ -5,7 +5,7 @@ The settings dialog is the core class of the QSettingsDialog library. It manages
 
 ### Dialog structure
 A settings dialog provides the following structure:
-```
+@code
 QSettingsDialog
  |
  |--Category
@@ -21,10 +21,10 @@ QSettingsDialog
  |   |   ⋮
  |   ⋮
  ⋮
-```
+@endcode
 
 The dialog itself contains categories. Each category is made up of sections. Each section can contain entries and groups. Groups
-can contain entries. While the dialog itself an the entries are classes, the 3 others are internally used and can be indirectly created and
+can contain QSettingsEntries. While the dialog itself an the entries are classes, the 3 others are internally used and can be indirectly created and
 modified through the QSettingsDialog.
 
 The dialog proivdes general and simple members to access and modify all of the listed elements, but only in a limited way, that should suffice
@@ -39,7 +39,7 @@ are marked as such. Using simply two dots as a full path is a shortcut for "defa
 as two slashes
 
 The following shows a few example paths.
-```
+@code
  - category/section/group		-> category, section, group
  - category/another_section		-> category, another_section, [no group]
  - category/./grp3				-> category, [default section], grp3
@@ -48,7 +48,7 @@ The following shows a few example paths.
  - ..							-> [default category], [default section], [no group]
  - /.							-> [current category], [default section], [no group]
  -								-> [current category], [current section], [current group]
-```
+@endcode
 */
 
 /*!

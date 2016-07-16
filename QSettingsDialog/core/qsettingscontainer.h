@@ -61,7 +61,7 @@ protected:
 
 	//! Will be called to insert the given entry from a transfer
 	virtual bool acceptEntry(int index, int id, QSharedPointer<QSettingsEntry> entry) = 0;
-	//! `[INTERNAL USE]` Helper function
+	//! @intuse Helper function
 	inline bool doAccept(QSettingsContainer *target, int index, int id, QSharedPointer<QSettingsEntry> entry) {
 		return target->acceptEntry(index, id, entry);
 	}

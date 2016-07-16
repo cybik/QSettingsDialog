@@ -71,5 +71,7 @@ public:
 }
 @endcode
 
+The class can then be registered to the dialog using QSettingsWidgetDialogEngine::addGroupWidgetType.
+
 @attention Please check the base class documentation if you want to create a custom group!
 */

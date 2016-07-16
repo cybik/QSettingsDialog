@@ -255,7 +255,8 @@ ALIASES                = "accessors{1}=<table><tr><th colspan= 2>Accessors</th><
                          overloads{1}=<b>Overloads:</b><ul>\1</ul> \
                          ovElem{1}=<li>\1</li> \
                          "overload=<i>This is an overloaded function.</i>" \
-                         "povElem{1}=<li>\1 <i>(primary, check for more details)</i></li>"
+                         "povElem{1}=<li>\1 <i>(primary, check for more details)</i></li>" \
+                         "intuse=`[INTERNAL USE]`"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -799,43 +800,44 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = ../../README.md \
-						 ../qsettingsdialog_global.h \
-						 ../qtexception.h \
-						 ../core/grp_core.dox \
-						 ../core/exceptions.h \
-						 ../core/qsettingsdialog.h \
-						 ../core/qsettingsdialog.dox \
-						 ../core/qsettingsentry.h \
-						 ../core/qsettingsentry.dox \
-						 ../core/qsettingsloader.h \
-						 ../core/qsettingsloader.dox \
-						 ../core/qsettingsloaderentry.h \
-						 ../core/qsettingscontainer.h \
-						 ../core/qsettingscontainer.dox \
-						 ../core/qasyncsettingscontainer.h \
-						 ../core/qasyncsettingscontainer.dox \
-						 ../core/qsettingslayout.h \
-						 ../core/qsettingslayout.dox \
-						 ../core/qsettingsdisplayengine.h \
+                         ../qsettingsdialog_global.h \
+                         ../qtexception.h \
+                         ../core/grp_core.dox \
+                         ../core/exceptions.h \
+                         ../core/qsettingsdialog.h \
+                         ../core/qsettingsdialog.dox \
+                         ../core/qsettingsentry.h \
+                         ../core/qsettingsentry.dox \
+                         ../core/qsettingsloader.h \
+                         ../core/qsettingsloader.dox \
+                         ../core/qsettingsloaderentry.h \
+                         ../core/qsettingscontainer.h \
+                         ../core/qsettingscontainer.dox \
+                         ../core/qasyncsettingscontainer.h \
+                         ../core/qasyncsettingscontainer.dox \
+                         ../core/qsettingslayout.h \
+                         ../core/qsettingslayout.dox \
+                         ../core/qsettingsdisplayengine.h \
 						 ../dialogui/grp_dialogui.dox \
 						 ../dialogui/qsettingswidgetdialogengine.h \
-						 ../dialogui/qsettingswidget.h \
-						 ../dialogui/qsettingswidget.dox \
-						 ../dialogui/qsettingswidgetfactory.h \
-						 ../dialogui/qsettingswidgetfactory.dox \
-						 ../dialogui/qsettingswidgetfactoryregistry.h \
-						 ../dialogui/qsettingswidgetfactoryregistry.dox \
-						 ../dialogui/qsettingsdialogwidget.h \
-						 ../dialogui/qsettingsdialogwidget.dox \
-						 ../dialogui/qsettingsgroupwidget.h \
-						 ../dialogui/qsettingsgroupwidget.dox \
-						 ../dialogui/qsettingsgroupwidgetfactory.h \
-						 ../dialogui/qsettingsgroupwidgetfactory.dox \
-						 ../loaders/qsettingspropertyloader.h \
-						 ../loaders/qsettingspropertyentry.h \
-						 ../loaders/qsettingssettingsloader.h \
-						 ../variantwidgets/variantwidgetsregistrator.h \
-						 ../variantwidgets/qsettingsextendedtypes.h
+						 ../dialogui/qsettingswidgetdialogengine.dox \
+                         ../dialogui/qsettingswidget.h \
+                         ../dialogui/qsettingswidget.dox \
+                         ../dialogui/qsettingswidgetfactory.h \
+                         ../dialogui/qsettingswidgetfactory.dox \
+                         ../dialogui/qsettingswidgetfactoryregistry.h \
+                         ../dialogui/qsettingswidgetfactoryregistry.dox \
+                         ../dialogui/qsettingsdialogwidget.h \
+                         ../dialogui/qsettingsdialogwidget.dox \
+                         ../dialogui/qsettingsgroupwidget.h \
+                         ../dialogui/qsettingsgroupwidget.dox \
+                         ../dialogui/qsettingsgroupwidgetfactory.h \
+                         ../dialogui/qsettingsgroupwidgetfactory.dox \
+                         ../loaders/qsettingspropertyloader.h \
+                         ../loaders/qsettingspropertyentry.h \
+                         ../loaders/qsettingssettingsloader.h \
+                         ../variantwidgets/variantwidgetsregistrator.h \
+                         ../variantwidgets/qsettingsextendedtypes.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -951,12 +953,12 @@ EXCLUDE_SYMBOLS        = QBasicAtomicInteger \
                          QFutureWatcherBase \
                          QListSpecialMethods \
                          QPaintEngineEx \
-						 QQmlExtensionInterface \
-						 QAbstractAspect \
-						 QComponent \
-						 QEntity \
-						 QNode \
-						 QNodeCreatedChangeBase
+                         QQmlExtensionInterface \
+                         QAbstractAspect \
+                         QComponent \
+                         QEntity \
+                         QNode \
+                         QNodeCreatedChangeBase
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or directories
 # that contain example code fragments that are included (see the \include
@@ -2196,32 +2198,32 @@ SKIP_FUNCTION_MACROS   = YES
 # run, you must also specify the path to the tagfile here.
 
 TAGFILES               = C:/Qt/Docs/Qt-5.7/qtxmlpatterns/qtxmlpatterns.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qttestlib/qttestlib.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtprintsupport/qtprintsupport.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtwidgets/qtwidgets.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtgui/qtgui.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtnetwork/qtnetwork.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtconcurrent/qtconcurrent.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtsql/qtsql.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtxml/qtxml.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtcore/qtcore.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qdoc/qdoc.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtwebengine/qtwebengine.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtlocation/qtlocation.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtpositioning/qtpositioning.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtquickcontrols/qtquickcontrols.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtquickcontrols2/qtquickcontrols2.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qt3d/qt3d.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtwebchannel/qtwebchannel.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtsensors/qtsensors.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtgraphicaleffects/qtgraphicaleffects.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtnfc/qtnfc.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtwebsockets/qtwebsockets.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtbluetooth/qtbluetooth.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtquick/qtquick.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtqml/qtqml.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/qtsvg/qtsvg.tags=http://doc.qt.io/qt-5 \
-						 C:/Qt/Docs/Qt-5.7/activeqt/activeqt.tags=http://doc.qt.io/qt-5
+                         C:/Qt/Docs/Qt-5.7/qttestlib/qttestlib.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtprintsupport/qtprintsupport.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtwidgets/qtwidgets.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtgui/qtgui.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtnetwork/qtnetwork.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtconcurrent/qtconcurrent.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtsql/qtsql.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtxml/qtxml.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtcore/qtcore.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qdoc/qdoc.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtwebengine/qtwebengine.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtlocation/qtlocation.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtpositioning/qtpositioning.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtquickcontrols/qtquickcontrols.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtquickcontrols2/qtquickcontrols2.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qt3d/qt3d.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtwebchannel/qtwebchannel.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtsensors/qtsensors.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtgraphicaleffects/qtgraphicaleffects.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtnfc/qtnfc.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtwebsockets/qtwebsockets.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtbluetooth/qtbluetooth.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtquick/qtquick.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtqml/qtqml.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/qtsvg/qtsvg.tags=http://doc.qt.io/qt-5 \
+                         C:/Qt/Docs/Qt-5.7/activeqt/activeqt.tags=http://doc.qt.io/qt-5
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create a
 # tag file that is based on the input files it reads. See section "Linking to
