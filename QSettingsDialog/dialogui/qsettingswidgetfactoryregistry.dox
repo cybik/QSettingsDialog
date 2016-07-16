@@ -1,0 +1,30 @@
+/*!
+@class QSettingsWidgetFactoryRegistry
+
+Normally, you will not need to create a factory registry. You only have factories (QSettingsWidgetFactory) or directly registered QSettingsWidgets.
+However, in some cases you may need to provide an alternative way of finding those factories. In that case, the registry is what you need.
+
+The dialog engine uses multiple registries, and will try to find a factory for a given id in one of these. The order is determined by the priority of each registry.
+*/
+
+/*!
+@fn QSettingsWidgetFactoryRegistry::priority
+
+@returns The priority of this factory.
+
+The prioritoy is used to order the factories. The priority for a factory type should be constant, because it will be only used once, when the factory is
+inserted into the list of factories. The default implementation returns `0`.
+
+@note Priorities are ordered ascending, meaning that a factory with a priority of `-100` will be used before one with `0`, and one with `100` at the very end.
+*/
+
+/*!
+@fn QSettingsWidgetFactoryRegistry::tryResolve
+
+@param displayId The id that is tried to be resolved
+@returns A factory, if the id was successfully resolve, or `nullptr`, if it was not resolved.
+
+This function should check whether the id is know, and if yes return a fitting factory. If not, just return `nullptr`.
+If a value is returned, the given factory will be used by the engine to create the edit widget. If it's null, the
+next factory in the list will be asked usw until either all registries are done or a factory was found.
+*/

@@ -34,7 +34,7 @@
 @param indexTo The index to insert the element at in the target container
 @returns `true`, if the transfer was successful, `false` if not
 
-The function will first check if the target container accepts the element at `indexFrom`. If it does,
+The function will first check if the target container accepts the element at @a indexFrom. If it does,
 it will be transfered. If not, nothign happens and `false` is returned.
 */
 
@@ -161,7 +161,7 @@ not found, a `nullptr` will be returned.
 @param parent The parent for the new container
 @returns A newly created settings container to the child container, or `nullptr`
 
-If there is a group with the given id, a container with the given `parent` as parent QObject will be created. If the id was
+If there is a group with the given id, a container with the given @a parent as parent QObject will be created. If the id was
 not found, a `nullptr` will be returned.
 */
 
@@ -182,7 +182,7 @@ at the index is not a group, a `nullptr` will be returned.
 @param parent The parent for the new container
 @returns A newly created settings container to the child container, or `nullptr`
 
-If there is a group with the given id, a container with the given `parent` as parent QObject will be created. If the element
+If there is a group with the given id, a container with the given @a parent as parent QObject will be created. If the element
 at the index is not a group, a `nullptr` will be returned.
 */
 

@@ -1,0 +1,54 @@
+/*!
+@class QSettingsWidgetFactory
+
+For each kind of widget you want, create a factory and register this factory for a display id using
+QSettingsWidgetDialogEngine::addFactory.
+
+@note Use this class only if you need a special way to create the widgets. If all you need is a `new MyEditWidget(parent);`,
+simply use QSettingsWidgetDialogEngine::addWidgetType instead of creating a new factory implementation.
+*/
+
+/*!
+@def REGISTER_TYPE_CONVERTERS
+
+@param TypeA The first, custom type that provides the converters
+@param TypeB the second, less complex type, that serves as "target" of these converters
+
+This macro can be used to register simple type converters for QVariant. This may be required for some types to make it possible to
+use them with edit widgets.
+
+Simple example: You defined your own class `SuperInt`. To edit it, you use a spinbox. Now since the spinbox uses `int` as a type, you need
+to convert these types. First step is to create conversion functionality in `SuperInt`. You will need a constructor from `int` and a conversion
+operator to `int`:
+```cpp
+class SuperInt {
+public:
+	SuperInt(int value);
+
+	operator int();
+}
+```
+
+Next step is to register the converter using this macro. You do this in your `main` after you have create the `QApplication`:
+```cpp
+REGISTER_TYPE_CONVERTERS(SuperInt, int);
+```
+
+Thats it. Now `QVariant` is able to internally convert these two types into each other, which makes it possible to do for example this:
+```cpp
+SuperInt sup(42);
+QVariant var = QVariant::fromValue(sup);
+int test = var.toInt();//this will work now
+QVariant var2 = test;
+SuperInt back = var2.value<SuperInt>();//will work too
+```
+*/
+
+/*!
+@def REGISTER_FLAG_CONVERTERS
+
+@param FlagsType The custom QFlags class that should have it's converters registered
+
+This macro will use REGISTER_TYPE_CONVERTERS to make it possible to convert your custom flags from and to `int`. This is required
+if you want to use the flags type with the QSettingsDialog!
+*/

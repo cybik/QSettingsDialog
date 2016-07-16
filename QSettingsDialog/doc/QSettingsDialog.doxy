@@ -822,7 +822,9 @@ INPUT                  = ../../README.md \
 						 ../dialogui/qsettingswidget.h \
 						 ../dialogui/qsettingswidget.dox \
 						 ../dialogui/qsettingswidgetfactory.h \
+						 ../dialogui/qsettingswidgetfactory.dox \
 						 ../dialogui/qsettingswidgetfactoryregistry.h \
+						 ../dialogui/qsettingswidgetfactoryregistry.dox \
 						 ../dialogui/qsettingsdialogwidget.h \
 						 ../dialogui/qsettingsgroupwidget.h \
 						 ../dialogui/qsettingsgroupwidgetfactory.h \

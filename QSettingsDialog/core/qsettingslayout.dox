@@ -21,14 +21,14 @@ work for some options, but others will create crashes. Make shure to not destroy
 /*!
 @fn QSettingsLayout::QSettingsLayout(QSettingsDialog *, bool)
 
-If `fromCurrentContainer` is `false` (the default), a LayoutType::DialogLayout will be created from the dialog itself. If it is `true`, the dialogs current
+If @a fromCurrentContainer is `false` (the default), a LayoutType::DialogLayout will be created from the dialog itself. If it is `true`, the dialogs current
 container path (QSettingsDialog::containerPath) will be used.
 */
 
 /*!
 @fn QSettingsLayout::QSettingsLayout(QSettingsDialog *, const QString &, int)
 
-If `entryId` is < 0, a container for the given path will be created. An empty path will create a LayoutType::DialogLayout. If the path has 1 element,
+If @a entryId is < 0, a container for the given path will be created. An empty path will create a LayoutType::DialogLayout. If the path has 1 element,
 it will be QSettingsLayout::CategoryLayout, a QSettingsLayout::SectionLayout for 2 and a QSettingsLayout::GroupLayout for 3.
 If you have a section or group path, and id is 0 or greater, the entry with the given id inside the specified path will be used.
 
@@ -482,7 +482,7 @@ it was created from
 @returns The default element within this element
 @throws LayoutPropertyNotDefinedException Will be thrown if called on a layout with an unsupported type
 
-If the default element does not yet exist, `allowCreateNew` can be used to create it. If it is not created,
+If the default element does not yet exist, @a allowCreateNew can be used to create it. If it is not created,
 a null layout will be returned (See QSettingsLayout::isNull)
 
 <table>
@@ -632,8 +632,8 @@ If index is not a valid index, the function will assert.
 @returns A layout reference to the newly created element
 @throws LayoutPropertyNotDefinedException Will be thrown if called on a layout with an unsupported type
 
-If an element with that `id` does already exist, it will be deleted and overwritten. To avoid this, check for
-children beforehand. If `name` is left as a null string, the `id` will be used as name. If index is not a valid index,
+If an element with that @a id does already exist, it will be deleted and overwritten. To avoid this, check for
+children beforehand. If @a name is left as a null string, the @a id will be used as name. If index is not a valid index,
 the function will assert.
 
 For group elements, use QSettingsLayout::createGroupElement.
@@ -679,8 +679,8 @@ For group elements, use QSettingsLayout::createGroupElement.
 @returns A layout reference to the newly created element
 @throws LayoutPropertyNotDefinedException Will be thrown if called on a layout with an unsupported type
 
-If an element with that `id` does already exist, it will be deleted and overwritten. To avoid this, check for
-children beforehand. If `name` is left as a null string, the `id` will be used as name. If index is not a valid index,
+If an element with that @a id does already exist, it will be deleted and overwritten. To avoid this, check for
+children beforehand. If @a name is left as a null string, the @a id will be used as name. If index is not a valid index,
 the function will assert.
 
 For other elements, use QSettingsLayout::createElement.

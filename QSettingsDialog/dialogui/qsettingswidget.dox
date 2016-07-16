@@ -44,7 +44,7 @@ See QSettingsWidgetBase::hasValueChanged.
 Reimplement this function if your edit should be used to help find search entries. The default implementation
 matches on nothing
 
-@note If the `regex` is empty, this function must always return `true`.
+@note If the @a regex is empty, this function must always return `true`.
 */
 
 /*!

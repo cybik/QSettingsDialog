@@ -13,4 +13,6 @@ include(private.pri)
 
 DISTFILES += \
     $$PWD/grp_dialogui.dox \
-    $$PWD/qsettingswidget.dox
+    $$PWD/qsettingswidget.dox \
+    $$PWD/qsettingswidgetfactory.dox \
+    $$PWD/qsettingswidgetfactoryregistry.dox

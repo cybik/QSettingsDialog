@@ -14,7 +14,7 @@ For sources that belong to different threads or will take some time to be loaded
 @returns Should return `true`, if loading was successful, `false` if not
 
 This method will be called from the engine to load settings for the display dialog. The loaded value should be written into `data`. You can use
-the `userEdited` parameter to activate/deactivate the entry. If loading was successful return `true`. If not return `false` and an error will be shown
+the @a userEdited parameter to activate/deactivate the entry. If loading was successful return `true`. If not return `false` and an error will be shown
 to the user and the entry that uses this loader will be diabled.
 */
 
@@ -77,7 +77,7 @@ parameter to tell the engine about the result of resetting.
 @param data A `QVariant` object that contains the loaded data (Use QVariant::Invalid if loading failed)
 @param userEdited A `bool` to specify whether the value comes from the user or is the default. (Defaults to `false`)
 
-The loaded value should be in `data`. You can use the `userEdited` parameter to activate/deactivate the entry. If loading was successful,
+The loaded value should be in @a data. You can use the @a userEdited parameter to activate/deactivate the entry. If loading was successful,
 the parameter should be `true`. If not use `false` and an error will be shown to the user and the entry that uses this loader will be diabled.
 */
 
