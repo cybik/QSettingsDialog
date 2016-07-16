@@ -21,12 +21,19 @@ work for some options, but others will create crashes. Make shure to not destroy
 /*!
 @fn QSettingsLayout::QSettingsLayout(QSettingsDialog *, bool)
 
+@param settingsDialog The dialog to create the layout for
+@param fromCurrentContainer `true`, to use the current container, `false` to create a root layout
+
 If @a fromCurrentContainer is `false` (the default), a LayoutType::DialogLayout will be created from the dialog itself. If it is `true`, the dialogs current
 container path (QSettingsDialog::containerPath) will be used.
 */
 
 /*!
 @fn QSettingsLayout::QSettingsLayout(QSettingsDialog *, const QString &, int)
+
+@param settingsDialog The dialog to create the layout for
+@param containerPath The path to create the layout for
+@param entryId The id of the entry within the container, or -1, if the path container should be used
 
 If @a entryId is < 0, a container for the given path will be created. An empty path will create a LayoutType::DialogLayout. If the path has 1 element,
 it will be QSettingsLayout::CategoryLayout, a QSettingsLayout::SectionLayout for 2 and a QSettingsLayout::GroupLayout for 3.
