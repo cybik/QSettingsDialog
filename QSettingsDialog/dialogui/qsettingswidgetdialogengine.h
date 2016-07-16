@@ -8,8 +8,8 @@
 #include "qsettingsentry.h"
 #include <QScopedPointer>
 
-//! The default engine implementation for the settings dialog @ingroup grp_dialogui
 class QSettingsWidgetDialogEnginePrivate;
+//! The default engine implementation for the settings dialog @ingroup grp_dialogui
 class QSETTINGSDIALOGSHARED_EXPORT QSettingsWidgetDialogEngine : public QSettingsDisplayEngine
 {
 public:
