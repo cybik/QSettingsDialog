@@ -48,7 +48,8 @@ DISTFILES += \
     generateIncludes.bat \
     doc/QSettingsDialog.doxy \
     doc/images/dialogwidget_button.png \
-    doc/images/structure_core.svg
+    doc/images/structure_core.svg \
+    doc/modules_snippet.html
 
 include(./submodules/submodules.pri)
 #parts
