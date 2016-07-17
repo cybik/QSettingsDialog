@@ -25,7 +25,7 @@ public:
 
 	//! Adds a new settings widget factory with the given id to the default registry
 	void addFactory(int displayId, QSettingsWidgetFactory *factory);
-	//! Adds a new settings widget factory with the given id
+	//! Adds a new settings widget factory with the given id to the default registry
 	template<typename TSettingsWidget>
 	void addWidgetType(int displayId);
 
@@ -45,23 +45,23 @@ public:
 	QSettingsGroupWidgetBase *createGroupWidget(int displayId,
 												QWidget *parent) const;
 
-	//! Adds a new settings widget factory with the given id to the default registry
+	//! Adds a new settings widget factory with the given id to the global default registry
 	static void registerGlobalFactory(int displayId, QSettingsWidgetFactory *factory);
-	//! Adds a new settings widget factory with the given id to the default registry
+	//! Adds a new settings widget factory with the given id to the global default registry
 	template<typename TSettingsWidget>
 	static void registerGlobalWidgetType(int displayId);
 
-	//! Adds a new settings group factory with the given id to the static groups
+	//! Adds a new settings group factory with the given id to the global groups
 	static void registerGlobalGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory);
-	//! Adds a new settings group factory with the given id to the static groups
+	//! Adds a new settings group factory with the given id to the global groups
 	template<typename TSettingsGroupWidget>
 	static void registerGlobalGroupWidgetType(int displayId);
-	//! Creates a clone of a static group with a new id and different properties
+	//! Creates a clone of a global group with a new id and different properties
 	static void cloneGlobalGroupFactoryWithProperties(int originalId, int cloneId, const UiPropertyMap &properties);
 
 	//! Adds a new factory registry to this dialog
 	void addRegistry(QSettingsWidgetFactoryRegistry *registry);
-	//! Adds a new factory registry to the static registries
+	//! Adds a new factory registry to the global registries
 	static void registerGlobalRegistry(QSettingsWidgetFactoryRegistry *registry);
 
 private:

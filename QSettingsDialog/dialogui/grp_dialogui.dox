@@ -1,5 +1,18 @@
 /*!
-@defgroup grp_dialogui QSettingsDialog Dialog-UI
+@defgroup grp_dialogui Dialog-UI
 
 @brief The display module of the dialog library
+
+The Dialog-UI part of the library is responsible for creating the actual visible dialog from the cores data. This module defines
+the QSettingsWidgetDialogEngine that will be used as default engine by the QSettingsDialog for dialog creation. The most important
+part of this engine are it's add/registery functions, that allow you to define custom edit widgets and group widgets.
+
+### Dialog-UI Structure
+The following diagramm describes the Dialog-UI structure. **Bold** classes are the most important ones for you as an api user:
+
+@image html structure_dialogui.svg "The Dialog-UI-Structure in a class diagram"
+
+### Examples
+The core can be found in any of the default examples, but all of it's features are tested out in the VariantWidgetsTest. Use this to
+example if you interested in all the feature of the Dialog-UI.
 */

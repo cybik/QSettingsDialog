@@ -1,5 +1,5 @@
 /*!
-@defgroup grp_core QSettingsDialog Core
+@defgroup grp_core Core
 
 @brief The core module of the dialog library
 
