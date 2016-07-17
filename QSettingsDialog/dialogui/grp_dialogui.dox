@@ -13,6 +13,6 @@ The following diagramm describes the Dialog-UI structure. **Bold** classes are t
 @image html structure_dialogui.svg "The Dialog-UI-Structure in a class diagram"
 
 ### Examples
-The core can be found in any of the default examples, but all of it's features are tested out in the VariantWidgetsTest. Use this to
-example if you interested in all the feature of the Dialog-UI.
+The core can be found in any of the default examples, but all of it's features are tested out in the EngineTest and the VariantWidgetsTest. Use these
+examples if you interested in all the feature of the Dialog-UI.
 */

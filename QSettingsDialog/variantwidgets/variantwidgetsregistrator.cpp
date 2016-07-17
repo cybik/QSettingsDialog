@@ -75,12 +75,11 @@ void VariantWidgetsRegistrator::registerEnumFactories()
 	QSettingsWidgetDialogEngine::registerGlobalRegistry(new SettingsEnumWidgetRegistry());
 }
 
-#define REGISTER_META(type) qRegisterMetaType<type>()
 void VariantWidgetsRegistrator::registerExtendedVariantWidgets()
 {
-	auto pathId = REGISTER_META(FilePath);
-	auto rangeId = REGISTER_META(IntRange);
-	auto htmlId = REGISTER_META(HtmlText);
+	auto pathId = qRegisterMetaType<FilePath>();
+	auto rangeId = qRegisterMetaType<IntRange>();
+	auto htmlId = qRegisterMetaType<HtmlText>();
 
 	REGISTER_TYPE_CONVERTERS(FilePath, QString);
 	REGISTER_TYPE_CONVERTERS(IntRange, int);

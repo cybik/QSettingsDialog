@@ -14,6 +14,6 @@ The following diagramm describes the core structure. **Bold** classes are the mo
 @image html structure_core.svg "The Core-Structure in a class diagram"
 
 ### Examples
-The core can be found in any of the default examples, but all of it's features are tested out in the EngineTest. Use this to
+The core can be found in any of the default examples, but all of it's features are tested out in the EngineTest. Use this
 example if you interested in all the feature of the core.
 */
