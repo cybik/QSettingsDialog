@@ -5,7 +5,7 @@
 #include <exception>
 #include <QString>
 
-//! A basic exception type for Qt Exceptions @ingroup grp_core
+//! A basic exception type for Qt Exceptions
 class QSETTINGSDIALOGSHARED_EXPORT QtException : public std::exception
 {
 public:

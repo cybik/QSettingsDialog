@@ -1,0 +1,16 @@
+/*!
+@defgroup grp_loaders Loaders
+
+@brief The loaders module contains the basic loader classes
+
+This module contains predefined loaders for the most common settings sources: Object-Properties and a settings file.
+
+### Core Structure
+The following diagramm describes the Loaders structure. **Bold** classes are the most important ones for you as an api user:
+
+@image html structure_loaders.svg "The Loaders-Structure in a class diagram"
+
+### Examples
+The core can be found in any of the default examples, but all of it's features are tested out in the LoadersTest. Use this
+example if you interested in all the feature of the Loaders.
+*/

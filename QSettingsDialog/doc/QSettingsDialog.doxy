@@ -833,9 +833,12 @@ INPUT                  = ../../README.md \
                          ../dialogui/qsettingsgroupwidget.dox \
                          ../dialogui/qsettingsgroupwidgetfactory.h \
                          ../dialogui/qsettingsgroupwidgetfactory.dox \
-                         ../loaders/qsettingspropertyloader.h \
-                         ../loaders/qsettingspropertyentry.h \
-                         ../loaders/qsettingssettingsloader.h \
+						 ../loaders/grp_loaders.dox \
+						 ../loaders/qsettingspropertyloader.h \
+						 ../loaders/qsettingspropertyloader.dox \
+						 ../loaders/qsettingspropertyentry.h \
+						 ../loaders/qsettingssettingsloader.h \
+						 ../loaders/qsettingssettingsloader.dox \
 						 ../variantwidgets/grp_variantwidgets.dox \
 						 ../variantwidgets/variantwidgetsregistrator.h \
 						 ../variantwidgets/variantwidgetsregistrator.dox \

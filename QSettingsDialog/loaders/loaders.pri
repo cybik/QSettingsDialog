@@ -6,3 +6,8 @@ HEADERS += \
 INCLUDEPATH += $$PWD
 
 include(private.pri)
+
+DISTFILES += \
+    $$PWD/grp_loaders.dox \
+    $$PWD/qsettingspropertyloader.dox \
+    $$PWD/qsettingssettingsloader.dox
