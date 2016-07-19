@@ -37,11 +37,11 @@ public:
 	virtual bool transferElement(int indexFrom, QSettingsContainer *targetContainer, int indexTo) = 0;
 
 public slots:
-	//! Appends the entry to the containers children
+	//! Appends the entry to the containers children @own entry
 	virtual int appendEntry(QSettingsEntry *entry) = 0;
-	//! Prepends the entry to the containers children
+	//! Prepends the entry to the containers children @own entry
 	virtual int prependEntry(QSettingsEntry *entry) = 0;
-	//! Inserts the entry to the containers children at the given index
+	//! Inserts the entry to the containers children at the given index @own entry
 	virtual int insertEntry(int index, QSettingsEntry *entry) = 0;
 	//! Appends the entry to the containers children at the given index
 	virtual int insertEntry(int index, QSharedPointer<QSettingsEntry> entry) = 0;

@@ -23,13 +23,13 @@ public:
 	//! @intuse Returns the stylesheet to be applied to labels that are a search match
 	QString searchStyleSheet() const;
 
-	//! Adds a new settings widget factory with the given id to the default registry
+	//! Adds a new settings widget factory with the given id to the default registry @own factory
 	void addFactory(int displayId, QSettingsWidgetFactory *factory);
 	//! Adds a new settings widget factory with the given id to the default registry
 	template<typename TSettingsWidget>
 	void addWidgetType(int displayId);
 
-	//! Adds a new group widget factory with the given id
+	//! Adds a new group widget factory with the given id @own factory
 	void addGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory, const UiPropertyMap &properties = UiPropertyMap());
 	//! Adds a new group widget factory with the given id
 	template<typename TSettingsGroupWidget>
@@ -45,13 +45,13 @@ public:
 	QSettingsGroupWidgetBase *createGroupWidget(int displayId,
 												QWidget *parent) const;
 
-	//! Adds a new settings widget factory with the given id to the global default registry
+	//! Adds a new settings widget factory with the given id to the global default registry @own factory
 	static void registerGlobalFactory(int displayId, QSettingsWidgetFactory *factory);
 	//! Adds a new settings widget factory with the given id to the global default registry
 	template<typename TSettingsWidget>
 	static void registerGlobalWidgetType(int displayId);
 
-	//! Adds a new settings group factory with the given id to the global groups
+	//! Adds a new settings group factory with the given id to the global groups @own factory
 	static void registerGlobalGroupFactory(int displayId, QSettingsGroupWidgetFactory *factory);
 	//! Adds a new settings group factory with the given id to the global groups
 	template<typename TSettingsGroupWidget>
@@ -59,9 +59,9 @@ public:
 	//! Creates a clone of a global group with a new id and different properties
 	static void cloneGlobalGroupFactoryWithProperties(int originalId, int cloneId, const UiPropertyMap &properties);
 
-	//! Adds a new factory registry to this dialog
+	//! Adds a new factory registry to this dialog @own registry
 	void addRegistry(QSettingsWidgetFactoryRegistry *registry);
-	//! Adds a new factory registry to the global registries
+	//! Adds a new factory registry to the global registries @own registry
 	static void registerGlobalRegistry(QSettingsWidgetFactoryRegistry *registry);
 
 private:

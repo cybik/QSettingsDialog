@@ -159,6 +159,8 @@ a child element to it)
 @returns The new id of the entry. Can be used to get the entry
 
 Appends to the entry to the current container. This can either be a group or a section, depeding on whether it is set or not.
+
+@own entry
 */
 
 /*!
@@ -171,6 +173,8 @@ Appends to the entry to the current container. This can either be a group or a s
 
 Appends to the entry to the given container. This can either be a group or a section. You can use empty ids to use current elements.
 If containers within the path do not exist, they will be created with the id as name. This function will not change the current container.
+
+@own entry
 */
 
 /*!
@@ -180,6 +184,8 @@ If containers within the path do not exist, they will be created with the id as 
 @returns The new id of the entry. Can be used to get the entry
 
 Prepends to the entry to the current container. This can either be a group or a section, depeding on whether it is set or not.
+
+@own entry
 */
 
 /*!
@@ -192,6 +198,8 @@ Prepends to the entry to the current container. This can either be a group or a 
 
 Prepends to the entry to the given container. This can either be a group or a section. You can use empty ids to use current elements.
 If containers within the path do not exist, they will be created with the id as name. This function will not change the current container.
+
+@own entry
 */
 
 /*!

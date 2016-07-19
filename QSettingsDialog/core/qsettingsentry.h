@@ -13,16 +13,16 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsEntry
 	friend class SettingsEntryLayout;
 
 public:
-	//! Creates a new entry from a display id and a loader
+	//! Creates a new entry from a display id and a loader @own loader
 	QSettingsEntry(int displaytype, QSettingsLoader *loader);
-	//! Creates a new entry from a display id, a loader and it's properties
+	//! Creates a new entry from a display id, a loader and it's properties @own loader
 	QSettingsEntry(int displaytype,
 				   QSettingsLoader *loader,
 				   const QString &name,
 				   bool optional = false,
 				   const QString &tooltip = QString(),
 				   const UiPropertyMap &properties = UiPropertyMap());
-	//! Creates a new entry from a display id, a loader and it's properties
+	//! Creates a new entry from a display id, a loader and it's properties @own loader
 	template<typename... Args>
 	QSettingsEntry(int displaytype,
 				   QSettingsLoader *loader,

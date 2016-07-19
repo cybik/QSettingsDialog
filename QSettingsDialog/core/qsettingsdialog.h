@@ -28,7 +28,7 @@ public:
 
 	//! Returns the current display engine of dialog
 	QSettingsDisplayEngine *displayEngine() const;
-	//! Sets the display engine to a new one
+	//! Sets the display engine to a new one @own engine
 	void setDisplayEngine(QSettingsDisplayEngine *engine);
 
 	//container organisation - getters
