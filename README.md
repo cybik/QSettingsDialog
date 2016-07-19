@@ -66,3 +66,37 @@ int main(int argc, char *argv[])
 	return dialog.execSettings();
 }
 ```
+
+For more advanced examples, check the examples subfolder of the project and the documentation. 
+
+## Documentation
+The documentation is available within the releases and on [github pages](https://skycoder42.github.io/QSettingsDialog/).
+
+The documentation was created using [doxygen](http://www.stack.nl/~dimitri/doxygen/). It includes an HTML-documentation and Qt-Help files that can be included into QtCreator (QtAssistant) to show F1-Help (See [Adding External Documentation](https://doc.qt.io/qtcreator/creator-help.html#adding-external-documentation) for more details).
+
+## Translation
+Comming soon. The code is prepared, but that's it for know.
+
+## Downloads
+Downloads are available via [github releases](https://github.com/Skycoder42/QSettingsDialog/releases). The downloads include:
+ - A .pri file for easy project includes (Just add `include(<path_to>/qsettingsdialog.pri)` to your project and all the includes/libray imports/... will be done by that file!)
+ - Qt5.7 precompiled binaries for:
+   - Windows
+	 - msvc2015 x86
+	 - msvc2015 x64
+   - OsX
+     - clang x64
+   - X11 (Linux)
+     - gcc x64
+ - The (public) header files needed for these binaries
+ - The HTML and QtHelp documentation (in the first full release)
+ - The german translations and the translation template file (in the first full release)
+
+## Submodules
+The library makes use of three submodules:
+- https://github.com/Skycoder42/DialogMaster
+- https://github.com/Skycoder42/QPathEdit
+- https://github.com/Skycoder42/QColorEdit
+ 
+## Icon sources/Links
+All icons come from http://www.fatcow.com/free-icons
