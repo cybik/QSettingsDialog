@@ -49,7 +49,11 @@ DISTFILES += \
     doc/QSettingsDialog.doxy \
     doc/images/dialogwidget_button.png \
     doc/images/structure_core.svg \
-    doc/modules_snippet.html
+    doc/modules_snippet.html \
+    doc/images/structure_dialogui.svg \
+    doc/images/structure_global.svg \
+    doc/images/structure_loaders.svg \
+    doc/images/structure_variantwidgets.svg
 
 include(./submodules/submodules.pri)
 #parts
