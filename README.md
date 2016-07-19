@@ -16,7 +16,7 @@ The core module is responsible for the definition of the base classes and the ma
 - Abstraction from the actual ui, by using a defined logical structure of entry organization
 - Provides interfaces to allow a completly customized UI
 
-### Dialog-UI-Modle
+### Dialog-UI-Module
 This module provides the standard widgets based dialog ui, as well the interfaces needed to customize appeareance and possible edit widgets:
 - Generic dialog ui, for all 3 Desktop platforms
 - Interfaces for custom entry groups
@@ -31,3 +31,38 @@ This module contains a collection of default and advanced edit widgets for stand
 This module contains a number of custom settings datasources, to load settings entries from:
 - Provides loading from QSettings
 - Provides loading from QObject properties
+
+## Gettings Started
+The library provides many features, and with this come a bunch of classes to provide all these possibilities. To get started, there are only very few of them you will work with:
+- QSettingsDialog
+- QSettingsEntry
+- QSettingsPropertyLoader (-Entry)
+- QSettingsSettingsLoader
+- "Display-Ids"
+
+They work together as following: The dialog is the core of everything. You will add entries to it, representing one entry in the dialog. Each entry has one loader attached, that will be used to load and save the actual data. To display an appropriate edit widget, a display id will be assigned to the entry and used to resolve the edit widget.
+
+A very basic example looks like this:
+```.cpp
+#include <QApplication>
+#include <qsettingsdialog.h>
+#include <qsettingssettingsloader.h>
+
+int main(int argc, char *argv[])
+{
+	QApplication a(argc, argv);
+
+	QSettings settings(QApplication::applicationDirPath() + "/test.ini", QSettings::IniFormat);
+
+	//create the dialog
+	QSettingsDialog dialog;
+	
+	// add a new entry
+	dialog.appendEntry(new QSettingsEntry(QMetaType::QString,// <- The display id. In this case, an edit for a QString is loaded, a QLineEdit
+										  new QSettingsSettingsLoader(&settings, "appName"),// <- The loader loads a value with the key "appName" from the settings
+										  "App name"));//Other properties of the entry, i.e. The label text
+	
+	//show the dialog (blocking)
+	return dialog.execSettings();
+}
+```
