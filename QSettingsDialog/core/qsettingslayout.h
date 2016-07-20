@@ -84,6 +84,7 @@ public:
 	QSettingsLayout elementAt(int index) const;
 	//! Gets the child index of the given element within this element
 	int indexOfElement(const QSettingsLayout &element) const;
+	//! Gets the child index of the given element by name within this element
 	int indexOfElement(const QString &elementName) const;
 	//! Creates a new child element at the given index
 	QSettingsLayout createElement(int index,

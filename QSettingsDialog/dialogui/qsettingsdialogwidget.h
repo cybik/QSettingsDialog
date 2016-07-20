@@ -26,54 +26,66 @@ protected:
 	//! Overwritten to load button data when showed
 	void showEvent(QShowEvent *event) final;
 
+	//! Helper to "wrap" any widget inside a dialog
+	static void wrapInDialog(QDialog *dialog, QWidget *element, bool fixedSize = false);
+
 private:
 	QPushButton *btn;
 };
 
 //! A generic class to easily create a dialog widget from a normal one @ingroup grp_dialogui
-template<typename TDialog>
-class QSettingsDialogWidget : public QSettingsDialogWidgetBase //TODO dont require QDialog, allow any widget
+template<typename TSettingsWidget>
+class QSettingsDialogWidget : public QSettingsDialogWidgetBase
 {
 public:
 	//! Creates a new dialog widget with a parent
 	QSettingsDialogWidget(QWidget *parent = nullptr) :
 		QSettingsDialogWidgetBase(parent),
-		dialog(new TDialog(this))
-	{}
+		dialog(nullptr),
+		widget(new TSettingsWidget(this))
+	{
+		if(this->widget->inherits("QDialog"))
+			this->dialog = (QDialog*)this->widget;
+		else {
+			this->dialog = new QDialog(this);
+			wrapInDialog(this->dialog, this->widget);
+		}
+	}
 
 	// QSettingsWidgetBase interface
 	bool hasValueChanged() const final {
-		return this->dialog->hasValueChanged();
+		return this->widget->hasValueChanged();
 	}
 	void resetValueChanged() final {
-		this->dialog->resetValueChanged();
+		this->widget->resetValueChanged();
 	}
 	void setValue(const QVariant &value) final {
-		this->dialog->setValue(value);
+		this->widget->setValue(value);
 	}
 	QVariant getValue() const final {
-		return this->dialog->getValue();
+		return this->widget->getValue();
 	}
 	void resetValue() final {
-		this->dialog->resetValue();
+		this->widget->resetValue();
 	}
 	bool searchExpression(const QRegularExpression &regex) final {
-		return this->dialog->searchExpression(regex);
+		return this->widget->searchExpression(regex);
 	}
 
 	// QSettingsDialogWidgetBase interface
 	QString buttonText() const override {
-		return this->dialog->windowTitle();
+		return this->widget->windowTitle();
 	}
 	QIcon buttonIcon() const override {
-		return this->dialog->windowIcon();
+		return this->widget->windowIcon();
 	}
 	void showDialog() final {
 		this->dialog->open();
 	}
 
 private:
-	TDialog *dialog;
+	QDialog *dialog;
+	TSettingsWidget *widget;
 };
 
 #endif // QSETTINGSDIALOGWIDGET_H

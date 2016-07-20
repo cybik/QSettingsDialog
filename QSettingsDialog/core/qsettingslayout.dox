@@ -629,9 +629,45 @@ If index is not a valid index, the function will assert.
 */
 
 /*!
-@fn QSettingsLayout::indexOfElement
+@fn QSettingsLayout::indexOfElement(const QSettingsLayout &)
 
 @param element The element to be found within this layout
+@returns The index of the child within this layout, or -1 if it was not found
+@throws LayoutPropertyNotDefinedException Will be thrown if called on a layout with an unsupported type
+
+@note This function will *not* include the default element.
+
+<table>
+ <tr>
+  <th colspan="2">Supported Layout Types</th>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::DialogLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false" checked> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::CategoryLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false" checked> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::SectionLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false" checked> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::GroupLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false" checked> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::EntryLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false"> @endhtmlonly </td>
+ </tr>
+</table>
+*/
+
+/*!
+@fn QSettingsLayout::indexOfElement(const QString &)
+
+@param elementName The name of the element to be found within this layout
 @returns The index of the child within this layout, or -1 if it was not found
 @throws LayoutPropertyNotDefinedException Will be thrown if called on a layout with an unsupported type
 

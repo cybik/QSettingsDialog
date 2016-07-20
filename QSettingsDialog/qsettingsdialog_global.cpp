@@ -13,7 +13,7 @@ void qSettingsDialogSetup()
 	bool ok;
 	auto loadMode = qEnvironmentVariableIntValue(VARIANT_WIDGETS_AUTOLOAD, &ok);
 	if(!ok)
-		loadMode = 1111;
+		loadMode = AUTOLOAD_GROUPS | AUTOLOAD_WIDGETS | AUTOLOAD_ENUMS | AUTOLOAD_EXTENDED;
 
 	if(loadMode & AUTOLOAD_GROUPS)
 		VariantWidgetsRegistrator::registerGroupWidgets();

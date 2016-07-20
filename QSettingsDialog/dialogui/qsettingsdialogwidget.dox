@@ -11,10 +11,11 @@ Once it gets clicked, the real dialog will be shown.
 /*!
 @class QSettingsDialogWidget
 
-@tparam TDialog The class to create this dialog for. Must be a QSettingsWidget with a @a TWidget that inherits from QDialog
+@tparam TDialog The class to create this dialog for. Must be a QSettingsWidget with a @a TWidget that inherits from QWidget
 
 You can use this class to simply create a dialog widget by simply implementing a normal QSettingsWidget and using this
-type for the registration. The only requirement is, that your QSettingsWidget inherits QDialog instead of just QWidget.
+type for the registration. If your QSettingsWidget inherits QDialog instead of just QWidget, the widget itself will be shown as dialog.
+If it does not inherit QDialog, the settings dialog widget will create a wrapping QDialog to show the custom widget inside of it.
 
 Simple example. Your custom widget looks like this:
 ```cpp
