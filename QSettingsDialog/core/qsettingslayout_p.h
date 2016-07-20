@@ -33,11 +33,12 @@ public:
 	virtual bool &createOptionalRef() {throw LayoutPropertyNotDefinedException();}
 
 	virtual QSettingsLayout creatDefaultElement(bool createNew) { Q_UNUSED(createNew);throw LayoutPropertyNotDefinedException();}
+	virtual bool removeDefaultElement() {throw LayoutPropertyNotDefinedException();}
 	virtual QSettingsLayout createEmptySubElement(const QString &id) {Q_UNUSED(id);throw LayoutPropertyNotDefinedException();}
 
 	virtual int elementCount() const {throw LayoutPropertyNotDefinedException();}
 	virtual QSettingsLayout elementAt(int index) const {Q_UNUSED(index);throw LayoutPropertyNotDefinedException();}
-	virtual int indexOfElement(const QSettingsLayout &element) const {Q_UNUSED(element);throw LayoutPropertyNotDefinedException();}
+	virtual int indexOfElement(const QString &elementName) const {Q_UNUSED(elementName);throw LayoutPropertyNotDefinedException();}
 	virtual void insertElement(int index, const QSettingsLayout &element) {Q_UNUSED(index);Q_UNUSED(element);throw LayoutPropertyNotDefinedException();}
 	virtual void removeElement(int index) {Q_UNUSED(index);throw LayoutPropertyNotDefinedException();}
 	virtual void moveElement(int indexFrom, int indexTo) {Q_UNUSED(indexFrom);Q_UNUSED(indexTo);throw LayoutPropertyNotDefinedException();}
@@ -53,12 +54,11 @@ public:
 		element(element)
 	{}
 
-	int getId() const {
-		return this->id.mid(1).toInt();
+	static int convertId(const QString &id) {
+		return id.mid(1).toInt();
 	}
-	static int getId(QSettingsLayout element) {
-		auto elementPrivate = sharedSafeCast(SettingsEntryLayout, element.d_ptr);
-		return elementPrivate->getId();
+	int getId() const {
+		return convertId(this->id);
 	}
 
 	bool testNull() const override {
@@ -123,8 +123,8 @@ public:
 		return new SettingsEntryLayout(entry.first, entry.second, this->dialog);
 	}
 
-	int indexOfElement(const QSettingsLayout &element) const override {
-		return this->element->entries.index(SettingsEntryLayout::getId(element));
+	int indexOfElement(const QString &elementName) const override {
+		return this->element->entries.index(SettingsEntryLayout::convertId(elementName));
 	}
 
 	void insertElement(int index, const QSettingsLayout &element) override {
@@ -185,8 +185,8 @@ public:
 			return QSettingsLayout(new SettingsEntryLayout(entry.first.toInt(), entry.second.second, this->dialog));
 	}
 
-	int indexOfElement(const QSettingsLayout &element) const override {
-		return this->element->groups.index(resolveId(element.id()));
+	int indexOfElement(const QString &elementName) const override {
+		return this->element->groups.index(resolveId(elementName));
 	}
 
 	void insertElement(int index, const QSettingsLayout &element) override {
@@ -207,7 +207,7 @@ private:
 
 	static QVariant resolveId(const QString &id) {
 		if(id.startsWith(QLatin1Char('#')))
-			return id.mid(1).toInt();
+			return SettingsEntryLayout::convertId(id);
 		else
 			return id;
 	}
@@ -244,6 +244,14 @@ public:
 		return QSettingsLayout(new SettingsSectionLayout(".", this->element->defaultSection, this->dialog));
 	}
 
+	bool removeDefaultElement() override {
+		if(!this->element->defaultSection.isNull()) {
+			this->element->defaultSection.reset();
+			return true;
+		} else
+			return false;
+	}
+
 	QSettingsLayout createEmptySubElement(const QString &id) override {
 		return QSettingsLayout(new SettingsSectionLayout(id, QSharedPointer<SettingsSection>(new SettingsSection(QString())), this->dialog));
 	}
@@ -257,8 +265,8 @@ public:
 		return QSettingsLayout(new SettingsSectionLayout(entry.first, entry.second, this->dialog));
 	}
 
-	int indexOfElement(const QSettingsLayout &element) const override {
-		return this->element->sections.index(element.id());
+	int indexOfElement(const QString &elementName) const override {
+		return this->element->sections.index(elementName);
 	}
 
 	void insertElement(int index, const QSettingsLayout &element) override {
@@ -296,6 +304,14 @@ public:
 		return QSettingsLayout(new SettingsCategoryLayout(".", this->element->defaultCategory, this->dialog));
 	}
 
+	bool removeDefaultElement() override {
+		if(!this->element->defaultCategory.isNull()) {
+			this->element->defaultCategory.reset();
+			return true;
+		} else
+			return false;
+	}
+
 	QSettingsLayout createEmptySubElement(const QString &id) override {
 		return QSettingsLayout(new SettingsCategoryLayout(id, QSharedPointer<SettingsCategory>(new SettingsCategory(QString())), this->dialog));
 	}
@@ -309,8 +325,8 @@ public:
 		return QSettingsLayout(new SettingsCategoryLayout(entry.first, entry.second, this->dialog));
 	}
 
-	int indexOfElement(const QSettingsLayout &element) const override {
-		return this->element->categories.index(element.id());
+	int indexOfElement(const QString &elementName) const override {
+		return this->element->categories.index(elementName);
 	}
 
 	void insertElement(int index, const QSettingsLayout &element) override {

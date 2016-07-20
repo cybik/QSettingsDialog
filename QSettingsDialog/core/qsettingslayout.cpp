@@ -54,7 +54,7 @@ QSettingsLayout::LayoutType QSettingsLayout::layoutType() const
 
 bool QSettingsLayout::isNull() const
 {
-	return d->testNull();
+	return !d || d->testNull();
 }
 
 QSettingsDialog *QSettingsLayout::dialog() const
@@ -70,9 +70,8 @@ QString QSettingsLayout::containerPath() const
 QSettingsLayout QSettingsLayout::parentContainer() const
 {
 	auto parent = QSettingsLayout((QSettingsLayoutPrivate*)nullptr);
-	if(d->parentElement.isNull())
-		throw InvalidTargetLayoutException();
-	parent.d_ptr = d->parentElement;
+	if(!d->parentElement.isNull())
+		parent.d_ptr = d->parentElement;
 	return parent;
 }
 
@@ -133,6 +132,11 @@ QSettingsLayout QSettingsLayout::defaultElement(bool allowCreateNew) const
 	return element;
 }
 
+bool QSettingsLayout::removeDefaultElement()
+{
+	return d->removeDefaultElement();
+}
+
 int QSettingsLayout::elementCount() const
 {
 	return d->elementCount();
@@ -147,7 +151,12 @@ QSettingsLayout QSettingsLayout::elementAt(int index) const
 
 int QSettingsLayout::indexOfElement(const QSettingsLayout &element) const
 {
-	return d->indexOfElement(element);
+	return d->indexOfElement(element.id());
+}
+
+int QSettingsLayout::indexOfElement(const QString &elementName) const
+{
+	return d->indexOfElement(elementName);
 }
 
 QSettingsLayout QSettingsLayout::createElement(int index, const QString &id, const QString &name, const QIcon &icon, const QString &tooltip)

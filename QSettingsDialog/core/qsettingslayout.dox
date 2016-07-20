@@ -135,12 +135,13 @@ Please note that this is not a valid container path, just a representation of co
 /*!
 @fn QSettingsLayout::parentContainer
 
-@returns The parent layout
-@throws InvalidTargetLayoutException Will be thrown if the layout has no known parent
+@returns The parent layout, or a "null" layout, if the layout is without a parent
 
 The parent container will only be available, if this layout was originally created from a parent layout. In other words, a layout created from
-a constructor it will always throw. If you created it from a parent, for example by using QSettingsLayout::elementAt, it will return the element
-it was created from
+a constructor it will always return a null layout. If you created it from a parent, for example by using QSettingsLayout::elementAt, it will return the element
+it was created from.
+
+@attention always check if the parent is valid by using QSettingsLayout::isNull!
 
 <table>
  <tr>
@@ -491,6 +492,41 @@ it was created from
 
 If the default element does not yet exist, @a allowCreateNew can be used to create it. If it is not created,
 a null layout will be returned (See QSettingsLayout::isNull)
+
+<table>
+ <tr>
+  <th colspan="2">Supported Layout Types</th>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::DialogLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false" checked> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::CategoryLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false" checked> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::SectionLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false"> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::GroupLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false"> @endhtmlonly </td>
+ </tr>
+ <tr>
+  <td>QSettingsLayout::EntryLayout</th>
+  <td> @htmlonly <input type="checkbox" onclick="return false"> @endhtmlonly </td>
+ </tr>
+</table>
+*/
+
+/*!
+@fn QSettingsLayout::removeDefaultElement
+
+@returns `true`, if the default group was removed, `false` if none exists
+@throws LayoutPropertyNotDefinedException Will be thrown if called on a layout with an unsupported type
+
+If the default element does exist, it will be removed. If does not currently exist, nothing happens
 
 <table>
  <tr>

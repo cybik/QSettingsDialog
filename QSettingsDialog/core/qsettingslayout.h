@@ -50,7 +50,7 @@ public:
 	QString containerPath() const;
 
 	//! Returns the parent container element, if available
-	QSettingsLayout parentContainer() const;//TODO nothrow
+	QSettingsLayout parentContainer() const;
 
 	//! Gets the elements display id
 	int displayId() const;
@@ -74,14 +74,17 @@ public:
 	void setOptional(bool optional);
 
 	//! Returns the elements default child element
-	QSettingsLayout defaultElement(bool allowCreateNew = false) const;//TODO remove default element
+	QSettingsLayout defaultElement(bool allowCreateNew = false) const;
+	//! Removes the default element, if it exists
+	bool removeDefaultElement();
 
 	//! Returns the number of children this element has
 	int elementCount() const;
 	//! Gets the child element at the given position
 	QSettingsLayout elementAt(int index) const;
 	//! Gets the child index of the given element within this element
-	int indexOfElement(const QSettingsLayout &element) const;//TODO add overload with string id
+	int indexOfElement(const QSettingsLayout &element) const;
+	int indexOfElement(const QString &elementName) const;
 	//! Creates a new child element at the given index
 	QSettingsLayout createElement(int index,
 								  const QString &id,

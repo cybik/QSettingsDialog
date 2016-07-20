@@ -57,7 +57,7 @@ QString QSettingsWidgetDialogEngine::searchStyleSheet() const
 						  "    padding: 1px;"
 						  "    border: 1px solid rgba(19,196,45,0.8);"
 						  "    border-radius: 4px;"
-						  "}");//TODO make changeable
+						  "}");
 }
 
 void QSettingsWidgetDialogEngine::addFactory(int displayId, QSettingsWidgetFactory *factory)

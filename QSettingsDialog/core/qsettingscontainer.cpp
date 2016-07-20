@@ -37,7 +37,7 @@ QGroupSettingsContainer::QGroupSettingsContainer(QSettingsDialog *settingsDialog
 	QSettingsContainer(parent),
 	d_ptr(new QGroupSettingsContainerPrivate(this, settingsDialog, containerPath))
 {
-	connect(settingsDialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
+	connect(settingsDialog, &QSettingsDialog::destroyed, this, [this]() {
 		d->dialog = nullptr;
 	}, Qt::DirectConnection);
 }
@@ -51,7 +51,7 @@ QGroupSettingsContainer::QGroupSettingsContainer(const QSettingsLayout &layout, 
 
 	auto dialog = layout.dialog();
 	d.reset(new QGroupSettingsContainerPrivate(this, dialog, layout.containerPath()));
-	connect(dialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
+	connect(dialog, &QSettingsDialog::destroyed, this, [this]() {
 		d->dialog = nullptr;
 	}, Qt::DirectConnection);
 }
@@ -174,7 +174,7 @@ QSectionSettingsContainer::QSectionSettingsContainer(QSettingsDialog *settingsDi
 	QSettingsContainer(parent),
 	d_ptr(new QSectionSettingsContainerPrivate(this, settingsDialog, containerPath))
 {
-	connect(settingsDialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
+	connect(settingsDialog, &QSettingsDialog::destroyed, this, [this]() {
 		d->dialog = nullptr;
 	}, Qt::DirectConnection);
 }
@@ -188,7 +188,7 @@ QSectionSettingsContainer::QSectionSettingsContainer(const QSettingsLayout &layo
 
 	auto dialog = layout.dialog();
 	d.reset(new QSectionSettingsContainerPrivate(this, dialog, layout.containerPath()));
-	connect(dialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
+	connect(dialog, &QSettingsDialog::destroyed, this, [this]() {
 		d->dialog = nullptr;
 	}, Qt::DirectConnection);
 }

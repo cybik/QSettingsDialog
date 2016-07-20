@@ -276,7 +276,7 @@ void QAsyncSettingsContainerPrivate::init(QSettingsDialog *settingsDialog, const
 	else
 		this->container = new QSectionSettingsContainer(settingsDialog, containerPath, this);
 
-	connect(settingsDialog, &QSettingsDialog::destroyed, this, [this]() {//TODO ok so? not so beautiful
+	connect(settingsDialog, &QSettingsDialog::destroyed, this, [this]() {
 		this->settingsDialog = nullptr;
 	}, Qt::DirectConnection);
 }
