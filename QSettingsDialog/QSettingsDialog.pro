@@ -9,12 +9,13 @@ QT       += widgets
 CONFIG += c++14
 
 TARGET = QSettingsDialog
-VERSION = 0.1.2
+VERSION = 1.0.0
 
 win32 {
 	QMAKE_TARGET_COMPANY = "Skycoder42"
 	QMAKE_TARGET_PRODUCT = "QSettingsDialog"
 	QMAKE_TARGET_DESCRIPTION = $$QMAKE_TARGET_PRODUCT
+	QMAKE_TARGET_COPYRIGHT = "Felix Barz"
 
 	CONFIG += skip_target_version_ext
 } else:mac {
