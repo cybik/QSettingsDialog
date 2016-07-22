@@ -25,7 +25,7 @@ your application will most likely crash.
 @fn QSettingsSettingsLoader::createLoaders
 
 @param settings The settings object to be used
-@param key The group key to scan
+@param rootKey The group key to scan
 @param recursive Specifies, whether searching should be performed recusive or not
 @returns A map of settings keys (including the @a key part) to the loader for that key.
 

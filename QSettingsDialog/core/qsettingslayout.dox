@@ -629,7 +629,7 @@ If index is not a valid index, the function will assert.
 */
 
 /*!
-@fn QSettingsLayout::indexOfElement(const QSettingsLayout &)
+@fn QSettingsLayout::indexOfElement(const QSettingsLayout &) const
 
 @param element The element to be found within this layout
 @returns The index of the child within this layout, or -1 if it was not found
@@ -665,7 +665,7 @@ If index is not a valid index, the function will assert.
 */
 
 /*!
-@fn QSettingsLayout::indexOfElement(const QString &)
+@fn QSettingsLayout::indexOfElement(const QString &) const
 
 @param elementName The name of the element to be found within this layout
 @returns The index of the child within this layout, or -1 if it was not found

@@ -106,7 +106,6 @@ class. The global registry serves as a base collection for newly created engines
 
 @param displayId The id this factory will be used for
 @param factory The factory to be added
-@param properties The properties to be passed to group widgets created with this id
 
 Adds the given factory to be used for group widget creation if a group has the given id as display id as global base.
 The @a properties will be used to initialize the group. The global groups serve as a base collection for newly created engines.
@@ -120,7 +119,6 @@ Adding a global factory will **not** add it to the already existing engines!
 
 @tparam TSettingsGroupWidget The group widget class to be added
 @param displayId The id this group widget will be used for
-@param properties The properties to be passed to group widgets created with this id
 
 Adds the given QSettingsGroupWidget class to be used for group widget creation if a group has the given id as display id as global base.
 The @a properties will be used to initialize the group. This function will simply create a GenericSettingsGroupWidgetFactory
