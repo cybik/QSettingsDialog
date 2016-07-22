@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/QSettingsDialog/icons">
-        <file alias="settings.ico">resources/setting_tools.ico</file>
-        <file alias="gearSettings.ico">resources/gear_in.ico</file>
-    </qresource>
-</RCC>
