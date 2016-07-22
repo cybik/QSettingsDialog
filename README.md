@@ -32,6 +32,11 @@ This module contains a number of custom settings datasources, to load settings e
 - Provides loading from QSettings
 - Provides loading from QObject properties
 
+## Images
+| Windows                                                       | Mac                                                           | X11                                                           |
+|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|
+| ![Sample Dialog](./QSettingsDialog/doc/images/win_sample.png) | ![Sample Dialog](./QSettingsDialog/doc/images/mac_sample.png) | ![Sample Dialog](./QSettingsDialog/doc/images/x11_sample.png) |
+
 ## Gettings Started
 The library provides many features, and with this come a bunch of classes to provide all these possibilities. To get started, there are only very few of them you will work with:
 - QSettingsDialog
@@ -84,6 +89,7 @@ Downloads are available via [github releases](https://github.com/Skycoder42/QSet
    - Windows
 	 - msvc2015 x86
 	 - msvc2015 x64
+	 - minGw 5.3.0 32bit
    - OsX
      - clang x64
    - X11 (Linux)
