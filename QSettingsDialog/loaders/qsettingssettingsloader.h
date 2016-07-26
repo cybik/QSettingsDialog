@@ -12,9 +12,9 @@ class QSETTINGSDIALOGSHARED_EXPORT QSettingsSettingsLoader : public QSimpleSetti
 {
 public:
 	//! Creates a loader for a key in the default QSettings
-	QSettingsSettingsLoader(const QString &key);
+	QSettingsSettingsLoader(const QString &key, const QVariant &defaultValue = QVariant());
 	//! Creates a loader for a key in given QSettings
-	QSettingsSettingsLoader(QSettings *settings, const QString &key, bool ownSettings = false);
+	QSettingsSettingsLoader(QSettings *settings, const QString &key, const QVariant &defaultValue = QVariant(), bool ownSettings = false);
 	//! Destructor
 	~QSettingsSettingsLoader();
 

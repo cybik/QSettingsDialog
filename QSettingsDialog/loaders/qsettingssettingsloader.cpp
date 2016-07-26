@@ -5,20 +5,21 @@
 class QSettingsSettingsLoaderPrivate
 {
 public:
-	QSettingsSettingsLoaderPrivate(QSettings *settings, const QString &key, bool own);
+	QSettingsSettingsLoaderPrivate(QSettings *settings, const QString &key, const QVariant &defaultValue, bool own);
 	~QSettingsSettingsLoaderPrivate();
 
 	QSettings *settings;
 	bool deleteSettings;
 	QString key;
+	QVariant defaultValue;
 };
 
-QSettingsSettingsLoader::QSettingsSettingsLoader(const QString &key) :
-	d_ptr(new QSettingsSettingsLoaderPrivate(new QSettings(), key, true))
+QSettingsSettingsLoader::QSettingsSettingsLoader(const QString &key, const QVariant &defaultValue) :
+	d_ptr(new QSettingsSettingsLoaderPrivate(new QSettings(), key, defaultValue, true))
 {}
 
-QSettingsSettingsLoader::QSettingsSettingsLoader(QSettings *settings, const QString &key, bool ownSettings) :
-	d_ptr(new QSettingsSettingsLoaderPrivate(settings, key, ownSettings))
+QSettingsSettingsLoader::QSettingsSettingsLoader(QSettings *settings, const QString &key, const QVariant &defaultValue, bool ownSettings) :
+	d_ptr(new QSettingsSettingsLoaderPrivate(settings, key, defaultValue, ownSettings))
 {}
 
 QSettingsSettingsLoader::~QSettingsSettingsLoader() {}
@@ -83,10 +84,11 @@ QHash<QString, QSettingsSettingsLoader *> QSettingsSettingsLoader::createLoaders
 
 
 
-QSettingsSettingsLoaderPrivate::QSettingsSettingsLoaderPrivate(QSettings *settings, const QString &key, bool own) :
+QSettingsSettingsLoaderPrivate::QSettingsSettingsLoaderPrivate(QSettings *settings, const QString &key, const QVariant &defaultValue, bool own) :
 	settings(settings),
 	deleteSettings(own),
-	key(key)
+	key(key),
+	defaultValue(defaultValue)
 {}
 
 QSettingsSettingsLoaderPrivate::~QSettingsSettingsLoaderPrivate()
