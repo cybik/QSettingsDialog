@@ -1,4 +1,20 @@
 # QSettingsDialog
+Has been replaced by https://github.com/Skycoder42/QtMvvm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 [![BSD3 License](https://img.shields.io/badge/license-BSD3-blue.svg?style=flat)](https://opensource.org/licenses/BSD-3-Clause)
 
 A Qt library to easily create a settings dialog for user configurable settings.
