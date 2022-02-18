@@ -28,8 +28,8 @@ public:
 																  const QString &rootKey = QString(),
 																  bool recursive = false);
 
+	QScopedPointer<QSettingsSettingsLoaderPrivate> d_ptr; // divert from upstream to handle multiple-element loader (experimental)
 private:
-	QScopedPointer<QSettingsSettingsLoaderPrivate> d_ptr;
 
 	static QHash<QString, QSettingsSettingsLoader*> createLoadersImpl(QSettings *settings,
 																	  const QString &rootKey,
